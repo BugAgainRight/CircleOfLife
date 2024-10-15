@@ -1,18 +1,25 @@
 {
   "dependencies": {
+    "com.morizero.digitalruby.rainmaker": {
+      "version": "https://github.com/BugAgainRight/RainMaker.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "357ebafe20aed8e03b7a6a69bb428436f280e5e2"
+    },
     "com.morizero.milease": {
       "version": "https://github.com/MorizeroDev/Milease.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "b1e4e7ac60b101bfbdc0c4a9bb4019107e03588a"
+      "hash": "60c97e0a403fd7b3b09130001f5ed985b9dc9f7c"
     },
     "com.morizero.milutools": {
       "version": "https://github.com/MorizeroDev/Milutools.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "33979422b538aae089dbcaa79c5ff26fe7e43a02"
+      "hash": "08bc05e8518f6d82833e3ef7319fe67a1b3b0cb2"
     },
     "com.unity.2d.animation": {
       "version": "9.1.1",
@@ -110,7 +117,7 @@
     },
     "com.unity.burst": {
       "version": "1.8.16",
-      "depth": 3,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
@@ -177,10 +184,66 @@
     },
     "com.unity.mathematics": {
       "version": "1.2.6",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.postprocessing": {
+      "version": "3.4.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.render-pipelines.core": {
+      "version": "14.0.11",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.terrain": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      }
+    },
+    "com.unity.render-pipelines.universal": {
+      "version": "14.0.11",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.1",
+        "com.unity.burst": "1.8.9",
+        "com.unity.render-pipelines.core": "14.0.11",
+        "com.unity.shadergraph": "14.0.11",
+        "com.unity.render-pipelines.universal-config": "14.0.9"
+      }
+    },
+    "com.unity.render-pipelines.universal-config": {
+      "version": "14.0.10",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "14.0.10"
+      }
+    },
+    "com.unity.searcher": {
+      "version": "4.9.2",
       "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
+    },
+    "com.unity.shadergraph": {
+      "version": "14.0.11",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "14.0.11",
+        "com.unity.searcher": "4.9.2"
+      }
     },
     "com.unity.test-framework": {
       "version": "1.1.33",
