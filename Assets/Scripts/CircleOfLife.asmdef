@@ -1,7 +1,14 @@
 {
     "name": "CircleOfLife",
     "rootNamespace": "CircleOfLife",
-    "references": [],
+    "references": [
+        "GUID:6055c4ca3d336984698eda24b99f7071",
+        "GUID:d8104722c17399b458f20070a8e097c3",
+        "GUID:5baad4e8b0c589044b804563fec3b23b",
+        "GUID:6b47ba73d9c328347b0762f429926db1",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
