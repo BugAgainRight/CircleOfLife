@@ -70,8 +70,6 @@ namespace CircleOfLife.Weather
         
         private void Awake()
         {
-            MileaseConfiguration.Configuration.DefaultColorTransformationType = ColorTransformationType.RGB;
-            
             Instance = this;
             
             var volumes = VolumeContainer.GetComponents<Volume>();
