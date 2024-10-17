@@ -1,0 +1,62 @@
+
+ren.png
+size: 652,262
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+l-shou
+  rotate: false
+  xy: 155, 22
+  size: 119, 238
+  orig: 120, 238
+  offset: 0, 0
+  index: -1
+r-shou
+  rotate: false
+  xy: 2, 9
+  size: 151, 251
+  orig: 151, 251
+  offset: 0, 0
+  index: -1
+shen
+  rotate: false
+  xy: 276, 65
+  size: 47, 195
+  orig: 47, 195
+  offset: 0, 0
+  index: -1
+tou
+  rotate: false
+  xy: 325, 78
+  size: 171, 182
+  orig: 171, 183
+  offset: 0, 0
+  index: -1
+youshang
+  rotate: true
+  xy: 276, 2
+  size: 61, 190
+  orig: 61, 190
+  offset: 0, 0
+  index: -1
+youxia
+  rotate: false
+  xy: 498, 101
+  size: 58, 159
+  orig: 58, 159
+  offset: 0, 0
+  index: -1
+zuoshang
+  rotate: false
+  xy: 558, 103
+  size: 92, 157
+  orig: 93, 159
+  offset: 1, 1
+  index: -1
+zuoxia
+  rotate: true
+  xy: 468, 17
+  size: 59, 160
+  orig: 59, 161
+  offset: 0, 0
+  index: -1
