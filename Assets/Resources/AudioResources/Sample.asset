@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ee19f448db4dce89a96340f605cd59, type: 3}
+  m_Name: Sample
+  m_EditorClassIdentifier: 
+  Items:
+  - Name: BGM1
+    Identifier: 0
+    Clip: {fileID: 8300000, guid: f299d74040f563541b04978ac32b76b4, type: 3}
+  - Name: BGM2
+    Identifier: 1
+    Clip: {fileID: 8300000, guid: 49ad448f7bc8e3e41bfc0301ea8e0935, type: 3}
+  - Name: Click
+    Identifier: 2
+    Clip: {fileID: 8300000, guid: a639b263439ba394d9afd42bdb05ab43, type: 3}
+  - Name: GenshinLoading
+    Identifier: 3
+    Clip: {fileID: 8300000, guid: 5f0028bf45efd3546bf5dcf35f349575, type: 3}
+  - Name: Story
+    Identifier: 4
+    Clip: {fileID: 8300000, guid: 31df13d034c9e2c4a9489cdb57d23a95, type: 3}

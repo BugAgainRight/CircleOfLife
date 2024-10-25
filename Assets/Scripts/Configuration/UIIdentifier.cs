@@ -2,6 +2,7 @@
 {
     public enum UIIdentifier
     {
-        MessageBox
+        MessageBox,
+        UISample
     }
 }
