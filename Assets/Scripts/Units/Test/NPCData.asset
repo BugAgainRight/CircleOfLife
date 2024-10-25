@@ -12,19 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed80178625d03284cac93f1eee2800e1, type: 3}
   m_Name: NPCData
   m_EditorClassIdentifier: 
-  NPCDatas:
-  - ID: 
-    Name: "\u6050\u5361\u5179"
-    Velocity: 10
-    MaxHp: 50
-    Atk: 10
-    Armor: 0
-    AttackRange: 2
-    AttackInterval: 2
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-    MaxEnergy: 0
-    Description: "\u7528\u811A\u586B\u7684\u6570\u503C,\u6D4B\u8BD5ing"
-    PrefabPath: 
-    picturePath: []
+  NPCDatas: []

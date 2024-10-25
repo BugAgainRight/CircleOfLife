@@ -4401,13 +4401,17 @@ MonoBehaviour:
   CameraMode: 0
   CameraMinVelocity: 1
   CatchUpTime: 0.2
-  FreeMoveVelocity: 10
+  MouseByKeyBoard: 1
+  FreeMoveByKeyBoardVelocity: 10
+  MoveByMouse: 1
+  FreeMoveByMouseVelocity: 10
   ZoomInSpeed: 20
   ZoomOutSpeed: 20
   MaxOrthographicSize: 20
   MinOrthographicSize: 5
-  RotateSpeed: 10
+  RotateSpeed: 0
   CameraLimit: 1
+  ShowEdge: 1
   CameraMinX: -13.3
   CameraMaxX: 12.54
   CameraMinY: -10.11
