@@ -38,6 +38,8 @@ namespace CircleOfLife
         public float BoomRadius;
 
         public int DamageableLayer;
+
+        public GameObject Prefab;
     
     }
 

@@ -63,11 +63,13 @@ namespace CircleOfLife
         [Skill(PlayerSkillType.test1)]
         public static void PlayerSkill_1(SkillContext skillContext)
         {
-            RecyclePool.EnsurePrefabRegistered(PlayerSkillType.test1, skillContext.Prefab, 10);
+           
+            RecyclePool.EnsurePrefabRegistered(PlayerSkillType.test1, skillContext.BodyPrefab, 10);
             var collection = RecyclePool.RequestWithCollection(PlayerSkillType.test1);
             collection.GameObject.SetActive(true);
+            collection.GameObject.transform.position = skillContext.TriggerPos;
 
-            collection.GetMainComponent<BulletTrigger>().PassData(new BattleContext()
+            collection.GetComponent<BulletTrigger>().PassData(new BattleContext()
             {
                 AttackerTran = collection.GameObject.transform,
                 AttackerData = new Units.NPCData() { Atk = 100 },
@@ -75,8 +77,17 @@ namespace CircleOfLife
                 DamageableLayer = 1 << 0,
 
             });
-           
-            collection.GetComponent<Rigidbody2D>().velocity = skillContext.Direction * 10;
+
+            collection.GetComponent<BulletMove>().PassData(new BulletMoveContext()
+            {
+                LaunchTime = Time.time,
+                Direction=skillContext.Direction,
+                StartPos = collection.GameObject.transform.position,
+                TargetPos = skillContext.TargetPos,
+                Transform= collection.GameObject.transform,
+                Speed=skillContext.MoveSpeed,
+                MaxHeight=UnityEngine.Random.Range(4,6f)
+            });
         }
 
         [Skill(BuildSkillType.test1)]
