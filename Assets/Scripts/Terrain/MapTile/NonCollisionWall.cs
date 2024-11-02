@@ -24,7 +24,6 @@ namespace CircleOfLife.MapTile
             if (other.CompareTag("Player"))
             {
                 playerCurrentOrderInLayer = other.GetComponent<SpriteRenderer>().sortingOrder;
-                other.GetComponent<SpriteRenderer>().sortingOrder = tilemapRenderer.sortingOrder - 1;
                 tilemap.color = new Color(1, 1, 1, 0.5f);
             }
         }
@@ -32,7 +31,6 @@ namespace CircleOfLife.MapTile
         {
             if (other.CompareTag("Player"))
             {
-                other.GetComponent<SpriteRenderer>().sortingOrder = playerCurrentOrderInLayer + 1;
                 tilemap.color = new Color(1, 1, 1, 1f);
             }
         }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 805689725433690758}
   - component: {fileID: 3217607558619001108}
   - component: {fileID: 2187339245918394419}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Layer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -960,7 +960,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9131730893131452383}
   - component: {fileID: 6603169831898949605}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RuleTiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
