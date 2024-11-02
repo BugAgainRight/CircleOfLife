@@ -293,60 +293,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &533021468
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 533021470}
-  - component: {fileID: 533021469}
-  m_Layer: 0
-  m_Name: DamageManagement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &533021469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 533021468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcc63a78259ae9e48a9bff119caebaa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FlyWordPrefab: {fileID: 1539319914497560681, guid: c6db52410d25434439a3806cd99ef3c0, type: 3}
-  FriendNormalStyle:
-    FontSize: 3
-    FontColor: {r: 0, g: 0, b: 0, a: 0}
-  FriendCritStyle:
-    FontSize: 3
-    FontColor: {r: 0, g: 0, b: 0, a: 0}
-  EnemyStyle:
-    FontSize: 3
-    FontColor: {r: 0, g: 0, b: 0, a: 0}
---- !u!4 &533021470
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 533021468}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &911022376
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testBulletPrefab: {fileID: 3730872478568565947, guid: 12bdd9ab30d3faf4da530650634292fc, type: 3}
+  testasdsad: []
 --- !u!4 &1562283044
 Transform:
   m_ObjectHideFlags: 0
@@ -930,7 +877,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1570154670}
-  - {fileID: 533021470}
   - {fileID: 1357897112}
   - {fileID: 152304736}
   - {fileID: 911022381}

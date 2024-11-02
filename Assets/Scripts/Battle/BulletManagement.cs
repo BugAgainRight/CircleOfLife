@@ -194,66 +194,6 @@ namespace CircleOfLife
 
     }
 
-
-    public static class RuiRuiTool
-    {
-        public struct ActionAttributeData
-        {
-            public Attribute attribute;
-            public MethodInfo method;
-        }
-        public static class AttributeMethodUtility
-        {
-            public static List<ActionAttributeData> GetAllActionDatas<T>() where T : Attribute
-            {
-
-                var asm = Assembly.GetAssembly(typeof(T));
-                var lists = asm.GetExportedTypes()
-                               .Select(cls =>
-                                    cls.GetMethods(BindingFlags.Default | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.InvokeMethod).Where(method => method.GetCustomAttribute(typeof(T)) != null)
-                                                   .Select(method => new ActionAttributeData()
-                                                   {
-                                                       attribute = method.GetCustomAttribute(typeof(T)),
-                                                       method = method
-                                                   })
-                                       );
-                List<ActionAttributeData> mid = new();
-                foreach (var list in lists)
-                {
-                    mid.AddRange(list);
-                }
-
-                return mid;
-            }
-
-            public static List<ActionAttributeData> GetAllActionDatas<T>(BindingFlags bindingAttr) where T : Attribute
-            {
-
-                var asm = Assembly.GetAssembly(typeof(T));
-                var lists = asm.GetExportedTypes()
-                               .Select(cls =>
-                                    cls.GetMethods(bindingAttr).Where(method => method.GetCustomAttribute(typeof(T)) != null)
-                                                   .Select(method => new ActionAttributeData()
-                                                   {
-                                                       attribute = method.GetCustomAttribute(typeof(T)),
-                                                       method = method
-                                                   })
-                                       );
-                List<ActionAttributeData> mid = new();
-                foreach (var list in lists)
-                {
-                    mid.AddRange(list);
-                }
-
-                return mid;
-            }
-
-        }
-
-
-    }
-
-
-
-
 }
+
+

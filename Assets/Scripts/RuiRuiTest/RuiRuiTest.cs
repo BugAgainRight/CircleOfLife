@@ -1,3 +1,4 @@
+using RuiRuiTool;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace CircleOfLife
     public class RuiRuiTest : MonoBehaviour
     {
         public GameObject testBulletPrefab;
+
+        public List<TwoValue<int, float>> testasdsad = new();
         private void Start()
         {
 
