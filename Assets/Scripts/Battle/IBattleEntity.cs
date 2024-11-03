@@ -1,4 +1,4 @@
-﻿namespace CircleOfLife.Battle
+namespace CircleOfLife.Battle
 {
     /// <summary>
     /// 战斗实体接口
@@ -6,5 +6,7 @@
     public interface IBattleEntity
     {
         public BattleStats Stats { get; set; }
+
+        public FactionType FactionType { get;}
     }
 }
