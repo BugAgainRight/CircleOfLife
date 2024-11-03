@@ -11,6 +11,9 @@ namespace CircleOfLife.Battle
     {
         [HideInInspector]
         public Stats Max, Current;
+        
+        [HideInInspector]
+        public GameObject BindingGameObject;
 
         private List<BuffContext> buffContexts = new();
         
@@ -103,9 +106,11 @@ namespace CircleOfLife.Battle
             buffContexts.RemoveAll(x => x.Duration == 0f);
         }
         
-        public BattleStats(Stats baseStats, Action<BattleStats> hurtAction)
+        public BattleStats(GameObject go, Stats baseStats, Action<BattleStats> hurtAction)
         {
+            BindingGameObject = go;
             Max = baseStats;
+            lasting = baseStats;
             this.hurtAction = hurtAction;
         }
 

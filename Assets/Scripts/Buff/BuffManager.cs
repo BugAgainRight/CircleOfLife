@@ -22,32 +22,28 @@ namespace CircleOfLife.Buff
             go.SetActive(true);
             Instance = go.GetComponent<BuffManager>();
         }
-
-        /// <summary>
-        /// 注册到 Buff 管理器中，建议 Awake 中操作
-        /// </summary>
-        /// <param name="stats"></param>
+        
         public static void RegisterBattleStat(BattleStats stats)
         {
             EnsureInitialized();
             Instance.stats.Add(stats);
         }
-        
-        /// <summary>
-        /// 从 Buff 管理器中删除注册
-        /// </summary>
-        /// <param name="stats"></param>
-        public static void RevokeBattleStat(BattleStats stats)
+
+        private void FixedUpdate()
         {
-            EnsureInitialized();
-            Instance.stats.Remove(stats);
+            Update();
         }
-        
+
         // 早于所有脚本执行
         private void Update()
         {
+            stats.RemoveAll(x => !x.BindingGameObject);
             foreach (var stat in stats)
             {
+                if (!stat.BindingGameObject.activeSelf)
+                {
+                    continue;
+                }
                 stat.Tick();
             }
         }

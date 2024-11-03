@@ -37,6 +37,7 @@ namespace CircleOfLife.Buff
         {
             // 依赖注入伤害回调
             var stat = new BattleStats(
+                null, // 这里应该传具体绑定的游戏物体
                 new BattleStats.Stats()
                 {
                     Hp = 1000,
