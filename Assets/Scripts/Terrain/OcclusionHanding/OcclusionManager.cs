@@ -27,7 +27,7 @@ namespace CircleOfLife
             Register();
         }
         //找到maincamera，挂上CameraOcclusionController
-        public static void FindMainCamera()
+        private static void FindMainCamera()
         {
             Camera mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             mainCamera.gameObject.AddComponent<CameraOcclusionController>();
@@ -37,7 +37,7 @@ namespace CircleOfLife
 
 
         //将场景中所有在白名单中的物体注册
-        public static void Register()
+        private static void Register()
         {
             GameObject[] gameObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
             foreach (GameObject gameObject in gameObjects)
@@ -52,7 +52,10 @@ namespace CircleOfLife
 
             }
         }
-
+        /// <summary>
+        /// 为存在SpriteRendered的目标添加OcclusionController(用于控制图层大小)，并记录在字典中
+        /// </summary>
+        /// <param name="gameObject">一个物体</param> 
         public static void AddOcclusion(GameObject gameObject)
         {
             if (gameObject.GetComponent<SpriteRenderer>() == null)
@@ -64,11 +67,13 @@ namespace CircleOfLife
                 gameObject.AddComponent<OcclusionController>();
             }
             OcclusionController occlusionController = gameObject.AddComponent<OcclusionController>();
-            occlusionController.ChangeOrderInLayer();
             string guid = occlusionController.SetGUID();
             occlusionDict.Add(guid, gameObject);
         }
-
+        /// <summary>
+        /// 删除存放于字典中的目标
+        /// </summary>
+        /// <param name="guid">可能存在于字典中的guid,通过组件OcclusionController获得</param>
         public static void RemoveOcclusion(string guid)
         {
             if (occlusionDict.ContainsKey(guid))
@@ -77,6 +82,10 @@ namespace CircleOfLife
             }
             occlusionDict.Remove(guid);
         }
+        /// <summary>
+        /// 删除存放于字典中的目标
+        /// </summary>
+        /// <param name="gameObject">可能存在于字典中的物体</param>
         public static void RemoveOcclusion(GameObject gameObject)
         {
             OcclusionController occlusionController;

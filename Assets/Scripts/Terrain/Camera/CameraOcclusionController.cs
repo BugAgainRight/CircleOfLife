@@ -37,18 +37,12 @@ namespace CircleOfLife
             RegisterOcclusion();
             UpdateOcclusions();
         }
-        //向跟随的目标发射射线，获取射线触碰的所有碰撞体
-
-
-        //将所有在currentOcclusions的碰撞体Alpha设至为0.5
-        public void CheckRayCastCollider(Vector3 originPosOnWorld)
+        //登记射线检测到的碰撞体
+        private void CheckRayCastCollider(Vector3 originPosOnWorld)
         {
             lastOcclusions = new List<GameObject>();
             Vector3 playerPos = Camera.main.WorldToScreenPoint(originPosOnWorld);
             Vector2 cameraPos = Camera.main.ScreenToWorldPoint(new Vector3(playerPos.x, playerPos.y, 0));
-            //Debug.Log(playerPos + " " + cameraPos);
-            //修正cameraPos的坐标
-            //Vector2 playerPos = new Vector2(player.position.x, player.position.y);
             RaycastHit2D[] hits = Physics2D.RaycastAll(cameraPos, -Vector2.zero);
             foreach (RaycastHit2D hit in hits)
             {
@@ -56,8 +50,8 @@ namespace CircleOfLife
                 lastOcclusions.Add(hit.collider.gameObject);
             }
         }
-        //注册除了玩家以外所有碰撞体的SpriteRenderer
-        public void RegisterOcclusion()
+        //注册射线获取的除了玩家以外的所有碰撞体
+        private void RegisterOcclusion()
         {
             foreach (GameObject occlusion in lastOcclusions)
             {
@@ -95,6 +89,7 @@ namespace CircleOfLife
                 }
             }
         }
+        //改变碰撞体的Alpha值
         private void SetAlphaToOcclusion(GameObject gameObject, float a)
         {
             SpriteRenderer spriteRenderer;

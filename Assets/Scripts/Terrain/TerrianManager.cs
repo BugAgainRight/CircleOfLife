@@ -8,13 +8,11 @@ namespace CircleOfLife
 
     public static class TerrianManager
     {
-
-        //从鼠标处发射射线，获取射线触碰的所有
+        //从鼠标处发射射线，获取射线触碰的所有物体
         public static void SetRayCastFromMousePos()
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mousePosition, Vector2.zero);
-            //ToDo 对于特殊碰撞体给予高亮提示
         }
 
 
