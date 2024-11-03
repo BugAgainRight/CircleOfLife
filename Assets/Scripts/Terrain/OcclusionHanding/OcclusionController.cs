@@ -7,7 +7,7 @@ namespace CircleOfLife
     [RequireComponent(typeof(SpriteRenderer))]
     public class OcclusionController : MonoBehaviour
     {
-        // Start is called before the first frame update
+        // 根据Y轴改变OrderInLayer
         private string guid;
         private SpriteRenderer spriteRenderer;
         private new Rigidbody2D rigidbody2D;
@@ -37,7 +37,7 @@ namespace CircleOfLife
         }
         void OnDestroy()
         {
-            OcclusionManager.instance.RemoveOcclusion(guid);
+            OcclusionManager.RemoveOcclusion(guid);
         }
 
         public string SetGUID()

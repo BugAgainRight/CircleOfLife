@@ -6613,7 +6613,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.11618191}
@@ -7010,7 +7010,7 @@ GameObject:
   - component: {fileID: 712361572}
   m_Layer: 8
   m_Name: Non Collision Wall
-  m_TagString: Untagged
+  m_TagString: test
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8031,8 +8031,8 @@ GameObject:
   - component: {fileID: 1638282081}
   - component: {fileID: 1638282080}
   - component: {fileID: 1638282083}
-  - component: {fileID: 1638282084}
   - component: {fileID: 1638282085}
+  - component: {fileID: 1638282084}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8202,6 +8202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a699933c32ddc749b227a0f8c422888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mousePosition: {x: 0, y: 0}
+  isMouseClick: 0
 --- !u!1 &1723981293
 GameObject:
   m_ObjectHideFlags: 0
