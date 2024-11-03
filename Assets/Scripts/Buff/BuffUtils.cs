@@ -11,7 +11,7 @@ namespace CircleOfLife.Buff
             return new BuffContext()
             {
                 BuffHandler = handler,
-                Duration = -1f
+                Duration = duration
             };
         }
 

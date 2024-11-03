@@ -103,7 +103,7 @@ namespace CircleOfLife.Battle
                 buff.BuffHandler.Invoke(this, buff);
                 if (buff.Duration > 0f)
                 {
-                    buff.Duration = Mathf.Max(0f, buff.Duration - Time.deltaTime);
+                    buff.Duration = Mathf.Max(0f, buff.Duration - Time.fixedDeltaTime);
                 }
             }
 

@@ -66,7 +66,7 @@ namespace CircleOfLife.Buff
         
         public void Tick()
         {
-            TickedTime += Time.deltaTime;
+            TickedTime += Time.fixedDeltaTime;
         }
 
         public void ResetTickedTime()

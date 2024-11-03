@@ -9,6 +9,7 @@ namespace CircleOfLife.Battle
         /// <summary>
         /// 战斗实体属性
         /// </summary>
+        [Serializable]
         public struct Stats
         {
             /// <summary>
