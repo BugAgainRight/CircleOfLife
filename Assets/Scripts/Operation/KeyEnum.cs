@@ -26,6 +26,10 @@ namespace CircleOfLife.Key
         CameraMoveRight,
         CameraModeFollow,
         CameraModeFreeze,
-        CameraModeFree
+        CameraModeFree,
+        /// <summary>
+        /// 挣扎
+        /// </summary>
+        Struggle
     }
 }

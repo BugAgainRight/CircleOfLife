@@ -1,36 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace CircleOfLife.Key
 {
-    public class KeyboardSet
+    public static class KeyboardSet
     {
-        public static Dictionary<KeyEnum, KeyCode> KeyboardDict = new Dictionary<KeyEnum, KeyCode>()
+        public static readonly Dictionary<KeyEnum, KeyCode> KeyboardDict = new ()
         {
-            //player
-            {KeyEnum.Up,KeyCode.W},
-            {KeyEnum.Down,KeyCode.S},
-            {KeyEnum.Left,KeyCode.A},
-            {KeyEnum.Right,KeyCode.D},
-            {KeyEnum.Attack,KeyCode.J},
-            {KeyEnum.Fire,KeyCode.K},
-            {KeyEnum.Interact,KeyCode.F},
-            {KeyEnum.Skill1,KeyCode.I},
-            //camera
-            {KeyEnum.Click1,KeyCode.Mouse0},
-            {KeyEnum.Click2,KeyCode.Mouse1},
-            {KeyEnum.ZoomOut,KeyCode.KeypadMinus},
-            {KeyEnum.ZoomIn,KeyCode.KeypadPlus},
-            {KeyEnum.RotatetToRight,KeyCode.Q},
-            {KeyEnum.RotatetToLeft,KeyCode.E},
-            {KeyEnum.CameraMoveUp,KeyCode.UpArrow},
-            {KeyEnum.CameraMoveDown,KeyCode.DownArrow},
-            {KeyEnum.CameraMoveLeft,KeyCode.LeftArrow},
-            {KeyEnum.CameraMoveRight,KeyCode.RightArrow},
-            {KeyEnum.CameraModeFollow,KeyCode.Alpha1},
-            {KeyEnum.CameraModeFreeze,KeyCode.Alpha2},
-            {KeyEnum.CameraModeFree,KeyCode.Mouse2},
+            // Player
+            { KeyEnum.Up, KeyCode.W },
+            { KeyEnum.Down, KeyCode.S },
+            { KeyEnum.Left, KeyCode.A },
+            { KeyEnum.Right, KeyCode.D },
+            { KeyEnum.Attack, KeyCode.J },
+            { KeyEnum.Fire, KeyCode.K },
+            { KeyEnum.Interact, KeyCode.F },
+            { KeyEnum.Skill1, KeyCode.I },
+            { KeyEnum.Struggle, KeyCode.Space },
+            // Camera
+            { KeyEnum.Click1, KeyCode.Mouse0 },
+            { KeyEnum.Click2, KeyCode.Mouse1 },
+            { KeyEnum.ZoomOut, KeyCode.KeypadMinus },
+            { KeyEnum.ZoomIn, KeyCode.KeypadPlus },
+            { KeyEnum.RotatetToRight, KeyCode.Q },
+            { KeyEnum.RotatetToLeft, KeyCode.E },
+            { KeyEnum.CameraMoveUp, KeyCode.UpArrow },
+            { KeyEnum.CameraMoveDown, KeyCode.DownArrow },
+            { KeyEnum.CameraMoveLeft, KeyCode.LeftArrow },
+            { KeyEnum.CameraMoveRight, KeyCode.RightArrow },
+            { KeyEnum.CameraModeFollow, KeyCode.Alpha1 },
+            { KeyEnum.CameraModeFreeze, KeyCode.Alpha2 },
+            { KeyEnum.CameraModeFree, KeyCode.Mouse2 },
         };
 
         public static void ChangeKey(KeyEnum key, KeyCode keyCode)
@@ -48,9 +50,28 @@ namespace CircleOfLife.Key
             KeyboardDict[key] = KeyCode.None;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static KeyCode GetKeyCode(KeyEnum key)
         {
             return KeyboardDict[key];
         }
+
+        /// <summary>
+        /// 当前按键是否处于按下的状态
+        /// </summary>
+        public static bool IsPressing(this KeyEnum key)
+            => Input.GetKey(GetKeyCode(key));
+        
+        /// <summary>
+        /// 当前是否是按键按下的第一帧
+        /// </summary>
+        public static bool IsKeyDown(this KeyEnum key)
+            => Input.GetKeyDown(GetKeyCode(key));
+        
+        /// <summary>
+        /// 当前是否是按键抬起前的最后一帧
+        /// </summary>
+        public static bool IsKeyUp(this KeyEnum key)
+            => Input.GetKeyUp(GetKeyCode(key));
     }
 }
