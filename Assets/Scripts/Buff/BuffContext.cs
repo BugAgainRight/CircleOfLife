@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CircleOfLife.Battle;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ namespace CircleOfLife.Buff
     
     public class BuffContext
     {
+        public delegate T Modifier<T>(T data);
+        
         public int MaxLevel = 1;
         /// <summary>
         /// 当前 Buff 层数
@@ -41,6 +44,26 @@ namespace CircleOfLife.Buff
         /// </summary>
         public float TickedTime { get; private set;}
 
+        private readonly Dictionary<string, object> dataDict = new();
+
+        public void Set<T>(string key, Modifier<T> modifier, T defaultValue = default)
+        {
+            dataDict.TryAdd(key, defaultValue);
+            dataDict[key] = modifier((T)dataDict[key]);
+        }
+        
+        public T Get<T>(string key, T defaultValue = default)
+        {
+            dataDict.TryAdd(key, defaultValue);
+            return (T)dataDict[key];
+        }
+        
+        public bool IsMeet<T>(string key, Predicate<T> predicate, T defaultValue = default)
+        {
+            dataDict.TryAdd(key, defaultValue);
+            return predicate((T)dataDict[key]);
+        }
+        
         public void Tick()
         {
             TickedTime += Time.deltaTime;
