@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - test
+  - Wall
+  - Background
+  - Decoration
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -12,10 +16,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Wall
-  - Ground
-  - Background
-  - Player
+  - 
+  - Units
+  - Terrian
+  - 
   - 
   - 
   - 

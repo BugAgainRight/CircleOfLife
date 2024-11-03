@@ -10,10 +10,6 @@ namespace CircleOfLife
         Player,
         test
     }
-    public enum MainCameraName
-    {
-        MainCamera
-    }
 
     public class OcclusionManager : MonoBehaviour
     {
@@ -31,9 +27,15 @@ namespace CircleOfLife
         }
         void Start()
         {
+            FindMainCamera();
             Register();
         }
-        //找到maincamera，挂上脚本
+        //找到maincamera，挂上CameraOcclusionController
+        public void FindMainCamera()
+        {
+            Camera mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            mainCamera.gameObject.AddComponent<CameraOcclusionController>();
+        }
 
 
         //将场景中所有在白名单中的物体注册
