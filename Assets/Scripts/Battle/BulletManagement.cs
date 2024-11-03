@@ -1,4 +1,4 @@
-using log4net.Util;
+using CircleOfLife.Battle;
 using Milutools.Recycle;
 using System;
 using System.Collections;
@@ -43,6 +43,10 @@ namespace CircleOfLife
 
         }
 
+        /// <summary>
+        /// 会触发Damage时 其参数 battleContext 必须填入数据：AttackerData HitData（受击者）HitTran
+        /// </summary>
+        /// <param name="battleContext"></param>
         public static Action<BattleContext> GetBulletTrigger(BulletTriggerType type)
         {
             if (allBulletTriggers.ContainsKey(type)) return allBulletTriggers[type];
@@ -82,13 +86,13 @@ namespace CircleOfLife
         public static void BoomTrigger(BattleContext context)
         {
             var colls = Physics2D.OverlapCircleAll(context.AttackerTran.position, context.BoomRadius, context.DamageableLayer);
-            var idamages = colls.ToList().Where(x => x.GetComponent<IDamageable_>() != null);
+            var idamages = colls.ToList().Where(x => x.GetComponent<IBattleEntity>() != null);
             foreach (var idamage in idamages)
             {
                 BattleContext midContext = context;
                 midContext.HitTran = idamage.transform;
                 midContext.HitCollider = idamage;
-                midContext.HitData = idamage.GetComponent<IDamageable_>().GetData();
+                midContext.HitData = idamage.GetComponent<IBattleEntity>().Stats;
 
                 DamageManagement.Instance.Damage(midContext);
             }

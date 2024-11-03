@@ -4,8 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+
 
 
 namespace RuiRuiTool
@@ -23,7 +25,7 @@ namespace RuiRuiTool
         {
 
 
-
+            Editors.Add(new NewGizmos());
             Editors.Add(new NewBuffShowDataEditorSo());
 
             foreach (var e in Editors)
@@ -60,7 +62,7 @@ namespace RuiRuiTool
                     has = true;
                 }
             }
-            if (!has)
+            //if (!has)
                 base.OnInspectorGUI();
         }
 
@@ -542,6 +544,7 @@ namespace RuiRuiTool
 
     }
 
+
     #endregion
 
 
@@ -617,6 +620,7 @@ namespace RuiRuiTool
             SerializedProperty serializedProperty_Player = serializedObject.FindProperty("allPlayerSkill");
             SerializedProperty serializedProperty_Enemy = serializedObject.FindProperty("allEnemySkill");
             SerializedProperty serializedProperty_Build = serializedObject.FindProperty("allBuildSkill");
+            SerializedProperty serializedProperty_Dictionary = serializedObject.FindProperty("allSkills");
 
             allPlayerBool = EditorGUILayout.Foldout(allPlayerBool, "PlayerSkillType");
             if (allPlayerBool)
@@ -656,7 +660,6 @@ namespace RuiRuiTool
                 }
 
             }
-
             allBuildBool = EditorGUILayout.Foldout(allBuildBool, "BuildSkillType");
             if (allBuildBool)
             {
@@ -676,8 +679,7 @@ namespace RuiRuiTool
                 }
 
             }
-
-
+ 
             serializedObject.ApplyModifiedProperties();
         }
 

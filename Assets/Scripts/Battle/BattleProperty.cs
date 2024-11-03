@@ -1,7 +1,11 @@
-﻿namespace CircleOfLife.Battle
+using System;
+using UnityEngine;
+
+namespace CircleOfLife.Battle
 {
     public partial class BattleStats
     {
+        [Serializable]
         /// <summary>
         /// 战斗实体属性
         /// </summary>
@@ -51,6 +55,11 @@
             /// 闪避率
             /// </summary>
             public float EvasionRate;
+
+            /// <summary>
+            /// 减伤比例
+            /// </summary>
+            public float ReduceDamageRate { get; set; }
         }
     }
 }

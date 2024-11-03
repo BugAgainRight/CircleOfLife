@@ -15,6 +15,16 @@ MonoBehaviour:
   allPlayerSkill:
   - value1: 0
     value2: {fileID: 0}
+  - value1: 1
+    value2: {fileID: 0}
+  - value1: 2
+    value2: {fileID: 0}
+  - value1: 3
+    value2: {fileID: 0}
+  - value1: 4
+    value2: {fileID: 0}
+  - value1: 5
+    value2: {fileID: 0}
   allEnemySkill:
   - value1: 0
     value2: {fileID: 0}

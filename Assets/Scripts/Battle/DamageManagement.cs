@@ -1,3 +1,4 @@
+using CircleOfLife.Battle;
 using CircleOfLife.Units;
 using Milutools.Recycle;
 using System.Collections;
@@ -6,10 +7,6 @@ using UnityEngine;
 
 namespace CircleOfLife
 {
-    public interface IDamageable_
-    {
-        public NPCData GetData();
-    }
     public class DamageManagement : MonoBehaviour
     {
         
@@ -31,9 +28,24 @@ namespace CircleOfLife
         [Tooltip("友军攻击暴击飘字样式")]
         [SerializeField]
         private FlyWordStyle FriendCritStyle;
+
         [Tooltip("敌军攻击飘字样式")]
         [SerializeField]
-        private FlyWordStyle EnemyStyle;
+        private FlyWordStyle EnemyNormalStyle;
+
+        [Tooltip("敌军攻击暴击飘字样式")]
+        [SerializeField]
+        private FlyWordStyle EnemyCritStyle;
+
+        [Tooltip("友军治疗飘字样式")]
+        [SerializeField]
+        private FlyWordStyle FriendRecovery;  
+        
+        [Tooltip("敌军治疗飘字样式")]
+        [SerializeField]
+        private FlyWordStyle EnemyRecovery;
+
+
 
         private void Awake()
         {
@@ -45,25 +57,40 @@ namespace CircleOfLife
             Instance = this;
             RecyclePool.EnsurePrefabRegistered(Recycle.DamageText, FlyWordPrefab, 20);
         }
+        /// <summary>
+        /// battleContext 必须填入参数：AttackerData HitData（受击者）HitTran
+        /// </summary>
+        /// <param name="battleContext"></param>
         public void Damage(BattleContext battleContext)
         {
             bool isCrit=false;
+            bool isRecovery = false;
+            BattleStats.Stats attackStats = battleContext.AttackerData.Current;
+            BattleStats.Stats hitStats = battleContext.HitData.Current;
 
             ///基础伤害
-            float damage = battleContext.AttackerData.Atk;
-
-            ///防御
-            damage *= 1 - battleContext.HitData.Armor / (100 + battleContext.HitData.Armor);
-
-            ///暴击伤害计算
-            if (Random.Range(0, 1f) <= battleContext.AttackerData.CriticalChance)
+            float damage = attackStats.Attack;
+            ///治疗
+            if (damage < 0)
             {
-                damage *= (1 + battleContext.AttackerData.CriticalStrikeDamage);
-                isCrit = true;
+                isRecovery = true;
             }
+            else if(damage >0)
+            {
+                ///防御
+                damage *= 1 - hitStats.Armor / (100 + hitStats.Armor);
 
+                ///暴击伤害计算
+                if (Random.Range(0, 1f) <= attackStats.CriticalChance)
+                {
+                    damage *= (1 + attackStats.CriticalStrikeDamage);
+                    isCrit = true;
+                }
+                damage *= (1 - battleContext.HitData.Current.ReduceDamageRate);
+            }
             ///扣血
-            //battleContext.HitData.-= damage;
+            if (damage == 0) return;
+            battleContext.HitData.Damage(damage);
 
             ///飘字
             var flyWord = RecyclePool.RequestWithCollection(Recycle.DamageText);
@@ -71,30 +98,51 @@ namespace CircleOfLife
             ///激活
             flyWord.GameObject.SetActive(true);
 
-            flyWord.Transform.position = battleContext.HitTran.position;
+            flyWord.Transform.position = battleContext.HitTran.position+new Vector3(Random.Range(-1,1f), Random.Range(-1, 1f));
 
            
             ///样式选择
-            FlyWordStyle style = new();
             FactionType attackerFaction = FactionType.Friend /*battleContext.AttackerData.*/;
-            if (attackerFaction.Equals(FactionType.Friend))
-            {
-                if (isCrit) style = FriendCritStyle;
-                else style = FriendNormalStyle;
-            }
-            else
-            {
-                style = EnemyStyle;
-            }
+            FlyWordStyle style = GetStyle(attackerFaction,isCrit,isRecovery);
 
             ///飘字初始化
             var flyWordComponent = flyWord.GetMainComponent<FlyWord>();
-            flyWordComponent.Init(Mathf.RoundToInt(damage).ToString(), style);
+            if (damage < 0) flyWordComponent.Init("+"+Mathf.RoundToInt(-damage).ToString(), style, false);
+            else flyWordComponent.Init(Mathf.RoundToInt(damage).ToString(), style);
 
            
 
         }
 
+        public void Damage(BattleContext battleContext,System.Action<BattleContext> otherAction)
+        {
+            Damage(battleContext);
+            otherAction?.Invoke(battleContext);
+        }
+
+
+
+
+        private FlyWordStyle GetStyle(FactionType factionType,bool isCrit,bool isRecovery)
+        {
+            FlyWordStyle result;
+            if (factionType.Equals(FactionType.Friend))
+            {
+                if (isRecovery) result = FriendRecovery;
+                else if(isCrit) result = FriendCritStyle;
+                else result = FriendNormalStyle;
+            }
+            else
+            {
+                if (isRecovery) result = EnemyRecovery;
+                else if (isCrit) result = EnemyCritStyle;
+                else result = EnemyNormalStyle;
+             
+            }
+
+            return result;
+
+        }
 
 
 

@@ -1,3 +1,4 @@
+using CircleOfLife.Battle;
 using CircleOfLife.Units;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,11 +30,11 @@ namespace CircleOfLife
         /// <summary>
         /// 攻击者的数据
         /// </summary>
-        public NPCData AttackerData;
+        public BattleStats AttackerData;
         /// <summary>
         /// 受击者的数据
         /// </summary>
-        public NPCData HitData;
+        public BattleStats HitData;
 
         public float BoomRadius;
 

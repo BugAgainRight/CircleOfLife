@@ -1,3 +1,6 @@
+using CircleOfLife.Battle;
+using CircleOfLife.Buff;
+using log4net.Util;
 using Milutools.Milutools.General;
 using Milutools.Recycle;
 using System;
@@ -7,21 +10,6 @@ using UnityEngine;
 
 namespace CircleOfLife
 {
-    public enum EnemySkillType
-    {
-        test1
-    }
-
-    public enum PlayerSkillType
-    {
-        test1
-    }
-
-    public enum BuildSkillType
-    {
-        test1
-    }
-
     public static class SkillManagement 
     {
 
@@ -54,25 +42,18 @@ namespace CircleOfLife
         }
 
         [Skill(EnemySkillType.test1)]
-        public static void EnemySkill_1(SkillContext skillContext)
+        private static void EnemySkill_1(SkillContext skillContext)
         {
 
-
-        }
-
-        [Skill(PlayerSkillType.test1)]
-        public static void PlayerSkill_1(SkillContext skillContext)
-        {
-           
-            RecyclePool.EnsurePrefabRegistered(PlayerSkillType.test1, skillContext.BodyPrefab, 10);
-            var collection = RecyclePool.RequestWithCollection(PlayerSkillType.test1);
+            RecyclePool.EnsurePrefabRegistered(EnemySkillType.test1, skillContext.BodyPrefab, 10);
+            var collection = RecyclePool.RequestWithCollection(EnemySkillType.test1);
             collection.GameObject.SetActive(true);
             collection.GameObject.transform.position = skillContext.TriggerPos;
 
             collection.GetComponent<BulletTrigger>().PassData(new BattleContext()
             {
                 AttackerTran = collection.GameObject.transform,
-                AttackerData = new Units.NPCData() { Atk = 100 },
+                AttackerData = skillContext.AttackerData,
                 BoomRadius = 5,
                 DamageableLayer = 1 << 0,
 
@@ -81,19 +62,98 @@ namespace CircleOfLife
             collection.GetComponent<BulletMove>().PassData(new BulletMoveContext()
             {
                 LaunchTime = Time.time,
-                Direction=skillContext.Direction,
+                Direction = skillContext.Direction,
                 StartPos = collection.GameObject.transform.position,
                 TargetPos = skillContext.TargetPos,
-                Transform= collection.GameObject.transform,
-                Speed=skillContext.MoveSpeed,
-                MaxHeight=UnityEngine.Random.Range(4,6f)
+                Transform = collection.GameObject.transform,
+                Speed = skillContext.MoveSpeed,
+                MaxHeight = UnityEngine.Random.Range(4, 6f)
             });
         }
 
-        [Skill(BuildSkillType.test1)]
-        public static void BuildSkill_1(SkillContext skillContext)
+        [Skill(PlayerSkillType.test1)]
+        private static void PlayerSkill_1(SkillContext context)
         {
            
+            RecyclePool.EnsurePrefabRegistered(PlayerSkillType.test1, context.BodyPrefab, 10);
+            var collection = RecyclePool.RequestWithCollection(PlayerSkillType.test1);
+            collection.GameObject.SetActive(true);
+            collection.GameObject.transform.position = context.TriggerPos;
+
+            collection.GetComponent<BulletTrigger>().PassData(new BattleContext()
+            {
+                AttackerTran = collection.GameObject.transform,
+                AttackerData = context.AttackerData,
+                BoomRadius = 5,
+                DamageableLayer = 1 << 0,
+
+            }) ;
+
+            collection.GetComponent<BulletMove>().PassData(new BulletMoveContext()
+            {
+                LaunchTime = Time.time,
+                Direction=context.Direction,
+                StartPos = collection.GameObject.transform.position,
+                TargetPos = context.TargetPos,
+                Transform= collection.GameObject.transform,
+                Speed = context.MoveSpeed,
+                MaxHeight = UnityEngine.Random.Range(4, 6f)
+            });
+        }
+
+        [Skill(BuildSkillType.TreatmentStation)]
+        private static void BuildSkill_0(SkillContext context)
+        {
+            foreach (var coll in Physics2D.OverlapCircleAll(
+                context.RangeSetting.gizmosCenter, context.RangeSetting.radius, context.PhysicsLayer))
+            {
+                if (coll.gameObject.Equals(context.TriggerObj)) continue;
+                if (coll.TryGetComponent(out IBattleEntity battleEntity))
+                {
+                    if (battleEntity.FactionType.Equals(context.FactionType))
+                    {
+                        DamageManagement.Instance.Damage(new BattleContext()
+                        {
+                            AttackerTran = context.TriggerObj.transform,
+                            HitTran = coll.transform,
+                            AttackerData = context.AttackerData,
+                            HitData = battleEntity.Stats,
+                        });
+
+                    }
+                }
+
+            }
+
+
+        }
+
+        [Skill(BuildSkillType.SignalTransmitter1)]
+        private static void BuildSkill_1(SkillContext context)
+        {
+            var collection = RecyclePool.RequestWithCollection(BuildSkillType.SignalTransmitter1,context.TriggerObj.transform);
+            collection.GameObject.SetActive(true);
+            var passData = context.AttackerData.Max;
+            passData.AttackInterval = 1;
+            collection.GetComponent<TestBuildFriend_Chen>().PassData(passData);
+            var buildContext = collection.GetMainComponent<BuildFriendContext>();
+            buildContext.StandPos = context.TriggerPos + new Vector2(UnityEngine.Random.Range(-3, 3f), UnityEngine.Random.Range(-3, 3f));
+            collection.GameObject.transform.position=buildContext.StandPos;
+        }
+
+
+
+
+        [Skill(BuildSkillType.TestBuildFriendFire)]
+        private static void BuildSkill_2(SkillContext context)
+        {
+            BulletManagement.GetBulletTrigger(BulletTriggerType.Normal)(new BattleContext()
+            {
+                AttackerData = context.AttackerData,
+                HitTran = context.TargetObj.transform,
+                HitData=context.HitData
+
+            });
 
 
         }

@@ -1,3 +1,4 @@
+using CircleOfLife.Battle;
 using CircleOfLife.Units;
 using Milutools.Recycle;
 using System;
@@ -33,13 +34,13 @@ namespace CircleOfLife
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!hasTrigger&&collision.TryGetComponent(out IDamageable_ damage))
+            if (!hasTrigger&&collision.TryGetComponent(out IBattleEntity damage))
             {
                 //hasTrigger = true;
                 BattleContext battleContext = this.battleContext;
                
                 battleContext.HitTran = collision.transform;  
-                battleContext.HitData = damage.GetData();
+                battleContext.HitData = damage.Stats;
                 triggerAction?.Invoke(battleContext);
 
                 RecyclePool.ReturnToPool(gameObject);

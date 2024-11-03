@@ -21,13 +21,16 @@ namespace CircleOfLife
 
         [SerializeField]
         private TextMeshPro contentText;
+
+
+
         /// <summary>
         /// 飘字初始化
         /// </summary>
         /// <param name="content">飘字内容</param>
         /// <param name="style">飘字样式</param>
-
-        public void Init(string content, FlyWordStyle style)
+        /// <param name="isDamage">是否为伤害 false表示</param>
+        public void Init(string content, FlyWordStyle style,bool isDamage=true)
         {
             contentText.text = content;
             contentText.fontSize=style.FontSize;
