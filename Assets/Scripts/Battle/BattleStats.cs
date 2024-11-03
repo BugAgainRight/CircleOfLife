@@ -12,18 +12,21 @@ namespace CircleOfLife.Battle
         [HideInInspector]
         public Stats Max, Current;
         
-        [HideInInspector]
-        public GameObject BindingGameObject;
+        public readonly GameObject GameObject;
+        public readonly Transform Transform;
+        public readonly IBattleEntity BattleEntity;
 
-        private List<BuffContext> buffContexts = new();
+        private readonly List<BuffContext> buffContexts = new();
         
-        private Stats lasting;
-        private Action<BattleStats> hurtAction;
+        private Stats lasting, initial;
+        private readonly Action<BattleStats> hurtAction;
+
+        public readonly IEnumerable<Collider2D> Colliders;
 
         public void Damage(float damage)
         {
-            lasting.Hp -= damage;
-            Current.Hp -= damage;
+            Current.Hp = Mathf.Min(Current.Hp - damage, Max.Hp);
+            lasting.Hp = Current.Hp;
             hurtAction?.Invoke(this);
         }
         
@@ -92,6 +95,7 @@ namespace CircleOfLife.Battle
         
         public void Tick()
         {
+            Max = initial;
             Current = lasting;
             foreach (var buff in buffContexts.Where(_ => true))
             {
@@ -104,18 +108,29 @@ namespace CircleOfLife.Battle
             }
 
             buffContexts.RemoveAll(x => x.Duration == 0f);
+            Current.Hp = Mathf.Min(Max.Hp, Current.Hp);
         }
         
         public BattleStats(GameObject go, Stats baseStats, Action<BattleStats> hurtAction)
         {
-            BindingGameObject = go;
+            GameObject = go;
             Max = baseStats;
             lasting = baseStats;
+            initial = baseStats;
             this.hurtAction = hurtAction;
+            BattleEntity = go.GetComponent<IBattleEntity>();
+            Transform = go.transform;
+            Colliders = go.GetComponentsInChildren<Collider2D>()
+                                  .Concat(go.GetComponents<Collider2D>());
+            foreach (var collider in Colliders)
+            {
+                ColliderMapping.RegisterCollider(collider, this);
+            }
         }
 
         public void Reset()
         {
+            Max = initial;
             lasting = Max;
             Current = Max;
         }

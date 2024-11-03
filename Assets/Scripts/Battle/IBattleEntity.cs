@@ -7,6 +7,6 @@ namespace CircleOfLife.Battle
     {
         public BattleStats Stats { get; set; }
 
-        public FactionType FactionType { get;}
+        public FactionType FactionType { get; }
     }
 }

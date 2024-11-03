@@ -28,19 +28,24 @@ namespace CircleOfLife.Buff
             EnsureInitialized();
             Instance.stats.Add(stats);
         }
-
+        
+        // 早于所有脚本执行
         private void FixedUpdate()
         {
-            Update();
-        }
-
-        // 早于所有脚本执行
-        private void Update()
-        {
-            stats.RemoveAll(x => !x.BindingGameObject);
             foreach (var stat in stats)
             {
-                if (!stat.BindingGameObject.activeSelf)
+                if (!stat.GameObject)
+                {
+                    foreach (var col in stat.Colliders)
+                    {
+                        ColliderMapping.RevokeCollider(col);
+                    }
+                }
+            }
+            stats.RemoveAll(x => !x.GameObject);
+            foreach (var stat in stats)
+            {
+                if (!stat.GameObject.activeSelf)
                 {
                     continue;
                 }
