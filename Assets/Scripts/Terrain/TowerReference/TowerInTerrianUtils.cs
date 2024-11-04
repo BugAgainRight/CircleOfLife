@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CircleOfLife
 {
-    public interface ITowerInTerrian
+    public static class TowerInTerrianUtils
     {
         /// <summary>
         /// 返回鼠标点击到的装置信息

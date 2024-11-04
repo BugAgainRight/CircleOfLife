@@ -32,7 +32,7 @@ namespace CircleOfLife
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 isMouseClick = true;
-                TowerInfo towerInfo = ITowerInTerrian.GetTowerInfo();
+                TowerInfo towerInfo = TowerInTerrianUtils.GetTowerInfo();
                 if (towerInfo == null)
                 {
                     Debug.Log("You Clicked Nothing");
