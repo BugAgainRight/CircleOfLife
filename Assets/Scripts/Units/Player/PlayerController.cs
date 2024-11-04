@@ -1,3 +1,5 @@
+using CircleOfLife.Battle;
+using CircleOfLife.Buff;
 using CircleOfLife.Key;
 using UnityEngine;
 
@@ -6,8 +8,9 @@ namespace CircleOfLife.Units
     [RequireComponent(typeof(Rigidbody2D))]
 
     [RequireComponent(typeof(CircleCollider2D))]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IBattleEntity
     {
+        //TODO 参考敌人的AI实现操作逻辑
         // Start is called before the first frame update
         private Vector2 direction;
         private CircleCollider2D capsuleCollider2D;
@@ -17,8 +20,24 @@ namespace CircleOfLife.Units
         private Vector2 Direction;
         private GameObject bullet;
 
+        public BattleStats.Stats Stat;
+
+        public BattleStats Stats { get; set; }
+
+        public FactionType FactionType { get; } = FactionType.Friend;
+
         void Awake()
         {
+
+            Stats = Stat.Build(gameObject, test =>
+            {
+                if (test.Current.Hp <= 0f)
+                {
+                    Destroy(gameObject);
+                }
+            });
+            Stats.Max.Velocity = 10;
+            Stats.Reset();
             capsuleCollider2D = GetComponent<CircleCollider2D>();
             rigidbody2D = GetComponent<Rigidbody2D>();
             //bullet = Resources.Load<GameObject>(UnitIDManager.BulletDict["BaseBullet"]);
@@ -27,6 +46,7 @@ namespace CircleOfLife.Units
         }
         void Start()
         {
+            PlayerSpeed = Stats.Current.Velocity;
             if (rigidbody2D.gravityScale != 0)
             {
                 rigidbody2D.gravityScale = 0;
@@ -57,10 +77,10 @@ namespace CircleOfLife.Units
         public void PlayerMove()
         {
             direction = Vector2.zero;
-            if (Input.GetKey(KeyboardSet.KeyboardDict[KeyEnum.Up])) { direction += Vector2.up; }
-            if (Input.GetKey(KeyboardSet.KeyboardDict[KeyEnum.Down])) { direction += Vector2.down; }
-            if (Input.GetKey(KeyboardSet.KeyboardDict[KeyEnum.Left])) { direction += Vector2.left; }
-            if (Input.GetKey(KeyboardSet.KeyboardDict[KeyEnum.Right])) { direction += Vector2.right; }
+            if (KeyboardSet.IsPressing(KeyEnum.Up)) { direction += Vector2.up; }
+            if (KeyboardSet.IsPressing(KeyEnum.Down)) { direction += Vector2.down; }
+            if (KeyboardSet.IsPressing(KeyEnum.Left)) { direction += Vector2.left; }
+            if (KeyboardSet.IsPressing(KeyEnum.Right)) { direction += Vector2.right; }
             Direction = new Vector2(direction.x, direction.y);
             if (direction.x < 0)
             {
@@ -74,10 +94,10 @@ namespace CircleOfLife.Units
 
         public void KeyBoardMonitor()
         {
-            if (Input.GetKeyDown(KeyboardSet.KeyboardDict[KeyEnum.Interact])) OpenSomething();
-            if (Input.GetKeyDown(KeyboardSet.KeyboardDict[KeyEnum.Attack])) Attack();
-            if (Input.GetKeyDown(KeyboardSet.KeyboardDict[KeyEnum.Fire])) Fire();
-            if (Input.GetKeyDown(KeyboardSet.KeyboardDict[KeyEnum.Skill1])) Skill();
+            if (KeyboardSet.IsKeyDown(KeyEnum.Interact)) OpenSomething();
+            if (KeyboardSet.IsKeyDown(KeyEnum.Attack)) Attack();
+            if (KeyboardSet.IsKeyDown(KeyEnum.Fire)) Fire();
+            if (KeyboardSet.IsKeyDown(KeyEnum.Skill1)) Skill();
         }
 
 
