@@ -69,7 +69,7 @@ namespace CircleOfLife.Buff
             else
             {
                 stats.Current.Velocity *= 1.2f;
-                // 乱跑等待后续接入
+                // TODO: 乱跑等待后续接入
             }
         }
         
@@ -178,7 +178,7 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Invincible(BattleStats stats, BuffContext buff)
         {
-            // 等待减伤比例加入
+            stats.Current.ReduceDamageRate = 1f;
         }
     }
 }

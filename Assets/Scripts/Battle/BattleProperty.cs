@@ -5,7 +5,6 @@ namespace CircleOfLife.Battle
 {
     public partial class BattleStats
     {
-        [Serializable]
         /// <summary>
         /// 战斗实体属性
         /// </summary>
