@@ -17,9 +17,12 @@ namespace CircleOfLife.Battle
             map.Remove(collider);
         }
 
+        /// <summary>
+        /// 返回碰撞箱对应的战斗面板，null = 与战斗单位无关
+        /// </summary>
         public static BattleStats GetBattleStats(this Collider2D collider)
         {
-            return map[collider];
+            return map.GetValueOrDefault(collider);
         }
     }
 }
