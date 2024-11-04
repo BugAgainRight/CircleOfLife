@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5cbfb9c2314e848b6fe5d2c16a49a2, type: 3}
+  m_Name: EnemySkillPrefabSo
+  m_EditorClassIdentifier: 
+  AllBuildSettings:
+  - value1: 0
+    value2: {fileID: 0}

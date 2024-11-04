@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace CircleOfLife
 {
+    
 
     /////////Stats
     public enum AnimalStat
@@ -18,7 +19,7 @@ namespace CircleOfLife
 
     public enum BuildStat
     {
-
+        test1
     }
 
     /////////GameObject
@@ -42,10 +43,10 @@ namespace CircleOfLife
         TreatmentStation,SignalTransmitter1,TestBuildFriendFire
     }
 
-    public class BuildSoData
+    public enum AnimalSkillType
     {
-        public int Cost;
-        public bool WhetherRotate;
-        public GameObject Prefab;
+        test1
     }
+
+
 }

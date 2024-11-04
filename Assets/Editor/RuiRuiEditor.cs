@@ -1,4 +1,5 @@
 using CircleOfLife;
+using CircleOfLife.ScriptObject;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,11 +24,16 @@ namespace RuiRuiTool
 
         private void OnEnable()
         {
-
-
             Editors.Add(new NewGizmos());
             Editors.Add(new NewBuffShowDataEditorSo());
-
+            Editors.Add(new AllPrefabSettingEditor<AnimalStat, GameObject>());
+            Editors.Add(new AllPrefabSettingEditor<EnemyStat, GameObject>());
+            Editors.Add(new AllPrefabSettingEditor<AnimatonPrefab, GameObject>());
+            Editors.Add(new AllPrefabSettingEditor<EnemySkillType, GameObject>());
+            Editors.Add(new AllPrefabSettingEditor<PlayerSkillType, GameObject>());
+            Editors.Add(new AllPrefabSettingEditor<BuildSkillType, GameObject>());
+            Editors.Add(new AllPrefabSettingEditor<AnimalSkillType, GameObject>());
+            Editors.Add(new AllPrefabSettingEditor<BuildStat,BuildSoData>());
             foreach (var e in Editors)
                 e.OnEnable(target, this);
         }
@@ -187,6 +193,7 @@ namespace RuiRuiTool
 
             searchScroll = EditorGUILayout.BeginScrollView(searchScroll);
             {
+               
                 for (int i = 0; i < serializedProperty.arraySize; i++)
                 {
                     SerializedProperty element = serializedProperty.GetArrayElementAtIndex(i);
@@ -194,11 +201,12 @@ namespace RuiRuiTool
                     {
                         EditorGUILayout.BeginHorizontal();
                         GUILayout.Label(i.ToString(), GUILayout.Width(30));
-                        EditorGUILayout.PropertyField(element, GUIContent.none);
+                        EditorGUILayout.PropertyField(element,GUIContent.none);
                         EditorGUILayout.EndHorizontal();
                     }
 
                 }
+             
 
             }
             EditorGUILayout.EndScrollView();
@@ -568,6 +576,66 @@ namespace RuiRuiTool
             EditorGUI.EndProperty();
         }
     }
+
+    [CustomPropertyDrawer(typeof(BuildSoData))]
+    public class BuildPrefabDrawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+
+            EditorGUILayout.BeginVertical();
+            {
+                EditorGUI.BeginProperty(position, label, property);
+                {
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        GUILayout.Label("Prefab");
+                        EditorGUILayout.PropertyField(property.FindPropertyRelative("Prefab"), GUIContent.none);
+                    }
+                    EditorGUILayout.EndHorizontal();
+
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        GUILayout.Label("Icon");
+                        EditorGUILayout.PropertyField(property.FindPropertyRelative("Icon"), GUIContent.none);
+                    }
+                    EditorGUILayout.EndHorizontal();
+
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        GUILayout.Label("BuildSize");
+                        EditorGUILayout.PropertyField(property.FindPropertyRelative("BuildSize"), GUIContent.none);
+                    }
+                    EditorGUILayout.EndHorizontal();
+
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        GUILayout.Label("Cost");
+                        EditorGUILayout.PropertyField(property.FindPropertyRelative("Cost"), GUIContent.none);
+                    }
+                    EditorGUILayout.EndHorizontal();
+
+                    EditorGUILayout.BeginHorizontal();
+                    {
+                        GUILayout.Label("WhetherRotate");
+                        EditorGUILayout.PropertyField(property.FindPropertyRelative("WhetherRotate"), GUIContent.none);
+                    }
+                    EditorGUILayout.EndHorizontal();
+
+                   
+
+
+                }
+                EditorGUI.EndProperty();
+            }
+            EditorGUILayout.EndVertical();
+        }
+    }
+
+
+
+
+
     public class NewBuffShowDataEditorSo : CustomEditorSelector, IUseInspectorEditorTool
     {
         Object target;
