@@ -3,6 +3,7 @@
     public enum UIIdentifier
     {
         MessageBox,
-        UISample
+        UISample,
+        BuildingPlacing
     }
 }

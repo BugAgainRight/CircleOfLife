@@ -49,7 +49,8 @@ namespace CircleOfLife.Configuration
             {
                 // 从 Resources/UI/ 中加载 UI 预制体
                 UI.FromResources(UIIdentifier.MessageBox, "UI/MessageBox"),
-                UI.FromResources(UIIdentifier.UISample, "UI/UISample")
+                UI.FromResources(UIIdentifier.UISample, "UI/UISample"),
+                UI.FromResources(UIIdentifier.BuildingPlacing, "UI/BuildingPlacing"), 
             });
         }
     }
