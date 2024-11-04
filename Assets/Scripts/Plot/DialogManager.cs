@@ -18,7 +18,7 @@ namespace CircleOfLife
         public TMP_Text NameText,ContentText;
 
         // TODO:
-        //public Sprite Image;
+        public SpriteRenderer Image;
 
         /// <summary>
         /// 头像列表
@@ -28,7 +28,7 @@ namespace CircleOfLife
         /// <summary>
         /// 名字、头像字典，string对应角色姓名，Sprite对应ta的头像
         /// </summary>
-        Dictionary<string,Sprite> ImageDictionary = new Dictionary<string,Sprite>();
+        Dictionary<string, Sprite> ImageDictionary = new Dictionary<string, Sprite>();
 
         /// <summary>
         /// 表示目前读取到剧情文本中的哪一条对话
@@ -40,11 +40,10 @@ namespace CircleOfLife
         /// </summary>
         public string[] DialogRows;
 
-        // TODO:
         private void Awake()
         {
-           /* ImageDictionary["辛拉面"] = Sprites[0];
-            ImageDictionary["五月"]=Sprites[1];*/
+            ImageDictionary["辛拉面"] = Sprites[0];
+            ImageDictionary["五月"] = Sprites[1];
         }
 
         void Start()
@@ -64,12 +63,15 @@ namespace CircleOfLife
             ContentText.text = content;
         }
 
-        // TODO:
-        /*public void UpdateImage(string name)
+        /// <summary>
+        /// 更新头像
+        /// </summary>
+        /// <param name="name"></param>
+        public void UpdateImage(string name)
         {
-            Image=ImageDictionary[name];
-        }*/
-        
+            Image.sprite = ImageDictionary[name];
+        }
+
         /// <summary>
         /// 读取剧情文本
         /// </summary>
@@ -92,6 +94,8 @@ namespace CircleOfLife
                 if (cells[0] == "#" && int.Parse(cells[1]) == DialogIndex )
                 {
                     UpdateText(cells[2],cells[3]);
+                    UpdateImage(cells[2]);
+
                     DialogIndex = int.Parse(cells[4]);
                     break;
                 }
