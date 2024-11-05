@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace CircleOfLife
 {
@@ -17,8 +18,25 @@ namespace CircleOfLife
         /// </summary>
         public TMP_Text NameText,ContentText;
 
-        // TODO:
+        /// <summary>
+        /// 对话框中说话者的头像
+        /// </summary>
         public SpriteRenderer Image;
+
+        /// <summary>
+        /// 继续按钮，点击显示下一句剧情文本
+        /// </summary>
+        public Button NextButton;
+
+        /// <summary>
+        /// 分支选项按钮预制体
+        /// </summary>
+        public Button OptionButton;
+
+        /// <summary>
+        /// 分支选项按钮的父节点，用于实现自动排列
+        /// </summary>
+        public Transform ButtonGroup;
 
         /// <summary>
         /// 头像列表
@@ -40,6 +58,9 @@ namespace CircleOfLife
         /// </summary>
         public string[] DialogRows;
 
+        /// <summary>
+        /// 在这里把角色的名字和贴图对应起来
+        /// </summary>
         private void Awake()
         {
             ImageDictionary["辛拉面"] = Sprites[0];
@@ -49,7 +70,6 @@ namespace CircleOfLife
         void Start()
         {
             ReadText(DialogDataFile);
-            PrintDialogRows();
         }
 
         /// <summary>
@@ -101,5 +121,15 @@ namespace CircleOfLife
                 }
             }
         }
+
+        /// <summary>
+        /// 显示下一句（很水的注释一则）
+        /// </summary>
+        public void OnClickNextButton()
+        {
+            PrintDialogRows();
+        }
+
+
     }
 }
