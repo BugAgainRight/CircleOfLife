@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
-namespace CircleOfLife
+namespace CircleOfLife.Level
 {
+    //关卡->波次列表->出生点列表->出生单位列表
+    //LevelContext->LevelWaveContext->LevelWaveAppearPoint->LevelWaveUnits
     [Serializable]
-    public class LevelContext
+    public class Level
     {
         [Header("关卡的名称")]
         public string LevelName;
@@ -14,17 +17,30 @@ namespace CircleOfLife
         public string ID;
         [Header("关卡的描述")]
         public string LevelDescription;
+
+        [Header("关卡的初始费用")]
+        public int LevelCost;
+
         [Header("关卡的波次")]
-        public List<LevelWaveContext> LevelWaves;
+        /// <summary>
+        /// 关卡波次列表
+        /// </summary>
+        public List<LevelWave> LevelWaveList;
+
     }
 
     [Serializable]
-    public class LevelWaveContext
+    public class LevelWave
     {
 
         [Header("波次的顺序")]
         public int waveNumber;
+        [Header("结算金额")]
+        public int WaveCost;
         [Header("单位出生点")]
+        /// <summary>
+        /// 出生点列表
+        /// </summary>
         public List<LevelWaveAppearPoint> AppearPoints;
     }
 
@@ -36,15 +52,18 @@ namespace CircleOfLife
         [Header("出生点位置")]
         public Vector3 Postition;
 
-        [Header("单位群体")]
-        public List<LevelWaveUnits> Units;
+        [Header("单位群体列表")]
+        /// <summary>
+        /// 单位群体列表
+        /// </summary>
+        public List<LevelWaveUnits> UnitsList;
     }
 
     [Serializable]
     public class LevelWaveUnits
     {
         [Header("单位的预制体")]
-        public GameObject UnitPrefabPath;
+        public GameObject UnitPrefab;
 
         [Header("该单位的数量")]
         public int UnitCount;

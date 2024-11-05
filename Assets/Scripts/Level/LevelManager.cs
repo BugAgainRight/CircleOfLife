@@ -1,40 +1,77 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace CircleOfLife
+namespace CircleOfLife.Level
 {
-    public class LevelManager : MonoBehaviour
+    public class LevelManager
     {
-        public static LevelManager Instance;
-        public List<Transform> EntityAppearPoint;
-        public LevelSO LevelInfo;
-        public string LevelID;
+        public static string LevelInfoPath = "LevelSO/LevelSOTest";
+        public static LevelSO LevelInfo;
+        public static UnityEvent OnWaveBegin = new UnityEvent();
+        public static UnityEvent OnWaveEnd = new UnityEvent();
+        public static UnityEvent OnLevelBegin = new UnityEvent();
+        public static UnityEvent OnLevelWin = new UnityEvent();
+        public static UnityEvent OnLevelLose = new UnityEvent();
+        /// <summary>
+        /// 下载关卡,并且初始化关卡数据
+        /// </summary>
+        /// <param name="levelID">关卡编号</param>
+        public static void LoadLevel(string levelID)
+        {
+            LevelInfo = Resources.Load<LevelSO>(LevelInfoPath);
+            if (LevelInfo == null)
+            {
+                Debug.LogWarning("LevelInfo is null");
+                return;
+            }
+            Level level = GetCurrentLevel(levelID);
+            LevelUtils.SetCurrentLevel(level);
+        }
 
-        public static LevelManager GetInstance()
-        {
-            return Instance;
-        }
-        private void Awake()
-        {
-            Instance = this;
-        }
-        public void LoadLevel()
-        {
-            //加载关卡
-        }
+        /// <summary>
+        /// 卸载关卡(好像没用)
+        /// </summary>
         public void UnLoadLevel()
         {
-            //卸载关卡
+            LevelUtils.UnLoadCurrentLevel();
         }
-        public LevelContext GetLevelContext()
+        /// <summary>
+        /// 重置关卡(仅针对局内数据)
+        /// </summary>
+        public void ResetLevel()
         {
-            foreach (LevelContext l in LevelInfo.LevelContexts)
+            LevelUtils.ResetCurrentLevel();
+        }
+
+        //找到指定的关卡数据
+        private static Level GetCurrentLevel(string LevelID)
+        {
+            foreach (Level l in LevelInfo.LevelList)
             {
                 if (l.ID == LevelID) return l;
             }
             Debug.LogWarning("Countn't find LevelID");
             return null;
+        }
+
+        /// <summary>
+        /// 开始一个波次
+        /// </summary>
+        public static void StartWave()
+        {
+            LevelController.EnsureInitialized();
+            LevelController.Instance.OnWaveBegin();
+        }
+
+        /// <summary>
+        /// 结束一个波次
+        /// </summary>
+        public static void EndWave()
+        {
+            LevelController.EnsureInitialized();
+            LevelController.Instance.OnWaveEnd();
         }
     }
 }
