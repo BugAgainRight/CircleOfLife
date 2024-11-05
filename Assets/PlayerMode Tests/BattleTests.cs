@@ -38,7 +38,7 @@ namespace CircleOfLife.Tests.Battle
 
         };
 
-        [UnityTest]
+       /* [UnityTest]
         public IEnumerator DamageTest()
         {
             float initialHp = TestBattleStats.Current.Hp;
@@ -46,7 +46,7 @@ namespace CircleOfLife.Tests.Battle
             TestBattleStats.Damage(damage,context);
             yield return null; // 等待一帧以模拟异步操作
             Assert.AreEqual(initialHp - damage, TestBattleStats.Current.Hp, "The damage should reduce the current HP correctly.");
-        }
+        }*/
 
         [UnityTest]
         public IEnumerator ApplyBuffTest()

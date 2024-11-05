@@ -31,7 +31,7 @@ namespace CircleOfLife
         /// <summary>
         /// 分支选项按钮预制体
         /// </summary>
-        public Button OptionButton;
+        public GameObject OptionButton;
 
         /// <summary>
         /// 分支选项按钮的父节点，用于实现自动排列
@@ -49,7 +49,7 @@ namespace CircleOfLife
         Dictionary<string, Sprite> ImageDictionary = new Dictionary<string, Sprite>();
 
         /// <summary>
-        /// 表示目前读取到剧情文本中的哪一条对话
+        /// 对话编号，表示目前读取到剧情文本中的哪一条对话
         /// </summary>
         public int DialogIndex=0;
 
@@ -70,6 +70,7 @@ namespace CircleOfLife
         void Start()
         {
             ReadText(DialogDataFile);
+            PrintDialogRows();//把第一句对话加载出来
         }
 
         /// <summary>
@@ -108,16 +109,25 @@ namespace CircleOfLife
         /// </summary>
         public void PrintDialogRows()
         {
-            foreach (string row in DialogRows)
+            for (int i = 0 ;i < DialogRows.Length ; i++)
             {
-                string[] cells = row.Split(',');
-                if (cells[0] == "#" && int.Parse(cells[1]) == DialogIndex )
+                string[] cells = DialogRows[i].Split(',');
+                if (cells[0] == "#" && int.Parse(cells[1]) == DialogIndex )//普通剧情文本
                 {
                     UpdateText(cells[2],cells[3]);
                     UpdateImage(cells[2]);
-
                     DialogIndex = int.Parse(cells[4]);
+                    NextButton.gameObject.SetActive(true);
                     break;
+                }
+                else if(cells[0] == "@" && int.Parse(cells[1]) == DialogIndex )//分支选项文本
+                {
+                    NextButton.gameObject.SetActive(false);
+                    GenerateOption(i);
+                }
+                else if (cells[0] == "END" && int.Parse(cells[1]) == DialogIndex)//结束
+                {
+                    Debug.Log("剧情结束");
                 }
             }
         }
@@ -130,6 +140,42 @@ namespace CircleOfLife
             PrintDialogRows();
         }
 
+        /// <summary>
+        /// 生成选项按钮，并绑定选项事件
+        /// </summary>
+        /// <param name="index">当前的对话编号</param>
+        public void GenerateOption(int index)
+        {
+            string[] cells = DialogRows[index].Split(",");
+            if(cells[0] == "@")
+            {
+                Debug.Log("生成一个选项按钮");
+                GameObject button = Instantiate(OptionButton, ButtonGroup);
+
+                button.GetComponentInChildren<TMP_Text>().text = cells[3];
+                button.GetComponent<Button>().onClick.AddListener(
+                    delegate 
+                    { 
+                        OnOptionButtonClick(int.Parse(cells[4])); 
+                    });
+
+                GenerateOption(index + 1);
+            }
+        }
+
+        /// <summary>
+        /// 销毁选项按钮
+        /// </summary>
+        /// <param name="index">该选项对应的下一条对话编号</param>
+        public void OnOptionButtonClick(int index)
+        {
+            DialogIndex= index;
+            PrintDialogRows();
+            for (int i = 0; i < ButtonGroup.childCount; i++)
+            {
+                Destroy(ButtonGroup.GetChild(i).gameObject);
+            }
+        }
 
     }
 }
