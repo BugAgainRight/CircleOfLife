@@ -41,7 +41,6 @@ namespace CircleOfLife.Level
                 l.UnitCount = 0 + units.UnitCount;
                 levelWaveUnitList.Add(l);
             }
-            Debug.Log("SetLevelAppearPoint:" + appearPoint.ToString());
             ResetWaveTime();
         }
 
@@ -53,6 +52,7 @@ namespace CircleOfLife.Level
                 if (units.UnitCount > 0 && units.AppearTime <= time)
                 {
                     GameObject go = Instantiate(units.UnitPrefab, transform.position, new Quaternion());
+                    go.AddComponent<LevelEnemy>();
                     LevelController.Instance.RegisterEnemy(go);
                     units.UnitCount--;
                     units.AppearTime += units.AppearInterval;

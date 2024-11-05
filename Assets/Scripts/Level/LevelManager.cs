@@ -8,6 +8,7 @@ namespace CircleOfLife.Level
     public class LevelManager
     {
         public static string LevelInfoPath = "LevelSO/LevelSOTest";
+        public static string CurrentLevelID;
         public static LevelSO LevelInfo;
         public static UnityEvent OnWaveBegin = new UnityEvent();
         public static UnityEvent OnWaveEnd = new UnityEvent();
@@ -27,6 +28,23 @@ namespace CircleOfLife.Level
                 return;
             }
             Level level = GetCurrentLevel(levelID);
+            CurrentLevelID = level.ID;
+            LevelUtils.SetCurrentLevel(level);
+        }
+        public static void LoadLevel()
+        {
+            if (CurrentLevelID == null)
+            {
+                Debug.LogWarning("CurrentLevelID is null");
+                return;
+            }
+            LevelInfo = Resources.Load<LevelSO>(LevelInfoPath);
+            if (LevelInfo == null)
+            {
+                Debug.LogWarning("LevelInfo is null");
+                return;
+            }
+            Level level = GetCurrentLevel(CurrentLevelID);
             LevelUtils.SetCurrentLevel(level);
         }
 
@@ -63,15 +81,6 @@ namespace CircleOfLife.Level
         {
             LevelController.EnsureInitialized();
             LevelController.Instance.OnWaveBegin();
-        }
-
-        /// <summary>
-        /// 结束一个波次
-        /// </summary>
-        public static void EndWave()
-        {
-            LevelController.EnsureInitialized();
-            LevelController.Instance.OnWaveEnd();
         }
     }
 }

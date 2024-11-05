@@ -41,12 +41,6 @@ namespace CircleOfLife.Level
                 isClickDown = true;
                 StarWave();
             }
-            if (!isClickDown && Input.GetKeyDown(KeyCode.E))
-            {
-                isClickDown = true;
-                EndWave();
-            }
-
         }
 
         private void LoadLevel()
@@ -59,11 +53,6 @@ namespace CircleOfLife.Level
         {
             Debug.Log("StarWave:" + LevelUtils.CurrentWave);
             LevelManager.StartWave();
-        }
-        private void EndWave()
-        {
-            Debug.Log("EndWave:" + LevelUtils.CurrentEnemyCount);
-            LevelManager.EndWave();
         }
     }
 }

@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6714461258593687603
 RectTransform:
   m_ObjectHideFlags: 0
@@ -140,15 +140,6 @@ MonoBehaviour:
   UpBlack: {fileID: 167099648740298376}
   DownBlack: {fileID: 2557158394476422497}
   PlaceTip: {fileID: 6248862388523723114}
-  GizmosSetting:
-    editorMode: 0
-    openGizmos: 1
-    GizmosType: 0
-    point: {fileID: 0}
-    radius: 0
-    size: {x: 0, y: 0}
-    offSet: {x: 0, y: 0}
-    gizmosColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &969332933242896827
 GameObject:
   m_ObjectHideFlags: 0

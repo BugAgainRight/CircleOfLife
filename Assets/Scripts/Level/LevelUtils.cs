@@ -11,16 +11,29 @@ namespace CircleOfLife.Level
     public static class LevelUtils
     {
         private static Level level;
-
-        public static List<LevelWave> LevelWavelist
+        public static Level Level
         {
             get
             {
                 if (level == null)
                 {
-                    return null;
+                    Debug.LogWarning("你没有加载关卡数据,默认加载测试关卡");
+                    Debug.Log("你没有加载关卡数据,默认加载测试关卡，如果要加载其他关卡，请使用LevelManager.LoadLevel方法");
+                    level = Resources.Load<LevelSO>("LevelSO/LevelSOTest").LevelList[0];
                 }
-                return level.LevelWaveList;
+                return level;
+            }
+            set
+            {
+                level = value;
+            }
+        }
+
+        public static List<LevelWave> LevelWavelist
+        {
+            get
+            {
+                return Level.LevelWaveList;
             }
         }
 
@@ -42,6 +55,10 @@ namespace CircleOfLife.Level
         {
             get
             {
+                if (Level == null)
+                {
+                    return 0;
+                }
                 return LevelWavelist.Count;
             }
         }
@@ -75,17 +92,14 @@ namespace CircleOfLife.Level
         /// </summary>
         public static bool WinCondition1
         {
-            get { return CurrentWave >= MaxWave && CurrentEnemyCount >= MaxEnemyCount; }
+            get { return CurrentEnemyCount >= MaxEnemyCount; }
         }
         /// <summary>
         /// 胜利条件2: 手动获取胜利
         /// </summary>
         public static bool WinCondition2 = false;
         //这里继续注册胜利条件?
-        public static bool WinConditionExample
-        {
-            get { return true; }
-        }
+        public static bool WinConditionExample = true;
         /// <summary>
         /// 失败条件是否成立
         /// </summary>
@@ -130,7 +144,7 @@ namespace CircleOfLife.Level
         /// <param name="level">关卡数据</param>
         public static void SetCurrentLevel(Level level)
         {
-            LevelUtils.level = level;
+            LevelUtils.Level = level;
             CurrentWave = 0;
             CurrentEnemyCount = 0;
             Cost = level.LevelCost;
@@ -140,7 +154,7 @@ namespace CircleOfLife.Level
         /// </summary>
         public static void UnLoadCurrentLevel()
         {
-            level = null;
+            Level = null;
         }
         /// <summary>
         /// 重置关卡
@@ -149,7 +163,7 @@ namespace CircleOfLife.Level
         {
             CurrentWave = 0;
             CurrentEnemyCount = 0;
-            Cost = level.LevelCost;
+            Cost = Level.LevelCost;
         }
 
         private static void OnWaveChange()

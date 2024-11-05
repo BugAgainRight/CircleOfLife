@@ -25,12 +25,17 @@ namespace CircleOfLife.Level
         //战斗阶段
         public static LevelStateEnum LevelState = LevelStateEnum.WaveBefore;
 
+        private bool isWin = false;
+
         void Update()
         {
-            CheckEnemyInDict();
             if (CheckLoseCondition())
             {
                 LevelManager.OnLevelLose.Invoke();
+            }
+            if (CheckWaveWinCondition() && !isWin)
+            {
+                OnWaveEnd();
             }
         }
         public static void EnsureInitialized()
@@ -48,8 +53,14 @@ namespace CircleOfLife.Level
         /// </summary>
         public void OnWaveBegin()
         {
+            isWin = false;
             LevelManager.OnWaveBegin.Invoke();
             LevelState = LevelStateEnum.WaveBegin;
+            if (LevelUtils.Level == null)
+            {
+                Debug.LogWarning("Level is null,请先加载关卡数据");
+                return;
+            }
             foreach (LevelWaveAppearPoint point in LevelUtils.AppearPointList)
             {
                 RegisterAppearPoint(point);
@@ -57,21 +68,25 @@ namespace CircleOfLife.Level
         }
 
         //波次结束
-        public void OnWaveEnd()
+        private void OnWaveEnd()
         {
             LevelState = LevelStateEnum.WaveBefore;
-            LevelUtils.CurrentWave += 1;
-            Debug.Log("波次" + LevelUtils.CurrentWave + "结束");
-            LevelManager.OnWaveEnd.Invoke();
-            if (LevelUtils.WinCondition)
+            if (LevelUtils.CurrentWave == LevelUtils.MaxWave - 1)
             {
-                //todo: 游戏胜利
+                isWin = true;
+                Debug.Log("关卡结束，你过关！");
                 LevelManager.OnLevelWin.Invoke();
+            }
+            else
+            {
+                Debug.Log("波次" + LevelUtils.CurrentWave + "结束");
+                LevelUtils.CurrentWave += 1;
+                LevelManager.OnWaveEnd.Invoke();
             }
         }
 
         //检测是否达到胜利条件
-        public bool CheckWinCondition()
+        public bool CheckWaveWinCondition()
         {
             return LevelUtils.WinCondition;
         }
@@ -87,6 +102,7 @@ namespace CircleOfLife.Level
             {
                 Debug.Log("注册出生点:" + point.AppearPointName);
                 GameObject gameObject = new GameObject(point.AppearPointName, typeof(LevelAppearPoint));
+                gameObject.transform.position = new Vector3(point.Postition.x, point.Postition.y, point.Postition.z);
                 gameObject.GetComponent<LevelAppearPoint>().SetLevelAppearPoint(point);
                 sceneAppearPointDict.Add(point.AppearPointName, gameObject);
             }
@@ -116,24 +132,20 @@ namespace CircleOfLife.Level
                 levelEnemyDict = new Dictionary<string, GameObject>();
             }
             string id = Guid.NewGuid().ToString();
+            enemyGo.GetComponent<LevelEnemy>().ID = id;
             while (!levelEnemyDict.TryAdd(id, enemyGo)) ;
         }
 
-        private void CheckEnemyInDict()
+        public void UnRegisterEnemy(string id)
         {
             if (levelEnemyDict == null)
             {
                 levelEnemyDict = new Dictionary<string, GameObject>();
             }
-            foreach (var enemy in levelEnemyDict)
+            if (levelEnemyDict.ContainsKey(id))
             {
-                if (!enemy.Value)
-                {
-                    if (levelEnemyDict.Remove(enemy.Key))
-                    {
-                        LevelUtils.CurrentEnemyCount++;
-                    }
-                }
+                LevelUtils.CurrentEnemyCount++;
+                levelEnemyDict.Remove(id);
             }
         }
     }

@@ -49,7 +49,7 @@ namespace CircleOfLife.Level
     {
         [Header("出生点名称")]
         public string AppearPointName;
-        [Header("出生点位置")]
+        [Header("出生点位置(优先使用第一个同名出生点的坐标)")]
         public Vector3 Postition;
 
         [Header("单位群体列表")]
