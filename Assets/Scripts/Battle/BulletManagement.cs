@@ -77,7 +77,7 @@ namespace CircleOfLife
         [BulletTrigger(BulletTriggerType.Normal)]
         public static void NormalTrigger(BattleContext context)
         {
-            DamageManagement.Instance.Damage(context);
+            DamageManagement.Damage(context);
         }
 
 
@@ -93,7 +93,7 @@ namespace CircleOfLife
                 BattleContext midContext = context;
                 midContext.HitData = idamage.GetComponent<IBattleEntity>().Stats;
 
-                DamageManagement.Instance.Damage(midContext);
+                DamageManagement.Damage(midContext);
             }
 
         }

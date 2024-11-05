@@ -3,6 +3,7 @@ using CircleOfLife.Units;
 using Milutools.Recycle;
 using System.Collections;
 using System.Collections.Generic;
+using CircleOfLife.Buff;
 using UnityEngine;
 
 namespace CircleOfLife
@@ -57,52 +58,62 @@ namespace CircleOfLife
             Instance = this;
             RecyclePool.EnsurePrefabRegistered(Recycle.DamageText, FlyWordPrefab, 20);
         }
-        /// <summary>
-        /// battleContext 必须填入参数：AttackerData HitData（受击者）HitTran
-        /// </summary>
-        /// <param name="context"></param>
-        public void Damage(BattleContext context)
-        {
-            bool isCrit=false;
-           
-            BattleStats.Stats attackStats = context.AttackerData.Current;
-            BattleStats.Stats hitStats = context.HitData.Current;
 
-            ///基础伤害
+        /// <summary>
+        /// 计算造成的伤害数值
+        /// </summary>
+        public static float GetDamage(BattleStats.Stats attackStats, BattleStats.Stats hitStats, float skillRate, out bool isCrit)
+        {
+            isCrit = false;
+            
+            //基础伤害
             float damage = attackStats.Attack;
-            ///治疗
-           if(damage >0)
+            
+            //治疗
+            if(damage >0)
             {
-                ///防御
+                //防御
                 damage *= 1 - hitStats.Armor / (100 + hitStats.Armor);
 
-                ///暴击伤害计算
+                //暴击伤害计算
                 if (Random.Range(0, 1f) <= attackStats.CriticalChance)
                 {
                     damage *= 2;
                     isCrit = true;
                 }
-                damage *= context.SkillRate;
-                damage *= Mathf.Max(0, (100 - context.HitData.Current.Armor)) *0.01f;
-                damage *= (1 - context.HitData.Current.ReduceDamageRate);
+                damage *= skillRate;
+                damage *= Mathf.Max(0, (100 - hitStats.Armor)) *0.01f;
+                damage *= (1 - attackStats.ReduceDamageRate);
             }
-            ///扣血
-            if (damage == 0) return;
-            context.HitData.Damage(damage, context);
 
-            FlyWord(damage,context.HitData,isCrit);
-
-
-
-
+            return damage;
         }
-        public static void FlyWord(float damage,BattleStats hitData,bool isCrit=false)
+
+        /// <summary>
+        /// battleContext 必须填入参数：AttackerData HitData（受击者）HitTran
+        /// </summary>
+        /// <param name="context"></param>
+        public static void Damage(BattleContext context)
         {
-            bool isRecovery = false;
-            if (damage < 0)
-            {
-                isRecovery = true;
-            }
+            var damage = GetDamage(context.AttackerData.Current, context.HitData.Current, context.SkillRate, out var isCrit);
+            context.HitData.Damage(damage, context);
+            FlyWord(damage, context.HitData, isCrit);
+        }
+
+        /// <summary>
+        /// 由 Buff 造成伤害
+        /// </summary>
+        /// <param name="hitData">受伤者</param>
+        /// <param name="damage">数值</param>
+        public static void BuffDamage(BattleStats hitData, float damage)
+        {
+            hitData.Damage(damage, hitData.WrapBuffBattleContext());
+            FlyWord(damage, hitData, false);
+        }
+        
+        public static void FlyWord(float damage, BattleStats hitData, bool isCrit = false)
+        {
+            bool isRecovery = damage < 0;
 
             ///飘字
             var flyWord = RecyclePool.RequestWithCollection(Recycle.DamageText);

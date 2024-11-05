@@ -160,7 +160,7 @@ namespace CircleOfLife
                 context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
             foreach (var coll in list)
             {
-                DamageManagement.Instance.Damage(
+                DamageManagement.Damage(
                     new BattleContext(context.PhysicsLayer, context.AttackerData, coll.GetBattleStats()));
             }
 

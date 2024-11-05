@@ -12,9 +12,7 @@ namespace CircleOfLife
         {
             if (battleStats.AttackerData!=null)
             {
-                battleStats.AttackerData.Damage(
-                    Stats.Current.Attack, battleStats.AttackerData.WrapBuffBattleContext());
-
+                DamageManagement.BuffDamage(battleStats.AttackerData, Stats.Current.Attack);
             }
            
         }
