@@ -128,6 +128,10 @@ namespace CircleOfLife
             moveDirection = (targetPos - transform.position).normalized;
             distance = Vector3.Distance(transform.position, targetPos);
             currentCameraVelocity = Mathf.Max(distance / CatchUpTime, CameraMinVelocity);
+            if (distance < 0.1f)
+            {
+                currentCameraVelocity = 0;
+            }
             transform.position = new Vector3(
                 transform.position.x + moveDirection.x * currentCameraVelocity * Time.deltaTime,
                 transform.position.y + moveDirection.y * currentCameraVelocity * Time.deltaTime,
