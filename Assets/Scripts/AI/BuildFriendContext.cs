@@ -41,26 +41,29 @@ namespace CircleOfLife
         [HideInInspector]
         public float EnemyDistance;
 
-       
-        
 
-        
-        
 
+
+
+
+        private float needResetTime = 0;
+        private bool needReset = false;
         public bool TimerFinish
         {
             get
             {
-                if (timer + BattleStat.Current.AttackInterval< Time.time)
+                if (needReset && needResetTime < Time.time) timer = Time.time;
+                if (timer + BattleStat.Current.AttackInterval <= Time.time)
                 {
-                    timer = Time.time;
+                    needReset = true;
                     return true;
                 }
+                needReset = false;
                 return false;
-
             }
         }
-        private float timer;
+
+        private float timer = 0;
 
 
         public override void UpdateContext()

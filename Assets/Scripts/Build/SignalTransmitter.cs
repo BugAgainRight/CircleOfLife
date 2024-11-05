@@ -39,6 +39,7 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.SignalTransmitterNormal;
             ReplaceStats(Attribute[0], true);
+            UpdateRange();
 
         }
 

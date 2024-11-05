@@ -162,8 +162,7 @@ namespace CircleOfLife
             foreach (var coll in list)
             {
                 if (count >= context.EffectCount) break;
-                DamageManagement.Damage(
-                    new BattleContext(context.PhysicsLayer, context.AttackerData, coll.GetBattleStats()));
+                DamageManagement.BuffDamage(coll.GetBattleStats(), -context.SpecialValues[1]);
                 count++;
             }
 
@@ -194,20 +193,44 @@ namespace CircleOfLife
         {
             BuildSkill_0(context);
         }
+        #region 信号发射器
+       
 
-        [Skill(BuildSkillType.SignalTransmitterNormal)]
-        private static void BuildSkill_1(SkillContext context)
+        private static void SignalTransmitterFunc(BuildSkillType buildSkillType, SkillContext context)
         {
-            var collection = RecyclePool.RequestWithCollection(BuildSkillType.SignalTransmitterNormal, context.AttackerData.Transform);
+            var collection = RecyclePool.RequestWithCollection(buildSkillType, context.AttackerData.Transform);
             collection.GameObject.SetActive(true);
             var passData = context.AttackerData.Max;
             passData.AttackInterval = 1;
-            collection.GetComponent<TestBuildFriend_Chen>().PassData(passData);
+
             var buildContext = collection.GetMainComponent<BuildFriendContext>();
-            buildContext.StandPos = context.TriggerPos + new Vector2(UnityEngine.Random.Range(-3, 3f), UnityEngine.Random.Range(-3, 3f));
+            float range = context.AttackerData.Current.EffectRange;
+
+            buildContext.StandPos = context.TriggerPos + UnityEngine.Random.insideUnitCircle * range;
             collection.GameObject.transform.position = buildContext.StandPos;
         }
+        [Skill(BuildSkillType.SignalTransmitterNormal)]
+        private static void BuildSkill_1(SkillContext context)
+        {
+            SignalTransmitterFunc(BuildSkillType.SignalTransmitterNormal, context);
+        }
+        [Skill(BuildSkillType.SignalTransmitter1)]
+        private static void BuildSkill_1_1(SkillContext context)
+        {
+            SignalTransmitterFunc(BuildSkillType.SignalTransmitter1, context);
+        }
+        [Skill(BuildSkillType.SignalTransmitter2)]
+        private static void BuildSkill_1_2(SkillContext context)
+        {
+            SignalTransmitterFunc(BuildSkillType.SignalTransmitter2, context);
+        }
+        [Skill(BuildSkillType.SignalTransmitter3)]
+        private static void BuildSkill_1_3(SkillContext context)
+        {
+            SignalTransmitterFunc(BuildSkillType.SignalTransmitter3, context);
+        }
 
+        #endregion
 
 
 

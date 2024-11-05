@@ -12,7 +12,7 @@ namespace CircleOfLife
     {
         public override List<LevelUpDirection> LevelUpDirections => new()
         {
-            new LevelUpDirection(){NeedLevel=2,UpgradeCost=10,Title="兽医站",Value=BuildSkillType.TreatmentStation1},
+            new LevelUpDirection(){NeedLevel=2,Title="兽医站",Value=BuildSkillType.TreatmentStation1},
             new LevelUpDirection(){NeedLevel=2,Title="战地医院",Value=BuildSkillType.TreatmentStation2},
             
         };
@@ -37,6 +37,7 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.TreatmentStationNormal;
             ReplaceStats(Attribute[0], true);
+            UpdateRange();
             
         }
 
@@ -49,21 +50,27 @@ namespace CircleOfLife
                 SkillContext skillContext = new(PhysicsLayer, Stats)
                 {
                     EffectCount = effectCount,
-
+                    SpecialValues = new() { RecvoeryValueAll, RecvoeryValueEnemy }
                 };
 
                 SkillManagement.GetSkill(BuildSkillType.TreatmentStationNormal)(skillContext);
-               
+
             }
         }
-        private int effectCount=1;
+        private int effectCount = 1;
+        private float RecvoeryValueAll;
+        private float RecvoeryValueEnemy;
+
         public int HospitalEffectCount;
         public List<TreatmentStationUse> AllLevelValues=new List<TreatmentStationUse>();
         protected override void LevelUpFunc()
         {
+            
             effectCount = AllLevelValues[Level - 1].EffectCount;
+            RecvoeryValueAll = AllLevelValues[Level - 1].RecvoeryValueAll;
+            RecvoeryValueEnemy = AllLevelValues[Level - 1].RecvoeryValueAnimal;
             if (((BuildSkillType)NowType).Equals(BuildSkillType.TreatmentStation2)) effectCount += HospitalEffectCount;
-            BattleRange.Range.radius = Stats.Current.EffectRange;
+            UpdateRange();
 
 
         }
@@ -73,7 +80,7 @@ namespace CircleOfLife
         {
             public int EffectCount;
             public float RecvoeryValueAll;
-            public float RecvoeryValueEnemy;
+            public float RecvoeryValueAnimal;
            
         }
     }

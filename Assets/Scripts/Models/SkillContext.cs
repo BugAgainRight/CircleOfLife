@@ -18,7 +18,7 @@ namespace CircleOfLife
             MoveSpeed = 0f;
             LifeTime = 0f;
             EffectCount = 1;
-            SpecialValue = 0;
+            SpecialValues = new();
 
             PhysicsLayer = layer;
         }
@@ -36,7 +36,7 @@ namespace CircleOfLife
         /// <summary>
         /// 特殊值，例如兽医站全屏回复小动物血量
         /// </summary>
-        public float SpecialValue;
+        public List<float> SpecialValues;
     
 
         /// <summary>

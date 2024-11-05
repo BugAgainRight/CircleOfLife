@@ -30,21 +30,18 @@ namespace CircleOfLife
                             Title="加速",
                             Value=LogisticsServiceBuffType.加速,
                             NeedLevel=2,
-                            UpgradeCost=10,
                         },
                         new LevelUpDirection()
                         {
                             Title="加护甲",
                             Value=LogisticsServiceBuffType.加护甲,
                             NeedLevel=2,
-                            UpgradeCost=10,
                         },
                         new LevelUpDirection()
                         {
                             Title="加攻击力",
                             Value=LogisticsServiceBuffType.加攻击力,
                             NeedLevel=2,
-                            UpgradeCost=10,
                         },
                     };
                     
@@ -57,21 +54,18 @@ namespace CircleOfLife
                             Title="加速",
                             Value=LogisticsServiceBuffType.加速,
                             NeedLevel=3,
-                            UpgradeCost=20,
                         },
                         new LevelUpDirection()
                         {
                             Title="加护甲",
                             Value=LogisticsServiceBuffType.加护甲,
                             NeedLevel=3,
-                            UpgradeCost=20,
                         },
                         new LevelUpDirection()
                         {
                             Title="加攻击力",
                             Value=LogisticsServiceBuffType.加攻击力,
                             NeedLevel=3,
-                            UpgradeCost=20,
                         },
                     };
                     result.RemoveAll(x => x.Value.Equals(NowType));
@@ -108,7 +102,24 @@ namespace CircleOfLife
             ReplaceStats(Attribute[0], true);
 
         }
+        public float SpeedUpValue, ArmorUpValue, AttackUpValue;
 
+        private void SpeedUp(BattleStats stats, BuffContext buff)
+        {
+
+            stats.Current.Velocity += SpeedUpValue;
+        }
+
+        private void ArmorUp(BattleStats stats, BuffContext buff)
+        {
+
+            stats.Current.Armor += ArmorUpValue;
+        }
+        private void AttackUp(BattleStats stats, BuffContext buff)
+        {
+
+            stats.Current.Attack += AttackUpValue;
+        }
         private void FixedUpdate()
         {
             RecoveryHP();
@@ -122,15 +133,16 @@ namespace CircleOfLife
 
                     if (allType.Contains(LogisticsServiceBuffType.加速))
                     {
-
+                        Stats.ApplyBuff(BuffUtils.ToBuff(SpeedUp, 5f));
                     }
                     if (allType.Contains(LogisticsServiceBuffType.加护甲))
                     {
+                        Stats.ApplyBuff(BuffUtils.ToBuff(ArmorUp, 5f));
 
                     }
                     if (allType.Contains(LogisticsServiceBuffType.加攻击力))
                     {
-
+                        Stats.ApplyBuff(BuffUtils.ToBuff(AttackUp, 5f));
                     }
 
 

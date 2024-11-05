@@ -18,15 +18,19 @@ namespace CircleOfLife
         public GameObject RangeObj;
 
         public LayerMask PhysicsLayer;
+        private float needResetTime = 0;
+        private bool needReset=false;
         protected bool TimerFinish
         {
             get
             {
+                if(needReset&& needResetTime<Time.time) timer = Time.time;
                 if (timer + Stats.Current.AttackInterval <= Time.time)
-                {
-                    timer = Time.time;
+                {       
+                    needReset = true;
                     return true;
                 }
+                needReset = false;
                 return false;
             }
         }
@@ -38,7 +42,6 @@ namespace CircleOfLife
             public string Title;
             public Enum Value;
             public int NeedLevel;
-            public int UpgradeCost;
         }
         public abstract List<LevelUpDirection> LevelUpDirections { get; }
         public int Level { get; protected set; }
@@ -69,7 +72,7 @@ namespace CircleOfLife
         public void ShowRange()
         {
             RangeObj.SetActive(true);
-            RangeObj.transform.localScale = new Vector3(BattleRange.Range.radius, BattleRange.Range.radius, 1);
+            UpdateRange();
         }
         public void CloseRange()
         {
@@ -78,6 +81,7 @@ namespace CircleOfLife
         public void OnReset()
         {
             Stats.Reset();
+            
         }
 
         public void ReplaceStats(BattleStats.Stats stats,bool isReset=false)
@@ -112,5 +116,14 @@ namespace CircleOfLife
                 Stats.Current.Hp += 5 * list.Count;
             }
         }
+
+        public void UpdateRange()
+        {
+            BattleRange.Range.radius = Stats.Current.EffectRange;
+            RangeObj.transform.localScale = new Vector3(BattleRange.Range.radius, BattleRange.Range.radius, 1);
+        }
+
+  
+
     }
 }

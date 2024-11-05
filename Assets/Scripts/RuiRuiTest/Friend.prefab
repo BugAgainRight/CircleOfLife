@@ -184,9 +184,9 @@ GameObject:
   - component: {fileID: 7311553516374236400}
   - component: {fileID: 2745109140409542315}
   - component: {fileID: 6069984641081845173}
-  - component: {fileID: 1227587843823834263}
   - component: {fileID: 8986260340515439432}
   - component: {fileID: -2749237112161624899}
+  - component: {fileID: -3081127122157621112}
   m_Layer: 0
   m_Name: Friend
   m_TagString: Untagged
@@ -323,23 +323,10 @@ MonoBehaviour:
   AutoRecycleTimeOut: -1
   MainComponent: {fileID: 2745109140409542315}
   Components:
-  - {fileID: 1227587843823834263}
+  - {fileID: 0}
   OnReset:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1227587843823834263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7423378393176344028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce28cc1807b2f154d9eda69679388220, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  context: {fileID: 2745109140409542315}
 --- !u!50 &8986260340515439432
 Rigidbody2D:
   serializedVersion: 4
@@ -412,3 +399,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-3081127122157621112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423378393176344028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f4033dc52fa5a40814b1ec47f80544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  context: {fileID: 2745109140409542315}
+  Attribute:
+    Velocity: 1
+    Hp: 100
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 1
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
