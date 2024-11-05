@@ -38,6 +38,10 @@ namespace CircleOfLife
             RangeObj.SetActive(true);
             RangeObj.transform.localScale = new Vector3(BattleRange.Range.radius, BattleRange.Range.radius, 1);
         }
+        public void OnReset()
+        {
+            Stats.Reset();
+        }
 
     }
 }

@@ -64,18 +64,14 @@ namespace CircleOfLife
         public void Damage(BattleContext context)
         {
             bool isCrit=false;
-            bool isRecovery = false;
+           
             BattleStats.Stats attackStats = context.AttackerData.Current;
             BattleStats.Stats hitStats = context.HitData.Current;
 
             ///基础伤害
             float damage = attackStats.Attack;
             ///治疗
-            if (damage < 0)
-            {
-                isRecovery = true;
-            }
-            else if(damage >0)
+           if(damage >0)
             {
                 ///防御
                 damage *= 1 - hitStats.Armor / (100 + hitStats.Armor);
@@ -94,26 +90,37 @@ namespace CircleOfLife
             if (damage == 0) return;
             context.HitData.Damage(damage, context);
 
+            FlyWord(damage,context.HitData,isCrit);
+
+
+
+
+        }
+        public static void FlyWord(float damage,BattleStats hitData,bool isCrit=false)
+        {
+            bool isRecovery = false;
+            if (damage < 0)
+            {
+                isRecovery = true;
+            }
+
             ///飘字
             var flyWord = RecyclePool.RequestWithCollection(Recycle.DamageText);
 
             ///激活
             flyWord.GameObject.SetActive(true);
 
-            flyWord.Transform.position = context.HitData.Transform.position+new Vector3(Random.Range(-1,1f), Random.Range(-1, 1f));
+            flyWord.Transform.position = hitData.Transform.position + new Vector3(Random.Range(-1, 1f), Random.Range(-1, 1f));
 
-           
+
             ///样式选择
-            FactionType attackerFaction = FactionType.Friend /*battleContext.AttackerData.*/;
-            FlyWordStyle style = GetStyle(attackerFaction,isCrit,isRecovery);
+            FactionType attackerFaction = hitData.BattleEntity.FactionType.Reversal();
+            FlyWordStyle style = Instance.GetStyle(attackerFaction, isCrit, isRecovery);
 
             ///飘字初始化
             var flyWordComponent = flyWord.GetMainComponent<FlyWord>();
-            if (damage < 0) flyWordComponent.Init("+"+Mathf.RoundToInt(-damage).ToString(), style, false);
+            if (damage < 0) flyWordComponent.Init("+" + Mathf.RoundToInt(-damage).ToString(), style, false);
             else flyWordComponent.Init(Mathf.RoundToInt(damage).ToString(), style);
-
-           
-
         }
 
         public void Damage(BattleContext battleContext,System.Action<BattleContext> otherAction)

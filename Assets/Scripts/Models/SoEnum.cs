@@ -19,7 +19,8 @@ namespace CircleOfLife
 
     public enum BuildStat
     {
-        TreatmentStation, LogisticsService, SignalTransmitter, ProtectiveNet
+        TreatmentStation, LogisticsService, SignalTransmitter, ProtectiveNet,
+        ElectricFencing, BladeFencing
     }
 
     /////////GameObject
@@ -46,6 +47,15 @@ namespace CircleOfLife
     public enum AnimalSkillType
     {
         test1
+    }
+
+    public static class EnumExtendFuncs
+    {
+        public static FactionType Reversal(this FactionType factionType)
+        {
+            if (factionType.Equals(FactionType.Enemy)) return FactionType.Friend;
+            return FactionType.Enemy;
+        }
     }
 
 
