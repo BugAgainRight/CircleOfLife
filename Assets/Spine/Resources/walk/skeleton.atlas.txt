@@ -1,0 +1,55 @@
+
+skeleton.png
+size: 418,343
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+右手
+  rotate: false
+  xy: 362, 10
+  size: 54, 129
+  orig: 1200, 1200
+  offset: 540, 591
+  index: -1
+右腿
+  rotate: true
+  xy: 231, 2
+  size: 36, 105
+  orig: 1200, 1200
+  offset: 563, 474
+  index: -1
+后发
+  rotate: false
+  xy: 2, 11
+  size: 227, 146
+  orig: 1200, 1200
+  offset: 505, 586
+  index: -1
+头部
+  rotate: true
+  xy: 2, 159
+  size: 182, 241
+  orig: 1200, 1200
+  offset: 549, 641
+  index: -1
+左手
+  rotate: true
+  xy: 231, 79
+  size: 60, 129
+  orig: 1200, 1200
+  offset: 629, 594
+  index: -1
+左腿
+  rotate: true
+  xy: 231, 40
+  size: 37, 105
+  orig: 1200, 1200
+  offset: 607, 474
+  index: -1
+衣服
+  rotate: false
+  xy: 245, 141
+  size: 171, 200
+  orig: 1200, 1200
+  offset: 540, 544
+  index: -1

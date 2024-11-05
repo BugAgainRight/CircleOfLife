@@ -62,7 +62,7 @@ namespace CircleOfLife.Weather
 
             foreach (var cloud in CloudLights)
             {
-                animator.While(cloud.MileaseTo("intensity", weatherType == Weather.Day ? 0.5f : 0f, 0.5f));
+                animator.While(cloud.MileaseTo("intensity", weatherType == Weather.Day ? 1f : 0f, 0.5f));
             }
 
             return animator;
