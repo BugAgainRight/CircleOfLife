@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CircleOfLife.ScriptObject;
 using Milease.Core.Animator;
 using Milease.Core.UI;
 using Milease.Utils;
 using Milutools.Milutools.UI;
+using Milutools.Recycle;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace CircleOfLife.Build.UI
@@ -26,13 +29,15 @@ namespace CircleOfLife.Build.UI
         public RectTransform FoldoutButton;
         public RectTransform Container, UpBlack, DownBlack;
         public TMP_Text PlaceTip;
+        public Light2D PlaceLight;
         
         public bool PlacingMode { get; set; }
         public int Material { get; set; }
-        public BuildSoData PlacingBuilding { get; set; }
+        public BuildingUIData PlacingBuilding { get; set; }
         
         private BuildingPlaceUIData uiData;
         private readonly MilStateAnimator stateAnimator = new();
+        private readonly List<GameObject> revertable = new();
         
         protected override void Begin()
         {
@@ -88,12 +93,17 @@ namespace CircleOfLife.Build.UI
             }
         }
         
-        public void StartPlacing(BuildSoData target)
+        public void StartPlacing(BuildingUIData target)
         {
+            if (target.MetaData.Cost > Material)
+            {
+                return;
+            }
+            Cursor.visible = false;
             PlacingBuilding = target;
             PlacingMode = true;
             PlacingIcon.gameObject.SetActive(true);
-            PlacingIcon.sprite = target.Icon;
+            PlacingIcon.sprite = target.MetaData.Icon;
             PlacingIcon.transform.localScale = Vector3.one * 0.98f;
             UICover.SetActive(true);
             stateAnimator.Transition(UIState.Placing);
@@ -101,6 +111,7 @@ namespace CircleOfLife.Build.UI
 
         public void EndPlacing()
         {
+            Cursor.visible = true;
             PlacingMode = false;
             PlacingIcon.gameObject.SetActive(false);
             UICover.SetActive(false);
@@ -124,7 +135,7 @@ namespace CircleOfLife.Build.UI
         
         private void UpdatePlacingMode()
         {
-            if (Input.GetMouseButtonUp(1))
+            if (Input.GetKeyUp(KeyCode.Escape))
             {
                 EndPlacing();
                 stateAnimator.Transition(UIState.FoldOut);
@@ -134,16 +145,32 @@ namespace CircleOfLife.Build.UI
             var size = uiData.MapGrid.cellSize;
             var gridPos = uiData.MapGrid.transform.position;
             var pos = (Vector2)Camera.main!.ScreenToWorldPoint(Input.mousePosition);
-            pos.x = Mathf.CeilToInt((pos.x - gridPos.x) / size.x) * size.x + gridPos.x;
-            pos.y = Mathf.CeilToInt((pos.y - gridPos.y) / size.y) * size.y + gridPos.y;
-            pos.x -= PlacingBuilding.BuildSize.x * size.x / 2f;
-            pos.y -= PlacingBuilding.BuildSize.y * size.y / 2f;
+            pos.x = Mathf.RoundToInt((pos.x - gridPos.x) / size.x) * size.x + gridPos.x;
+            pos.y = Mathf.RoundToInt((pos.y - gridPos.y) / size.y) * size.y + gridPos.y;
+            var offset = new Vector2(size.x * (PlacingBuilding.MetaData.BuildSize.x - 1) / 2f, 
+                                    size.y * (PlacingBuilding.MetaData.BuildSize.y - 1) / 2f)
+                        - (Vector2)size / 2f;
+            pos -= offset;
             PlacingIcon.transform.position = pos;
-
-            var boxSize = PlacingBuilding.BuildSize * size - Vector2.one * 0.1f;
+            
+            var boxSize = PlacingBuilding.MetaData.BuildSize * size - Vector2.one * 0.1f;
             var colliders = Physics2D.OverlapAreaAll(pos - boxSize / 2f, pos + boxSize / 2f);
             var canPlace = !colliders.Any(x => x.CompareTag("Building") || x.gameObject.layer == 8);
             PlacingIcon.color = canPlace ? Color.white : Color.red;
+            PlaceLight.color = PlacingIcon.color;
+
+            if (canPlace && Input.GetKeyUp(KeyCode.Return))
+            {
+                Material -= PlacingBuilding.MetaData.Cost;
+                RecyclePool.Request(PlacingBuilding.Type, (c) =>
+                {
+                    c.Transform.position = pos;
+                    c.GameObject.SetActive(true);
+                    revertable.Add(c.GameObject);
+                });
+                EndPlacing();
+                stateAnimator.Transition(UIState.FoldOut);
+            }
         }
 
         private void Update()

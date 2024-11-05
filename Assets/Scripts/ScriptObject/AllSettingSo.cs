@@ -41,6 +41,10 @@ namespace CircleOfLife.ScriptObject
                 {
                     RecyclePool.EnsurePrefabRegistered(a.value1, gameObject, 20);
                 }
+                else if (a.value2 is BuildSoData buildSoData)
+                {
+                    RecyclePool.EnsurePrefabRegistered(a.value1, buildSoData.Prefab, 20);
+                }
             }
         }
 

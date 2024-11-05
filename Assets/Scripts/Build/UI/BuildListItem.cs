@@ -24,7 +24,7 @@ namespace CircleOfLife.Build.UI
 
         public override void OnSelect(PointerEventData eventData)
         {
-            BuildingPlaceUI.Instance.StartPlacing((BuildSoData)Binding);
+            BuildingPlaceUI.Instance.StartPlacing((BuildingUIData)Binding);
         }
 
         protected override void OnInitialize()
@@ -42,11 +42,11 @@ namespace CircleOfLife.Build.UI
 
         public override void UpdateAppearance()
         {
-            var data = (BuildSoData)Binding;
-            Title.text = data.Name;
-            Cost.text = data.Cost.ToString();
-            Cost.color = BuildingPlaceUI.Instance.Material < data.Cost ? Color.red : Color.black;
-            Icon.sprite = data.Icon;
+            var data = (BuildingUIData)Binding;
+            Title.text = data.MetaData.Name;
+            Cost.text = data.MetaData.Cost.ToString();
+            Cost.color = BuildingPlaceUI.Instance.Material < data.MetaData.Cost ? Color.red : Color.black;
+            Icon.sprite = data.MetaData.Icon;
         }
 
         public override void AdjustAppearance(float pos)
