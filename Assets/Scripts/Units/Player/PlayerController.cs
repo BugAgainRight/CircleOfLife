@@ -31,7 +31,7 @@ namespace CircleOfLife.Units
 
             Stats = Stat.Build(gameObject, test =>
             {
-                if (test.Current.Hp <= 0f)
+                if (test.HitData.Current.Hp <= 0f)
                 {
                     Destroy(gameObject);
                 }
