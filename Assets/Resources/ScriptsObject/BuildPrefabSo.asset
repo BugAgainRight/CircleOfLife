@@ -12,4 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6f71197955d984b83c9c7543549441, type: 3}
   m_Name: BuildPrefabSo
   m_EditorClassIdentifier: 
-  AllBuildSettings: []
+  AllBuildSettings:
+  - value1: 0
+    value2:
+      Prefab: {fileID: 0}
+      Icon: {fileID: 0}
+      BuildSize: {x: 0, y: 0}
+      Cost: 0
+      WhetherRotate: 0
+      Name: 
+  - value1: 1
+    value2:
+      Prefab: {fileID: 0}
+      Icon: {fileID: 0}
+      BuildSize: {x: 0, y: 0}
+      Cost: 0
+      WhetherRotate: 0
+      Name: 
+  - value1: 2
+    value2:
+      Prefab: {fileID: 0}
+      Icon: {fileID: 0}
+      BuildSize: {x: 0, y: 0}
+      Cost: 0
+      WhetherRotate: 0
+      Name: 

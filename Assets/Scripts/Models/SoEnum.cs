@@ -19,7 +19,7 @@ namespace CircleOfLife
 
     public enum BuildStat
     {
-        test1
+        TreatmentStation, LogisticsService, SignalTransmitter, ProtectiveNet
     }
 
     /////////GameObject
@@ -35,7 +35,7 @@ namespace CircleOfLife
 
     public enum PlayerSkillType
     {
-        test1, test2, test3, test4, test5, test6
+        Whack, Slash, Skill3, test4, test5, test6
     }
 
     public enum BuildSkillType

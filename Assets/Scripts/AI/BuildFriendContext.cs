@@ -32,7 +32,7 @@ namespace CircleOfLife
         
 
         [HideInInspector]
-        public GameObject Enemy;
+        public Collider2D Enemy;
 
         [HideInInspector]
         public bool HasTarget=false;
@@ -65,7 +65,7 @@ namespace CircleOfLife
         public override void UpdateContext()
         {
 
-            if (Enemy == null || Enemy.activeInHierarchy == false ||
+            if (Enemy == null || Enemy.gameObject.activeInHierarchy == false ||
                 Vector2.Distance(StandPos, Enemy.transform.position) > ViewRadius.radius) HasTarget = false;
 
             if (!HasTarget)
@@ -81,7 +81,7 @@ namespace CircleOfLife
                 if (mid.Count>0)
                 {
                     HasTarget = true;
-                    Enemy = mid[0].gameObject;
+                    Enemy = mid[0];
                 }
                 else HasTarget = false;
             }

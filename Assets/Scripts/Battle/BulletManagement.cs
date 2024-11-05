@@ -85,13 +85,12 @@ namespace CircleOfLife
         [BulletTrigger(BulletTriggerType.Boom)]
         public static void BoomTrigger(BattleContext context)
         {
-            var colls = Physics2D.OverlapCircleAll(context.AttackerTran.position, context.BoomRadius, context.DamageableLayer);
+            var colls = Physics2D.OverlapCircleAll(
+                context.AttackerData.Transform.position, context.BoomRadius, context.DamageableLayer);
             var idamages = colls.ToList().Where(x => x.GetComponent<IBattleEntity>() != null);
             foreach (var idamage in idamages)
             {
                 BattleContext midContext = context;
-                midContext.HitTran = idamage.transform;
-                midContext.HitCollider = idamage;
                 midContext.HitData = idamage.GetComponent<IBattleEntity>().Stats;
 
                 DamageManagement.Instance.Damage(midContext);

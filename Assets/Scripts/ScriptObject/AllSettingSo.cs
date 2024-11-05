@@ -17,7 +17,7 @@ namespace CircleOfLife.ScriptObject
         [HideInInspector]
         public List<TwoValue<T1, T2>> AllBuildSettings;
 
-        protected static Dictionary<T1, T2> allSettings;
+        protected static Dictionary<T1, T2> allSettings=new();
 
 
         public static T2 GetSetting(T1 type)

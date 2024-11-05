@@ -1,5 +1,6 @@
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
+using Milutools.Recycle;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,9 @@ namespace CircleOfLife
             if (battleStats.Current.Hp <= 0)
             {
                 //更新寻路场
+
+                RecyclePool.ReturnToPool(gameObject);
+                return;
             }
 
 

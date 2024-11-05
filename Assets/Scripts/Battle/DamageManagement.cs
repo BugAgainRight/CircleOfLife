@@ -60,13 +60,13 @@ namespace CircleOfLife
         /// <summary>
         /// battleContext 必须填入参数：AttackerData HitData（受击者）HitTran
         /// </summary>
-        /// <param name="battleContext"></param>
-        public void Damage(BattleContext battleContext)
+        /// <param name="context"></param>
+        public void Damage(BattleContext context)
         {
             bool isCrit=false;
             bool isRecovery = false;
-            BattleStats.Stats attackStats = battleContext.AttackerData.Current;
-            BattleStats.Stats hitStats = battleContext.HitData.Current;
+            BattleStats.Stats attackStats = context.AttackerData.Current;
+            BattleStats.Stats hitStats = context.HitData.Current;
 
             ///基础伤害
             float damage = attackStats.Attack;
@@ -83,14 +83,16 @@ namespace CircleOfLife
                 ///暴击伤害计算
                 if (Random.Range(0, 1f) <= attackStats.CriticalChance)
                 {
-                    damage *= (1 + attackStats.CriticalStrikeDamage);
+                    damage *= 2;
                     isCrit = true;
                 }
-                damage *= (1 - battleContext.HitData.Current.ReduceDamageRate);
+                damage *= context.SkillRate;
+                damage *= Mathf.Max(0, (100 - context.HitData.Current.Armor)) *0.01f;
+                damage *= (1 - context.HitData.Current.ReduceDamageRate);
             }
             ///扣血
             if (damage == 0) return;
-            battleContext.HitData.Damage(damage);
+            context.HitData.Damage(damage);
 
             ///飘字
             var flyWord = RecyclePool.RequestWithCollection(Recycle.DamageText);
@@ -98,7 +100,7 @@ namespace CircleOfLife
             ///激活
             flyWord.GameObject.SetActive(true);
 
-            flyWord.Transform.position = battleContext.HitTran.position+new Vector3(Random.Range(-1,1f), Random.Range(-1, 1f));
+            flyWord.Transform.position = context.HitData.Transform.position+new Vector3(Random.Range(-1,1f), Random.Range(-1, 1f));
 
            
             ///样式选择

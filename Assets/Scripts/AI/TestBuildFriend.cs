@@ -49,6 +49,7 @@ namespace CircleOfLife
 
         private BehaviourState MoveToEnemy(BuildFriendContext context)
         {
+            if(!context.HasTarget) return BehaviourState.Succeed;
             if (Vector2.Distance(transform.position, context.Enemy.transform.position) 
                 <=context.FireDistance+0.005)return BehaviourState.Succeed;
 
@@ -66,16 +67,9 @@ namespace CircleOfLife
 
         private BehaviourState Fire(BuildFriendContext context)
         {
+
+            SkillContext skillContext = new(context.EnemyLayer, context.BattleStat, context.Enemy.GetBattleStats());
           
-            SkillContext skillContext = new()
-            {
-                HitData=context.Enemy.GetComponent<IBattleEntity>().Stats,
-                AttackerData = context.BattleStat,
-                TargetObj = context.Enemy,
-                TriggerObj = gameObject,
-                FactionType = FactionType.Friend,
-                TriggerPos=transform.position
-            };
             SkillManagement.GetSkill(BuildSkillType.TestBuildFriendFire)(skillContext);
             return BehaviourState.Succeed;
         }

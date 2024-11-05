@@ -15,17 +15,17 @@ namespace CircleOfLife
     }
     public struct BattleContext
     {
-        public Transform AttackerTran;
 
-        /// <summary>
-        /// 受击者Transform
-        /// </summary>
-        public Transform HitTran;
+        public BattleContext(LayerMask damageableLayer, BattleStats attackerData, BattleStats hitData)
+        {
+            AttackerData = attackerData;
+            HitData = hitData;
+            BoomRadius = 0;
+            DamageableLayer = damageableLayer;
+            Prefab = null;
+            SkillRate = 1;
+        }
 
-        /// <summary>
-        /// 受击者Collider
-        /// </summary>
-        public Collider2D HitCollider;
 
         /// <summary>
         /// 攻击者的数据
@@ -37,8 +37,9 @@ namespace CircleOfLife
         public BattleStats HitData;
 
         public float BoomRadius;
+        public float SkillRate;
 
-        public int DamageableLayer;
+        public LayerMask DamageableLayer;
 
         public GameObject Prefab;
     

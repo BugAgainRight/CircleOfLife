@@ -7,9 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
-
-
+using UnityEngine.UIElements;
 
 namespace RuiRuiTool
 {
@@ -201,12 +201,12 @@ namespace RuiRuiTool
                     {
                         EditorGUILayout.BeginHorizontal();
                         GUILayout.Label(i.ToString(), GUILayout.Width(30));
-                        EditorGUILayout.PropertyField(element,GUIContent.none);
+                        EditorGUILayout.PropertyField(element, GUIContent.none);
                         EditorGUILayout.EndHorizontal();
                     }
 
                 }
-             
+
 
             }
             EditorGUILayout.EndScrollView();
@@ -446,12 +446,13 @@ namespace RuiRuiTool
             {
                 var element = serializedProperty.GetArrayElementAtIndex(i);
                 var elementData = new Dictionary<string, object>();
-
                 foreach (var propertyName in propertyNames)
                 {
+                 
                     var property = element.FindPropertyRelative(propertyName);
                     if (property != null)
                     {
+                 
                         if (property.propertyType == SerializedPropertyType.Enum)
                         {
                             elementData[propertyName] = property.enumValueIndex;
@@ -463,6 +464,10 @@ namespace RuiRuiTool
                         else if (property.propertyType == SerializedPropertyType.ObjectReference)
                         {
                             elementData[propertyName] = property.objectReferenceValue;
+                          
+                        }else if (property.propertyType == SerializedPropertyType.Generic)
+                        {
+                            elementData[propertyName] = property.boxedValue;
                         }
                         // 你可以在这里添加对其他类型的处理
                     }
@@ -498,6 +503,9 @@ namespace RuiRuiTool
                         else if (property.propertyType == SerializedPropertyType.ObjectReference)
                         {
                             property.objectReferenceValue = tempList[i][propertyName] as Object;
+                        }else if(property.propertyType == SerializedPropertyType.Generic)
+                        {
+                            property.boxedValue = tempList[i][propertyName];
                         }
                         // 你可以在这里添加对其他类型的处理
                     }
@@ -559,77 +567,135 @@ namespace RuiRuiTool
     [CustomPropertyDrawer(typeof(TwoValue<,>))]
     public class TwoValueDrawer : PropertyDrawer
     {
+        private float propH;
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             Rect position2 = position;
-
+            
             position.width /= 2;
             position2.width /= 2;
 
             position2.x = position.x + position2.width;
 
             EditorGUI.BeginProperty(position, label, property);
-            EditorGUI.PropertyField(position, property.FindPropertyRelative("value1"), GUIContent.none);
-            EditorGUI.PropertyField(position2, property.FindPropertyRelative("value2"), GUIContent.none);
-
+            AddProperty("value1", position,property);
+            AddProperty("value2", position2,property);
+           
+            //EditorGUI.PropertyField(position, property.FindPropertyRelative("value1"));
+            //EditorGUI.PropertyField(position2, property.FindPropertyRelative("value2"));
 
             EditorGUI.EndProperty();
+        }
+        private void AddProperty(string name, Rect rect, SerializedProperty property)
+        {
+            
+            var sp_name = property.FindPropertyRelative(name);
+            rect.height = EditorGUI.GetPropertyHeight(sp_name);
+            EditorGUI.PropertyField(rect, sp_name,GUIContent.none);
+            propH =Mathf.Max(propH, EditorGUI.GetPropertyHeight(sp_name));
+        }
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return propH;
         }
     }
 
     [CustomPropertyDrawer(typeof(BuildSoData))]
     public class BuildPrefabDrawer : PropertyDrawer
     {
+        float propH = EditorGUIUtility.singleLineHeight;
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            #region 注释
+            //EditorGUILayout.BeginVertical();
+            //{
+            //    EditorGUI.BeginProperty(position, label, property);
+            //    {
+            //        EditorGUILayout.BeginHorizontal();
+            //        {
+            //            GUILayout.Label("Prefab");
+            //            EditorGUILayout.PropertyField(property.FindPropertyRelative("Prefab"), GUIContent.none);
+            //        }
+            //        EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.BeginVertical();
-            {
-                EditorGUI.BeginProperty(position, label, property);
-                {
-                    EditorGUILayout.BeginHorizontal();
-                    {
-                        GUILayout.Label("Prefab");
-                        EditorGUILayout.PropertyField(property.FindPropertyRelative("Prefab"), GUIContent.none);
-                    }
-                    EditorGUILayout.EndHorizontal();
+            //        EditorGUILayout.BeginHorizontal();
+            //        {
+            //            GUILayout.Label("Icon");
+            //            EditorGUILayout.PropertyField(property.FindPropertyRelative("Icon"), GUIContent.none);
+            //        }
+            //        EditorGUILayout.EndHorizontal();
 
-                    EditorGUILayout.BeginHorizontal();
-                    {
-                        GUILayout.Label("Icon");
-                        EditorGUILayout.PropertyField(property.FindPropertyRelative("Icon"), GUIContent.none);
-                    }
-                    EditorGUILayout.EndHorizontal();
+            //        EditorGUILayout.BeginHorizontal();
+            //        {
+            //            GUILayout.Label("BuildSize");
+            //            EditorGUILayout.PropertyField(property.FindPropertyRelative("BuildSize"), GUIContent.none);
+            //        }
+            //        EditorGUILayout.EndHorizontal();
 
-                    EditorGUILayout.BeginHorizontal();
-                    {
-                        GUILayout.Label("BuildSize");
-                        EditorGUILayout.PropertyField(property.FindPropertyRelative("BuildSize"), GUIContent.none);
-                    }
-                    EditorGUILayout.EndHorizontal();
+            //        EditorGUILayout.BeginHorizontal();
+            //        {
+            //            GUILayout.Label("Cost");
+            //            EditorGUILayout.PropertyField(property.FindPropertyRelative("Cost"), GUIContent.none);
+            //        }
+            //        EditorGUILayout.EndHorizontal();
 
-                    EditorGUILayout.BeginHorizontal();
-                    {
-                        GUILayout.Label("Cost");
-                        EditorGUILayout.PropertyField(property.FindPropertyRelative("Cost"), GUIContent.none);
-                    }
-                    EditorGUILayout.EndHorizontal();
+            //        EditorGUILayout.BeginHorizontal();
+            //        {
+            //            GUILayout.Label("WhetherRotate");
+            //            EditorGUILayout.PropertyField(property.FindPropertyRelative("WhetherRotate"), GUIContent.none);
+            //        }
+            //        EditorGUILayout.EndHorizontal();
 
-                    EditorGUILayout.BeginHorizontal();
-                    {
-                        GUILayout.Label("WhetherRotate");
-                        EditorGUILayout.PropertyField(property.FindPropertyRelative("WhetherRotate"), GUIContent.none);
-                    }
-                    EditorGUILayout.EndHorizontal();
-
-                   
+            //        EditorGUILayout.BeginHorizontal();
+            //        {
+            //            GUILayout.Label("Name");
+            //            EditorGUILayout.PropertyField(property.FindPropertyRelative("Name"), GUIContent.none);
+            //        }
+            //        EditorGUILayout.EndHorizontal();
 
 
-                }
-                EditorGUI.EndProperty();
-            }
-            EditorGUILayout.EndVertical();
+            //    }
+            //    EditorGUI.EndProperty();
+            //}
+            //EditorGUILayout.EndVertical();
+            #endregion
+
+            var Space_Height = 2;
+
+            var rect = position;
+            rect.height = EditorGUIUtility.singleLineHeight;
+            rect.width = position.width - 10; //右边距
+            
+            AddProperty("Prefab", ref rect, property, Space_Height);
+            AddProperty("Icon", ref rect, property, Space_Height);
+            AddProperty("BuildSize", ref rect, property, Space_Height);
+            AddProperty("Cost", ref rect, property, Space_Height);
+            AddProperty("WhetherRotate", ref rect, property, Space_Height);
+            AddProperty("Name", ref rect, property, Space_Height);
+
+            propH = rect.y - position.y + EditorGUIUtility.singleLineHeight; //3行+3行space
+
         }
+
+
+        private void AddProperty(string name,ref Rect rect,SerializedProperty property,float Space_Height)
+        {
+            rect.y += EditorGUIUtility.singleLineHeight + Space_Height; //第3行
+            Rect label=rect, content=rect;
+            label.width = rect.width * 0.2f;
+            content.width = rect.width * 0.8f;
+            content.position += Vector2.right * label.width;
+            var sp_name = property.FindPropertyRelative(name);
+            EditorGUI.LabelField(label, name);
+            EditorGUI.PropertyField(content, sp_name,GUIContent.none);
+        }
+    
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return propH;
+        }
+
     }
 
 

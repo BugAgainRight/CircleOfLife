@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllBuildSettings:
   - value1: 0
-    value2: {fileID: 0}
+    value2: {fileID: 7423378393176344028, guid: 5c9a822f756e0a94dafb0eb663718ec4, type: 3}

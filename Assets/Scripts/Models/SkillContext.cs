@@ -7,31 +7,31 @@ namespace CircleOfLife
 {
     public struct SkillContext 
     {
-        /// <summary>
-        /// 调用技能者的gameobject
-        /// </summary>
-        public GameObject TriggerObj;
+        public SkillContext(LayerMask layer, BattleStats attackerData, BattleStats hitData=null)
+        {
+            AttackerData = attackerData;
+            HitData = hitData;
+            TriggerPos = attackerData.Transform.position;
+            TargetPos = hitData?.Transform.position ?? Vector2.zero;
+            Direction = (TargetPos - TriggerPos).normalized;
 
-        /// <summary>
-        /// 目标的gameobject
-        /// </summary>
-        public GameObject TargetObj;
+            MoveSpeed = 0f;
+            LifeTime = 0f;
 
-        /// <summary>
-        /// 调用技能者的阵营
-        /// </summary>
-        public FactionType FactionType;
+            PhysicsLayer = layer;
+        }
 
         public Vector2 TriggerPos;
         public Vector2 TargetPos;
         public Vector2 Direction;
-        public GameObject BodyPrefab;
+
         public BattleStats AttackerData;
         public BattleStats HitData;
-        public float MoveSpeed;
 
-        public List<GameObject> OtherPrefabs;
-        public GizmosSetting RangeSetting;
+        public float MoveSpeed;
+        public float LifeTime;
+    
+
         /// <summary>
         /// 物理效果作用的layer
         /// </summary>

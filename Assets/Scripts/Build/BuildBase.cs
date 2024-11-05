@@ -13,6 +13,8 @@ namespace CircleOfLife
         [SerializeField]
         private FactionType factionType;
 
+        public BattleRange BattleRange;
+        public GameObject RangeObj;
         protected bool TimerFinish
         {
             get
@@ -31,6 +33,11 @@ namespace CircleOfLife
 
         public abstract void HurtAction(BattleStats battleStats);
 
+        public void ShowRange()
+        {
+            RangeObj.SetActive(true);
+            RangeObj.transform.localScale = new Vector3(BattleRange.Range.radius, BattleRange.Range.radius, 1);
+        }
 
     }
 }

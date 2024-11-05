@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allPlayerSkill:
   - value1: 0
-    value2: {fileID: 0}
+    value2: {fileID: 1899250594192068, guid: 6561be0bdcabd634da8ca71c49c14153, type: 3}
   - value1: 1
-    value2: {fileID: 0}
+    value2: {fileID: 149344, guid: 617378de28fbaa64c96485d5b0d9169b, type: 3}
   - value1: 2
     value2: {fileID: 0}
   - value1: 3

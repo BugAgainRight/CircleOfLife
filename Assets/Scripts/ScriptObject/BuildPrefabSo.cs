@@ -36,6 +36,7 @@ namespace CircleOfLife.ScriptObject
         public Vector2 BuildSize;
         public int Cost;
         public bool WhetherRotate;
+        public string Name;
        
        
     }

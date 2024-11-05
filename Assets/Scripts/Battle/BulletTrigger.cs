@@ -38,8 +38,6 @@ namespace CircleOfLife
             {
                 //hasTrigger = true;
                 BattleContext battleContext = this.battleContext;
-               
-                battleContext.HitTran = collision.transform;  
                 battleContext.HitData = damage.Stats;
                 triggerAction?.Invoke(battleContext);
 

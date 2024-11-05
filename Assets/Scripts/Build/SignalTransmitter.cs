@@ -26,12 +26,8 @@ namespace CircleOfLife
         {
             if (transform.childCount <= MaxCount && TimerFinish)
             {
-                SkillContext skillContext = new()
-                {
-                    TriggerObj = gameObject,
-                    TriggerPos = transform.position,
-                    AttackerData = Stats
-                };
+                SkillContext skillContext = new(1 << 0, Stats);
+              
                 SkillManagement.GetSkill(BuildSkillType.SignalTransmitter1)(skillContext);
 
             }

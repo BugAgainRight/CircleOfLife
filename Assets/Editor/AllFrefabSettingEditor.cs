@@ -74,6 +74,9 @@ public class AllPrefabSettingEditor<T1,T2> : CustomEditorSelector, IUseInspector
     private void AllPrefabsShow(SerializedProperty serializedProperty)
     {
         allPrefabTool.SearchAndShow(serializedProperty, SearchMatch);
+        allPrefabTool.AddArray(serializedProperty);
+        allPrefabTool.DeleteByCount(serializedProperty);
+        allPrefabTool.DeleteArrayAtIndex(serializedProperty);
         allPrefabTool.SortArray(serializedProperty, "value1", "value2");
         if (GUILayout.Button("添加全部已注册枚举"))
         {

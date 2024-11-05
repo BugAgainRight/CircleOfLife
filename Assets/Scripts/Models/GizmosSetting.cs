@@ -33,12 +33,12 @@ namespace CircleOfLife
         /// </summary>
         /// <param name="layerMask"></param>
         /// <returns></returns>
-        public List<Collider2D> GetCollInRange(int layerMask = -1)
+        public List<Collider2D> GetCollInRange(int layerMask = -1,float angle=0)
         {
 
             if (GizmosType == DrawGizmosType.rectangle)
-                if (layerMask == -1) return Physics2D.OverlapBoxAll(gizmosCenter, size, 0).ToList();
-                else return Physics2D.OverlapBoxAll(gizmosCenter, size, 0, layerMask).ToList();
+                if (layerMask == -1) return Physics2D.OverlapBoxAll(gizmosCenter, size, angle).ToList();
+                else return Physics2D.OverlapBoxAll(gizmosCenter, size, angle, layerMask).ToList();
             else if (GizmosType == DrawGizmosType.circle)
                 if (layerMask == -1) return Physics2D.OverlapCircleAll(gizmosCenter, radius).ToList();
                 else return Physics2D.OverlapCircleAll(gizmosCenter, radius, layerMask).ToList();
