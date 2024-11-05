@@ -188,18 +188,94 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Attribute:
-    Velocity: 0
-    Hp: 100
-    Attack: 10
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
     Armor: 0
     EffectRange: 0
-    AttackInterval: 10
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
   factionType: 0
   BattleRange: {fileID: 8007338321400196153}
   RangeObj: {fileID: 52925791337673292}
+  PhysicsLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  WhetherSelectDirection: 0
 --- !u!114 &3779418757824513651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,7 +376,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 2}
+  m_Size: {x: 2.94, y: 1.96}
   m_EdgeRadius: 0
 --- !u!114 &8007338321400196153
 MonoBehaviour:

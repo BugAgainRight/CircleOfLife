@@ -43,10 +43,19 @@ namespace CircleOfLife.Build.UI
         public override void UpdateAppearance()
         {
             var data = (BuildingUIData)Binding;
+            var tex = data.MetaData.Icon.texture;
             Title.text = data.MetaData.Name;
             Cost.text = data.MetaData.Cost.ToString();
             Cost.color = BuildingPlaceUI.Instance.Material < data.MetaData.Cost ? Color.red : Color.black;
             Icon.sprite = data.MetaData.Icon;
+            if (tex.height > tex.width)
+            {
+                Icon.rectTransform.sizeDelta = new Vector2(150f / tex.height * tex.width, 150f);
+            }
+            else
+            {
+                Icon.rectTransform.sizeDelta = new Vector2(150f, 150f / tex.width * tex.height);
+            }
         }
 
         public override void AdjustAppearance(float pos)

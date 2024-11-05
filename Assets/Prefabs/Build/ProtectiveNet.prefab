@@ -104,7 +104,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Attribute:
-    Velocity: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
     Hp: 0
     Attack: 0
     Armor: 0
@@ -116,6 +188,10 @@ MonoBehaviour:
   factionType: 0
   BattleRange: {fileID: 1113124204260459560}
   RangeObj: {fileID: 5670099025011479615}
+  PhysicsLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  WhetherSelectDirection: 0
 --- !u!114 &1113124204260459560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +313,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.98, y: 0.98}
   m_EdgeRadius: 0
 --- !u!1 &3951595439840361195
 GameObject:

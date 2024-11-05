@@ -275,21 +275,96 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Attribute:
-    Velocity: 0
-    Hp: 100
-    Attack: -10
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
     Armor: 0
     EffectRange: 0
-    AttackInterval: 1
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 0
+    Attack: 0
+    Armor: 0
+    EffectRange: 0
+    AttackInterval: 0
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
   factionType: 0
   BattleRange: {fileID: 3768745209793196336}
   RangeObj: {fileID: 6973660460236216561}
-  BattleEntityLayer:
+  PhysicsLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
+  WhetherSelectDirection: 0
+  HospitalEffectCount: 0
+  AllLevelValues: []
 --- !u!50 &7311430495796193333
 Rigidbody2D:
   serializedVersion: 4
@@ -360,7 +435,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.98, y: 0.98}
   m_EdgeRadius: 0
 --- !u!114 &3768745209793196336
 MonoBehaviour:
