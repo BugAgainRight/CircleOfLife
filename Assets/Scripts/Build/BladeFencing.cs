@@ -13,20 +13,32 @@ namespace CircleOfLife
             
         };
 
-        public override int Level { get; protected set; }
-
-        public override void LevelUp(Enum direction = null)
-        {
-            
-        }
-
         public override void HurtAction(BattleContext context)
         {
            
         }
         private void Awake()
         {
-            Stats = Attribute.Build(gameObject,HurtAction);
+            Level = 1;
+            NowType = BuildSkillType.BladeFencing;
+            Stats = Attribute[0].Build(gameObject, HurtAction);
+        }
+        private void OnEnable()
+        {
+            Level = 1;
+            NowType = BuildSkillType.BladeFencing;
+            ReplaceStats(Attribute[0], true);
+
+        }
+
+        private void FixedUpdate()
+        {
+            RecoveryHP();
+        }
+
+        protected override void LevelUpFunc()
+        {
+            
         }
     }
 }

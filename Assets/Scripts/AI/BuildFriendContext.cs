@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CircleOfLife
 {
@@ -72,10 +73,11 @@ namespace CircleOfLife
             {
                 List<Collider2D> mid = Physics2D.OverlapCircleAll(StandPos, ViewRadius.radius, EnemyLayer).ToList();
                 mid.RemoveAll(x =>
-                {  
-                    IBattleEntity battleEntity = x.GetBattleStats().BattleEntity;
+                {
+                    var battleEntity = x.GetBattleStats();
                     if (battleEntity == null) return true;
-                    if (battleEntity.FactionType.Equals(FactionType.Friend)) return true;
+              
+                    if (battleEntity.BattleEntity.FactionType.Equals(FactionType.Friend)) return true;
                     return false;
                 });
                 if (mid.Count>0)

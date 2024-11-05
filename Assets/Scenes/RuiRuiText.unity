@@ -1067,19 +1067,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258a53ec1007bdf4d9a5c3a8c6daa3cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Attribute:
-    Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
+  Attribute: []
   factionType: 0
   BattleRange: {fileID: 0}
   RangeObj: {fileID: 0}
+  WhetherSelectDirection: 0
 --- !u!212 &1248943911
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -14,15 +14,14 @@ namespace CircleOfLife
         public GameObject FriendPrefab;
         public override List<LevelUpDirection> LevelUpDirections => new()
         {
+           
+            new LevelUpDirection(){NeedLevel=2,Title="变种1",Value=BuildSkillType.SignalTransmitter1},
+            new LevelUpDirection(){NeedLevel=3,Title="变种2",Value=BuildSkillType.SignalTransmitter2},
+            new LevelUpDirection(){NeedLevel=3,Title="变种3",Value=BuildSkillType.SignalTransmitter3}
+
             
         };
 
-        public override int Level { get; protected set; }
-
-        public override void LevelUp(Enum direction = null)
-        {
-            
-        }
         
         public override void HurtAction(BattleContext context)
         {
@@ -31,21 +30,33 @@ namespace CircleOfLife
 
         private void Awake()
         {
-            RecyclePool.EnsurePrefabRegistered(BuildSkillType.SignalTransmitter1, FriendPrefab, 20);
-            Stats = Attribute.Build(gameObject, HurtAction);
+            Level = 1;
+            NowType = BuildSkillType.SignalTransmitterNormal;
+            Stats = Attribute[0].Build(gameObject, HurtAction);
+        }
+        private void OnEnable()
+        {
+            Level = 1;
+            NowType = BuildSkillType.SignalTransmitterNormal;
+            ReplaceStats(Attribute[0], true);
+
         }
 
         private void FixedUpdate()
         {
+            RecoveryHP();
             if (transform.childCount <= MaxCount && TimerFinish)
             {
-                SkillContext skillContext = new(1 << 0, Stats);
+                SkillContext skillContext = new(PhysicsLayer, Stats);
               
-                SkillManagement.GetSkill(BuildSkillType.SignalTransmitter1)(skillContext);
+                SkillManagement.GetSkill((BuildSkillType)NowType)(skillContext);
 
             }
         }
 
-
+        protected override void LevelUpFunc()
+        {
+            BattleRange.Range.radius = Stats.Current.EffectRange;
+        }
     }
 }

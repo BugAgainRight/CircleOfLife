@@ -125,7 +125,8 @@ namespace CircleOfLife
 
 
             ///样式选择
-            FactionType attackerFaction = hitData.BattleEntity.FactionType.Reversal();
+            FactionType attackerFaction = hitData.BattleEntity.FactionType;
+            if (!isRecovery) attackerFaction = attackerFaction.Reversal();
             FlyWordStyle style = Instance.GetStyle(attackerFaction, isCrit, isRecovery);
 
             ///飘字初始化

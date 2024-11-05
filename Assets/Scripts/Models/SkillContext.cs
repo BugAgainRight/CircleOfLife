@@ -17,6 +17,8 @@ namespace CircleOfLife
 
             MoveSpeed = 0f;
             LifeTime = 0f;
+            EffectCount = 1;
+            SpecialValue = 0;
 
             PhysicsLayer = layer;
         }
@@ -28,8 +30,13 @@ namespace CircleOfLife
         public BattleStats AttackerData;
         public BattleStats HitData;
 
+        public int EffectCount;
         public float MoveSpeed;
         public float LifeTime;
+        /// <summary>
+        /// 特殊值，例如兽医站全屏回复小动物血量
+        /// </summary>
+        public float SpecialValue;
     
 
         /// <summary>

@@ -80,7 +80,7 @@ namespace CircleOfLife
 
             var list = collection.GetMainComponent<BattleRange>().GetAllEnemyInRange(
                 context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
-
+            Debug.Log(list.Count);
             foreach (var item in list)
             {
                 BattleStats mid = item.GetBattleStats();
@@ -153,23 +153,52 @@ namespace CircleOfLife
 
         #region BuildSkill
 
-        [Skill(BuildSkillType.TreatmentStation)]
+        [Skill(BuildSkillType.TreatmentStationNormal)]
         private static void BuildSkill_0(SkillContext context)
         {
             var list = context.AttackerData.Transform.GetComponent<BuildBase>().BattleRange.GetAllFriendInRange(
                 context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
+            int count = 0;
             foreach (var coll in list)
             {
+                if (count >= context.EffectCount) break;
                 DamageManagement.Damage(
                     new BattleContext(context.PhysicsLayer, context.AttackerData, coll.GetBattleStats()));
+                count++;
             }
 
         }
 
-        [Skill(BuildSkillType.SignalTransmitter1)]
+        [Skill(BuildSkillType.TreatmentStation1)]
+        private static void BuildSkill_0_1(SkillContext context)
+        {
+            BuildSkill_0(context);
+            var list = GameObject.FindGameObjectsWithTag("小动物");
+            foreach (var item in list)
+            {
+                if (item.TryGetComponent(out IBattleEntity battleEntity))
+                {
+                    if (battleEntity.FactionType == FactionType.Friend)
+                    {
+                        DamageManagement.Damage(
+                            new BattleContext(context.PhysicsLayer, context.AttackerData, battleEntity.Stats));
+                    }
+                }
+            }
+
+        }
+
+
+        [Skill(BuildSkillType.TreatmentStation2)]
+        private static void BuildSkill_0_2(SkillContext context)
+        {
+            BuildSkill_0(context);
+        }
+
+        [Skill(BuildSkillType.SignalTransmitterNormal)]
         private static void BuildSkill_1(SkillContext context)
         {
-            var collection = RecyclePool.RequestWithCollection(BuildSkillType.SignalTransmitter1, context.AttackerData.Transform);
+            var collection = RecyclePool.RequestWithCollection(BuildSkillType.SignalTransmitterNormal, context.AttackerData.Transform);
             collection.GameObject.SetActive(true);
             var passData = context.AttackerData.Max;
             passData.AttackInterval = 1;

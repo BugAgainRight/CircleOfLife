@@ -8,7 +8,7 @@ namespace CircleOfLife
 {
     public abstract class BuildBase : MonoBehaviour, IBattleEntity
     {
-        public BattleStats.Stats Attribute;
+        public List<BattleStats.Stats> Attribute;
         public BattleStats Stats { get; set; }
         public FactionType FactionType => factionType;
         [SerializeField]
@@ -16,6 +16,8 @@ namespace CircleOfLife
 
         public BattleRange BattleRange;
         public GameObject RangeObj;
+
+        public LayerMask PhysicsLayer;
         protected bool TimerFinish
         {
             get
@@ -36,10 +38,31 @@ namespace CircleOfLife
             public string Title;
             public Enum Value;
             public int NeedLevel;
+            public int UpgradeCost;
         }
         public abstract List<LevelUpDirection> LevelUpDirections { get; }
-        public abstract int Level { get; protected set; }
-        public abstract void LevelUp(Enum direction = null);
+        public int Level { get; protected set; }
+
+        public Enum NowType { get; protected set; }
+
+        protected List<Enum> allType=new();
+
+        public bool WhetherSelectDirection;
+
+        protected abstract void LevelUpFunc();
+         
+        public void LevelUp(Enum direction = null)
+        {
+            Level++;
+            NowType = direction;
+            if (direction != null&&!allType.Contains(direction)) allType.Add(direction);
+            ReplaceStats(Attribute[Level - 1]);
+            LevelUpFunc();
+        }
+        public void ChangeDirection(Enum direction)
+        {
+            NowType = direction;
+        }
 
         public abstract void HurtAction(BattleContext context);
 
@@ -48,10 +71,46 @@ namespace CircleOfLife
             RangeObj.SetActive(true);
             RangeObj.transform.localScale = new Vector3(BattleRange.Range.radius, BattleRange.Range.radius, 1);
         }
+        public void CloseRange()
+        {
+            RangeObj.SetActive(false);
+        }
         public void OnReset()
         {
             Stats.Reset();
         }
 
+        public void ReplaceStats(BattleStats.Stats stats,bool isReset=false)
+        {
+            float befoHP = Stats.Current.Hp;
+            Stats.ReplaceBaseStat(stats);
+            if (!isReset) Stats.Current.Hp =Mathf.Min(befoHP, Stats.Current.Hp);
+        }
+
+
+        private bool NeedRecovery
+        {
+            get
+            {
+                if (recoveryTimer + 1 <= Time.time)
+                {
+                    recoveryTimer = Time.time;
+                    return true;
+                }
+                return false;
+
+            }
+        }
+
+        private float recoveryTimer=0;
+
+        public void RecoveryHP()
+        {
+            if (NeedRecovery)
+            {
+                var list = BattleRange.GetAllFriendInRange(PhysicsLayer, factionType);
+                Stats.Current.Hp += 5 * list.Count;
+            }
+        }
     }
 }

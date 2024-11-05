@@ -41,7 +41,48 @@ namespace CircleOfLife
 
     public enum BuildSkillType
     {
-        TreatmentStation,SignalTransmitter1,TestBuildFriendFire
+        /// <summary>
+        /// 治疗站
+        /// </summary>
+        TreatmentStationNormal, 
+        /// <summary>
+        /// 兽医站
+        /// </summary>
+        TreatmentStation1, 
+        /// <summary>
+        /// 战斗医院
+        /// </summary>
+        TreatmentStation2,
+        /// <summary>
+        /// 刀片网
+        /// </summary>
+        BladeFencing, 
+        /// <summary>
+        /// 电网
+        /// </summary>
+        ElectricFencing, 
+        /// <summary>
+        /// 后勤处
+        /// </summary>
+        LogisticsService,
+        /// <summary>
+        /// 信号发射器
+        /// </summary>
+        SignalTransmitterNormal,
+        /// <summary>
+        /// 信号发射器变种1
+        /// </summary>
+        SignalTransmitter1,
+        /// <summary>
+        /// 信号发射器变种2
+        /// </summary>
+        SignalTransmitter2,
+        /// <summary>
+        /// 信号发射器变种3
+        /// </summary>
+        SignalTransmitter3,
+        TestBuildFriendFire
+
     }
 
     public enum AnimalSkillType
