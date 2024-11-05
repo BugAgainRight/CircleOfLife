@@ -64,11 +64,11 @@ namespace CircleOfLife.Units
             Direction = new Vector2(direction.x, direction.y);
             if (direction.x < 0)
             {
-                this.transform.localScale = new Vector3(-1, 1, 1);
+                this.transform.localScale = new Vector3(1, 1, 1) * 0.4f;
             }
             else if (direction.x > 0)
             {
-                this.transform.localScale = new Vector3(1, 1, 1);
+                this.transform.localScale = new Vector3(-1, 1, 1) * 0.4f;
             }
         }
 

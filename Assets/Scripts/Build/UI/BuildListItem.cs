@@ -43,8 +43,9 @@ namespace CircleOfLife.Build.UI
         public override void UpdateAppearance()
         {
             var data = (BuildSoData)Binding;
-            Title.text = "标题";
+            Title.text = data.Name;
             Cost.text = data.Cost.ToString();
+            Cost.color = BuildingPlaceUI.Instance.Material < data.Cost ? Color.red : Color.black;
             Icon.sprite = data.Icon;
         }
 
