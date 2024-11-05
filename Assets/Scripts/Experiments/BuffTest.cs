@@ -39,7 +39,7 @@ namespace CircleOfLife.Experiments
                 var collection = RecyclePool.RequestWithCollection(Effect.Hit2);
                 collection.Transform.position = stats.Transform.position;
                 collection.GameObject.SetActive(true);
-                stats.Damage(20f);
+                stats.Damage(20f, stats.WrapBuffBattleContext());
             }
         }
         

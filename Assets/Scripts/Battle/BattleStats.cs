@@ -19,15 +19,15 @@ namespace CircleOfLife.Battle
         private readonly List<BuffContext> buffContexts = new();
         
         private Stats lasting, initial;
-        private readonly Action<BattleStats> hurtAction;
+        private readonly Action<BattleContext> hurtAction;
 
         public readonly IEnumerable<Collider2D> Colliders;
 
-        public void Damage(float damage)
+        public void Damage(float damage, BattleContext context)
         {
             Current.Hp = Mathf.Min(Current.Hp - damage, Max.Hp);
             lasting.Hp = Current.Hp;
-            hurtAction?.Invoke(this);
+            hurtAction?.Invoke(context);
         }
         
         /// <summary>
@@ -111,7 +111,7 @@ namespace CircleOfLife.Battle
             Current.Hp = Mathf.Min(Max.Hp, Current.Hp);
         }
         
-        public BattleStats(GameObject go, Stats baseStats, Action<BattleStats> hurtAction)
+        public BattleStats(GameObject go, Stats baseStats, Action<BattleContext> hurtAction)
         {
             GameObject = go;
             Max = baseStats;

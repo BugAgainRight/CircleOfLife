@@ -19,9 +19,9 @@ namespace CircleOfLife
             Stats = stats.Build(gameObject, HurtAction);
             context.BattleStat = Stats;
         }
-        public void HurtAction(BattleStats stats)
+        public void HurtAction(BattleContext context)
         {
-            if (stats.Current.Hp <= 0) RecyclePool.ReturnToPool(gameObject);
+            if (context.HitData.Current.Hp <= 0) RecyclePool.ReturnToPool(gameObject);
             return;
 
         }

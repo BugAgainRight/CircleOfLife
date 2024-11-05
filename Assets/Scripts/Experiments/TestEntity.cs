@@ -21,7 +21,7 @@ namespace CircleOfLife.Experiments
         {
             Stats = Stat.Build(gameObject, (s) =>
             {
-                if (s.Current.Hp <= 0f)
+                if (s.HitData.Current.Hp <= 0f)
                 {
                     Destroy(gameObject);
                 }

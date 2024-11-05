@@ -46,7 +46,7 @@ namespace CircleOfLife.Buff
                 },
                 (stats) =>
                 {
-                    if (stats.Current.Hp <= 0f)
+                    if (stats.HitData.Current.Hp <= 0f)
                     {
                         // 死亡处理
                     }

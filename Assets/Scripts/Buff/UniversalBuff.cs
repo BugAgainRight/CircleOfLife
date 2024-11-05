@@ -33,7 +33,7 @@ namespace CircleOfLife.Buff
             if (buff.TickedTime >= 1f)
             {
                 buff.ResetTickedTime();
-                stats.Damage(11f);
+                stats.Damage(11f, stats.WrapBuffBattleContext());
             }
         }
         
@@ -105,7 +105,7 @@ namespace CircleOfLife.Buff
             if (buff.TickedTime >= 1f)
             {
                 buff.ResetTickedTime();
-                stats.Damage(11f);
+                stats.Damage(11f, stats.WrapBuffBattleContext());
             }
         }
         

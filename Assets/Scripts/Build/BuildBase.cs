@@ -31,7 +31,7 @@ namespace CircleOfLife
         private float timer = 0;
 
 
-        public abstract void HurtAction(BattleStats battleStats);
+        public abstract void HurtAction(BattleContext context);
 
         public void ShowRange()
         {

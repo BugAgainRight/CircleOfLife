@@ -15,11 +15,16 @@ namespace CircleOfLife.Buff
             };
         }
 
-        public static BattleStats Build(this BattleStats.Stats stats, GameObject go, Action<BattleStats> hurtAction)
+        public static BattleStats Build(this BattleStats.Stats stats, GameObject go, Action<BattleContext> hurtAction)
         {
             var stat = new BattleStats(go, stats, hurtAction);
             BuffManager.RegisterBattleStat(stat);
             return stat;
+        }
+
+        public static BattleContext WrapBuffBattleContext(this BattleStats stats)
+        {
+            return new BattleContext(0, null, stats);
         }
     }
 }

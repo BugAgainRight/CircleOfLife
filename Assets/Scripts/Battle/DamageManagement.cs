@@ -92,7 +92,7 @@ namespace CircleOfLife
             }
             ///扣血
             if (damage == 0) return;
-            context.HitData.Damage(damage);
+            context.HitData.Damage(damage, context);
 
             ///飘字
             var flyWord = RecyclePool.RequestWithCollection(Recycle.DamageText);

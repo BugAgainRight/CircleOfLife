@@ -18,7 +18,7 @@ namespace CircleOfLife
 
         private void Awake()
         {
-            Stats = Stat.Build(gameObject, (stat) => { if (stat.Current.Hp <= 0) Destroy(gameObject); });
+            Stats = Stat.Build(gameObject, (context) => { if (context.HitData.Current.Hp <= 0) Destroy(gameObject); });
         }
 
         public NPCData GetData()

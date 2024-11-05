@@ -9,9 +9,9 @@ namespace CircleOfLife
 {
     public class LogisticsService : BuildBase
     {
-        public override void HurtAction(BattleStats battleStats)
+        public override void HurtAction(BattleContext context)
         {
-            if (battleStats.Current.Hp <= 0)
+            if (context.HitData.Current.Hp <= 0)
             {
                 RecyclePool.ReturnToPool(gameObject);
             }

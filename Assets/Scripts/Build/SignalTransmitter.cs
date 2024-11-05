@@ -11,7 +11,7 @@ namespace CircleOfLife
     {
         public int MaxCount;
         public GameObject FriendPrefab;
-        public override void HurtAction(BattleStats battleStats)
+        public override void HurtAction(BattleContext context)
         {
             
         }
