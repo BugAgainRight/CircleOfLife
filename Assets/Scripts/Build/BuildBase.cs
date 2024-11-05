@@ -1,3 +1,4 @@
+using System;
 using CircleOfLife.Battle;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,6 +31,15 @@ namespace CircleOfLife
 
         private float timer = 0;
 
+        public class LevelUpDirection
+        {
+            public string Title;
+            public Enum Value;
+            public int NeedLevel;
+        }
+        public abstract List<LevelUpDirection> LevelUpDirections { get; }
+        public abstract int Level { get; protected set; }
+        public abstract void LevelUp(Enum direction = null);
 
         public abstract void HurtAction(BattleContext context);
 

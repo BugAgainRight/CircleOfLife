@@ -134,5 +134,11 @@ namespace CircleOfLife.Battle
             lasting = Max;
             Current = Max;
         }
+
+        public void ReplaceBaseStat(Stats stat)
+        {
+            initial = stat;
+            Reset();
+        }
     }
 }
