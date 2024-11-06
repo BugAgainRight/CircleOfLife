@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace CircleOfLife
 {
-    //根据tag来判断是否需要注册
+    //根据tag来判断是否需要纳入遮挡管理体系
     public enum OcclusionWhiteTable
     {
         Player,
-        test
+        tests
     }
 
     public class OcclusionManager : MonoBehaviour
@@ -24,7 +24,7 @@ namespace CircleOfLife
         void Start()
         {
             FindMainCamera();
-            Register();
+            RegisterAllOcclusions();
         }
         //找到maincamera，挂上CameraOcclusionController
         private static void FindMainCamera()
@@ -35,46 +35,54 @@ namespace CircleOfLife
             mainCamera.gameObject.AddComponent<TerrainMouseClickEventTest>();
         }
 
-
-        //将场景中所有在白名单中的物体注册
-        private static void Register()
+        ///<summary
+        ///根据白名单中的tag注册场景中所有在物体
+        /// </summary>
+        private static void RegisterAllOcclusions()
         {
-            GameObject[] gameObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
-            foreach (GameObject gameObject in gameObjects)
+            GameObject[] gameObjects;
+            foreach (OcclusionWhiteTable tag in System.Enum.GetValues(typeof(OcclusionWhiteTable)))
             {
-                foreach (OcclusionWhiteTable occlusionWhiteTable in System.Enum.GetValues(typeof(OcclusionWhiteTable)))
+                gameObjects = GameObject.FindGameObjectsWithTag(tag.ToString());
+                foreach (GameObject gameObject in gameObjects)
                 {
-                    if (gameObject.CompareTag(occlusionWhiteTable.ToString()))
-                    {
-                        AddOcclusion(gameObject);
-                    }
+                    AddOcclusion(gameObject);
                 }
-
             }
         }
+        ///<summary
+        ///注册需要纳入遮挡管理体系的物体
+        /// </summary>
+        public static void RegisterOcclusion(GameObject gameObject)
+        {
+            AddOcclusion(gameObject);
+        }
         /// <summary>
-        /// 为存在SpriteRendered的目标添加OcclusionController(用于控制图层大小)，并记录在字典中
+        /// 为存在SpriteRender或者MeshRender的目标添加OcclusionController(用于控制图层大小)，并记录在字典中
         /// </summary>
         /// <param name="gameObject">一个物体</param> 
-        public static void AddOcclusion(GameObject gameObject)
+        private static void AddOcclusion(GameObject gameObject)
         {
-            if (gameObject.GetComponent<SpriteRenderer>() == null)
+            if (!gameObject.GetComponent<SpriteRenderer>() && !gameObject.GetComponent<MeshRenderer>())
             {
+                Debug.LogWarning("The gameObject does not have a SpriteRenderer or MeshRenderer component, so it cannot be added to the occlusion system.");
                 return;
             }
-            if (gameObject.GetComponent<OcclusionController>() != null)
+
+            if (gameObject.GetComponent<OcclusionController>() == null)
             {
                 gameObject.AddComponent<OcclusionController>();
+                OcclusionController occlusionController = gameObject.GetComponent<OcclusionController>();
+                string guid = occlusionController.SetGUID();
+                occlusionDict.Add(guid, gameObject);
             }
-            OcclusionController occlusionController = gameObject.AddComponent<OcclusionController>();
-            string guid = occlusionController.SetGUID();
-            occlusionDict.Add(guid, gameObject);
+
         }
         /// <summary>
         /// 删除存放于字典中的目标
         /// </summary>
         /// <param name="guid">可能存在于字典中的guid,通过组件OcclusionController获得</param>
-        public static void RemoveOcclusion(string guid)
+        public static void UnRegisterOcclusion(string guid)
         {
             if (occlusionDict.ContainsKey(guid))
             {

@@ -6,37 +6,50 @@ using UnityEngine.Tilemaps;
 
 namespace CircleOfLife
 {
-    public enum CameraFollower
+    public enum CameraFollowerTag
     {
         Player
     }
     public class CameraOcclusionController : MonoBehaviour
     {
-        private Transform player;
-        private SpriteRenderer playerSpriteRenderer;
-        private RaycastHit hitInfo;
+        public GameObject playerGo;
+        public Transform playerTransform
+        {
+            get
+            {
+                if (playerGo == null)
+                {
+                    FindPlayerGo();
+                }
+                return playerGo.transform;
+            }
+        }
+        private MeshRenderer playerMeshRenderer;
         private ConcurrentDictionary<GameObject, bool> occlusionsDict;
         private List<GameObject> lastOcclusions;
         private float colorAlpha = 0.3f;
 
         void Start()
         {
-            player = GameObject.Find(CameraFollower.Player.ToString()).transform;
-            playerSpriteRenderer = player.GetComponent<SpriteRenderer>();
-            occlusionsDict = new ConcurrentDictionary<GameObject, bool>();
-
+            FindPlayerGo();
         }
 
         void FixedUpdate()
         {
-            if (playerSpriteRenderer == null)
-            {
-                return;
-            }
-            CheckRayCastCollider(player.position);
+
+            CheckRayCastCollider(playerTransform.position);
             RegisterOcclusion();
             UpdateOcclusions();
         }
+        //寻找玩家
+        private void FindPlayerGo()
+        {
+            playerGo = GameObject.FindGameObjectWithTag(CameraFollowerTag.Player.ToString());
+            playerMeshRenderer = playerGo.GetComponent<MeshRenderer>();
+
+            occlusionsDict = new ConcurrentDictionary<GameObject, bool>();
+        }
+
         //登记射线检测到的碰撞体
         private void CheckRayCastCollider(Vector3 originPosOnWorld)
         {
@@ -55,7 +68,7 @@ namespace CircleOfLife
         {
             foreach (GameObject occlusion in lastOcclusions)
             {
-                if (occlusion == null || occlusion.tag == "Player")
+                if (occlusion == null || occlusion.tag == CameraFollowerTag.Player.ToString())
                 {
                     continue;
                 }
@@ -89,29 +102,55 @@ namespace CircleOfLife
                 }
             }
         }
-        //改变碰撞体的Alpha值
-        private void SetAlphaToOcclusion(GameObject gameObject, float a)
+        //尝试获取碰撞体的sortingOrder
+        private int GetSortingOrder(GameObject gameObject)
         {
             SpriteRenderer spriteRenderer;
+            MeshRenderer meshRenderer;
             Tilemap tilemap;
             if (gameObject.TryGetComponent(out spriteRenderer))
             {
-                if (a < 0.9f && spriteRenderer.sortingOrder < playerSpriteRenderer.sortingOrder)
-                {
-                    return;
-                }
-                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.b, spriteRenderer.color.g, a);
-
+                return spriteRenderer.sortingOrder;
             }
             else if (gameObject.TryGetComponent(out tilemap))
             {
                 TilemapRenderer tilemapRenderer = tilemap.GetComponent<TilemapRenderer>();
-                if (a < 0.9 && tilemapRenderer.sortingOrder < playerSpriteRenderer.sortingOrder)
-                {
-                    return;
-                }
+                return tilemapRenderer.sortingOrder;
+            }
+            else if (gameObject.TryGetComponent(out meshRenderer))
+            {
+                return meshRenderer.sortingOrder;
+            }
+            return 0;
+        }
+        //改变碰撞体的Alpha值
+        private void ChangeAlpha(GameObject gameObject, float a)
+        {
+            SpriteRenderer spriteRenderer;
+            MeshRenderer meshRenderer;
+            Tilemap tilemap;
+            if (gameObject.TryGetComponent(out spriteRenderer))
+            {
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.b, spriteRenderer.color.g, a);
+            }
+            else if (gameObject.TryGetComponent(out tilemap))
+            {
+                TilemapRenderer tilemapRenderer = tilemap.GetComponent<TilemapRenderer>();
                 tilemap.color = new Color(tilemap.color.r, tilemap.color.b, tilemap.color.g, a);
             }
+            else if (gameObject.TryGetComponent(out meshRenderer))
+            {
+                meshRenderer.material.color = new Color(meshRenderer.material.color.r, meshRenderer.material.color.b, meshRenderer.material.color.g, a);
+            }
+        }
+        //改变碰撞体的Alpha值
+        private void SetAlphaToOcclusion(GameObject gameObject, float a)
+        {
+            if (a < 0.9f && GetSortingOrder(gameObject) < GetSortingOrder(playerGo))
+            {
+                return;
+            }
+            ChangeAlpha(gameObject, a);
         }
     }
 }

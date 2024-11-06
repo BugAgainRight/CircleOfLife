@@ -117,7 +117,7 @@ namespace CircleOfLife
             {
                 try
                 {
-                    FollowTarget = GameObject.Find("Player");
+                    FollowTarget = GameObject.FindWithTag("Player");
                 }
                 catch (System.Exception)
                 {

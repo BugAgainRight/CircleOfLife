@@ -50,14 +50,13 @@ namespace CircleOfLife
 
         public static void DestroyTargetTower(TowerInfo towerInfo)
         {
-            OcclusionManager.RemoveOcclusion(towerInfo.GameObject);
             GameObject.Destroy(towerInfo.GameObject);
         }
 
         public static void CreateTargetTower(TowerInfo towerInfo)
         {
-            OcclusionManager.AddOcclusion(towerInfo.GameObject);
-            GameObject.Instantiate(towerInfo.GameObject);
+            GameObject gameObject = GameObject.Instantiate(towerInfo.GameObject, towerInfo.TargetPos, Quaternion.identity);
+            OcclusionManager.RegisterOcclusion(gameObject);
         }
 
         public static void UpdateTargetTower(TowerInfo lastTowerInfo, TowerInfo currentTowerInfo)
