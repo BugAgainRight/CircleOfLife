@@ -1,4 +1,4 @@
-﻿namespace CircleOfLife.Buff
+namespace CircleOfLife.Buff
 {
     public static class BuffConsts
     {
@@ -17,5 +17,7 @@
         public const float BAN_ATTACK_TIME_UNIT = 3f;
         public const float INVINCIBLE_TIME_UNIT = 3f;
         public const float RELIFE_TIME_UNIT = 10f;
+        public const float LIFE_STEAL_UNIT = 0.2f;
+        public const float REBOUND_DAMAGE_RATE_UNIT=0.2f;
     }
 }

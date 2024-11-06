@@ -1253,7 +1253,7 @@ MonoBehaviour:
     sdas: 0
   aaas:
   - Prefab: {fileID: 0}
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 52129f824fb6be54b8ede957a3d99f6b, type: 3}
     BuildSize: {x: 0, y: 0}
     Cost: 0
     WhetherRotate: 0

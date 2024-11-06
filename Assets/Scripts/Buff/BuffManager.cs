@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using CircleOfLife.Battle;
 using UnityEngine;
@@ -28,7 +28,10 @@ namespace CircleOfLife.Buff
             EnsureInitialized();
             Instance.stats.Add(stats);
         }
-        
+
+        public static List<BattleStats> GetAllStats() => Instance.stats;
+
+
         // 早于所有脚本执行
         private void FixedUpdate()
         {

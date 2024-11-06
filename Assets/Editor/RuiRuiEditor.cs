@@ -26,6 +26,7 @@ namespace RuiRuiTool
         {
             Editors.Add(new NewGizmos());
             Editors.Add(new NewBuffShowDataEditorSo());
+            Editors.Add(new AllPrefabSettingEditor<SharedPrefab, GameObject>());
             Editors.Add(new AllPrefabSettingEditor<AnimalStat, GameObject>());
             Editors.Add(new AllPrefabSettingEditor<EnemyStat, GameObject>());
             Editors.Add(new AllPrefabSettingEditor<AnimatonPrefab, GameObject>());
@@ -665,9 +666,27 @@ namespace RuiRuiTool
             var rect = position;
             rect.height = EditorGUIUtility.singleLineHeight;
             rect.width = position.width - 10; //右边距
-            
+        
             AddProperty("Prefab", ref rect, property, Space_Height);
             AddProperty("Icon", ref rect, property, Space_Height);
+            
+
+            
+            var iconTexture = AssetPreview.GetAssetPreview(property.FindPropertyRelative("Icon").objectReferenceValue);
+            if (iconTexture != null)
+            {
+                rect.y += EditorGUIUtility.singleLineHeight;
+                float showH, showW;
+                showH = iconTexture.height;
+                showW = iconTexture.width;
+
+                float smallRate = Mathf.Max(showH, showW) / 50f;
+                showH /= smallRate;
+                showW /= smallRate;
+
+                EditorGUI.DrawPreviewTexture(new Rect(rect) { width = showW, height = showH }, iconTexture);
+                rect.y += showH;
+            }          
             AddProperty("BuildSize", ref rect, property, Space_Height);
             AddProperty("Cost", ref rect, property, Space_Height);
             AddProperty("WhetherRotate", ref rect, property, Space_Height);

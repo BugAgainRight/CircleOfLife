@@ -69,9 +69,10 @@ namespace CircleOfLife
             //基础伤害
             float damage = attackStats.Attack;
             
-            //治疗
+            
             if(damage >0)
             {
+                if (Random.Range(0, 1f) <= attackStats.EvasionRate) return 0;
                 //防御
                 damage *= 1 - hitStats.Armor / (100 + hitStats.Armor);
 
@@ -83,7 +84,7 @@ namespace CircleOfLife
                 }
                 damage *= skillRate;
                 damage *= Mathf.Max(0, (100 - hitStats.Armor)) *0.01f;
-                damage *= (1 - attackStats.ReduceDamageRate);
+                damage *= (1 - attackStats.ReduceDamageRate);     
             }
 
             return damage;
@@ -95,7 +96,19 @@ namespace CircleOfLife
         /// <param name="context"></param>
         public static void Damage(BattleContext context)
         {
+
             var damage = GetDamage(context.AttackerData.Current, context.HitData.Current, context.SkillRate, out var isCrit);
+            if (damage.Equals(0)) return;
+            if (damage > 0)
+            {
+                ///生命偷取
+                float stealValue = damage * context.AttackerData.Current.LifeStealRate;
+                if (stealValue > 0) context.AttackerData.Damage(-stealValue, context.AttackerData.WrapBuffBattleContext());
+                ///反伤
+                float reboundDamage = damage * context.HitData.Current.ReduceDamageRate;
+                if (reboundDamage > 0) context.AttackerData.Damage(reboundDamage, context.AttackerData.WrapBuffBattleContext());
+            }
+
             context.HitData.Damage(damage, context);
             FlyWord(damage, context.HitData, isCrit);
         }
@@ -113,6 +126,7 @@ namespace CircleOfLife
         
         public static void FlyWord(float damage, BattleStats hitData, bool isCrit = false)
         {
+            if (damage.Equals(0)) return;
             bool isRecovery = damage < 0;
 
             ///飘字

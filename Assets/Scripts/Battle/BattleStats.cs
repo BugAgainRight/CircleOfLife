@@ -29,6 +29,12 @@ namespace CircleOfLife.Battle
             lasting.Hp = Current.Hp;
             hurtAction?.Invoke(context);
         }
+
+        public void SetHP(float hp)
+        {
+            Current.Hp = hp;
+            lasting.Hp = hp;
+        }
         
         /// <summary>
         /// 移除一层 Buff

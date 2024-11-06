@@ -21,11 +21,15 @@ namespace RuiRuiTool
             var lists = asm.GetExportedTypes()
                            .Select(cls =>
                                 cls.GetMethods(BindingFlags.Default | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.InvokeMethod).Where(method => method.GetCustomAttribute(typeof(T)) != null)
-                                               .Select(method => new ActionAttributeData()
+                                               .SelectMany(method => 
+                                               method.GetCustomAttributes<T>().Select(atr =>
                                                {
-                                                   attribute = method.GetCustomAttribute(typeof(T)),
-                                                   method = method
-                                               })
+                                                   return new ActionAttributeData()
+                                                   {
+                                                       attribute = atr,
+                                                       method = method
+                                                   };
+                                               }))
                                    );
             List<ActionAttributeData> mid = new();
             foreach (var list in lists)

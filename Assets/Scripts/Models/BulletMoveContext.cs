@@ -12,6 +12,7 @@ namespace CircleOfLife
         public Vector2 Direction;
 
         public Transform Transform;
+        public Transform TargetTransform;
 
         public float Speed;
 

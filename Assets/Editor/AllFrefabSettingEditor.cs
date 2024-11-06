@@ -37,7 +37,7 @@ public class AllPrefabSettingEditor<T1,T2> : CustomEditorSelector, IUseInspector
 
     public void OnDisable(object target, Editor editor)
     {
-        
+       
     }
 
     public void OnEnable(object target, Editor editor)

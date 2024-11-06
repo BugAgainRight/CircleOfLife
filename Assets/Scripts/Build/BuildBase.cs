@@ -3,6 +3,7 @@ using CircleOfLife.Battle;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CircleOfLife.Buff;
 
 namespace CircleOfLife
 {
@@ -88,7 +89,7 @@ namespace CircleOfLife
         {
             float befoHP = Stats.Current.Hp;
             Stats.ReplaceBaseStat(stats);
-            if (!isReset) Stats.Current.Hp =Mathf.Min(befoHP, Stats.Current.Hp);
+            if (!isReset) Stats.SetHP(Mathf.Min(befoHP, Stats.Current.Hp));
         }
 
 
@@ -113,7 +114,7 @@ namespace CircleOfLife
             if (NeedRecovery)
             {
                 var list = BattleRange.GetAllFriendInRange(PhysicsLayer, factionType);
-                Stats.Current.Hp += 5 * list.Count;
+                Stats.Damage(-5 * list.Count, Stats.WrapBuffBattleContext());
             }
         }
 

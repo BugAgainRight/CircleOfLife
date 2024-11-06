@@ -32,9 +32,12 @@ namespace CircleOfLife
 
         public int EffectCount;
         public float MoveSpeed;
+        /// <summary>
+        /// 各种生命时间，buff，子弹等等
+        /// </summary>
         public float LifeTime;
         /// <summary>
-        /// 特殊值，例如兽医站全屏回复小动物血量
+        /// 特殊值，例如兽医站全屏小动物回复的血量
         /// </summary>
         public List<float> SpecialValues;
     

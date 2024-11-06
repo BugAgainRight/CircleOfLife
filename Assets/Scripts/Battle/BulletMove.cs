@@ -9,6 +9,7 @@ namespace CircleOfLife
     public class BulletMove : MonoBehaviour
     {
         private BulletMoveContext moveContext;
+        public float Speed;
         [SerializeField]
         private BulletMoveType type;
 
@@ -22,6 +23,11 @@ namespace CircleOfLife
         public void PassData(BulletMoveContext moveContext)
         {
             this.moveContext = moveContext;
+        }
+        public void SetTarget(Transform target)
+        {
+            moveContext.TargetTransform = target;
+            moveContext.Speed = Speed;
         }
 
         private void FixedUpdate()

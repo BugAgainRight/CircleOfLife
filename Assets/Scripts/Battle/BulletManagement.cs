@@ -16,7 +16,7 @@ namespace CircleOfLife
 
     public enum BulletMoveType
     {
-        Straight, Curve
+        Straight, Curve, Follow
     }
 
     public static class BulletManagement
@@ -167,6 +167,18 @@ namespace CircleOfLife
 
 
         }
+
+
+        [BulletMove(BulletMoveType.Follow)]
+        public static void FollowMove(BulletMoveContext context)
+        {
+
+            Vector2 direction = context.TargetTransform.position - context.Transform.position;
+
+            context.Transform.position += (Vector3)direction.normalized*context.Speed * Time.fixedDeltaTime;
+          
+        }
+
 
         #endregion
 

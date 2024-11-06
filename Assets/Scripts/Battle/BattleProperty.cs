@@ -60,6 +60,16 @@ namespace CircleOfLife.Battle
             /// 减伤比例
             /// </summary>
             public float ReduceDamageRate { get; set; }
+
+            /// <summary>
+            /// 生命偷取率
+            /// </summary>
+            public float LifeStealRate { get; set; }
+
+            /// <summary>
+            /// 反弹伤害率
+            /// </summary>
+            public float ReboundDamageRate { get; set; }
         }
     }
 }

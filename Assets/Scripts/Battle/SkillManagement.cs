@@ -6,6 +6,8 @@ using Milutools.Recycle;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 
 namespace CircleOfLife
@@ -93,16 +95,115 @@ namespace CircleOfLife
             }
         }
 
+
+
         /// <summary>
         /// 愈战愈勇
         /// </summary>
         /// <param name="context"></param>
-        [Skill(PlayerSkillType.Skill3)]
+        [Skill(PlayerSkillType.FighterBraver)]
         private static void PlayerSkill_3(SkillContext context)
         {
-            //context.AttackerData.ApplyBuff(BuffUtils.ToBuff(UniversalBuff.))
+            context.AttackerData.ApplyBuff(BuffUtils.ToBuff(PlayerSkill_3_Buff, 10));
+        }
+        private static void PlayerSkill_3_Buff(BattleStats stats, BuffContext buff)
+        {
+            stats.Current.LifeStealRate += BuffConsts.LIFE_STEAL_UNIT;
+
         }
 
+
+        /// <summary>
+        /// 疗伤
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(PlayerSkillType.Heal)]
+        private static void PlayerSkill_4(SkillContext context)
+        {
+            context.AttackerData.ApplyBuff(BuffUtils.ToBuff(PlayerSkill_4_Buff, 10));
+        }
+
+        private static void PlayerSkill_4_Buff(BattleStats stats, BuffContext buff)
+        {
+            stats.Current.Armor += 2*BuffConsts.ARMOR_UNIT;
+            if (buff.TickedTime >= 1f)
+            {
+                stats.Damage(-BuffConsts.HEAL_UNIT, stats.WrapBuffBattleContext());
+                buff.ResetTickedTime();
+            }
+        }
+
+
+        /// <summary>
+        /// 荆棘
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(PlayerSkillType.Thorn)]
+        private static void PlayerSkill_5(SkillContext context)
+        {
+            context.AttackerData.ApplyBuff(BuffUtils.ToBuff(PlayerSkill_5_Buff, 10));
+        }
+        private static void PlayerSkill_5_Buff(BattleStats stats, BuffContext buff)
+        {
+            stats.Current.ReboundDamageRate += BuffConsts.REBOUND_DAMAGE_RATE_UNIT;
+
+        }
+
+        /// <summary>
+        /// 潜伏
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(PlayerSkillType.Lurk)]
+        private static void PlayerSkill_6(SkillContext context)
+        {
+            context.AttackerData.ApplyBuff(BuffUtils.ToBuff(PlayerSkill_6_Buff, 10));
+        }
+        private static void PlayerSkill_6_Buff(BattleStats stats, BuffContext buff)
+        {
+            stats.Current.Velocity += BuffConsts.SPEED_UNIT * 2;
+            stats.Current.EvasionRate += BuffConsts.EVASION_UNIT * 2;
+            stats.Current.CriticalChance += 1;
+
+        }
+        /// <summary>
+        /// 鼓舞
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(PlayerSkillType.Encouragement)]
+        private static void PlayerSkill_7(SkillContext context)
+        {
+            var builds = BuffManager.GetAllStats().Where(x => x.GameObject.activeInHierarchy && x.GameObject.CompareTag("Building"));
+            var friends = BuffManager.GetAllStats().Where(x => x.GameObject.activeInHierarchy && x.GameObject.CompareTag("Friend"));
+
+            foreach (var build in builds)
+            {
+                DamageManagement.BuffDamage(build,-100);
+            }
+
+            foreach (var friend in friends)
+            {
+                DamageManagement.BuffDamage(friend, -50);
+            }
+
+        }
+        /// <summary>
+        /// 近战普攻
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(PlayerSkillType.Melee)]
+        private static void PlayerSkill_8(SkillContext context)
+        {
+
+        }
+        /// <summary>
+        /// 远程普攻
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(PlayerSkillType.Ranged)]
+        private static void PlayerSkill_9(SkillContext context)
+        {
+
+        }
 
         #endregion
 
@@ -141,6 +242,7 @@ namespace CircleOfLife
 
 
         #endregion
+
 
 
 
@@ -246,12 +348,104 @@ namespace CircleOfLife
         #endregion
 
 
+        #region SharedSkill
+
+        /// <summary>
+        /// 共用近战普攻
+        /// </summary>
+        [Skill(PlayerSkillType.Melee)]
+        [Skill(EnemyStat.EnemyA)]
+        [Skill(EnemyStat.EnemyC)]
+        [Skill(EnemyStat.EnemyD)]
+        [Skill(AnimalSkillType.TibetanMastiffMelee)]
+        private static void SharedSkill_Melee(SkillContext context)
+        {
+            float angle = Mathf.Atan2(context.Direction.y, context.Direction.x);
+            var collection = RecyclePool.RequestWithCollection(SharedPrefab.Melee);
+            collection.GameObject.SetActive(true);
+            collection.GameObject.transform.position = context.TriggerPos;
+            collection.GameObject.transform.localEulerAngles = new Vector3(0, 0, angle);
+
+            var list = collection.GetMainComponent<BattleRange>().GetAllEnemyInRange(
+                context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
+
+            foreach (var item in list)
+            {
+                BattleStats mid = item.GetBattleStats();
+                BulletManagement.GetBulletTrigger(BulletTriggerType.Normal)(
+                    new BattleContext(context.PhysicsLayer, context.AttackerData, mid.BattleEntity.Stats));
+            }
+
+        }
+
+        /// <summary>
+        /// 远程攻击发射模板
+        /// </summary>
+        private static void RangedAttackTemplate(RecycleCollection collection, SkillContext context)
+        {
+            collection.GameObject.SetActive(true);
+            collection.GameObject.transform.position = context.TriggerPos;
+
+            collection.GetComponent<BulletMove>().SetTarget(context.HitData.Transform);
+
+        }
+
+        /// <summary>
+        /// 共用远程普攻
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(PlayerSkillType.Ranged)]
+        [Skill(EnemyStat.EnemyBSignal)]
+        [Skill(BuildSkillType.SignalTransmitterNormalFriend)]
+        private static void SharedSkill_Ranged(SkillContext context)
+        {
+            var collection = RecyclePool.RequestWithCollection(SharedPrefab.Ranged);
+            RangedAttackTemplate(collection, context);
+           
+
+        }
+        /// <summary>
+        /// 共用远程群体
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(EnemyStat.EnemyBGroup)]
+        [Skill(BuildSkillType.SignalTransmitter1Friend)]
+        private static void SharedSkill_RangedGroup(SkillContext context)
+        {
+            var collection = RecyclePool.RequestWithCollection(SharedPrefab.RangedGroup);
+            RangedAttackTemplate(collection, context);
+
+        }
+        /// <summary>
+        /// 远程超长版
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(BuildSkillType.SignalTransmitter2Friend)]
+        private static void SharedSkill_RangedLongest(SkillContext context)
+        {
+            var collection = RecyclePool.RequestWithCollection(SharedPrefab.RangedLongest);
+            RangedAttackTemplate(collection, context);
+
+        }
+        /// <summary>
+        /// 远程快速攻击
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(BuildSkillType.SignalTransmitter3Friend)]
+        private static void SharedSkill_RangedFast(SkillContext context)
+        {
+            var collection = RecyclePool.RequestWithCollection(SharedPrefab.RangedFast);
+            RangedAttackTemplate(collection, context);
+        }
+
+        #endregion
+
 
     }
 
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class SkillAttribute : Attribute
-    { 
+    {
         public Enum BuffType;
         public EnumIdentifier Key;
         public SkillAttribute(object type)
