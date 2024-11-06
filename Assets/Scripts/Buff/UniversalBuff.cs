@@ -13,8 +13,8 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Excited(BattleStats stats, BuffContext buff)
         {
-            stats.Current.Velocity *= (1f + buff.Level * 0.25f);
-            stats.Current.AttackInterval *= (1f - buff.Level * 0.25f);
+            stats.Current.Velocity += BuffConsts.SPEED_UNIT;
+            stats.Current.AttackInterval -= BuffConsts.ATTACK_INTERVAL_UNIT;
         }
         
         /// <summary>
@@ -33,7 +33,7 @@ namespace CircleOfLife.Buff
             if (buff.TickedTime >= 1f)
             {
                 buff.ResetTickedTime();
-                DamageManagement.BuffDamage(stats, 11f);
+                DamageManagement.BuffDamage(stats, BuffConsts.POISON_DAMAGE_UNIT);
             }
         }
         
@@ -59,7 +59,7 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Panic(BattleStats stats, BuffContext buff)
         {
-            stats.Current.Armor *= 0.8f;
+            stats.Current.Armor -= BuffConsts.ARMOR_UNIT * 2;
             stats.Current.AttackInterval = float.PositiveInfinity;
 
             if (stats.GameObject.IsPlayer())
@@ -78,9 +78,9 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Hidden(BattleStats stats, BuffContext buff)
         {
-            stats.Current.Attack *= 1.2f;
-            stats.Current.CriticalChance += 0.5f;
-            stats.Current.EvasionRate += 0.5f;
+            stats.Current.Attack += BuffConsts.ATTACK_UNIT;
+            stats.Current.CriticalChance += BuffConsts.CRITICAL_UNIT * 2;
+            stats.Current.EvasionRate += BuffConsts.EVASION_UNIT * 2;
             
             var entities = Physics2D.OverlapCircleAll(stats.Transform.position, 5f);
             if (entities.Any(x => x.GetBattleStats()?.BattleEntity.FactionType != stats.BattleEntity.FactionType))
@@ -94,7 +94,7 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void SlowDown(BattleStats stats, BuffContext buff)
         {
-            stats.Current.Velocity *= 0.75f;
+            stats.Current.Velocity -= BuffConsts.SPEED_UNIT;
         }
         
         /// <summary>
@@ -105,7 +105,7 @@ namespace CircleOfLife.Buff
             if (buff.TickedTime >= 1f)
             {
                 buff.ResetTickedTime();
-                DamageManagement.BuffDamage(stats, 11f);
+                DamageManagement.BuffDamage(stats, BuffConsts.POISON_DAMAGE_UNIT);
             }
         }
         
@@ -114,7 +114,7 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Lucky(BattleStats stats, BuffContext buff)
         {
-            stats.Current.EvasionRate += 0.75f;
+            stats.Current.EvasionRate += BuffConsts.EVASION_UNIT * 3;
         }
         
         /// <summary>
@@ -122,10 +122,10 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Angry(BattleStats stats, BuffContext buff)
         {
-            stats.Current.Attack *= 1.2f;
-            stats.Current.AttackInterval *= 0.8f;
-            stats.Current.Velocity *= 1.2f;
-            stats.Current.Armor *= 0.5f;
+            stats.Current.Attack += BuffConsts.ATTACK_UNIT;
+            stats.Current.AttackInterval -= BuffConsts.ATTACK_INTERVAL_UNIT;
+            stats.Current.Velocity += BuffConsts.SPEED_UNIT;
+            stats.Current.Armor -= BuffConsts.ARMOR_UNIT * 2;
         }
         
         /// <summary>
@@ -142,8 +142,8 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Armed(BattleStats stats, BuffContext buff)
         {
-            stats.Current.Velocity *= 0.8f;
-            stats.Current.Armor *= 1.5f;
+            stats.Current.Velocity -= BuffConsts.SPEED_UNIT;
+            stats.Current.Armor += BuffConsts.ARMOR_UNIT * 2;
         }
         
         /// <summary>
@@ -151,8 +151,8 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Strong(BattleStats stats, BuffContext buff)
         {
-            stats.Max.Hp *= 1.2f;
-            stats.Current.Attack *= 1.2f;
+            stats.Max.Hp += BuffConsts.HP_UNIT;
+            stats.Current.Attack += BuffConsts.ATTACK_UNIT;
         }
         
         /// <summary>
@@ -160,8 +160,8 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Sick(BattleStats stats, BuffContext buff)
         {
-            stats.Max.Hp *= 0.8f;
-            stats.Current.Attack *= 0.8f;
+            stats.Max.Hp -= BuffConsts.HP_UNIT;
+            stats.Current.Attack -= BuffConsts.ATTACK_UNIT;
         }
         
         /// <summary>
@@ -169,8 +169,8 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Sharp(BattleStats stats, BuffContext buff)
         {
-            stats.Current.EffectRange *= 1.2f;
-            stats.Current.CriticalChance += 0.25f;
+            stats.Current.EffectRange += BuffConsts.EFFECT_RANGE_UNIT;
+            stats.Current.CriticalChance += BuffConsts.CRITICAL_UNIT;
         }
         
         /// <summary>
