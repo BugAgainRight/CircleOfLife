@@ -56,6 +56,7 @@ namespace CircleOfLife.Level
                     LevelController.Instance.RegisterEnemy(go);
                     units.UnitCount--;
                     units.AppearTime += units.AppearInterval;
+                    LevelController.OnEnemyCreated.Invoke(go);
                 }
             }
         }

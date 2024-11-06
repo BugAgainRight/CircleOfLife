@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CircleOfLife.Level
 {
@@ -19,23 +20,80 @@ namespace CircleOfLife.Level
         public static LevelController Instance;
 
         //场景中的出生点字典
-        private Dictionary<string, GameObject> sceneAppearPointDict = new Dictionary<string, GameObject>();
+        private Dictionary<string, GameObject> sceneAppearPointDict;
 
         private Dictionary<string, GameObject> levelEnemyDict;
         //战斗阶段
-        public static LevelStateEnum LevelState = LevelStateEnum.WaveBefore;
+        public static LevelStateEnum LevelState;
+        private bool isWin;
+        private bool isLose;
+        #region 事件
+        /// <summary>
+        /// 波次开始后执行(不会进行清理)
+        /// </summary>
+        public static UnityEvent<int> OnWaveStartAlways = new UnityEvent<int>();
+        /// <summary>
+        /// 波次开始后执行(关卡结束后清空)
+        /// </summary>
+        public static UnityEvent<int> OnWaveStartOnce = new UnityEvent<int>();
+        /// <summary>
+        /// 波次中执行(置于FixedUpdate中、不会进行清理)
+        /// </summary>
+        public static UnityEvent<int> OnWaveFixedUpdateAlways = new UnityEvent<int>();
+        /// <summary>
+        /// 波次中执行(置于FixedUpdate中、关卡结束后清空)
+        /// </summary>
+        public static UnityEvent<int> OnWaveFixedUpdateOnce = new UnityEvent<int>();
+        /// <summary>
+        /// 波次结束后执行(不会进行清理)
+        /// </summary> 
+        public static UnityEvent<int> OnWaveEndAlways = new UnityEvent<int>();
+        /// <summary>
+        /// 波次结束后执行(关卡结束后清空)
+        /// </summary> 
+        public static UnityEvent<int> OnWaveEndOnce = new UnityEvent<int>();
+        /// <summary>
+        /// 关卡胜利后执行(不会进行清理)
+        /// </summary>
+        public static UnityEvent<string> OnLevelWinAlways = new UnityEvent<string>();
+        /// <summary>
+        /// 关卡胜利后执行(关卡结束后清空)
+        /// </summary>
+        public static UnityEvent<string> OnLevelWinOnce = new UnityEvent<string>();
+        /// <summary>
+        /// 关卡失败后执行(不会进行清理)
+        /// </summary> 
+        public static UnityEvent<string> OnLevelLoseAlways = new UnityEvent<string>();
+        /// <summary>
+        /// 关卡失败后执行(关卡结束后清空)
+        /// </summary> 
+        public static UnityEvent<string> OnLevelLoseOnce = new UnityEvent<string>();
+        /// <summary>
+        /// 敌人生成时执行(关卡结束后清空)
+        /// </summary> 
+        public static UnityEvent<GameObject> OnEnemyCreated = new UnityEvent<GameObject>();
 
-        private bool isWin = false;
-
+        #endregion
         void Update()
         {
-            if (CheckLoseCondition())
+            if (!isLose && !isWin)
             {
-                LevelManager.OnLevelLose.Invoke();
+                if (CheckLoseCondition())
+                {
+                    OnLevelLose();
+                }
+                else if (CheckWaveWinCondition())
+                {
+                    OnWaveEnd();
+                }
             }
-            if (CheckWaveWinCondition() && !isWin)
+        }
+        void FixedUpdate()
+        {
+            if (LevelState == LevelStateEnum.WaveBegin)
             {
-                OnWaveEnd();
+                OnWaveFixedUpdateOnce.Invoke(LevelUtils.CurrentWave);
+                OnWaveFixedUpdateAlways.Invoke(LevelUtils.CurrentWave);
             }
         }
         public static void EnsureInitialized()
@@ -48,14 +106,24 @@ namespace CircleOfLife.Level
             go.SetActive(true);
             Instance = go.GetComponent<LevelController>();
         }
+
+        public void Reset()
+        {
+            isWin = false;
+            isLose = false;
+            LevelState = LevelStateEnum.WaveBefore;
+            LevelUtils.ResetCurrentLevel();
+        }
+        #region 波次相关
         /// <summary>
         ///下一个波次开始,注册并创建出生点,并将其添加到场景中，然后将LevelWaveAppearPoint数据分配至对应出生点
         /// </summary>
-        public void OnWaveBegin()
+        public void OnWaveStart()
         {
             isWin = false;
-            LevelManager.OnWaveBegin.Invoke();
             LevelState = LevelStateEnum.WaveBegin;
+            OnWaveStartAlways.Invoke(LevelUtils.CurrentWave);
+            OnWaveStartOnce.Invoke(LevelUtils.CurrentWave);
             if (LevelUtils.Level == null)
             {
                 Debug.LogWarning("Level is null,请先加载关卡数据");
@@ -71,36 +139,71 @@ namespace CircleOfLife.Level
         private void OnWaveEnd()
         {
             LevelState = LevelStateEnum.WaveBefore;
-            if (LevelUtils.CurrentWave == LevelUtils.MaxWave - 1)
+            if (LevelUtils.CurrentWave + 1 == LevelUtils.MaxWave)
             {
-                isWin = true;
-                Debug.Log("关卡结束，你过关！");
-                LevelManager.OnLevelWin.Invoke();
+                OnLevelWin();
             }
             else
             {
                 Debug.Log("波次" + LevelUtils.CurrentWave + "结束");
                 LevelUtils.CurrentWave += 1;
-                LevelManager.OnWaveEnd.Invoke();
+                OnWaveEndAlways.Invoke(LevelUtils.CurrentWave);
+                OnWaveEndOnce.Invoke(LevelUtils.CurrentWave);
             }
         }
-
+        /// <summary>
+        /// 游戏胜利
+        /// </summary>
+        public void OnLevelWin()
+        {
+            isWin = true;
+            Debug.Log("关卡结束，你过关！");
+            OnLevelWinAlways.Invoke(LevelUtils.Level.ID);
+            OnLevelWinOnce.Invoke(LevelUtils.Level.ID);
+            OnLevelEnd();
+        }
+        /// <summary>
+        /// 游戏失败
+        /// </summary>
+        public void OnLevelLose()
+        {
+            isLose = true;
+            Debug.Log("游戏失败");
+            OnLevelLoseAlways.Invoke(LevelUtils.Level.ID);
+            OnLevelEnd();
+        }
+        //游戏结束后清理事件
+        private void OnLevelEnd()
+        {
+            OnLevelLoseOnce.RemoveAllListeners();
+            OnLevelWinOnce.RemoveAllListeners();
+            OnWaveStartOnce.RemoveAllListeners();
+            OnWaveEndOnce.RemoveAllListeners();
+            OnWaveFixedUpdateOnce.RemoveAllListeners();
+            OnEnemyCreated.RemoveAllListeners();
+        }
         //检测是否达到胜利条件
-        public bool CheckWaveWinCondition()
+        private bool CheckWaveWinCondition()
         {
             return LevelUtils.WinCondition;
         }
-
-        public bool CheckLoseCondition()
+        //检测是否达到失败条件
+        private bool CheckLoseCondition()
         {
             return LevelUtils.LoseCondition;
         }
+        #endregion
+        #region 出生点相关
         //注册并创建出生点,并将其添加到场景中，然后将LevelWaveAppearPoint数据分配至对应出生点
         private void RegisterAppearPoint(LevelWaveAppearPoint point)
         {
+            if (sceneAppearPointDict == null)
+            {
+                sceneAppearPointDict = new Dictionary<string, GameObject>();
+            }
             if (!CheckAppearPoint(point.AppearPointName))
             {
-                Debug.Log("注册出生点:" + point.AppearPointName);
+                //Debug.Log("注册出生点:" + point.AppearPointName);
                 GameObject gameObject = new GameObject(point.AppearPointName, typeof(LevelAppearPoint));
                 gameObject.transform.position = new Vector3(point.Postition.x, point.Postition.y, point.Postition.z);
                 gameObject.GetComponent<LevelAppearPoint>().SetLevelAppearPoint(point);
@@ -108,7 +211,7 @@ namespace CircleOfLife.Level
             }
             else
             {
-                Debug.Log("使用出生点:" + point.AppearPointName);
+                //Debug.Log("使用出生点:" + point.AppearPointName);
                 GameObject appearPoint;
                 sceneAppearPointDict.TryGetValue(point.AppearPointName, out appearPoint);
                 appearPoint.GetComponent<LevelAppearPoint>().SetLevelAppearPoint(point);
@@ -148,6 +251,7 @@ namespace CircleOfLife.Level
                 levelEnemyDict.Remove(id);
             }
         }
+        #endregion
     }
 
 }

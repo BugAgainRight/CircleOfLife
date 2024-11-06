@@ -21,13 +21,28 @@ MonoBehaviour:
     - waveNumber: 1
       WaveCost: 0
       AppearPoints:
-      - AppearPointName: "\u672A\u95FB\u82B1\u540D"
+      - AppearPointName: 111
         Postition: {x: 0, y: 0, z: 0}
         UnitsList:
         - UnitPrefab: {fileID: 7746215851654067778, guid: e62ec1324b398c841a388173078ea7fc, type: 3}
           UnitCount: 10
           AppearTime: 1
           AppearInterval: 0.5
+        - UnitPrefab: {fileID: 1976060902798013086, guid: 3156c2e5f7004bf4c8fca9c10f7c750d, type: 3}
+          UnitCount: 5
+          AppearTime: 5
+          AppearInterval: 0.01
+      - AppearPointName: "\u51FA\u751F\u70B92"
+        Postition: {x: 7, y: 1, z: 0}
+        UnitsList:
+        - UnitPrefab: {fileID: 7746215851654067778, guid: e62ec1324b398c841a388173078ea7fc, type: 3}
+          UnitCount: 2
+          AppearTime: 1
+          AppearInterval: 0.5
+        - UnitPrefab: {fileID: 1976060902798013086, guid: 3156c2e5f7004bf4c8fca9c10f7c750d, type: 3}
+          UnitCount: 3
+          AppearTime: 4
+          AppearInterval: 0.01
     - waveNumber: 2
       WaveCost: 10
       AppearPoints:

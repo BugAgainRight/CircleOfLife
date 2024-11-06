@@ -10,6 +10,7 @@ namespace CircleOfLife.Level
     /// </summary>
     public static class LevelUtils
     {
+        #region SO
         private static Level level;
         public static Level Level
         {
@@ -48,6 +49,8 @@ namespace CircleOfLife.Level
                 return LevelWavelist[CurrentWave].AppearPoints;
             }
         }
+        #endregion
+        #region 静态数据
         /// <summary>
         /// <最大波次数量> 
         ///</summary>
@@ -80,6 +83,8 @@ namespace CircleOfLife.Level
                 return count;
             }
         }
+        #endregion
+        #region 胜败条件
         /// <summary>
         /// 判断所有的胜利条件是否都已满足
         /// </summary>
@@ -95,19 +100,21 @@ namespace CircleOfLife.Level
             get { return CurrentEnemyCount >= MaxEnemyCount; }
         }
         /// <summary>
-        /// 胜利条件2: 手动获取胜利
+        /// 胜利条件2: 手动获取胜利?
         /// </summary>
         public static bool WinCondition2 = false;
         //这里继续注册胜利条件?
         public static bool WinConditionExample = true;
         /// <summary>
-        /// 失败条件是否成立
+        /// 失败条件是否成立，我也不知道是什么，写这里感觉也不太方便，还是出去直接调用LevelManager.OnGameLose方法的好
         /// </summary>
-        /// <value></value>
         public static bool LoseCondition
         {
             get { return LoseCondition1; }
         }
+        /// <summary>
+        /// 失败条件1:我也不知道是什么，写这里不太方便，还是出去直接调用LevelManager.OnGameLose方法的好
+        /// </summary>
         public static bool LoseCondition1 = false;
         private static int currentWave;
         public static int CurrentWave
@@ -119,6 +126,8 @@ namespace CircleOfLife.Level
                 currentWave = value;
             }
         }
+        #endregion
+        #region  动态数据
         /// <summary>
         /// 当前消灭的敌人数量
         /// </summary>
@@ -137,14 +146,15 @@ namespace CircleOfLife.Level
                 return LevelWavelist[CurrentWave].WaveCost;
             }
         }
-
+        #endregion
+        #region 方法
         /// <summary>
         /// 初始化关卡
         /// </summary>
         /// <param name="level">关卡数据</param>
         public static void SetCurrentLevel(Level level)
         {
-            LevelUtils.Level = level;
+            Level = level;
             CurrentWave = 0;
             CurrentEnemyCount = 0;
             Cost = level.LevelCost;
@@ -157,7 +167,7 @@ namespace CircleOfLife.Level
             Level = null;
         }
         /// <summary>
-        /// 重置关卡
+        /// 重置关卡(波次归零、敌人数量归零、资源数量设置为初始值)
         /// </summary>
         public static void ResetCurrentLevel()
         {
@@ -171,5 +181,6 @@ namespace CircleOfLife.Level
             //波次改变时对局内数据进行一些改变
             CurrentEnemyCount = 0;
         }
+        #endregion
     }
 }
