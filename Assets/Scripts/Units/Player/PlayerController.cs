@@ -77,10 +77,10 @@ namespace CircleOfLife.Units
         public void PlayerMove()
         {
             direction = Vector2.zero;
-            if (KeyboardSet.IsPressing(KeyEnum.Up)) { direction += Vector2.up; }
-            if (KeyboardSet.IsPressing(KeyEnum.Down)) { direction += Vector2.down; }
-            if (KeyboardSet.IsPressing(KeyEnum.Left)) { direction += Vector2.left; }
-            if (KeyboardSet.IsPressing(KeyEnum.Right)) { direction += Vector2.right; }
+            if (KeyEnum.Up.IsPressing()) { direction += Vector2.up; }
+            if (KeyEnum.Down.IsPressing()) { direction += Vector2.down; }
+            if (KeyEnum.Left.IsPressing()) { direction += Vector2.left; }
+            if (KeyEnum.Right.IsPressing()) { direction += Vector2.right; }
             Direction = new Vector2(direction.x, direction.y);
             if (direction.x < 0)
             {
@@ -94,10 +94,10 @@ namespace CircleOfLife.Units
 
         public void KeyBoardMonitor()
         {
-            if (KeyboardSet.IsKeyDown(KeyEnum.Interact)) OpenSomething();
-            if (KeyboardSet.IsKeyDown(KeyEnum.Attack)) Attack();
-            if (KeyboardSet.IsKeyDown(KeyEnum.Fire)) Fire();
-            if (KeyboardSet.IsKeyDown(KeyEnum.Skill1)) Skill();
+            if (KeyEnum.Interact.IsKeyDown()) OpenSomething();
+            if (KeyEnum.Attack.IsKeyDown()) Attack();
+            if (KeyEnum.Fire.IsKeyDown()) Fire();
+            if (KeyEnum.Skill1.IsKeyDown()) Skill();
         }
 
 
