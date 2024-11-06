@@ -19,11 +19,12 @@ namespace CircleOfLife.Level
         {
             LevelManager.OnWaveStart((wave) =>
             {
-                Debug.Log("OnWaveStart WaveCount" + wave);
+                Debug.Log("OnWaveStart WaveCount:" + wave);
             });
             LevelManager.OnWaveEnd((wave) =>
             {
                 Debug.Log("OnWaveEnd WaveCount:" + wave);
+                Debug.Log("CurrentCost:" + LevelManager.GetCost());
             });
             LevelManager.OnLevelWin((id) =>
             {
@@ -35,8 +36,9 @@ namespace CircleOfLife.Level
             });
             LevelManager.OnEnemyCreated((enemy) =>
             {
-                Debug.Log("OnEnemyCreated:" + enemy.name);
+                //Debug.Log("OnEnemyCreated:" + enemy.name);
             });
+
         }
 
         // Update is called once per frame
@@ -70,6 +72,11 @@ namespace CircleOfLife.Level
                 isClickDown = true;
                 Lose();
             }
+            if (!isClickDown && Input.GetKeyDown(KeyCode.T))
+            {
+                isClickDown = true;
+                EndWave();
+            }
         }
 
         private void LoadLevel()
@@ -80,7 +87,7 @@ namespace CircleOfLife.Level
 
         private void StarWave()
         {
-            Debug.Log("StarWave:" + LevelUtils.CurrentWave);
+            Debug.Log("StarWave:" + LevelContext.CurrentWave);
             LevelManager.StartWave();
         }
         private void Win()
@@ -92,6 +99,11 @@ namespace CircleOfLife.Level
         {
             Debug.Log("Lose");
             LevelManager.LevelLose();
+        }
+        private void EndWave()
+        {
+            Debug.Log("EndWave");
+            LevelManager.EndWave();
         }
 
         public void Message()

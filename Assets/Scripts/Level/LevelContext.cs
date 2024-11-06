@@ -8,7 +8,7 @@ namespace CircleOfLife.Level
     /// <summary>
     /// 局内数据: 波次Wave、敌人数量EnemyCount、胜利条件WinCondition、资源数量Cost、
     /// </summary>
-    public static class LevelUtils
+    public static class LevelContext
     {
         #region SO
         private static Level level;

@@ -68,8 +68,8 @@ namespace CircleOfLife.Level
         /// </summary>
         /// <param name="action">参数为 第一时间生成的敌人 的方法</param> 
         public static void OnEnemyCreated(UnityAction<GameObject> action) => LevelController.OnEnemyCreated.AddListener(action);
-        #endregion
 
+        #endregion
         /// <summary>
         /// 下载关卡,并且初始化关卡数据
         /// </summary>
@@ -84,7 +84,7 @@ namespace CircleOfLife.Level
             }
             Level level = GetCurrentLevel(levelID);
             CurrentLevelID = level.ID;
-            LevelUtils.SetCurrentLevel(level);
+            LevelContext.SetCurrentLevel(level);
             LevelController.EnsureInitialized();
             LevelController.Instance.Reset();
         }
@@ -102,7 +102,7 @@ namespace CircleOfLife.Level
                 return;
             }
             Level level = GetCurrentLevel(CurrentLevelID);
-            LevelUtils.SetCurrentLevel(level);
+            LevelContext.SetCurrentLevel(level);
             LevelController.EnsureInitialized();
             LevelController.Instance.Reset();
         }
@@ -112,7 +112,7 @@ namespace CircleOfLife.Level
         /// </summary>
         public static void UnLoadLevel()
         {
-            LevelUtils.UnLoadCurrentLevel();
+            LevelContext.UnLoadCurrentLevel();
         }
         /// <summary>
         /// 重置关卡(仅针对局内数据)
@@ -143,6 +143,14 @@ namespace CircleOfLife.Level
             LevelController.Instance.OnWaveStart();
         }
 
+        ///<summary>
+        /// 强制结束当前波次(测试用 不会遏制敌人继续出生)
+        /// </summary>
+        public static void EndWave()
+        {
+            LevelController.EnsureInitialized();
+            LevelController.Instance.OnWaveEnd();
+        }
         /// <summary>
         /// 直接判定游戏失败
         /// </summary>
@@ -160,5 +168,8 @@ namespace CircleOfLife.Level
             LevelController.EnsureInitialized();
             LevelController.Instance.OnLevelWin();
         }
+
+        public static int GetCost() => LevelContext.Cost;
+        public static void ChangeCost(int cost) => LevelContext.Cost += cost;
     }
 }

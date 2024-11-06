@@ -29,6 +29,15 @@ namespace CircleOfLife.Level
         private bool isLose;
         #region 事件
         /// <summary>
+        /// 关卡进入后执行(不会进行清理)
+        /// </summary>
+        public static UnityEvent<string> OnLevelStartAlways = new UnityEvent<string>();
+        /// <summary>
+        /// 关卡进入后执行(关卡结束后清空)
+        /// </summary>
+        public static UnityEvent<string> OnLevelStart = new UnityEvent<string>();
+        private bool isLevelStart = false;
+        /// <summary>
         /// 波次开始后执行(不会进行清理)
         /// </summary>
         public static UnityEvent<int> OnWaveStartAlways = new UnityEvent<int>();
@@ -76,6 +85,12 @@ namespace CircleOfLife.Level
         #endregion
         void Update()
         {
+            if (!isLevelStart)
+            {
+                OnLevelStartAlways.Invoke(LevelContext.Level.ID);
+                OnLevelStart.Invoke(LevelContext.Level.ID);
+                isLevelStart = true;
+            }
             if (!isLose && !isWin)
             {
                 if (CheckLoseCondition())
@@ -92,8 +107,8 @@ namespace CircleOfLife.Level
         {
             if (LevelState == LevelStateEnum.WaveBegin)
             {
-                OnWaveFixedUpdateOnce.Invoke(LevelUtils.CurrentWave);
-                OnWaveFixedUpdateAlways.Invoke(LevelUtils.CurrentWave);
+                OnWaveFixedUpdateOnce.Invoke(LevelContext.CurrentWave);
+                OnWaveFixedUpdateAlways.Invoke(LevelContext.CurrentWave);
             }
         }
         public static void EnsureInitialized()
@@ -112,7 +127,10 @@ namespace CircleOfLife.Level
             isWin = false;
             isLose = false;
             LevelState = LevelStateEnum.WaveBefore;
-            LevelUtils.ResetCurrentLevel();
+            LevelContext.ResetCurrentLevel();
+            UnRegisterAllAppearPoint();
+            UnRegisterAllEnemy();
+
         }
         #region 波次相关
         /// <summary>
@@ -122,33 +140,35 @@ namespace CircleOfLife.Level
         {
             isWin = false;
             LevelState = LevelStateEnum.WaveBegin;
-            OnWaveStartAlways.Invoke(LevelUtils.CurrentWave);
-            OnWaveStartOnce.Invoke(LevelUtils.CurrentWave);
-            if (LevelUtils.Level == null)
+            OnWaveStartAlways.Invoke(LevelContext.CurrentWave);
+            OnWaveStartOnce.Invoke(LevelContext.CurrentWave);
+            if (LevelContext.Level == null)
             {
                 Debug.LogWarning("Level is null,请先加载关卡数据");
                 return;
             }
-            foreach (LevelWaveAppearPoint point in LevelUtils.AppearPointList)
+            foreach (LevelWaveAppearPoint point in LevelContext.AppearPointList)
             {
                 RegisterAppearPoint(point);
             }
         }
 
         //波次结束
-        private void OnWaveEnd()
+        public void OnWaveEnd()
         {
+            ChangeCost(LevelContext.CurrentWaveCost);
             LevelState = LevelStateEnum.WaveBefore;
-            if (LevelUtils.CurrentWave + 1 == LevelUtils.MaxWave)
+            UnRegisterAllEnemy();
+            if (LevelContext.CurrentWave + 1 == LevelContext.MaxWave)
             {
                 OnLevelWin();
             }
             else
             {
-                Debug.Log("波次" + LevelUtils.CurrentWave + "结束");
-                LevelUtils.CurrentWave += 1;
-                OnWaveEndAlways.Invoke(LevelUtils.CurrentWave);
-                OnWaveEndOnce.Invoke(LevelUtils.CurrentWave);
+                Debug.Log("波次" + LevelContext.CurrentWave + "结束");
+                LevelContext.CurrentWave += 1;
+                OnWaveEndAlways.Invoke(LevelContext.CurrentWave);
+                OnWaveEndOnce.Invoke(LevelContext.CurrentWave);
             }
         }
         /// <summary>
@@ -158,8 +178,8 @@ namespace CircleOfLife.Level
         {
             isWin = true;
             Debug.Log("关卡结束，你过关！");
-            OnLevelWinAlways.Invoke(LevelUtils.Level.ID);
-            OnLevelWinOnce.Invoke(LevelUtils.Level.ID);
+            OnLevelWinAlways.Invoke(LevelContext.Level.ID);
+            OnLevelWinOnce.Invoke(LevelContext.Level.ID);
             OnLevelEnd();
         }
         /// <summary>
@@ -169,10 +189,10 @@ namespace CircleOfLife.Level
         {
             isLose = true;
             Debug.Log("游戏失败");
-            OnLevelLoseAlways.Invoke(LevelUtils.Level.ID);
+            OnLevelLoseAlways.Invoke(LevelContext.Level.ID);
             OnLevelEnd();
         }
-        //游戏结束后清理事件
+        //游戏结束后清理事件、出生点
         private void OnLevelEnd()
         {
             OnLevelLoseOnce.RemoveAllListeners();
@@ -181,16 +201,18 @@ namespace CircleOfLife.Level
             OnWaveEndOnce.RemoveAllListeners();
             OnWaveFixedUpdateOnce.RemoveAllListeners();
             OnEnemyCreated.RemoveAllListeners();
+            UnRegisterAllAppearPoint();
+            isLevelStart = false;
         }
         //检测是否达到胜利条件
         private bool CheckWaveWinCondition()
         {
-            return LevelUtils.WinCondition;
+            return LevelContext.WinCondition;
         }
         //检测是否达到失败条件
         private bool CheckLoseCondition()
         {
-            return LevelUtils.LoseCondition;
+            return LevelContext.LoseCondition;
         }
         #endregion
         #region 出生点相关
@@ -228,6 +250,20 @@ namespace CircleOfLife.Level
             return sceneAppearPointDict.ContainsKey(pointName);
         }
 
+        //注销所有出生点
+        private void UnRegisterAllAppearPoint()
+        {
+            if (sceneAppearPointDict == null)
+            {
+                sceneAppearPointDict = new Dictionary<string, GameObject>();
+            }
+            foreach (var item in sceneAppearPointDict)
+            {
+                Destroy(item.Value);
+            }
+            sceneAppearPointDict.Clear();
+        }
+
         public void RegisterEnemy(GameObject enemyGo)
         {
             if (levelEnemyDict == null)
@@ -247,11 +283,33 @@ namespace CircleOfLife.Level
             }
             if (levelEnemyDict.ContainsKey(id))
             {
-                LevelUtils.CurrentEnemyCount++;
+                LevelContext.CurrentEnemyCount++;
                 levelEnemyDict.Remove(id);
             }
         }
+
+        public void UnRegisterAllEnemy()
+        {
+            if (levelEnemyDict == null)
+            {
+                levelEnemyDict = new Dictionary<string, GameObject>();
+            }
+            foreach (var item in levelEnemyDict)
+            {
+                Destroy(item.Value);
+            }
+            levelEnemyDict.Clear();
+        }
+        #endregion
+        #region Cost相关
+        /// <summary>
+        /// 修改Cost,输入正数为增加Cost,输入负数为减少Cost
+        /// </summary>
+        /// <param name="cost">cost</param>
+        public void ChangeCost(int cost)
+        {
+            LevelContext.Cost += cost;
+        }
         #endregion
     }
-
 }
