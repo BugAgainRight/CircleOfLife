@@ -165,6 +165,7 @@ namespace CircleOfLife.Build.UI
                 RecyclePool.Request(PlacingBuilding.Type, (c) =>
                 {
                     c.Transform.position = pos;
+                    c.Transform.localScale = size;
                     c.GameObject.SetActive(true);
                     revertable.Add(c.GameObject);
                 });
