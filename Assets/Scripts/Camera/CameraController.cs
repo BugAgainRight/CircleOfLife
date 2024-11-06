@@ -8,6 +8,7 @@ namespace CircleOfLife
     [RequireComponent(typeof(Camera))]
     public class CameraController : MonoBehaviour
     {
+        public static CameraController Instance;
         public GameObject FollowTarget;
         private new Camera camera;
 
@@ -51,6 +52,7 @@ namespace CircleOfLife
         void Awake()
         {
             camera = GetComponent<Camera>();
+            Instance = this;
         }
 
         void Update()

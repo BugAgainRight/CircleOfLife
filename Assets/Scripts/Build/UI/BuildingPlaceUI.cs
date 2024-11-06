@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CircleOfLife.General;
 using CircleOfLife.ScriptObject;
 using Milease.Core.Animator;
 using Milease.Core.UI;
+using Milease.Enums;
 using Milease.Utils;
 using Milutools.Milutools.UI;
 using Milutools.Recycle;
@@ -16,9 +18,14 @@ namespace CircleOfLife.Build.UI
 {
     public class BuildingPlaceUI : ManagedUI<BuildingPlaceUI, BuildingPlaceUIData, int>
     {
-        public enum UIState
+        private enum UIState
         {
-            FoldOut, FoldIn, Placing
+            FoldOut, FoldIn, Placing, Modify
+        }
+
+        private enum Effect
+        {
+            LevelUp, Remove
         }
         
         public static BuildingPlaceUI Instance;
@@ -28,8 +35,13 @@ namespace CircleOfLife.Build.UI
         public MilListView ListView;
         public RectTransform FoldoutButton;
         public RectTransform Container, UpBlack, DownBlack;
-        public TMP_Text PlaceTip;
+        public TMP_Text PlaceTip, MaterialText, EditingTitle;
         public Light2D PlaceLight;
+        public CanvasGroup DetailPanel;
+
+        public GameObject RotateBtn, PeopleBtn;
+
+        public GameObject LevelUpEffect, RemoveEffect;
         
         public bool PlacingMode { get; set; }
         public int Material { get; set; }
@@ -38,10 +50,15 @@ namespace CircleOfLife.Build.UI
         private BuildingPlaceUIData uiData;
         private readonly MilStateAnimator stateAnimator = new();
         private readonly List<GameObject> revertable = new();
+        private static readonly Dictionary<GameObject, BuildingUIData> typeDict = new();
+
+        private BuildBase editing;
         
         protected override void Begin()
         {
             Instance = this;
+            RecyclePool.EnsurePrefabRegistered(Effect.LevelUp, LevelUpEffect, 20);
+            RecyclePool.EnsurePrefabRegistered(Effect.Remove, RemoveEffect, 20);
             stateAnimator.AddState(UIState.FoldOut, 0.25f, new[]
             {
                 Container.MilState(UMN.AnchoredPosition, new Vector2(0f, 214f)),
@@ -49,7 +66,9 @@ namespace CircleOfLife.Build.UI
                 FoldoutButton.MilState(UMN.LScale, Vector3.one * 1.6667f),
                 PlaceTip.MilState(UMN.Color, Color.white.Clear()),
                 UpBlack.MilState(UMN.LScale, new Vector3(1f, 0f, 1f)),
-                DownBlack.MilState(UMN.LScale, new Vector3(1f, 0f, 1f))
+                DownBlack.MilState(UMN.LScale, new Vector3(1f, 0f, 1f)),
+                Camera.main!.MilState("orthographicSize", 5f, EaseFunction.Linear),
+                DetailPanel.MilState(nameof(DetailPanel.alpha), 0f)
             });
             stateAnimator.AddState(UIState.FoldIn, 0.25f, new[]
             {
@@ -58,16 +77,31 @@ namespace CircleOfLife.Build.UI
                 FoldoutButton.MilState(UMN.LScale, Vector3.one * 2.2f),
                 PlaceTip.MilState(UMN.Color, Color.white.Clear()),
                 UpBlack.MilState(UMN.LScale, new Vector3(1f, 0f, 1f)),
-                DownBlack.MilState(UMN.LScale, new Vector3(1f, 0f, 1f))
+                DownBlack.MilState(UMN.LScale, new Vector3(1f, 0f, 1f)),
+                Camera.main!.MilState("orthographicSize", 5f, EaseFunction.Linear),
+                DetailPanel.MilState(nameof(DetailPanel.alpha), 0f)
             });
             stateAnimator.AddState(UIState.Placing, 0.25f, new[]
             {
-                Container.MilState(UMN.AnchoredPosition, new Vector2(0f, -180f)),
+                Container.MilState(UMN.AnchoredPosition, new Vector2(0f, -200f)),
                 FoldoutButton.MilState(UMN.LEulerAngles, new Vector3(0f, 0f, 0f)),
                 FoldoutButton.MilState(UMN.LScale, Vector3.one * 1.6667f),
                 PlaceTip.MilState(UMN.Color, Color.white),
                 UpBlack.MilState(UMN.LScale, new Vector3(1f, 1f, 1f)),
-                DownBlack.MilState(UMN.LScale, new Vector3(1f, 1f, 1f))
+                DownBlack.MilState(UMN.LScale, new Vector3(1f, 1f, 1f)),
+                Camera.main!.MilState("orthographicSize", 5f, EaseFunction.Linear),
+                DetailPanel.MilState(nameof(DetailPanel.alpha), 0f)
+            });
+            stateAnimator.AddState(UIState.Modify, 0.25f, new[]
+            {
+                Container.MilState(UMN.AnchoredPosition, new Vector2(0f, -200f)),
+                FoldoutButton.MilState(UMN.LEulerAngles, new Vector3(0f, 0f, 0f)),
+                FoldoutButton.MilState(UMN.LScale, Vector3.one * 1.6667f),
+                PlaceTip.MilState(UMN.Color, Color.white.Clear()),
+                UpBlack.MilState(UMN.LScale, new Vector3(1f, 1f, 1f)),
+                DownBlack.MilState(UMN.LScale, new Vector3(1f, 1f, 1f)),
+                Camera.main!.MilState("orthographicSize", 4f, EaseFunction.Linear),
+                DetailPanel.MilState(nameof(DetailPanel.alpha), 1f)
             });
             stateAnimator.SetDefaultState(UIState.FoldOut);
         }
@@ -75,6 +109,89 @@ namespace CircleOfLife.Build.UI
         public void StartBattle()
         {
             Close(Material);
+        }
+
+        public void CloseDetailPanel()
+        {
+            stateAnimator.Transition(UIState.FoldOut);
+        }
+
+        private int GetLevelUpCost(int level)
+        {
+            return level * 50 + 50;
+        }
+
+        private int GetRemoveCompensate(BuildBase build)
+        {
+            if (revertable.Contains(build.gameObject))
+            {
+                return typeDict[build.gameObject].MetaData.Cost;
+            }
+
+            int cost = 0;
+            for (var i = 1; i < build.Level; i++)
+            {
+                cost += GetLevelUpCost(i);
+            }
+
+            return Mathf.RoundToInt(Mathf.Log(cost, build.Level));
+        }
+        
+        public void RemoveBuilding()
+        {
+            var compensate = GetRemoveCompensate(editing);
+            MessageBox.Open(("拆除装置", $"你确定要拆除当前装置吗？\n将返还材料：{compensate}"), (o) =>
+            {
+                if (o == MessageBox.Operation.Deny)
+                {
+                    return;
+                }
+
+                Material += compensate;
+                RecyclePool.Request(Effect.Remove, (c) =>
+                {
+                    c.Transform.position = editing.transform.position;
+                    c.GameObject.SetActive(true);
+                });
+                revertable.Remove(editing.gameObject);
+                RecyclePool.ReturnToPool(editing.gameObject);
+                CloseDetailPanel();
+            });
+        }
+
+        public void RotateBuilding()
+        {
+            
+        }
+
+        public void LevelUpBuilding()
+        {
+            if (editing.Level >= 3)
+            {
+                MessageBox.Open(("已满级", "该装置已经满级，无需升级。"));
+                return;
+            }
+
+            var need = GetLevelUpCost(editing.Level);
+            LevelUpUI.Open(new LevelUpUIData()
+            {
+                Target = editing,
+                Material = Material,
+                Need = need
+            }, (direction) =>
+            {
+                if (direction == null)
+                {
+                    return;
+                }
+                editing.LevelUp(direction.Value);
+                Material -= need;
+                RecyclePool.Request(Effect.LevelUp, (c) =>
+                {
+                    c.Transform.position = editing.transform.position;
+                    c.GameObject.SetActive(true);
+                });
+            });
         }
 
         public void FoldOutUI()
@@ -168,14 +285,35 @@ namespace CircleOfLife.Build.UI
                     c.Transform.localScale = size;
                     c.GameObject.SetActive(true);
                     revertable.Add(c.GameObject);
+                    typeDict.TryAdd(c.GameObject, PlacingBuilding);
                 });
                 EndPlacing();
                 stateAnimator.Transition(UIState.FoldOut);
             }
         }
 
+        public void FindSelection()
+        {
+            var pos = (Vector2)Camera.main!.ScreenToWorldPoint(Input.mousePosition);
+            var colliders = Physics2D.RaycastAll(pos, Vector2.zero);
+            var build = colliders.FirstOrDefault(x => x.collider.CompareTag("Building"));
+            if (!build)
+            {
+                return;
+            }
+            stateAnimator.Transition(UIState.Modify);
+            editing = build.transform.GetComponent<BuildBase>();
+            CameraController.Instance.FollowTarget = build.transform.gameObject;
+            var data = typeDict[editing.gameObject];
+            EditingTitle.text = data.MetaData.Name;
+            RotateBtn.SetActive(data.MetaData.WhetherRotate);
+            PeopleBtn.SetActive(editing.WhetherSelectDirection);
+        }
+
         private void Update()
         {
+            MaterialText.text = Material.ToString();
+            
             if (!PlacingMode)
             {
                 return;

@@ -4,6 +4,7 @@
     {
         MessageBox,
         UISample,
-        BuildingPlacing
+        BuildingPlacing,
+        LevelUpUI
     }
 }
