@@ -17,7 +17,7 @@ namespace CircleOfLife
         public Transform point;
         public float radius;
         public Vector2 size, offSet;
-        public Color gizmosColor;
+        public Color gizmosColor=Color.green;
         public Vector2 gizmosCenter { get { return (Vector2)point.position + offSet; } }
 
         public void AutoRange(Vector2Int xRange, Vector2Int yRange)

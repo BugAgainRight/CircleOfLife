@@ -186,24 +186,24 @@ namespace CircleOfLife
             }
 
         }
-        /// <summary>
-        /// 近战普攻
-        /// </summary>
-        /// <param name="context"></param>
-        [Skill(PlayerSkillType.Melee)]
-        private static void PlayerSkill_8(SkillContext context)
-        {
+        ///// <summary>
+        ///// 近战普攻
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[Skill(PlayerSkillType.Melee)]
+        //private static void PlayerSkill_8(SkillContext context)
+        //{
 
-        }
-        /// <summary>
-        /// 远程普攻
-        /// </summary>
-        /// <param name="context"></param>
-        [Skill(PlayerSkillType.Ranged)]
-        private static void PlayerSkill_9(SkillContext context)
-        {
+        //}
+        ///// <summary>
+        ///// 远程普攻
+        ///// </summary>
+        ///// <param name="context"></param>
+        //[Skill(PlayerSkillType.Ranged)]
+        //private static void PlayerSkill_9(SkillContext context)
+        //{
 
-        }
+        //}
 
         #endregion
 
@@ -387,6 +387,7 @@ namespace CircleOfLife
             collection.GameObject.transform.position = context.TriggerPos;
 
             collection.GetComponent<BulletMove>().SetTarget(context.HitData.Transform);
+            collection.GetComponent<BulletTrigger>().PassData(new BattleContext(context.PhysicsLayer,context.AttackerData,null));
 
         }
 

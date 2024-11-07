@@ -78,6 +78,7 @@ namespace CircleOfLife
         public static void NormalTrigger(BattleContext context)
         {
             DamageManagement.Damage(context);
+            
         }
 
 
@@ -172,11 +173,13 @@ namespace CircleOfLife
         [BulletMove(BulletMoveType.Follow)]
         public static void FollowMove(BulletMoveContext context)
         {
-
-            Vector2 direction = context.TargetTransform.position - context.Transform.position;
-
-            context.Transform.position += (Vector3)direction.normalized*context.Speed * Time.fixedDeltaTime;
-          
+            Vector2 direction;
+            if (context.TargetTransform != null&&context.TargetTransform.gameObject.activeInHierarchy)
+            {
+                direction = context.TargetTransform.position - context.Transform.position;
+                context.SpeedVector = direction.normalized;
+            }   
+            context.Transform.position += (Vector3)context.SpeedVector.normalized * context.Speed * Time.fixedDeltaTime;
         }
 
 

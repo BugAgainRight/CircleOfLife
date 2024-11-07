@@ -114,7 +114,7 @@ namespace CircleOfLife
             if (NeedRecovery)
             {
                 var list = BattleRange.GetAllFriendInRange(PhysicsLayer, factionType);
-                Stats.Damage(-5 * list.Count, Stats.WrapBuffBattleContext());
+               if(list.Count>0) DamageManagement.BuffDamage(Stats, -5 * list.Count);
             }
         }
 

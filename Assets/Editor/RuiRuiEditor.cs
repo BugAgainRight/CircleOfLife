@@ -758,9 +758,9 @@ namespace RuiRuiTool
             {
                 newTestSo = (TestSo_Chen)target;
             }
-            editorTool = new();
-            editorTool2 = new();
-            editorTool3 = new();
+            if(editorTool==null) editorTool = new();
+            if(editorTool2 == null) editorTool2 = new();
+            if(editorTool3 == null) editorTool3 = new();
         }
 
         bool allPlayerBool;

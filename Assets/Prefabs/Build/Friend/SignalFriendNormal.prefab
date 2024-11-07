@@ -181,14 +181,15 @@ GameObject:
   m_Component:
   - component: {fileID: 3685504609211485269}
   - component: {fileID: 1498629866769775692}
-  - component: {fileID: 7311553516374236400}
   - component: {fileID: 2745109140409542315}
   - component: {fileID: 6069984641081845173}
   - component: {fileID: 8986260340515439432}
   - component: {fileID: -2749237112161624899}
   - component: {fileID: -3081127122157621112}
+  - component: {fileID: -1664237598982100944}
+  - component: {fileID: 8347979594963103457}
   m_Layer: 0
-  m_Name: Friend
+  m_Name: SignalFriendNormal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,22 +263,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7311553516374236400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7423378393176344028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36dd677b3616bc24884247854c526777, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UpdateMethod: 1
-  Context: {fileID: 2745109140409542315}
-  RunOnAwake: 1
-  Loop: 1
 --- !u!114 &2745109140409542315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,21 +275,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bfe8cafae19c4449b7626be197122d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildSkill: 10
   StandPos: {x: 0, y: 0}
-  ViewRadius:
-    editorMode: 1
-    openGizmos: 1
-    GizmosType: 1
-    point: {fileID: 3685504609211485269}
-    radius: 4.469977
-    size: {x: 0, y: 0}
-    offSet: {x: 0, y: 0}
-    gizmosColor: {r: 0, g: 1, b: 0, a: 1}
+  ViewRadius: {fileID: 8347979594963103457}
   EnemyLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  FireDistance: 1
-  MaxCount: 0
+  FireDistance: 4
   Enemy: {fileID: 0}
   HasTarget: 0
   EnemyDistance: 0
@@ -413,12 +390,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   context: {fileID: 2745109140409542315}
   Attribute:
-    Velocity: 1
+    Velocity: 1.5
     Hp: 100
-    Attack: 0
+    Attack: 20
     Armor: 0
     EffectRange: 0
-    AttackInterval: 1
+    AttackInterval: 0.33
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
+--- !u!114 &-1664237598982100944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423378393176344028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1ba95b17d88bdb4885b50b9f42a7da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateMethod: 1
+  Context: {fileID: 2745109140409542315}
+  RunOnAwake: 1
+  Loop: 1
+--- !u!114 &8347979594963103457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423378393176344028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e499a564af259f544abefdbbf252b480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range:
+    editorMode: 1
+    openGizmos: 1
+    GizmosType: 1
+    point: {fileID: 3685504609211485269}
+    radius: 5
+    size: {x: 0, y: 0}
+    offSet: {x: 0, y: 0}
+    gizmosColor: {r: 0, g: 1, b: 0, a: 1}

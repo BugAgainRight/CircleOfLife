@@ -20,7 +20,7 @@ namespace RuiRuiTool
             var asm = Assembly.GetAssembly(typeof(T));
             var lists = asm.GetExportedTypes()
                            .Select(cls =>
-                                cls.GetMethods(BindingFlags.Default | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.InvokeMethod).Where(method => method.GetCustomAttribute(typeof(T)) != null)
+                                cls.GetMethods(BindingFlags.Default | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.InvokeMethod).Where(method => method.GetCustomAttributes(typeof(T)).Any())
                                                .SelectMany(method => 
                                                method.GetCustomAttributes<T>().Select(atr =>
                                                {

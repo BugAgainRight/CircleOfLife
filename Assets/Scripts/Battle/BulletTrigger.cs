@@ -36,11 +36,13 @@ namespace CircleOfLife
         {
             if (!hasTrigger&&collision.TryGetComponent(out IBattleEntity damage))
             {
-                //hasTrigger = true;
+                if (damage.FactionType == FactionType.Friend) return;
+                hasTrigger = true;
                 BattleContext battleContext = this.battleContext;
                 battleContext.HitData = damage.Stats;
                 triggerAction?.Invoke(battleContext);
 
+                RecyclePool.RequestWithCollection(SharedPrefab.RangedBoom).Transform.position=transform.position;
                 RecyclePool.ReturnToPool(gameObject);
             }
 

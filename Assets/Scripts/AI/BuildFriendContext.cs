@@ -11,6 +11,7 @@ namespace CircleOfLife
 {
     public class BuildFriendContext : BehaviourContext
     {
+        public BuildSkillType BuildSkill;
         [HideInInspector]
         /// <summary>
         /// 站桩地点
@@ -20,16 +21,13 @@ namespace CircleOfLife
         /// <summary>
         /// 视野范围
         /// </summary>
-        public GizmosSetting ViewRadius;
+        public BattleRange ViewRadius;
 
         public LayerMask EnemyLayer;
 
         public BattleStats BattleStat;
 
         public float FireDistance;
-
-        public int MaxCount;
-
         
 
         [HideInInspector]
@@ -55,6 +53,7 @@ namespace CircleOfLife
                 if (needReset && needResetTime < Time.time) timer = Time.time;
                 if (timer + BattleStat.Current.AttackInterval <= Time.time)
                 {
+                    needResetTime=Time.time;
                     needReset = true;
                     return true;
                 }
@@ -70,19 +69,11 @@ namespace CircleOfLife
         {
 
             if (Enemy == null || Enemy.gameObject.activeInHierarchy == false ||
-                Vector2.Distance(StandPos, Enemy.transform.position) > ViewRadius.radius) HasTarget = false;
+                Vector2.Distance(StandPos, Enemy.transform.position) > ViewRadius.Range.radius) HasTarget = false;
 
             if (!HasTarget)
             {
-                List<Collider2D> mid = Physics2D.OverlapCircleAll(StandPos, ViewRadius.radius, EnemyLayer).ToList();
-                mid.RemoveAll(x =>
-                {
-                    var battleEntity = x.GetBattleStats();
-                    if (battleEntity == null) return true;
-              
-                    if (battleEntity.BattleEntity.FactionType.Equals(FactionType.Friend)) return true;
-                    return false;
-                });
+                List<Collider2D> mid = ViewRadius.GetAllEnemyInRange(EnemyLayer,FactionType.Friend);
                 if (mid.Count>0)
                 {
                     HasTarget = true;

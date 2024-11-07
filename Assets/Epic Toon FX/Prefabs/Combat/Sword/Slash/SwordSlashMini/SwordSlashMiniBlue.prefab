@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 458114}
   - component: {fileID: 19820634}
   - component: {fileID: 19930502}
+  - component: {fileID: 1438947969474589178}
+  - component: {fileID: 1934043470809884293}
   m_Layer: 0
   m_Name: SwordSlashMiniBlue
   m_TagString: Untagged
@@ -28,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4331685769147700}
@@ -4829,6 +4831,45 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1438947969474589178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e499a564af259f544abefdbbf252b480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Range:
+    editorMode: 1
+    openGizmos: 1
+    GizmosType: 0
+    point: {fileID: 431836, guid: 9bb3c2595cddc25468a1fccc3b563ae4, type: 3}
+    radius: 0
+    size: {x: 1.7558595, y: 0.88120776}
+    offSet: {x: 0, y: 0}
+    gizmosColor: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &1934043470809884293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e755b1aacd34443931dd77c1835d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutoRecycleTimeOut: -1
+  MainComponent: {fileID: 1438947969474589178}
+  Components: []
+  OnReset:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1469195803966744
 GameObject:
   m_ObjectHideFlags: 0

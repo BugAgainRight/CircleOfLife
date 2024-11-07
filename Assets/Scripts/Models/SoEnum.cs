@@ -39,6 +39,7 @@ namespace CircleOfLife
         RangedGroup,
         RangedLongest,
         RangedFast,
+        RangedBoom,
 
     }
 

@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllBuildSettings:
   - value1: 0
-    value2: {fileID: 0}
+    value2: {fileID: 124808, guid: 2d051abfebeda054eac2b6a15edf6d4e, type: 3}
   - value1: 1
-    value2: {fileID: 0}
+    value2: {fileID: 6343835086896761410, guid: 17abc7408e7d5194fb94ade3a1989b13, type: 3}
   - value1: 2
-    value2: {fileID: 0}
+    value2: {fileID: 3792313555483790601, guid: 00564c683e316c34b90291baaecfafff, type: 3}
   - value1: 3
-    value2: {fileID: 0}
+    value2: {fileID: 8671716105834666177, guid: 3f727e4362225ec4a8f35e20766f81ae, type: 3}
   - value1: 4
-    value2: {fileID: 0}
+    value2: {fileID: 4798648168055122917, guid: 599998ac92d91634aa22518f416f5f7e, type: 3}
+  - value1: 5
+    value2: {fileID: 1887386285058682, guid: 79eb65b00125a9a43ae9eaa75cb41e3d, type: 3}
