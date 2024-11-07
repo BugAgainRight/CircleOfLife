@@ -60,17 +60,16 @@ namespace RuiRuiTool
 
         public override void OnInspectorGUI()
         {
-            var has = false;
+
             foreach (var e in Editors)
             {
                 if (e.IsMatch(target, this))
                 {
                     e.OnInspectorGUI(target, this);
-                    has = true;
+
                 }
             }
-            //if (!has)
-                base.OnInspectorGUI();
+            base.OnInspectorGUI();
         }
 
         public override bool RequiresConstantRepaint()
@@ -758,9 +757,10 @@ namespace RuiRuiTool
             {
                 newTestSo = (TestSo_Chen)target;
             }
-            if(editorTool==null) editorTool = new();
-            if(editorTool2 == null) editorTool2 = new();
-            if(editorTool3 == null) editorTool3 = new();
+            editorTool = ScriptableObject.CreateInstance<InspectorArrayEditorTool>();
+            editorTool = ScriptableObject.CreateInstance<InspectorArrayEditorTool>();
+            editorTool2 = ScriptableObject.CreateInstance<InspectorArrayEditorTool>();
+            editorTool3 = ScriptableObject.CreateInstance<InspectorArrayEditorTool>();
         }
 
         bool allPlayerBool;

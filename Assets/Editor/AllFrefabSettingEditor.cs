@@ -48,8 +48,8 @@ public class AllPrefabSettingEditor<T1,T2> : CustomEditorSelector, IUseInspector
         {
             allPrefabsSetting = (AllSettingSo<T1, T2>)target;
         }
-        allPrefabTool = new();
-        allBuildSettingTool = new();
+        allPrefabTool = ScriptableObject.CreateInstance<InspectorArrayEditorTool>();
+        allBuildSettingTool = ScriptableObject.CreateInstance<InspectorArrayEditorTool>();
     }
     public void OnSceneGUI(object target, Editor editor)
     {
