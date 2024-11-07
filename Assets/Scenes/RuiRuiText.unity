@@ -1505,13 +1505,13 @@ MonoBehaviour:
     FontColor: {r: 1, g: 1, b: 1, a: 1}
   FriendCritStyle:
     FontSize: 4
-    FontColor: {r: 1, g: 1, b: 0, a: 1}
+    FontColor: {r: 1, g: 1, b: 1, a: 1}
   EnemyNormalStyle:
     FontSize: 3
-    FontColor: {r: 0, g: 0, b: 0, a: 0}
+    FontColor: {r: 1, g: 0, b: 0, a: 1}
   EnemyCritStyle:
-    FontSize: 3
-    FontColor: {r: 0, g: 0, b: 0, a: 0}
+    FontSize: 4
+    FontColor: {r: 1, g: 0, b: 0, a: 1}
   FriendRecovery:
     FontSize: 3
     FontColor: {r: 0, g: 1, b: 0, a: 1}

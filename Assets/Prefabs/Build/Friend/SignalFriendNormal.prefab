@@ -396,7 +396,7 @@ MonoBehaviour:
     Armor: 0
     EffectRange: 0
     AttackInterval: 0.33
-    CriticalChance: 0
+    CriticalChance: 0.5
     CriticalStrikeDamage: 0
     EvasionRate: 0
 --- !u!114 &-1664237598982100944

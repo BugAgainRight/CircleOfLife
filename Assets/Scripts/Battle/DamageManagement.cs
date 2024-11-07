@@ -145,8 +145,8 @@ namespace CircleOfLife
 
             ///飘字初始化
             var flyWordComponent = flyWord.GetMainComponent<FlyWord>();
-            if (damage < 0) flyWordComponent.Init("+" + Mathf.RoundToInt(-damage).ToString(), style, false);
-            else flyWordComponent.Init(Mathf.RoundToInt(damage).ToString(), style);
+            if (damage < 0) flyWordComponent.Init("+" + Mathf.RoundToInt(-damage).ToString(), style, isCrit, false);
+            else flyWordComponent.Init(Mathf.RoundToInt(damage).ToString(), style, isCrit);
         }
 
         public void Damage(BattleContext battleContext,System.Action<BattleContext> otherAction)
