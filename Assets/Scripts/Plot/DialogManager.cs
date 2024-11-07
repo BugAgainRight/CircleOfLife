@@ -44,7 +44,7 @@ namespace CircleOfLife
         public List<Sprite> Sprites=new List<Sprite>();
 
         /// <summary>
-        /// 名字、头像字典，string对应角色姓名，Sprite对应ta的头像
+        /// 名字、头像字典，string对应角色姓名，Sprite对应ta的头像贴图
         /// </summary>
         Dictionary<string, Sprite> ImageDictionary = new Dictionary<string, Sprite>();
 
@@ -65,6 +65,7 @@ namespace CircleOfLife
         {
             ImageDictionary["辛拉面"] = Sprites[0];
             ImageDictionary["五月"] = Sprites[1];
+            ImageDictionary["xxx"]= Sprites[2];
         }
 
         void Start()
