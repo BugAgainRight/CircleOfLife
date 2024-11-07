@@ -222,6 +222,13 @@ namespace CircleOfLife.Build.UI
             PlacingIcon.gameObject.SetActive(true);
             PlacingIcon.sprite = target.MetaData.Icon;
             PlacingIcon.transform.localScale = Vector3.one * 0.98f;
+            PlacingIcon.transform.localEulerAngles = Vector3.zero;
+            
+            PlaceTip.text = "按下 Enter 键 <color=green>确认</color> 放置装置，按下 Esc 键 <color=red>取消</color> 放置";
+            if (target.MetaData.WhetherRotate)
+            {
+                PlaceTip.text += "，按下 R 键 <color=purple>旋转</color> 装置";
+            }
             UICover.SetActive(true);
             stateAnimator.Transition(UIState.Placing);
         }
@@ -258,6 +265,11 @@ namespace CircleOfLife.Build.UI
                 stateAnimator.Transition(UIState.FoldOut);
                 return;
             }
+
+            if (Input.GetKeyUp(KeyCode.R) && PlacingBuilding.MetaData.WhetherRotate)
+            {
+                PlacingIcon.transform.localEulerAngles += new Vector3(0f, 0f, 90f);
+            }
             
             var size = uiData.MapGrid.cellSize;
             var gridPos = uiData.MapGrid.transform.position;
@@ -283,6 +295,7 @@ namespace CircleOfLife.Build.UI
                 {
                     c.Transform.position = pos;
                     c.Transform.localScale = size;
+                    c.Transform.localEulerAngles = PlacingIcon.transform.localEulerAngles;
                     c.GameObject.SetActive(true);
                     revertable.Add(c.GameObject);
                     typeDict.TryAdd(c.GameObject, PlacingBuilding);
