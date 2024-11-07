@@ -114,6 +114,7 @@ namespace CircleOfLife.Build.UI
         public void CloseDetailPanel()
         {
             stateAnimator.Transition(UIState.FoldOut);
+            editing?.CloseRange();
         }
 
         private int GetLevelUpCost(int level)
@@ -157,11 +158,6 @@ namespace CircleOfLife.Build.UI
                 RecyclePool.ReturnToPool(editing.gameObject);
                 CloseDetailPanel();
             });
-        }
-
-        public void RotateBuilding()
-        {
-            
         }
 
         public void LevelUpBuilding()
@@ -326,6 +322,8 @@ namespace CircleOfLife.Build.UI
             var data = typeDict[editing.gameObject];
             EditingTitle.text = data.MetaData.Name;
             PeopleBtn.SetActive(editing.WhetherSelectDirection);
+            
+            editing.ShowRange();
         }
 
         private void Update()
