@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CircleOfLife.Build.UI
 {
-    public class LevelUpUI : ManagedUI<LevelUpUI, LevelUpUIData, BuildBase.LevelUpDirection>
+    public class LevelUpUI : ManagedUI<LevelUpUI, LevelUpUIData, LevelUpResponse>
     {
         public MilListView ListView;
         public TMP_Text Cost, Title;
@@ -27,7 +27,10 @@ namespace CircleOfLife.Build.UI
 
         public void Cancel()
         {
-            Close(null);
+            Close(new LevelUpResponse()
+            {
+                Confirm = false
+            });
         }
         
         public void Finish()
@@ -37,7 +40,11 @@ namespace CircleOfLife.Build.UI
                 MessageBox.Open(("啊哦", "材料不足升级！"));
                 return;
             }
-            Close((BuildBase.LevelUpDirection)ListView.Items[ListView.SelectedIndex]);
+            Close(new LevelUpResponse()
+            {
+                Direction = ListView.Items.Count == 0 ? null : (BuildBase.LevelUpDirection)ListView.Items[ListView.SelectedIndex],
+                Confirm = true
+            });
         }
 
         public override void AboutToOpen(LevelUpUIData parameter)

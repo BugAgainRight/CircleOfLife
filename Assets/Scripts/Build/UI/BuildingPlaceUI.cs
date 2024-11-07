@@ -39,7 +39,7 @@ namespace CircleOfLife.Build.UI
         public Light2D PlaceLight;
         public CanvasGroup DetailPanel;
 
-        public GameObject RotateBtn, PeopleBtn;
+        public GameObject PeopleBtn;
 
         public GameObject LevelUpEffect, RemoveEffect;
         
@@ -178,13 +178,13 @@ namespace CircleOfLife.Build.UI
                 Target = editing,
                 Material = Material,
                 Need = need
-            }, (direction) =>
+            }, (resp) =>
             {
-                if (direction == null)
+                if (!resp.Confirm)
                 {
                     return;
                 }
-                editing.LevelUp(direction.Value);
+                editing.LevelUp(resp.Direction?.Value);
                 Material -= need;
                 RecyclePool.Request(Effect.LevelUp, (c) =>
                 {
@@ -227,7 +227,7 @@ namespace CircleOfLife.Build.UI
             PlaceTip.text = "按下 Enter 键 <color=green>确认</color> 放置装置，按下 Esc 键 <color=red>取消</color> 放置";
             if (target.MetaData.WhetherRotate)
             {
-                PlaceTip.text += "，按下 R 键 <color=purple>旋转</color> 装置";
+                PlaceTip.text += "，按下 R 键 <color=yellow>旋转</color> 装置";
             }
             UICover.SetActive(true);
             stateAnimator.Transition(UIState.Placing);
@@ -273,16 +273,22 @@ namespace CircleOfLife.Build.UI
             
             var size = uiData.MapGrid.cellSize;
             var gridPos = uiData.MapGrid.transform.position;
+            var buildSize = PlacingBuilding.MetaData.BuildSize;
+            if (Mathf.RoundToInt(PlacingIcon.transform.localEulerAngles.z) % 180 != 0)
+            {
+                (buildSize.x, buildSize.y) = (buildSize.y, buildSize.x);
+            }
+            
             var pos = (Vector2)Camera.main!.ScreenToWorldPoint(Input.mousePosition);
             pos.x = Mathf.RoundToInt((pos.x - gridPos.x) / size.x) * size.x + gridPos.x;
             pos.y = Mathf.RoundToInt((pos.y - gridPos.y) / size.y) * size.y + gridPos.y;
-            var offset = new Vector2(size.x * (PlacingBuilding.MetaData.BuildSize.x - 1) / 2f, 
-                                    size.y * (PlacingBuilding.MetaData.BuildSize.y - 1) / 2f)
+            var offset = new Vector2(size.x * (buildSize.x - 1) / 2f, 
+                                    size.y * (buildSize.y - 1) / 2f)
                         - (Vector2)size / 2f;
             pos -= offset;
             PlacingIcon.transform.position = pos;
             
-            var boxSize = PlacingBuilding.MetaData.BuildSize * size - Vector2.one * 0.1f;
+            var boxSize = buildSize * size - Vector2.one * 0.1f;
             var colliders = Physics2D.OverlapAreaAll(pos - boxSize / 2f, pos + boxSize / 2f);
             var canPlace = !colliders.Any(x => x.CompareTag("Building") || x.gameObject.layer == 8);
             PlacingIcon.color = canPlace ? Color.white : Color.red;
@@ -319,7 +325,6 @@ namespace CircleOfLife.Build.UI
             CameraController.Instance.FollowTarget = build.transform.gameObject;
             var data = typeDict[editing.gameObject];
             EditingTitle.text = data.MetaData.Name;
-            RotateBtn.SetActive(data.MetaData.WhetherRotate);
             PeopleBtn.SetActive(editing.WhetherSelectDirection);
         }
 
