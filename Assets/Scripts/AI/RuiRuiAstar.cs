@@ -10,15 +10,22 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 namespace RuiRuiAstar
 {
     public static class Astar
     {
         private static IValueOperate valueOperate;
-        public static void Initialize(IValueOperate valueOperate, int obstacleLayer)
+        public static void Initialize(Range2Int xRange, Range2Int yRange, int obstacleLayer, IValueOperate valueOperate = null)
         {
-            Astar.valueOperate = valueOperate;
+            xRange = new(xRange);
+            yRange = new(yRange);
+            Astar.xRange = xRange;
+            Astar.yRange = yRange;
+            if (valueOperate == null) Astar.valueOperate = new DefaultAstarValueOperate();
+            else Astar.valueOperate = valueOperate;
             Astar.obstacleLayer = obstacleLayer;
+            OperateObstacles(xRange, yRange);
         }
         public static bool MoveTo(GameObject mover, Vector2 pos, float speed)
         {
@@ -28,14 +35,22 @@ namespace RuiRuiAstar
 
 
         public static SerializabledCenter2D<AstarNode> grids;
+        private static SerializabledCenter2D<bool> openBools;
+        private static SerializabledCenter2D<bool> closeBools;
+
+
         static List<AstarNode> open = new();
         static List<AstarNode> close = new();
         static Vector2Int start, target;
+        static Range2Int xRange, yRange;
         static int obstacleLayer;
         public static List<Vector2Int> OperationPath(Vector2Int start, Vector2Int target)
         {
+
             open = new();
             close = new();
+            openBools = new SerializabledCenter2D<bool>(xRange, yRange);
+            closeBools = new SerializabledCenter2D<bool>(xRange, yRange);
             Astar.start = start;
             Astar.target = target;
             List<Vector2Int> result = new List<Vector2Int>();
@@ -101,45 +116,45 @@ namespace RuiRuiAstar
         {
 
             //单方向
-            List<Vector2Int> list = new List<Vector2Int>();
-            list.Add(now.Pos + Vector2Int.up);
-            list.Add(now.Pos + Vector2Int.down);
-            list.Add(now.Pos + Vector2Int.left);
-            list.Add(now.Pos + Vector2Int.right);
+            List<Vector2Int> list = now.Pos.GetSignalVector2Int();
 
-
+            int ax, ay;
             foreach (var a in list)
             {
-                if (grids.ContainsPos(a.x, a.y))
+                ax = a.x;
+                ay = a.y;
+                if (grids.ContainsPos(ax, ay))
                 {
-                    if (!close.Contains(grids[a.x, a.y]) && !open.Contains(grids[a.x, a.y]) && (!grids[a.x, a.y].isObstacle || grids[a.x, a.y].isDestructible))
+                    if (!closeBools[ax, ay] && !openBools[ax, ay] && (!grids[ax, ay].isObstacle || grids[ax, ay].isDestructible))
                     {
-                        open.Add(grids[a.x, a.y]);
-                        grids[a.x, a.y].Father = now;
-                        grids[a.x, a.y].gCost = now.gCost + 10;
-                        grids[a.x, a.y].hCost = valueOperate.H(grids[a.x, a.y].Pos, target, obstacleLayer) * 10;
+                        open.Add(grids[ax, ay]);
+                        openBools[ax, ay] = true;
+                        grids[ax, ay].Father = now;
+                        grids[ax, ay].gCost = now.gCost + 10;
+                        grids[ax, ay].hCost = valueOperate.H(grids[ax, ay].Pos, target, obstacleLayer) * 10;
                     }
                 }
             }
             //对角方向
-            list = new List<Vector2Int>();
-            list.Add(now.Pos + Vector2Int.up + Vector2Int.left);
-            list.Add(now.Pos + Vector2Int.up + Vector2Int.right);
-            list.Add(now.Pos + Vector2Int.down + Vector2Int.left);
-            list.Add(now.Pos + Vector2Int.down + Vector2Int.right);
+            list = now.Pos.GetDiagonalVector2Int();
             foreach (var a in list)
             {
-                if (grids.ContainsPos(a.x, a.y))
+                ax = a.x;
+                ay = a.y;
+                if (grids.ContainsPos(ax, ay))
                 {
-                    if (!close.Contains(grids[a.x, a.y]) && !open.Contains(grids[a.x, a.y]) && (!grids[a.x, a.y].isObstacle || grids[a.x, a.y].isDestructible))
+                    if (!closeBools[ax, ay] && !openBools[ax, ay] && (!grids[ax, ay].isObstacle || grids[ax, ay].isDestructible))
                     {
-                        open.Add(grids[a.x, a.y]);
-                        grids[a.x, a.y].Father = now;
-                        grids[a.x, a.y].gCost = now.gCost + 14 + grids[a.x, a.y].destroyCost;
-                        grids[a.x, a.y].hCost = valueOperate.H(grids[a.x, a.y].Pos, target, obstacleLayer) * 10;
+                        open.Add(grids[ax, ay]);
+                        openBools[ax, ay] = true;
+                        grids[ax, ay].Father = now;
+                        grids[ax, ay].gCost = now.gCost + 14 + grids[ax, ay].destroyCost;
+                        grids[ax, ay].hCost = valueOperate.H(grids[ax, ay].Pos, target, obstacleLayer) * 10;
+
                     }
                 }
             }
+            closeBools[now.Pos.x, now.Pos.y] = true;
 
         }
 
@@ -161,13 +176,16 @@ namespace RuiRuiAstar
         /// <param name="xRange">检测范围x</param>
         /// <param name="yRange">检测范围y</param>
         /// <param name="obstacleLayer">障碍物图层</param>
-        public static void OperateObstacles(Range2Int xRange, Range2Int yRange)
+        private static void OperateObstacles(Range2Int xRange, Range2Int yRange)
         {
             grids = new SerializabledCenter2D<AstarNode>(xRange, yRange);
-            grids.ForEach((item, x, y) =>
+            for (int i = xRange.InFactValue().x; i <= xRange.InFactValue().y; i++)
             {
-                item.Pos = new Vector2Int(x, y);
-            });
+                for (int j = yRange.InFactValue().x; j < yRange.InFactValue().y; j++)
+                {
+                    grids[i, j].Pos = new Vector2Int(i, j);
+                }
+            }
             RangeBox2D mid = new RangeBox2D(xRange, yRange);
             CheckObstacles(mid);
 
@@ -184,8 +202,9 @@ namespace RuiRuiAstar
                 if (rangeBox2Ds.Count == 0)
                 {
                     AstarNode item = grids[rangeBox2D.xMin, rangeBox2D.yMin];
-
+#if UNITY_EDITOR
                     DrawBox((Vector3Int)item.Pos);
+#endif
                     item.isObstacle = true;
                     if (collider2D.TryGetComponent(out IDestoey destoey))
                     {
@@ -201,6 +220,22 @@ namespace RuiRuiAstar
                         CheckObstacles(a);
                     }
                 }
+            }
+            else
+            {
+                AstarNode item;
+                for (int i = rangeBox2D.xMin; i <= rangeBox2D.xMax; i++)
+                {
+                    for (int j = rangeBox2D.yMin; j <= rangeBox2D.yMax; j++)
+                    {
+                        item = grids[i, j];
+                        item.isObstacle = false;
+                        item.isDestructible = false;
+                        item.destroyCost = 0;
+                        // item.Value = 100000000;
+                    }
+                }
+
             }
 
         }
@@ -279,10 +314,13 @@ namespace RuiRuiAstar
                 Debug.Log("路劲疑似出错");
                 return;
             }
+#if UNITY_EDITOR
             for (int i = 0; i < path.Count - 1; i++)
             {
                 Debug.DrawLine((Vector2)path[i], (Vector2)path[i + 1], Color.green, 5);
             }
+#endif
+
         }
 
         public void OnEnableNew(int updateTime, int speed)
@@ -386,6 +424,43 @@ namespace RuiRuiMathTool
         {
             return new Vector2Int(Mathf.RoundToInt(value.x), Mathf.RoundToInt(value.y));
         }
+
+        public static List<Vector2Int> GetSroundVector2Int(this Vector2Int center)
+        {
+            return new List<Vector2Int>()
+            {
+                center + Vector2Int.up,
+                center + Vector2Int.down,
+                center + Vector2Int.left,
+                center + Vector2Int.right,
+                center + Vector2Int.up + Vector2Int.left,
+                center + Vector2Int.up + Vector2Int.right,
+                center + Vector2Int.down + Vector2Int.left,
+                center + Vector2Int.down + Vector2Int.right
+            };
+        }
+
+        public static List<Vector2Int> GetSignalVector2Int(this Vector2Int center)
+        {
+            return new List<Vector2Int>()
+            {
+                center + Vector2Int.up,
+                center + Vector2Int.down,
+                center + Vector2Int.left,
+                center + Vector2Int.right,
+            };
+        }
+
+        public static List<Vector2Int> GetDiagonalVector2Int(this Vector2Int center)
+        {
+            return new List<Vector2Int>()
+            {
+                center + Vector2Int.up + Vector2Int.left,
+                center + Vector2Int.up + Vector2Int.right,
+                center + Vector2Int.down + Vector2Int.left,
+                center + Vector2Int.down + Vector2Int.right
+            };
+        }
     }
 
 
@@ -398,15 +473,16 @@ namespace RuiRuiSTL
     [System.Serializable]
     public struct Range2Int
     {
-
-        public int x => -x_;
-        public int y => y_ + 1;
+        [HideInInspector]
+        public int X;
+        [HideInInspector]
+        public int Y;
         /// <summary>
         /// int
         /// </summary>
         public int center => (x_ + y_) / 2;
 
-        public int length => x + y;
+        public int length => X + Y;
 
 
         [SerializeField] private int x_;
@@ -422,6 +498,17 @@ namespace RuiRuiSTL
             if (big <= 0 || small > 0) Debug.LogError("Range2Int Init Value Error !");
             x_ = small;
             y_ = big;
+            X = -x_;
+            Y = y_ + 1;
+        }
+
+        public Range2Int(Range2Int range2Int)
+        {
+            if (range2Int.y_ <= 0 || range2Int.x_ > 0) Debug.LogError("Range2Int Init Value Error !");
+            x_ = range2Int.x_;
+            y_ = range2Int.y_;
+            X = -x_;
+            Y = y_ + 1;
         }
         public Vector2Int InFactValue()
         {
@@ -612,14 +699,16 @@ namespace RuiRuiSTL
         //[JsonProperty] 
         private Range2Int yRange;
 
-        private int XSize => xRange.y + xRange.x;
-        private int YSize => yRange.y + yRange.x;
+        private int XSize => xRange.Y + xRange.X;
+        private int YSize => yRange.Y + yRange.X;
         public SerializabledCenter2D(Range2Int xRange, Range2Int yRange)
         {
-            firstData = new Serializable2D<T>(xRange.y, yRange.y);
-            secondData = new Serializable2D<T>(xRange.x, yRange.y);
-            thirdData = new Serializable2D<T>(xRange.x, yRange.x);
-            fourthData = new Serializable2D<T>(xRange.y, yRange.x);
+            xRange = new(xRange);
+            yRange = new(yRange);
+            firstData = new Serializable2D<T>(xRange.Y, yRange.Y);
+            secondData = new Serializable2D<T>(xRange.X, yRange.Y);
+            thirdData = new Serializable2D<T>(xRange.X, yRange.X);
+            fourthData = new Serializable2D<T>(xRange.Y, yRange.X);
 
             this.xRange = xRange;
             this.yRange = yRange;
@@ -633,8 +722,8 @@ namespace RuiRuiSTL
         /// <returns></returns>
         public bool ContainsPos(int x, int y)
         {
-            if ((x >= xRange.y && x > 0) || (-x > xRange.x && x < 0)) return false;
-            if ((y >= yRange.y && y > 0) || (-y > yRange.x && y < 0)) return false;
+            if ((x >= xRange.Y && x > 0) || (-x > xRange.X && x < 0)) return false;
+            if ((y >= yRange.Y && y > 0) || (-y > yRange.X && y < 0)) return false;
             return true;
         }
 
@@ -642,8 +731,8 @@ namespace RuiRuiSTL
         {
             get
             {
-                if ((x > xRange.y && x > 0) || (-x > xRange.x && x < 0)) Debug.LogError("X 越界!  XRange:" + xRange + "   X:" + x);
-                if ((y > yRange.y && y > 0) || (-y > yRange.x && y < 0)) Debug.LogError("Y 越界!  YRange:" + yRange + "   Y:" + y);
+                if ((x > xRange.Y && x > 0) || (-x > xRange.X && x < 0)) Debug.LogError("X 越界!  XRange:" + xRange + "   X:" + x);
+                if ((y > yRange.Y && y > 0) || (-y > yRange.X && y < 0)) Debug.LogError("Y 越界!  YRange:" + yRange + "   Y:" + y);
                 bool xLessZero = false;
                 bool yLessZero = false;
                 if (x < 0)
@@ -664,8 +753,8 @@ namespace RuiRuiSTL
             }
             set
             {
-                if ((x > xRange.y && x > 0) || (-x > xRange.x && x < 0)) Debug.LogError("X 越界!  XRange:" + xRange + "   X:" + x);
-                if ((y > yRange.y && y > 0) || (-y > yRange.x && y < 0)) Debug.LogError("Y 越界!  YRange:" + yRange + "   Y:" + y);
+                if ((x > xRange.Y && x > 0) || (-x > xRange.X && x < 0)) Debug.LogError("X 越界!  XRange:" + xRange + "   X:" + x);
+                if ((y > yRange.Y && y > 0) || (-y > yRange.X && y < 0)) Debug.LogError("Y 越界!  YRange:" + yRange + "   Y:" + y);
                 bool xLessZero = false;
                 bool yLessZero = false;
                 if (x < 0)
@@ -709,11 +798,11 @@ namespace RuiRuiSTL
         }
         public int GetXSize()
         {
-            return xRange.y + xRange.x;
+            return xRange.Y + xRange.X;
         }
         public int GetYSize()
         {
-            return yRange.y + yRange.x;
+            return yRange.Y + yRange.X;
         }
         public Vector2 GetSize()
         {
@@ -744,20 +833,21 @@ namespace RuiRuiSTL
         /// <param name="newXRange"></param>
         public void ResizeX(Range2Int newXRange)
         {
+            newXRange = new(newXRange);
             if (newXRange.IsSmallerThan(xRange))
             {
                 Debug.LogError("SerializabledCenter3DArry ResizeX Error!   xRange:" + xRange + "  newXRange:" + newXRange);
                 return;
             }
-            if (newXRange.x > xRange.x)
+            if (newXRange.X > xRange.X)
             {
-                ResizeByQuadrant(Quadrant.Second, newXRange.x, yRange.y);
-                ResizeByQuadrant(Quadrant.Third, newXRange.x, yRange.x);
+                ResizeByQuadrant(Quadrant.Second, newXRange.X, yRange.Y);
+                ResizeByQuadrant(Quadrant.Third, newXRange.X, yRange.X);
             }
-            if (newXRange.y > xRange.y)
+            if (newXRange.Y > xRange.Y)
             {
-                ResizeByQuadrant(Quadrant.First, newXRange.y, yRange.y);
-                ResizeByQuadrant(Quadrant.Fourth, newXRange.y, yRange.x);
+                ResizeByQuadrant(Quadrant.First, newXRange.Y, yRange.Y);
+                ResizeByQuadrant(Quadrant.Fourth, newXRange.Y, yRange.X);
             }
             xRange = newXRange;
         }
@@ -768,22 +858,23 @@ namespace RuiRuiSTL
         /// <param name="newYRange"></param>
         public void ResizeY(Range2Int newYRange)
         {
+            newYRange = new(newYRange);
             if (newYRange.IsSmallerThan(yRange))
             {
                 Debug.LogError("SerializabledCenter3DArry ResizeY Error!   yRange:" + yRange + "  newYRange:" + newYRange);
                 return;
             }
 
-            if (newYRange.x > yRange.x)
+            if (newYRange.X > yRange.X)
             {
-                ResizeByQuadrant(Quadrant.Third, xRange.x, newYRange.x);
-                ResizeByQuadrant(Quadrant.Fourth, xRange.y, newYRange.x);
+                ResizeByQuadrant(Quadrant.Third, xRange.X, newYRange.X);
+                ResizeByQuadrant(Quadrant.Fourth, xRange.Y, newYRange.X);
 
             }
-            if (newYRange.y > yRange.y)
+            if (newYRange.Y > yRange.Y)
             {
-                ResizeByQuadrant(Quadrant.First, xRange.y, newYRange.y);
-                ResizeByQuadrant(Quadrant.Second, xRange.x, newYRange.y);
+                ResizeByQuadrant(Quadrant.First, xRange.Y, newYRange.Y);
+                ResizeByQuadrant(Quadrant.Second, xRange.X, newYRange.Y);
             }
             yRange = newYRange;
 
@@ -795,6 +886,8 @@ namespace RuiRuiSTL
         /// <param name="newYRange"></param>
         public void Resize(Range2Int newXRange, Range2Int newYRange)
         {
+            newXRange = new(newXRange);
+            newYRange = new(newYRange);
             if (!newXRange.Equals(xRange)) ResizeX(newXRange);
 
             if (!newYRange.Equals(yRange)) ResizeY(newYRange);
@@ -854,6 +947,9 @@ namespace RuiRuiVectorField
 
     public class VectorNode
     {
+
+        //public int X, Y;
+
         public Vector2Int Pos;
         public Vector2 TargetVector;
 
@@ -871,8 +967,10 @@ namespace RuiRuiVectorField
 
         public static void Initialize(int obstacleLayer, Range2Int xRange, Range2Int yRange)
         {
+            xRange = new(xRange);
+            yRange = new(yRange);
             VectorField.obstacleLayer = obstacleLayer;
-            VectorField.OperateObstacles(xRange, yRange);
+            OperateObstacles(xRange, yRange);
         }
 
 
@@ -887,7 +985,7 @@ namespace RuiRuiVectorField
         static Vector2Int target;
         static int obstacleLayer;
 
-        public static void UpdateVectorField(Vector2Int target)
+        public static void UpdateVectorFieldTotal(Vector2Int target)
         {
             Open = new();
             Close = new();
@@ -906,78 +1004,119 @@ namespace RuiRuiVectorField
                 Close.Add(mid);
                 AddOtherPos(mid);
             }
-            grids.ForEach((item, x, y) =>
+            //grids.ForEach((item, x, y) =>
+            //{
+            //    var list = GetMoveableSroundNode(item);
+            //    if (list.Count == 8)
+            //    {
+            //        foreach (var a in list)
+            //        {
+            //            if (!a.IsObstacle || a.IsDestructible) item.TargetVector += item.Pos.Direction(a.Pos).normalized * (1 / a.Value);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        float midMin = 100000000;
+            //        foreach (var a in list)
+            //        {
+            //            if (midMin > a.Value)
+            //            {
+            //                if (!a.IsObstacle || a.IsDestructible)
+            //                {
+            //                    item.TargetVector = item.Pos.Direction(a.Pos).normalized * a.Value;
+            //                    midMin = a.Value;
+            //                }
+
+            //            }
+
+            //        }
+            //    }
+
+
+            //    item.TargetVector = item.TargetVector.normalized;
+            //    if (item.TargetVector.Equals(Vector2Int.zero))
+            //    {
+            //        float midMin = 100000000;
+            //        foreach (var a in list)
+            //        {
+            //            if (midMin > a.Value)
+            //            {
+            //                if (!a.IsObstacle || a.IsDestructible)
+            //                {
+            //                    item.TargetVector = item.Pos.Direction(a.Pos).normalized * a.Value;
+            //                    midMin = a.Value;
+            //                }
+
+            //            }
+
+            //        }
+            //        item.TargetVector = item.TargetVector.normalized;
+            //    }
+
+
+
+            //});
+
+
+            VectorNode item;
+            for (int i = grids.GetXRange().x; i <= grids.GetXRange().y; i++)
             {
-                var list = GetMoveableSroundNode(item);
-                //var list = GetSroundNode(item);
-
-                //if (item.Pos.Equals(new(-2, 4)))
-                //{
-                //    float midMin = 100000000;
-                //    foreach (var a in list)
-                //    {
-                //        if (midMin > a.Value)
-                //        {
-                //            if (!a.IsObstacle||a.IsDestructible)
-                //            {
-
-                //                midMin = a.Value;
-                //            }
-
-                //        }
-
-
-                //    }
-                //}
-                if (list.Count == 8)
+                for (int j = grids.GetYRange().x; j < grids.GetYRange().x; j++)
                 {
-                    foreach (var a in list)
+                    item = grids[i, j];
+
+                    var list = GetMoveableSroundNode(item);
+                    if (list.Count == 8)
                     {
-                        if (!a.IsObstacle || a.IsDestructible) item.TargetVector += item.Pos.Direction(a.Pos).normalized * (1 / a.Value);
-                    }
-                }
-                else
-                {
-                    float midMin = 100000000;
-                    foreach (var a in list)
-                    {
-                        if (midMin > a.Value)
+                        foreach (var a in list)
                         {
-                            if (!a.IsObstacle || a.IsDestructible)
+                            if (!a.IsObstacle || a.IsDestructible) item.TargetVector += item.Pos.Direction(a.Pos).normalized * (1 / a.Value);
+                        }
+                    }
+                    else
+                    {
+                        float midMin = 100000000;
+                        foreach (var a in list)
+                        {
+                            if (midMin > a.Value)
                             {
-                                item.TargetVector = item.Pos.Direction(a.Pos).normalized * a.Value;
-                                midMin = a.Value;
+                                if (!a.IsObstacle || a.IsDestructible)
+                                {
+                                    item.TargetVector = item.Pos.Direction(a.Pos).normalized * a.Value;
+                                    midMin = a.Value;
+                                }
+
                             }
 
                         }
-
                     }
-                }
 
 
-                item.TargetVector = item.TargetVector.normalized;
-                if (item.TargetVector.Equals(Vector2Int.zero))
-                {
-                    float midMin = 100000000;
-                    foreach (var a in list)
-                    {
-                        if (midMin > a.Value)
-                        {
-                            if (!a.IsObstacle || a.IsDestructible)
-                            {
-                                item.TargetVector = item.Pos.Direction(a.Pos).normalized * a.Value;
-                                midMin = a.Value;
-                            }
-
-                        }
-
-                    }
                     item.TargetVector = item.TargetVector.normalized;
+                    if (item.TargetVector.Equals(Vector2Int.zero))
+                    {
+                        float midMin = 100000000;
+                        foreach (var a in list)
+                        {
+                            if (midMin > a.Value)
+                            {
+                                if (!a.IsObstacle || a.IsDestructible)
+                                {
+                                    item.TargetVector = item.Pos.Direction(a.Pos).normalized * a.Value;
+                                    midMin = a.Value;
+                                }
+
+                            }
+
+                        }
+                        item.TargetVector = item.TargetVector.normalized;
+                    }
+
+
                 }
+            }
 
 
-
-            });
             grids[target.x, target.y].TargetVector = Vector2.zero;
             DarwVectorFieldInScene();
 
@@ -985,7 +1124,8 @@ namespace RuiRuiVectorField
 
         public static void PartialUpdates(Range2Int xRange, Range2Int yRange)
         {
-
+            xRange = new(xRange);
+            yRange = new(yRange);
             RangeBox2D mid = new RangeBox2D(xRange, yRange);
 
             CheckObstacles(mid);
@@ -1094,72 +1234,23 @@ namespace RuiRuiVectorField
                 }
             }
 
-            //grids.For(mid.xMin, mid.xMax, mid.yMin, mid.yMax, (item, x, y) =>
-            //{
-
-            //    var list = GetMoveableSroundNode(item);
-            //    if (list.Count == 8)
-            //    {
-            //        foreach (var a in list)
-            //        {
-            //            if (!a.IsObstacle || a.IsDestructible) item.TargetVector += item.Pos.Direction(a.Pos).normalized * (1 / a.Value);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        float midMin = 100000000;
-            //        foreach (var a in list)
-            //        {
-            //            if (midMin > a.Value)
-            //            {
-            //                if (!a.IsObstacle || a.IsDestructible)
-            //                {
-            //                    item.TargetVector = item.Pos.Direction(a.Pos).normalized * a.Value;
-            //                    midMin = a.Value;
-            //                }
-
-            //            }
-
-            //        }
-            //    }
-
-
-            //    item.TargetVector = item.TargetVector.normalized;
-            //    if (item.TargetVector.Equals(Vector2Int.zero))
-            //    {
-            //        float midMin = 100000000;
-            //        foreach (var a in list)
-            //        {
-            //            if (midMin > a.Value)
-            //            {
-            //                if (!a.IsObstacle || a.IsDestructible)
-            //                {
-            //                    item.TargetVector = item.Pos.Direction(a.Pos).normalized * a.Value;
-            //                    midMin = a.Value;
-            //                }
-
-            //            }
-
-            //        }
-            //        item.TargetVector = item.TargetVector.normalized;
-            //    }
-
-
-
-            //});
-
-
-            // DarwVectorFieldInScene();
-
+#if UNITY_EDITOR
+            //DarwVectorFieldInScene();
+#endif
         }
 
         public static void DarwVectorFieldInScene()
         {
-            grids.ForEach((item, x, y) =>
-            {
-                DebugDraw.DrawArrow((Vector2)item.Pos, item.TargetVector, Color.yellow - new Color(0, item.Value / 50, 0, 0), 10, 0.5f);
-            });
 
+            VectorNode item;
+            for (int i = grids.GetXRange().x; i <= grids.GetXRange().y; i++)
+            {
+                for (int j = grids.GetYRange().x; j <= grids.GetYRange().y; j++)
+                {
+                    item = grids[i, j];
+                    DebugDraw.DrawArrow((Vector2)item.Pos, item.TargetVector, Color.yellow - new Color(0, item.Value / 50, 0, 0), 10, 0.5f);
+                }
+            }
         }
 
         private static void AddOtherPos(VectorNode now)
@@ -1172,19 +1263,20 @@ namespace RuiRuiVectorField
             list.Add(now.Pos + Vector2Int.left);
             list.Add(now.Pos + Vector2Int.right);
 
-
+            int ax, ay;
             foreach (var a in list)
             {
-                if (grids.ContainsPos(a.x, a.y))
+                ax = a.x;
+                ay = a.y;
+                if (grids.ContainsPos(ax, ay))
                 {
-                    if (grids[a.x, a.y].IsObstacle && !grids[a.x, a.y].IsDestructible) continue;
-                    if (grids[a.x, a.y].IsDestructible) grids[a.x, a.y].Value = Mathf.Min(now.Value + 1 + grids[a.x, a.y].DestroyCost, grids[a.x, a.y].Value);
-                    else grids[a.x, a.y].Value = Mathf.Min(now.Value + 1, grids[a.x, a.y].Value);
-                    if (!closeBools[a.x, a.y] && !openBools[a.x, a.y] && (!grids[a.x, a.y].IsObstacle || grids[a.x, a.y].IsDestructible))
+                    if (grids[ax, ay].IsObstacle && !grids[ax, ay].IsDestructible) continue;
+                    if (grids[ax, ay].IsDestructible) grids[ax, ay].Value = Mathf.Min(now.Value + 1 + grids[ax, ay].DestroyCost, grids[ax, ay].Value);
+                    else grids[ax, ay].Value = Mathf.Min(now.Value + 1, grids[ax, ay].Value);
+                    if (!closeBools[ax, ay] && !openBools[ax, ay] && (!grids[ax, ay].IsObstacle || grids[ax, ay].IsDestructible))
                     {
-                        Open.Enqueue(grids[a.x, a.y]);
-                        openBools[a.x, a.y] = true;
-                        closeBools[a.x, a.y] = true;
+                        Open.Enqueue(grids[ax, ay]);
+                        openBools[ax, ay] = true;
                     }
                 }
 
@@ -1198,21 +1290,23 @@ namespace RuiRuiVectorField
             list.Add(now.Pos + Vector2Int.down + Vector2Int.right);
             foreach (var a in list)
             {
-                if (grids.ContainsPos(a.x, a.y))
+                ax = a.x;
+                ay = a.y;
+                if (grids.ContainsPos(ax, ay))
                 {
-                    if (grids[a.x, a.y].IsObstacle && !grids[a.x, a.y].IsDestructible) continue;
-                    if (grids[a.x, a.y].IsDestructible) grids[a.x, a.y].Value = Mathf.Min(now.Value + 1.4f + grids[a.x, a.y].DestroyCost, grids[a.x, a.y].Value);
-                    else grids[a.x, a.y].Value = Mathf.Min(now.Value + 1.4f, grids[a.x, a.y].Value);
+                    if (grids[ax, ay].IsObstacle && !grids[ax, ay].IsDestructible) continue;
+                    if (grids[ax, ay].IsDestructible) grids[ax, ay].Value = Mathf.Min(now.Value + 1.4f + grids[ax, ay].DestroyCost, grids[ax, ay].Value);
+                    else grids[ax, ay].Value = Mathf.Min(now.Value + 1.4f, grids[ax, ay].Value);
 
-                    if (!closeBools[a.x, a.y] && !openBools[a.x, a.y] && (!grids[a.x, a.y].IsObstacle || grids[a.x, a.y].IsDestructible))
+                    if (!closeBools[ax, ay] && !openBools[ax, ay] && (!grids[ax, ay].IsObstacle || grids[ax, ay].IsDestructible))
                     {
-                        Open.Enqueue(grids[a.x, a.y]);
-                        openBools[a.x, a.y] = true;
-                        closeBools[a.x, a.y] = true;
+                        Open.Enqueue(grids[ax, ay]);
+                        openBools[ax, ay] = true;
                     }
                 }
 
             }
+            closeBools[now.Pos.x, now.Pos.y] = true;
 
         }
 
@@ -1226,20 +1320,21 @@ namespace RuiRuiVectorField
             list.Add(now.Pos + Vector2Int.left);
             list.Add(now.Pos + Vector2Int.right);
             list.RemoveAll(x => !rangeLimit.Contains(x));
-
+            int ax, ay;
             foreach (var a in list)
             {
-                if (grids.ContainsPos(a.x, a.y))
+                ax = a.x;
+                ay = a.y;
+                if (grids.ContainsPos(ax, ay))
                 {
-                    if (grids[a.x, a.y].IsObstacle && !grids[a.x, a.y].IsDestructible) continue;
-                    if (grids[a.x, a.y].IsDestructible) grids[a.x, a.y].Value = Mathf.Min(now.Value + 1 + grids[a.x, a.y].DestroyCost, grids[a.x, a.y].Value);
-                    else grids[a.x, a.y].Value = Mathf.Min(now.Value + 1, grids[a.x, a.y].Value);
-                    if (!closeBools[a.x, a.y] && !openBools[a.x, a.y] && (!grids[a.x, a.y].IsObstacle || grids[a.x, a.y].IsDestructible))
+                    if (grids[ax, ay].IsObstacle && !grids[ax, ay].IsDestructible) continue;
+                    if (grids[ax, ay].IsDestructible) grids[ax, ay].Value = Mathf.Min(now.Value + 1 + grids[ax, ay].DestroyCost, grids[ax, ay].Value);
+                    else grids[ax, ay].Value = Mathf.Min(now.Value + 1, grids[ax, ay].Value);
+                    if (!closeBools[ax, ay] && !openBools[ax, ay] && (!grids[ax, ay].IsObstacle || grids[ax, ay].IsDestructible))
                     {
 
-                        Open.Enqueue(grids[a.x, a.y]);
-                        openBools[a.x, a.y] = true;
-                        closeBools[a.x, a.y] = true;
+                        Open.Enqueue(grids[ax, ay]);
+                        openBools[ax, ay] = true;
                     }
                 }
 
@@ -1254,22 +1349,23 @@ namespace RuiRuiVectorField
             list.RemoveAll(x => !rangeLimit.Contains(x));
             foreach (var a in list)
             {
-                if (grids.ContainsPos(a.x, a.y))
+                ax = a.x;
+                ay = a.y;
+                if (grids.ContainsPos(ax, ay))
                 {
-                    if (grids[a.x, a.y].IsObstacle && !grids[a.x, a.y].IsDestructible) continue;
-                    if (grids[a.x, a.y].IsDestructible) grids[a.x, a.y].Value = Mathf.Min(now.Value + 1.4f + grids[a.x, a.y].DestroyCost, grids[a.x, a.y].Value);
-                    else grids[a.x, a.y].Value = Mathf.Min(now.Value + 1.4f, grids[a.x, a.y].Value);
-                    if (!closeBools[a.x, a.y] && !openBools[a.x, a.y] && (!grids[a.x, a.y].IsObstacle || grids[a.x, a.y].IsDestructible))
+                    if (grids[ax, ay].IsObstacle && !grids[ax, ay].IsDestructible) continue;
+                    if (grids[ax, ay].IsDestructible) grids[ax, ay].Value = Mathf.Min(now.Value + 1.4f + grids[ax, ay].DestroyCost, grids[ax, ay].Value);
+                    else grids[ax, ay].Value = Mathf.Min(now.Value + 1.4f, grids[ax, ay].Value);
+                    if (!closeBools[ax, ay] && !openBools[ax, ay] && (!grids[ax, ay].IsObstacle || grids[ax, ay].IsDestructible))
                     {
 
-                        Open.Enqueue(grids[a.x, a.y]);
-                        openBools[a.x, a.y] = true;
-                        closeBools[a.x, a.y] = true;
+                        Open.Enqueue(grids[ax, ay]);
+                        openBools[ax, ay] = true;
                     }
                 }
 
             }
-
+            closeBools[now.Pos.x, now.Pos.y] = true;
         }
 
 
@@ -1280,22 +1376,27 @@ namespace RuiRuiVectorField
 
         private static List<VectorNode> GetSroundNode(VectorNode now)
         {
-            List<Vector2Int> list = new List<Vector2Int>();
             List<VectorNode> result = new List<VectorNode>();
 
-            list.Add(now.Pos + Vector2Int.up);
-            list.Add(now.Pos + Vector2Int.down);
-            list.Add(now.Pos + Vector2Int.left);
-            list.Add(now.Pos + Vector2Int.right);
-            list.Add(now.Pos + Vector2Int.up + Vector2Int.left);
-            list.Add(now.Pos + Vector2Int.up + Vector2Int.right);
-            list.Add(now.Pos + Vector2Int.down + Vector2Int.left);
-            list.Add(now.Pos + Vector2Int.down + Vector2Int.right);
+            List<Vector2Int> list = new List<Vector2Int>() {
+            now.Pos + Vector2Int.up,
+            now.Pos + Vector2Int.down,
+            now.Pos + Vector2Int.left,
+            now.Pos + Vector2Int.right,
+            now.Pos + Vector2Int.up + Vector2Int.left,
+            now.Pos + Vector2Int.up + Vector2Int.right,
+            now.Pos + Vector2Int.down + Vector2Int.left,
+            now.Pos + Vector2Int.down + Vector2Int.right
+
+            };
+            int ax, ay;
             foreach (var a in list)
             {
-                if (grids.ContainsPos(a.x, a.y))
+                ax = a.x;
+                ay = a.y;
+                if (grids.ContainsPos(ax, ay))
                 {
-                    if (!grids[a.x, a.y].IsObstacle || grids[a.x, a.y].IsDestructible) result.Add(grids[a.x, a.y]);
+                    if (!grids[ax, ay].IsObstacle || grids[ax, ay].IsDestructible) result.Add(grids[ax, ay]);
                 }
             }
             return result;
@@ -1323,15 +1424,17 @@ namespace RuiRuiVectorField
             //List<Vector2Int> listObstacle=list.Where(x=>grids.ContainsPos(x.x,x.y)&& grids[x.x, x.y].IsObstacle && !grids[x.x, x.y].IsDestructible).ToList();
 
             //list2.RemoveAll(x => listObstacle.Where(y=>(y.x.Equals(x.x) && Mathf.Abs(y.y - x.y) == 1) ||(y.y.Equals(x.y) && Mathf.Abs(y.x - x.x) == 1)).Count()==2);
-
+            int ax, ay;
             foreach (var a in list)
             {
-                if (grids.ContainsPos(a.x, a.y))
+                ax = a.x;
+                ay = a.y;
+                if (grids.ContainsPos(ax, ay))
                 {
-                    if (!grids[a.x, a.y].IsObstacle || grids[a.x, a.y].IsDestructible) result.Add(grids[a.x, a.y]);
+                    if (!grids[ax, ay].IsObstacle || grids[ax, ay].IsDestructible) result.Add(grids[ax, ay]);
                     else
                     {
-                        list2.RemoveAll(x => x.x == a.x + 1 || x.x == a.x - 1 || x.y == a.y + 1 || x.y == a.y - 1);
+                        list2.RemoveAll(x => x.x == ax + 1 || x.x == ax - 1 || x.y == ay + 1 || x.y == ay - 1);
                     }
                 }
             }
@@ -1340,9 +1443,11 @@ namespace RuiRuiVectorField
 
             foreach (var a in list2)
             {
-                if (grids.ContainsPos(a.x, a.y))
+                ax = a.x;
+                ay = a.y;
+                if (grids.ContainsPos(ax, ay))
                 {
-                    if (!grids[a.x, a.y].IsObstacle || grids[a.x, a.y].IsDestructible) result.Add(grids[a.x, a.y]);
+                    if (!grids[ax, ay].IsObstacle || grids[ax, ay].IsDestructible) result.Add(grids[ax, ay]);
                 }
             }
 
@@ -1358,6 +1463,8 @@ namespace RuiRuiVectorField
         /// <param name="obstacleLayer">障碍物图层</param>
         public static void OperateObstacles(Range2Int xRange, Range2Int yRange)
         {
+            xRange = new(xRange);
+            yRange = new(yRange);
             grids = new SerializabledCenter2D<VectorNode>(xRange, yRange);
             openBools = new SerializabledCenter2D<bool>(xRange, yRange);
             closeBools = new SerializabledCenter2D<bool>(xRange, yRange);
@@ -1382,8 +1489,9 @@ namespace RuiRuiVectorField
                 if (rangeBox2Ds.Count == 0)
                 {
                     VectorNode item = grids[rangeBox2D.xMin, rangeBox2D.yMin];
-
+#if UNITY_EDITOR
                     DebugDraw.DrawBox((Vector3Int)item.Pos);
+#endif
                     item.IsObstacle = true;
                     item.Value = 100000000;
                     if (collider2D.TryGetComponent(out IDestoey destoey))
@@ -1412,7 +1520,7 @@ namespace RuiRuiVectorField
                         item = grids[i, j];
                         item.IsObstacle = false;
                         item.IsDestructible = false;
-                        item.Value = 100000000;
+                        // item.Value = 100000000;
                     }
                 }
 
