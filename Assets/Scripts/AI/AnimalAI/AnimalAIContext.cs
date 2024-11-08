@@ -15,7 +15,7 @@ namespace CircleOfLife
         public Transform Enemy;
         public Transform Animal;
         public LayerMask EnemyLayer;
-        public LayerMask PlayerLayer;
+        public LayerMask FriendLayer;
         public BattleStats AnimalBattaleStats;
         public float PlayerDistance { get; private set; }
         public float EnemyDistance { get; private set; }

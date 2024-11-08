@@ -13,19 +13,15 @@ namespace CircleOfLife.Units
         //TODO 参考敌人的AI实现操作逻辑
         // Start is called before the first frame update
         private Vector2 direction;
-        private CircleCollider2D capsuleCollider2D;
         private new Rigidbody2D rigidbody2D;
-        private GameObject firePoint;
         public float PlayerSpeed = 10;
         private Vector2 Direction;
-        private GameObject bullet;
-
         public BattleStats.Stats Stat;
 
         public BattleStats Stats { get; set; }
 
         public FactionType FactionType { get; } = FactionType.Friend;
-
+        private PlayerAIContext playerAIContext;
         void Awake()
         {
 
@@ -38,11 +34,9 @@ namespace CircleOfLife.Units
             });
             Stats.Max.Velocity = 10;
             Stats.Reset();
-            capsuleCollider2D = GetComponent<CircleCollider2D>();
             rigidbody2D = GetComponent<Rigidbody2D>();
-            //bullet = Resources.Load<GameObject>(UnitIDManager.BulletDict["BaseBullet"]);
-            //bullet.tag = "PlayerBullet";
-            CreateFirePoint();
+            playerAIContext = GetComponent<PlayerAIContext>();
+
         }
         void Start()
         {
@@ -52,6 +46,7 @@ namespace CircleOfLife.Units
                 rigidbody2D.gravityScale = 0;
                 rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
+
         }
 
         // Update is called once per frame
@@ -59,6 +54,7 @@ namespace CircleOfLife.Units
         {
             PlayerMove();
             KeyBoardMonitor();
+            playerAIContext.PlayerBattaleStats = Stats;
         }
 
         void FixedUpdate()
@@ -66,13 +62,6 @@ namespace CircleOfLife.Units
             transform.position = new Vector2(transform.position.x + direction.x * PlayerSpeed * Time.deltaTime, transform.position.y + direction.y * PlayerSpeed * Time.deltaTime);
         }
 
-        public void CreateFirePoint()
-        {
-            if (firePoint == null)
-            {
-                firePoint = Instantiate(new GameObject("FirePoint"), this.transform.position, Quaternion.identity, this.transform);
-            }
-        }
         #region KeyBoardMonitor
         public void PlayerMove()
         {
@@ -94,56 +83,63 @@ namespace CircleOfLife.Units
 
         public void KeyBoardMonitor()
         {
-            if (KeyEnum.Interact.IsKeyDown()) OpenSomething();
+            //if (KeyEnum.Interact.IsKeyDown()) OpenSomething();
             if (KeyEnum.Attack.IsKeyDown()) Attack();
             if (KeyEnum.Fire.IsKeyDown()) Fire();
-            if (KeyEnum.Skill1.IsKeyDown()) Skill();
+            if (KeyEnum.Skill1.IsKeyDown()) Skilll();
+            if (KeyEnum.Skill2.IsKeyDown()) Skill2();
+            if (KeyEnum.Skill3.IsKeyDown()) Skill3();
+            if (KeyEnum.Skill4.IsKeyDown()) Skill4();
+            if (KeyEnum.Skill5.IsKeyDown()) Skill5();
+            if (KeyEnum.Skill6.IsKeyDown()) Skill6();
+            if (KeyEnum.Skill7.IsKeyDown()) Skill7();
         }
 
 
         #endregion
 
-        public void OpenSomething()
-        {
-            Debug.Log("Open Something");
-            FriendlyNPCInteract(this.gameObject);
-        }
-
-        public void FriendlyNPCInteract(GameObject target)
-        {
-            //显示操作提示
-            //intetactableIconList.Add(Instantiate(icon, target.transform.position, Quaternion.identity, target.transform));
-        }
 
 
         #region Attack
-        public void Hurt(IAttack attacker)
-        {
-            Debug.Log("Hurt!");
-        }
 
         public void Attack()
         {
-            Debug.Log("Attack!");
+            playerAIContext.UseMeleeAttack();
         }
-
         public void Fire()
         {
-            /*if (firePoint == null)
-            {
-                Debug.Log(this.name + ":can't find firePoint");
-            }
-            else
-            {
-                Instantiate(bullet, firePoint.transform.position, Quaternion.identity);
-            }*/
-            Debug.Log("Fire!");
+            playerAIContext.UseRangeAttack();
+        }
+        //触发技能
+        public void Skilll()
+        {
+            playerAIContext.UseSkill1();
         }
 
-        //触发技能
-        public void Skill()
+        public void Skill2()
         {
-            Debug.Log("Click Skill!");
+            playerAIContext.UseSkill2();
+        }
+        public void Skill3()
+        {
+            playerAIContext.UseSkill3();
+        }
+        public void Skill4()
+        {
+            playerAIContext.UseSkill(PlayerSkillType.FighterBraver);
+        }
+
+        public void Skill5()
+        {
+            playerAIContext.UseSkill(PlayerSkillType.Thorn);
+        }
+        public void Skill6()
+        {
+            playerAIContext.UseSkill(PlayerSkillType.Lurk);
+        }
+        public void Skill7()
+        {
+            playerAIContext.UseSkill(PlayerSkillType.Encouragement);
         }
         #endregion
     }

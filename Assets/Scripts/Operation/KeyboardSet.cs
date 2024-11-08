@@ -7,7 +7,7 @@ namespace CircleOfLife.Key
 {
     public static class KeyboardSet
     {
-        public static readonly Dictionary<KeyEnum, KeyCode> KeyboardDict = new ()
+        public static readonly Dictionary<KeyEnum, KeyCode> KeyboardDict = new()
         {
             // Player
             { KeyEnum.Up, KeyCode.W },
@@ -17,7 +17,14 @@ namespace CircleOfLife.Key
             { KeyEnum.Attack, KeyCode.J },
             { KeyEnum.Fire, KeyCode.K },
             { KeyEnum.Interact, KeyCode.F },
-            { KeyEnum.Skill1, KeyCode.I },
+            { KeyEnum.Skill1, KeyCode.Alpha3 },
+            { KeyEnum.Skill2, KeyCode.Alpha4 },
+            { KeyEnum.Skill3, KeyCode.Alpha5 },
+            { KeyEnum.Skill4, KeyCode.Alpha6 },
+            { KeyEnum.Skill5, KeyCode.Alpha7 },
+            { KeyEnum.Skill6, KeyCode.Alpha8 },
+            { KeyEnum.Skill7, KeyCode.Alpha9 },
+
             { KeyEnum.Struggle, KeyCode.Space },
             // Camera
             { KeyEnum.Click1, KeyCode.Mouse0 },
@@ -61,13 +68,13 @@ namespace CircleOfLife.Key
         /// </summary>
         public static bool IsPressing(this KeyEnum key)
             => Input.GetKey(GetKeyCode(key));
-        
+
         /// <summary>
         /// 当前是否是按键按下的第一帧
         /// </summary>
         public static bool IsKeyDown(this KeyEnum key)
             => Input.GetKeyDown(GetKeyCode(key));
-        
+
         /// <summary>
         /// 当前是否是按键抬起前的最后一帧
         /// </summary>

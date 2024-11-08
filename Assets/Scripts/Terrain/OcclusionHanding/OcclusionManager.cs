@@ -8,7 +8,6 @@ namespace CircleOfLife
     public enum OcclusionWhiteTable
     {
         Player,
-        tests
     }
 
     public class OcclusionManager : MonoBehaviour
