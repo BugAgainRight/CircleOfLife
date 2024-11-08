@@ -276,82 +276,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attribute:
   - Velocity: 0
-    Hp: 0
+    Hp: 200
     Attack: 0
-    Armor: 0
-    EffectRange: 0
+    Armor: 15
+    EffectRange: 4
     AttackInterval: 0
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
   - Velocity: 0
-    Hp: 0
+    Hp: 300
     Attack: 0
-    Armor: 0
-    EffectRange: 0
+    Armor: 20
+    EffectRange: 5
     AttackInterval: 0
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
   - Velocity: 0
-    Hp: 0
+    Hp: 400
     Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
+    Armor: 25
+    EffectRange: 6
     AttackInterval: 0
     CriticalChance: 0
     CriticalStrikeDamage: 0
@@ -364,7 +310,16 @@ MonoBehaviour:
     m_Bits: 0
   WhetherSelectDirection: 0
   HospitalEffectCount: 0
-  AllLevelValues: []
+  AllLevelValues:
+  - EffectCount: 3
+    RecvoeryValueAll: 5
+    RecvoeryValueAnimal: 10
+  - EffectCount: 4
+    RecvoeryValueAll: 10
+    RecvoeryValueAnimal: 15
+  - EffectCount: 5
+    RecvoeryValueAll: 15
+    RecvoeryValueAnimal: 20
 --- !u!50 &7311430495796193333
 Rigidbody2D:
   serializedVersion: 4

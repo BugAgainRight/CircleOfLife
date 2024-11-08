@@ -215,60 +215,6 @@ MonoBehaviour:
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
   factionType: 0
   BattleRange: {fileID: 8007338321400196153}
   RangeObj: {fileID: 52925791337673292}
@@ -276,6 +222,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   WhetherSelectDirection: 0
+  SpeedUpValue: 0
+  ArmorUpValue: 0
+  AttackUpValue: 0
 --- !u!114 &3779418757824513651
 MonoBehaviour:
   m_ObjectHideFlags: 0

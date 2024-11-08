@@ -105,81 +105,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attribute:
   - Velocity: 0
-    Hp: 0
+    Hp: 200
     Attack: 0
-    Armor: 0
+    Armor: 15
     EffectRange: 0
     AttackInterval: 0
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
   - Velocity: 0
-    Hp: 0
+    Hp: 300
     Attack: 0
-    Armor: 0
+    Armor: 20
     EffectRange: 0
     AttackInterval: 0
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
   - Velocity: 0
-    Hp: 0
+    Hp: 400
     Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
-    EffectRange: 0
-    AttackInterval: 0
-    CriticalChance: 0
-    CriticalStrikeDamage: 0
-    EvasionRate: 0
-  - Velocity: 0
-    Hp: 0
-    Attack: 0
-    Armor: 0
+    Armor: 25
     EffectRange: 0
     AttackInterval: 0
     CriticalChance: 0

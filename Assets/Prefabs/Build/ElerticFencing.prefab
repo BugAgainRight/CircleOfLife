@@ -213,7 +213,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f995678ad66ec2c45842924eba7d1c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Attribute: []
+  Attribute:
+  - Velocity: 0
+    Hp: 200
+    Attack: 15
+    Armor: 15
+    EffectRange: 0
+    AttackInterval: 0.5
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 300
+    Attack: 20
+    Armor: 20
+    EffectRange: 0
+    AttackInterval: 0.333
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
+  - Velocity: 0
+    Hp: 400
+    Attack: 25
+    Armor: 25
+    EffectRange: 0
+    AttackInterval: 0.25
+    CriticalChance: 0
+    CriticalStrikeDamage: 0
+    EvasionRate: 0
   factionType: 0
   BattleRange: {fileID: 3116393908463988253}
   RangeObj: {fileID: 2854367178583808953}
