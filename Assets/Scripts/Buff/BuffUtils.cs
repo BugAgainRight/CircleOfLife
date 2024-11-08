@@ -6,6 +6,7 @@ namespace CircleOfLife.Buff
 {
     public static class BuffUtils
     {
+        private static GameObject hpBarPrefab;
         public static BuffContext ToBuff(BuffHandleFunction handler, float duration = -1f)
         {
             return new BuffContext()
@@ -17,8 +18,17 @@ namespace CircleOfLife.Buff
 
         public static BattleStats Build(this BattleStats.Stats stats, GameObject go, Action<BattleContext> hurtAction)
         {
+            if (!hpBarPrefab)
+            {
+                hpBarPrefab = Resources.Load<GameObject>("Prefabs/HPBar");
+            }
             var stat = new BattleStats(go, stats, hurtAction);
             BuffManager.RegisterBattleStat(stat);
+
+            var hpBar = GameObject.Instantiate(hpBarPrefab);
+            hpBar.GetComponent<HPBar>().Initialize(stat);
+            hpBar.SetActive(true);
+            
             return stat;
         }
 
