@@ -1061,7 +1061,7 @@ namespace RuiRuiVectorField
             VectorNode item;
             for (int i = grids.GetXRange().x; i <= grids.GetXRange().y; i++)
             {
-                for (int j = grids.GetYRange().x; j < grids.GetYRange().x; j++)
+                for (int j = grids.GetYRange().x; j < grids.GetYRange().y; j++)
                 {
                     item = grids[i, j];
 

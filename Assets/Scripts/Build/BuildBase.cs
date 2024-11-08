@@ -4,11 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CircleOfLife.Buff;
+using RuiRuiAstar;
 
 namespace CircleOfLife
 {
-    public abstract class BuildBase : MonoBehaviour, IBattleEntity
+    public abstract class BuildBase : MonoBehaviour, IBattleEntity, IDestoey
     {
+        public int DestroyCost;
         public List<BattleStats.Stats> Attribute;
         public BattleStats Stats { get; set; }
         public FactionType FactionType => factionType;
@@ -124,7 +126,9 @@ namespace CircleOfLife
             RangeObj.transform.localScale = new Vector3(BattleRange.Range.radius, BattleRange.Range.radius, 1);
         }
 
-  
-
+        public int DestoryCost()
+        {
+            return DestroyCost;
+        }
     }
 }
