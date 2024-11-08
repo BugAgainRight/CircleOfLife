@@ -317,6 +317,7 @@ namespace CircleOfLife.Build.UI
                 return;
             }
             stateAnimator.Transition(UIState.Modify);
+            editing?.CloseRange();
             editing = build.transform.GetComponent<BuildBase>();
             CameraController.Instance.FollowTarget = build.transform.gameObject;
             var data = typeDict[editing.gameObject];
