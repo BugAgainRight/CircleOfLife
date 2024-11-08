@@ -1,12 +1,15 @@
 {
-    "name": "PlayerModeTests",
+    "name": "Tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "CircleOfLife"
+        "CircleOfLife",
+        "Unity.TextMeshPro"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
