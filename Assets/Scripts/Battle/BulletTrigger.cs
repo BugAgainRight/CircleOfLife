@@ -36,9 +36,10 @@ namespace CircleOfLife
         {
             if (!hasTrigger&&collision.TryGetComponent(out IBattleEntity damage))
             {
-                if (damage.FactionType == FactionType.Friend) return;
+                if (damage.FactionType == this.battleContext.AttackerData.BattleEntity.FactionType) return;
                 hasTrigger = true;
                 BattleContext battleContext = this.battleContext;
+                battleContext.BulletTransform = transform;
                 battleContext.HitData = damage.Stats;
                 triggerAction?.Invoke(battleContext);
 

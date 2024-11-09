@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using CircleOfLife.Buff;
 using RuiRuiAstar;
+using RuiRuiVectorField;
+using Milease.Utils;
+using Milease.Core.Animator;
 
 namespace CircleOfLife
 {
     public abstract class BuildBase : MonoBehaviour, IBattleEntity, IDestoey
     {
+        public bool Switch { get; set; }
         public int DestroyCost;
         public List<BattleStats.Stats> Attribute;
         public BattleStats Stats { get; set; }
@@ -130,5 +134,52 @@ namespace CircleOfLife
         {
             return DestroyCost;
         }
+
+        public abstract void OnEnableFunc();
+        public abstract void OnDisableFunc();
+    
+        public abstract void FixedUpdateFunc();
+        public abstract void OnColliderEnterFunc(Collision2D collision);
+        public abstract void OnColliderTriggerFunc(Collision2D collision);
+
+
+        private void FixedUpdate()
+        {
+            if (!Switch) return;
+            RecoveryHP();
+            FixedUpdateFunc();
+        }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (!Switch) return;
+            OnColliderEnterFunc(collision);
+        }
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            if (!Switch) return;
+            OnColliderTriggerFunc(collision);
+        }
+        private void OnDisable()
+        {
+            OnDisableFunc();
+            UpdateAstarAndFieldVector();
+        }
+        private void OnEnable()
+        {
+            OnEnableFunc();
+            UpdateAstarAndFieldVector();
+        }
+
+        protected void UpdateAstarAndFieldVector()
+        {
+            var x = Mathf.RoundToInt(transform.position.x);
+            var y = Mathf.RoundToInt(transform.position.y);
+            new Action(() =>
+            {
+                VectorField.PartialUpdates(x - 4, x + 4, y - 4, y + 4);
+                Astar.CheckObstacles(new RuiRuiSTL.RangeBox2D(x - 4, x + 4, y - 4, y + 4));
+            }).AsMileaseKeyEvent().Delayed(1f).Play();
+        }
+
     }
 }

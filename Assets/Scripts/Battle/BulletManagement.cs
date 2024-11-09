@@ -78,7 +78,11 @@ namespace CircleOfLife
         public static void NormalTrigger(BattleContext context)
         {
             DamageManagement.Damage(context);
-            
+            RecyclePool.Request(AnimatonPrefab.Single, (c) =>
+            {
+                c.Transform.position = context.HitData.Transform.position;
+                c.GameObject.SetActive(true);
+            });
         }
 
 
@@ -87,13 +91,17 @@ namespace CircleOfLife
         public static void BoomTrigger(BattleContext context)
         {
             var colls = Physics2D.OverlapCircleAll(
-                context.AttackerData.Transform.position, context.BoomRadius, context.DamageableLayer);
+                context.BulletTransform.position, context.BoomRadius, context.DamageableLayer);
             var idamages = colls.ToList().Where(x => x.GetComponent<IBattleEntity>() != null);
             foreach (var idamage in idamages)
             {
                 BattleContext midContext = context;
-                midContext.HitData = idamage.GetComponent<IBattleEntity>().Stats;
-
+                midContext.HitData = idamage.GetBattleStats();
+                RecyclePool.Request(AnimatonPrefab.Group, (c) =>
+                {
+                    c.Transform.position = midContext.HitData.Transform.position;
+                    c.GameObject.SetActive(true);
+                });
                 DamageManagement.Damage(midContext);
             }
 

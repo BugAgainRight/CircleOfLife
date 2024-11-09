@@ -10,6 +10,7 @@ namespace CircleOfLife
 {
     public class BladeFencing : BuildBase
     {
+        public GameObject EffectPrefab;
         public override List<LevelUpDirection> LevelUpDirections => new()
         {
             
@@ -20,6 +21,7 @@ namespace CircleOfLife
             if (context.AttackerData != null)
             {
                 DamageManagement.BuffDamage(context.AttackerData, Stats.Current.Attack);
+                ShowEffectAnimation(context.AttackerData.Transform.position);
             }
             if (Stats.Current.Hp <= 0) RecyclePool.ReturnToPool(gameObject);
 
@@ -29,18 +31,7 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.BladeFencing;
             Stats = Attribute[0].Build(gameObject, HurtAction);
-        }
-        private void OnEnable()
-        {
-            Level = 1;
-            NowType = BuildSkillType.BladeFencing;
-            ReplaceStats(Attribute[0], true);
-
-        }
-
-        private void FixedUpdate()
-        {
-            RecoveryHP();
+            RecyclePool.EnsurePrefabRegistered(BuildEffects.Blood, EffectPrefab, 20);
         }
 
         protected override void LevelUpFunc()
@@ -48,16 +39,15 @@ namespace CircleOfLife
             
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+      
+        
+        private void ShowEffectAnimation(Vector3 position)
         {
-            Skill(collision);
-        }
-
-        private void OnCollisionStay2D(Collision2D collision)
-        {
-            if (!TimerFinish) return;
-            Skill(collision);
-
+            RecyclePool.Request(BuildEffects.Blood, (c) =>
+            {
+                c.Transform.position = position;
+                c.GameObject.SetActive(true);
+            });
         }
 
         private void Skill(Collision2D collision)
@@ -68,8 +58,36 @@ namespace CircleOfLife
             {
                 DamageManagement.Damage(new BattleContext(PhysicsLayer, Stats, stats));
                 stats.BattleEntity.Stats.ApplyBuff(BuffUtils.ToBuff(UniversalBuff.Blood, 5f));
-
+                ShowEffectAnimation(stats.Transform.position);
             }
+        }
+
+        public override void FixedUpdateFunc()
+        {
+           
+        }
+
+        public override void OnColliderEnterFunc(Collision2D collision)
+        {
+            Skill(collision);
+        }
+
+        public override void OnColliderTriggerFunc(Collision2D collision)
+        {
+            if (!TimerFinish) return;
+            Skill(collision);
+        }
+
+        public override void OnEnableFunc()
+        {
+            Level = 1;
+            NowType = BuildSkillType.BladeFencing;
+            ReplaceStats(Attribute[0], true);
+        }
+
+        public override void OnDisableFunc()
+        {
+         
         }
     }
 }

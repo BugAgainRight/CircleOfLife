@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5660067118137831641}
   - component: {fileID: 1075226415241178113}
   - component: {fileID: 5974857601923232138}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RangedFastBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfec8d98d5f4dac408ae47a922480a18, type: 3}
   m_Name: EnemyPrefabSo
   m_EditorClassIdentifier: 
-  AllBuildSettings: []
+  AllBuildSettings:
+  - value1: 0
+    value2: {fileID: 5680572108979959678, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
+  - value1: 1
+    value2: {fileID: 3351999505790943991, guid: 7278cc6b627d7c34494d02156c303ea3, type: 3}
+  - value1: 2
+    value2: {fileID: 9109150191814673885, guid: c483cdf9f15f6e048bbaaf90461cf7c9, type: 3}
+  - value1: 3
+    value2: {fileID: 8594880313086734815, guid: 6459b3de63950be4b8dd314c4bad214c, type: 3}
+  - value1: 4
+    value2: {fileID: 4053340530921958219, guid: b35d8807e1f817f42b4386d08de1b5b3, type: 3}

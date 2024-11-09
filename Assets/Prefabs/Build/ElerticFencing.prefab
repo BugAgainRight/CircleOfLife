@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 3579715778663672742}
   - component: {fileID: 6470158769915927661}
   - component: {fileID: 3270316156478814182}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ElerticFencing
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,8 +79,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 43a1c3436b09a9044bfbf9fd6232241f, type: 3}
+  m_Color: {r: 1, g: 0.9713178, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
     radius: 5
     size: {x: 0, y: 0}
     offSet: {x: 0, y: 0}
-    gizmosColor: {r: 0, g: 1, b: 0, a: 1}
+    gizmosColor: {r: 0.92156863, g: 0.26666668, b: 0.3137255, a: 1}
 --- !u!114 &4983407831097668999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,14 +192,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.96, y: 2.88}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.98, y: 2.94}
   m_EdgeRadius: 0
 --- !u!114 &3270316156478814182
 MonoBehaviour:
@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f995678ad66ec2c45842924eba7d1c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyCost: 0
   Attribute:
   - Velocity: 0
     Hp: 200
@@ -246,8 +247,9 @@ MonoBehaviour:
   RangeObj: {fileID: 2854367178583808953}
   PhysicsLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   WhetherSelectDirection: 0
+  EffectPrefab: {fileID: 160900, guid: 1b1f4eecb848b384f93fd0216a95f56e, type: 3}
 --- !u!1 &2854367178583808953
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6062067240072219564}
   - component: {fileID: 2569798891184020966}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}

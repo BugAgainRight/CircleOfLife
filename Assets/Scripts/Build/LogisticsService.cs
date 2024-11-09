@@ -11,6 +11,7 @@ namespace CircleOfLife
     
     public class LogisticsService : BuildBase
     {
+        public GameObject EffectPrefab;
         public enum LogisticsServiceBuffType
         {
             加速=1,
@@ -93,15 +94,9 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.LogisticsService;
             Stats = Attribute[0].Build(gameObject, HurtAction);
+            RecyclePool.EnsurePrefabRegistered(BuildEffects.Buff, EffectPrefab, 20);
         }
-        private void OnEnable()
-        {
-            Level = 1;
-            NowType = BuildSkillType.LogisticsService;
-            allType = new();
-            ReplaceStats(Attribute[0], true);
 
-        }
         public float SpeedUpValue, ArmorUpValue, AttackUpValue;
 
         private void SpeedUp(BattleStats stats, BuffContext buff)
@@ -120,38 +115,6 @@ namespace CircleOfLife
 
             stats.Current.Attack += AttackUpValue;
         }
-        private void FixedUpdate()
-        {
-            RecoveryHP();
-
-
-            if (TimerFinish)
-            {
-                var list = BattleRange.GetAllFriendInRange(PhysicsLayer, FactionType.Friend);
-                foreach(var item in list)
-                {
-
-                    if (allType.Contains(LogisticsServiceBuffType.加速))
-                    {
-                        Stats.ApplyBuff(BuffUtils.ToBuff(SpeedUp, 5f));
-                    }
-                    if (allType.Contains(LogisticsServiceBuffType.加护甲))
-                    {
-                        Stats.ApplyBuff(BuffUtils.ToBuff(ArmorUp, 5f));
-
-                    }
-                    if (allType.Contains(LogisticsServiceBuffType.加攻击力))
-                    {
-                        Stats.ApplyBuff(BuffUtils.ToBuff(AttackUp, 5f));
-                    }
-
-
-
-                }
-
-
-            }
-        }
 
         public void OnRoundFinish()
         {
@@ -161,6 +124,65 @@ namespace CircleOfLife
         protected override void LevelUpFunc()
         {
            
+        }
+
+        public override void FixedUpdateFunc()
+        {
+
+            if (TimerFinish)
+            {
+                var list = BattleRange.GetAllFriendInRange(PhysicsLayer, FactionType.Friend);
+                foreach (var item in list)
+                {
+                    var stats = item.GetBattleStats();
+                    if (stats == null) continue;
+                    
+                    if (allType.Contains(LogisticsServiceBuffType.加速))
+                    {
+                        stats.ApplyBuff(BuffUtils.ToBuff(SpeedUp, 5f));
+                    }
+                    if (allType.Contains(LogisticsServiceBuffType.加护甲))
+                    {
+                        stats.ApplyBuff(BuffUtils.ToBuff(ArmorUp, 5f));
+
+                    }
+                    if (allType.Contains(LogisticsServiceBuffType.加攻击力))
+                    {
+                        stats.ApplyBuff(BuffUtils.ToBuff(AttackUp, 5f));
+                    }
+
+                    RecyclePool.Request(BuildEffects.Buff, (c) =>
+                    {
+                        c.Transform.position = stats.Transform.position;
+                        c.GameObject.SetActive(true);
+                    });
+
+                }
+
+
+            }
+        }
+
+        public override void OnColliderEnterFunc(Collision2D collision)
+        {
+            
+        }
+
+        public override void OnColliderTriggerFunc(Collision2D collision)
+        {
+            
+        }
+
+        public override void OnEnableFunc()
+        {
+            Level = 1;
+            NowType = BuildSkillType.LogisticsService;
+            allType = new();
+            ReplaceStats(Attribute[0], true);
+        }
+
+        public override void OnDisableFunc()
+        {
         }
     }
 }

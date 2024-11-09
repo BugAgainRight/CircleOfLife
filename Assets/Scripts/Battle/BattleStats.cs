@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CircleOfLife.Buff;
+using Spine.Unity;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace CircleOfLife.Battle
 {
@@ -126,6 +128,10 @@ namespace CircleOfLife.Battle
             this.hurtAction = hurtAction;
             BattleEntity = go.GetComponent<IBattleEntity>();
             Transform = go.transform;
+            if (go.TryGetComponent<SkeletonAnimation>(out var skeletonAnimation))
+            {
+                skeletonAnimation.zSpacing = Random.Range(-0.1f, 0f);
+            }
             Colliders = go.GetComponentsInChildren<Collider2D>()
                                   .Concat(go.GetComponents<Collider2D>());
             foreach (var collider in Colliders)

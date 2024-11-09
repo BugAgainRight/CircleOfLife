@@ -40,7 +40,6 @@ namespace CircleOfLife
             if (isCrit)
             {
                 contentText.fontStyle = FontStyles.Bold;
-                GetComponent<MeshRenderer>().sortingOrder = 101;
                 transform.Milease(UMN.LScale, Vector3.one * 7f, Vector3.one * 2f, 0.5f, 0f, EaseFunction.Circ, EaseType.Out)
                     .Then(
                         transform.Milease(UMN.LScale, Vector3.one * 2f, Vector3.one * 1.5f, 1f, 0f, EaseFunction.Circ, EaseType.Out),
@@ -51,7 +50,6 @@ namespace CircleOfLife
             else
             {
                 contentText.fontStyle = FontStyles.Normal;
-                GetComponent<MeshRenderer>().sortingOrder = 100;
                 transform.Milease(UMN.LScale, Vector3.one * 4.5f, Vector3.one * 1.5f, 0.5f, 0f, EaseFunction.Circ, EaseType.Out)
                     .Then(
                         transform.Milease(UMN.LScale, Vector3.one * 1.5f, Vector3.one * 1f, 0.5f, 0f, EaseFunction.Circ, EaseType.Out),

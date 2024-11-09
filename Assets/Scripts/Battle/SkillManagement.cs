@@ -264,7 +264,15 @@ namespace CircleOfLife
             foreach (var coll in list)
             {
                 if (count >= context.EffectCount) break;
-                DamageManagement.BuffDamage(coll.GetBattleStats(), -context.SpecialValues[1]);
+                var stats = coll.GetBattleStats();
+                if (stats == context.AttackerData) continue; // 治疗站能治疗自己感觉有点超模
+                DamageManagement.BuffDamage(stats, -context.SpecialValues[1]);
+                Debug.Log(-context.SpecialValues[1]);
+                RecyclePool.Request(BuildEffects.Recovery, (c) =>
+                {
+                    c.Transform.position = coll.transform.position;
+                    c.GameObject.SetActive(true);
+                });
                 count++;
             }
 
@@ -283,6 +291,11 @@ namespace CircleOfLife
                     {
                         DamageManagement.Damage(
                             new BattleContext(context.PhysicsLayer, context.AttackerData, battleEntity.Stats));
+                        RecyclePool.Request(BuildEffects.Recovery, (c) =>
+                        {
+                            c.Transform.position = item.transform.position;
+                            c.GameObject.SetActive(true);
+                        });
                     }
                 }
             }
@@ -300,16 +313,34 @@ namespace CircleOfLife
 
         private static void SignalTransmitterFunc(BuildSkillType buildSkillType, SkillContext context)
         {
-            var collection = RecyclePool.RequestWithCollection(buildSkillType, context.AttackerData.Transform);
-            collection.GameObject.SetActive(true);
-            var passData = context.AttackerData.Max;
-            passData.AttackInterval = 1;
-
-            var buildContext = collection.GetMainComponent<BuildFriendContext>();
             float range = context.AttackerData.Current.EffectRange;
+            Vector2 instantiatePos;
+            for(int i=0;i<10 ;i++ )
+            {
+                instantiatePos = UnityEngine.Random.insideUnitCircle * range;
+                if (Physics2D.Raycast(instantiatePos, Vector2.zero).collider == null)
+                {
+                    var collection = RecyclePool.RequestWithCollection(buildSkillType, context.AttackerData.Transform);
+                    collection.GameObject.SetActive(true);
+                    var passData = context.AttackerData.Max;
+                    passData.AttackInterval = 1;
 
-            buildContext.StandPos = context.TriggerPos + UnityEngine.Random.insideUnitCircle * range;
-            collection.GameObject.transform.position = buildContext.StandPos;
+                    var buildContext = collection.GetMainComponent<BuildFriendContext>();
+
+
+                    buildContext.StandPos = context.TriggerPos + instantiatePos;
+                    collection.GameObject.transform.position = buildContext.StandPos;
+
+                    RecyclePool.Request(BuildEffects.NewFriend, (c) =>
+                    {
+                        c.Transform.position = buildContext.StandPos;
+                        c.GameObject.SetActive(true);
+                    });
+                    break;
+                }
+            }
+
+            
         }
         [Skill(BuildSkillType.SignalTransmitterNormal)]
         private static void BuildSkill_1(SkillContext context)
@@ -364,7 +395,7 @@ namespace CircleOfLife
             var collection = RecyclePool.RequestWithCollection(SharedPrefab.Melee);
             collection.GameObject.SetActive(true);
             collection.GameObject.transform.position = context.TriggerPos;
-            collection.GameObject.transform.localEulerAngles = new Vector3(0, 0, angle);
+            collection.GameObject.transform.localEulerAngles = new Vector3(0, 0, angle * Mathf.Rad2Deg);
 
             var list = collection.GetMainComponent<BattleRange>().GetAllEnemyInRange(
                 context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);

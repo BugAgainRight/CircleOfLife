@@ -10,6 +10,7 @@ namespace CircleOfLife
 {
     public class TreatmentStation : BuildBase
     {
+        public GameObject EffectPrefab;
         public override List<LevelUpDirection> LevelUpDirections => new()
         {
             new LevelUpDirection(){NeedLevel=2,Title="兽医站",Value=BuildSkillType.TreatmentStation1},
@@ -31,31 +32,7 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.TreatmentStationNormal;
             Stats = Attribute[0].Build(gameObject, HurtAction);
-        }
-        private void OnEnable()
-        {
-            Level = 1;
-            NowType = BuildSkillType.TreatmentStationNormal;
-            ReplaceStats(Attribute[0], true);
-            UpdateRange();
-            
-        }
-
-
-        private void FixedUpdate()
-        {
-            RecoveryHP();
-            if (TimerFinish)
-            {
-                SkillContext skillContext = new(PhysicsLayer, Stats)
-                {
-                    EffectCount = effectCount,
-                    SpecialValues = new() { RecvoeryValueAll, RecvoeryValueEnemy }
-                };
-
-                SkillManagement.GetSkill(BuildSkillType.TreatmentStationNormal)(skillContext);
-
-            }
+            RecyclePool.EnsurePrefabRegistered(BuildEffects.Recovery, EffectPrefab, 20);
         }
         private int effectCount = 1;
         private float RecvoeryValueAll;
@@ -73,6 +50,44 @@ namespace CircleOfLife
             UpdateRange();
 
 
+        }
+
+        public override void FixedUpdateFunc()
+        {
+           
+            if (TimerFinish)
+            {
+                SkillContext skillContext = new(PhysicsLayer, Stats)
+                {
+                    EffectCount = effectCount,
+                    SpecialValues = new() { RecvoeryValueAll, RecvoeryValueEnemy }
+                };
+
+                SkillManagement.GetSkill(BuildSkillType.TreatmentStationNormal)(skillContext);
+
+            }
+        }
+
+        public override void OnColliderEnterFunc(Collision2D collision)
+        {
+            
+        }
+
+        public override void OnColliderTriggerFunc(Collision2D collision)
+        {
+           
+        }
+
+        public override void OnEnableFunc()
+        {
+            Level = 1;
+            NowType = BuildSkillType.TreatmentStationNormal;
+            ReplaceStats(Attribute[0], true);
+            LevelUpFunc();
+        }
+
+        public override void OnDisableFunc()
+        {
         }
 
         [Serializable]

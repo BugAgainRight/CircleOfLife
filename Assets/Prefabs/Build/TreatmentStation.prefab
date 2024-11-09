@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5454337598708166482}
   - component: {fileID: 3870678365768959779}
   - component: {fileID: 116104524376909613}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 9160503357477912268}
   - component: {fileID: 3768745209793196336}
   - component: {fileID: 3684356674953783726}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TreatmentStation
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -274,13 +274,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422d1e918f3817546845e8e9adf1bf79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyCost: 0
   Attribute:
   - Velocity: 0
     Hp: 200
     Attack: 0
     Armor: 15
     EffectRange: 4
-    AttackInterval: 0
+    AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
@@ -289,7 +290,7 @@ MonoBehaviour:
     Attack: 0
     Armor: 20
     EffectRange: 5
-    AttackInterval: 0
+    AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
@@ -298,7 +299,7 @@ MonoBehaviour:
     Attack: 0
     Armor: 25
     EffectRange: 6
-    AttackInterval: 0
+    AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
@@ -307,9 +308,10 @@ MonoBehaviour:
   RangeObj: {fileID: 6973660460236216561}
   PhysicsLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   WhetherSelectDirection: 0
-  HospitalEffectCount: 0
+  EffectPrefab: {fileID: 4569046032541823318, guid: 448ffbcf71db27749b98c4ed68e15143, type: 3}
+  HospitalEffectCount: 2
   AllLevelValues:
   - EffectCount: 3
     RecvoeryValueAll: 5
@@ -455,7 +457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6165751147227855274}
   - component: {fileID: 7799147049298356493}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}

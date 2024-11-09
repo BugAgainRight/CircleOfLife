@@ -13,8 +13,9 @@ namespace CircleOfLife.Level
     {
         [Header("关卡的名称")]
         public string LevelName;
-        [Header("关卡编号")]
-        public string ID;
+        [Header("关卡枚举")]
+        public LevelEnum LevelEnum;
+
         [Header("关卡的描述")]
         public string LevelDescription;
 
@@ -32,9 +33,6 @@ namespace CircleOfLife.Level
     [Serializable]
     public class LevelWave
     {
-
-        [Header("波次的顺序")]
-        public int waveNumber;
         [Header("结算金额")]
         public int WaveCost;
         [Header("单位出生点")]
@@ -47,10 +45,8 @@ namespace CircleOfLife.Level
     [Serializable]
     public class LevelWaveAppearPoint
     {
-        [Header("出生点名称")]
-        public string AppearPointName;
-        [Header("出生点位置(优先使用第一个同名出生点的坐标)")]
-        public Vector3 Postition;
+        [Header("出生点枚举")]
+        public AppearPointEnum AppearPointEnum;
 
         [Header("单位群体列表")]
         /// <summary>
@@ -63,7 +59,7 @@ namespace CircleOfLife.Level
     public class LevelWaveUnits
     {
         [Header("单位的预制体")]
-        public GameObject UnitPrefab;
+        public EnemyStat TheEnemyStat;
 
         [Header("该单位的数量")]
         public int UnitCount;

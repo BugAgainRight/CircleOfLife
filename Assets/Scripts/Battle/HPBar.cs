@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CircleOfLife.Battle;
+using CircleOfLife.Utils;
+using Milease.Enums;
+using Milease.Utils;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +13,7 @@ namespace CircleOfLife
     public class HPBar : MonoBehaviour
     {
         public TMP_Text Level;
-        public SpriteRenderer Fill;
+        public SpriteRenderer Fill, LateFill;
         
         public BattleStats Stats;
         public BuildBase BindBuilding;
@@ -24,10 +27,16 @@ namespace CircleOfLife
         private int lastLevel = -1;
         private float showTime = 0f;
 
+        private bool isPlayer;
+
         private Renderer render;
         private MeshFilter meshFilter;
         private float lastRotation = -1f;
         private Transform targetTrans;
+
+        private float startHP, endHP, animatedTime = 0.5f;
+
+        private Vector3 direction;
 
         public void Initialize(BattleStats stats)
         {
@@ -37,7 +46,10 @@ namespace CircleOfLife
                 BindBuilding = build;
             }
 
+            isPlayer = stats.GameObject.IsPlayer();
+
             Fill.sprite = FillSprite[(int)stats.BattleEntity.FactionType];
+            LateFill.sprite = Fill.sprite;
 
             render = stats.GameObject.GetComponent<Renderer>();
             stats.GameObject.TryGetComponent(out meshFilter);
@@ -51,7 +63,7 @@ namespace CircleOfLife
 
             UpdatePosition();
             
-            Container.SetActive(BindBuilding);
+            Container.SetActive(BindBuilding || isPlayer);
             Level.gameObject.SetActive(BindBuilding);
         }
 
@@ -99,12 +111,16 @@ namespace CircleOfLife
             }
 
             lastHP = Stats.Current.Hp;
-            lastMaxHP = Mathf.Max(Stats.Max.Hp, 1f);
+            lastMaxHP = Stats.Max.Hp;
 
-            Fill.size = new Vector2(5f * (lastHP / lastMaxHP), Fill.size.y);
+            Fill.size = new Vector2(5f * (lastHP / Mathf.Max(lastMaxHP, 1f)), Fill.size.y);
 
             showTime = 1.5f;
             Container.SetActive(true);
+
+            startHP = LateFill.size.x;
+            endHP = Fill.size.x;
+            animatedTime = 0f;
         }
 
         private void UpdateLevel()
@@ -128,7 +144,22 @@ namespace CircleOfLife
             UpdateHP();
             UpdateLevel();
 
-            if (showTime > 0f && !BindBuilding)
+            if (targetTrans.localScale != direction)
+            {
+                direction = targetTrans.localScale;
+                var scale = transform.localScale;
+                scale.x = Mathf.Abs(scale.x) * Mathf.Sign(direction.x);
+                transform.localScale = scale;
+            }
+
+            if (animatedTime < 0.5f)
+            {
+                animatedTime += Time.deltaTime;
+                var pro = EaseUtility.GetEasedProgress(animatedTime, 0.5f, EaseType.In, EaseFunction.Quad);
+                LateFill.size = new Vector2(startHP + (endHP - startHP) * pro, LateFill.size.y);
+            }
+
+            if (showTime > 0f && !BindBuilding && !isPlayer)
             {
                 showTime -= Time.deltaTime;
                 if (showTime <= 0f)

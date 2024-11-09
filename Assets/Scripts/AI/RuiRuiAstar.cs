@@ -15,9 +15,11 @@ namespace RuiRuiAstar
 {
     public static class Astar
     {
+        private static bool hasInit = false;
         private static IValueOperate valueOperate;
         public static void Initialize(Range2Int xRange, Range2Int yRange, int obstacleLayer, IValueOperate valueOperate = null)
         {
+            hasInit = true;
             xRange = new(xRange);
             yRange = new(yRange);
             Astar.xRange = xRange;
@@ -195,6 +197,7 @@ namespace RuiRuiAstar
 
         public static void CheckObstacles(RangeBox2D rangeBox2D)
         {
+            if (!hasInit) return;
             Collider2D collider2D = Physics2D.OverlapBox(rangeBox2D.centerPos, rangeBox2D.size, 0, obstacleLayer);
             if (collider2D != null)
             {
@@ -964,9 +967,10 @@ namespace RuiRuiVectorField
     }
     public static class VectorField
     {
-
+        private static bool hasInit;
         public static void Initialize(int obstacleLayer, Range2Int xRange, Range2Int yRange)
         {
+            hasInit = true;
             xRange = new(xRange);
             yRange = new(yRange);
             VectorField.obstacleLayer = obstacleLayer;
@@ -987,6 +991,7 @@ namespace RuiRuiVectorField
 
         public static void UpdateVectorFieldTotal(Vector2Int target)
         {
+            if (!hasInit) return;
             Open = new();
             Close = new();
             VectorField.target = target;
@@ -1122,11 +1127,10 @@ namespace RuiRuiVectorField
 
         }
 
-        public static void PartialUpdates(Range2Int xRange, Range2Int yRange)
+        public static void PartialUpdates(int xMin,int xMax,int yMin,int yMax)
         {
-            xRange = new(xRange);
-            yRange = new(yRange);
-            RangeBox2D mid = new RangeBox2D(xRange, yRange);
+            if (!hasInit) return;
+            RangeBox2D mid = new RangeBox2D(xMin, xMax, yMin, yMax);
 
             CheckObstacles(mid);
 
@@ -1480,7 +1484,7 @@ namespace RuiRuiVectorField
 
         public static void CheckObstacles(RangeBox2D rangeBox2D)
         {
-
+            if (!hasInit) return;
             Collider2D collider2D = Physics2D.OverlapBox(rangeBox2D.centerPos, rangeBox2D.size, 0, obstacleLayer);
             if (collider2D != null)
             {

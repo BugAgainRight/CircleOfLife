@@ -12,6 +12,7 @@ namespace CircleOfLife
     {
         public int MaxCount;
         public GameObject FriendPrefab;
+        public GameObject EffectPrefab;
         public override List<LevelUpDirection> LevelUpDirections => new()
         {
            
@@ -25,39 +26,71 @@ namespace CircleOfLife
         
         public override void HurtAction(BattleContext context)
         {
-            
+            if (context.HitData.Current.Hp <= 0)
+            {
+                RecyclePool.ReturnToPool(gameObject);
+                for (var i = 0; ; i++)
+                {
+                    if (i >= transform.childCount)
+                    {
+                        break;
+                    }
+                    
+                    var child = transform.GetChild(i);
+                    if (!child.CompareTag("SignalFriend")) continue;
+                    RecyclePool.ReturnToPool(child.gameObject);
+                    i--;
+                }
+            }
         }
 
         private void Awake()
         {
+            Switch = true;
             Level = 1;
             NowType = BuildSkillType.SignalTransmitterNormal;
             Stats = Attribute[0].Build(gameObject, HurtAction);
-        }
-        private void OnEnable()
-        {
-            Level = 1;
-            NowType = BuildSkillType.SignalTransmitterNormal;
-            ReplaceStats(Attribute[0], true);
-            UpdateRange();
-
-        }
-
-        private void FixedUpdate()
-        {
-            RecoveryHP();
-            if (transform.childCount <= MaxCount && TimerFinish)
-            {
-                SkillContext skillContext = new(PhysicsLayer, Stats);
-              
-                SkillManagement.GetSkill((BuildSkillType)NowType)(skillContext);
-
-            }
+            RecyclePool.EnsurePrefabRegistered(BuildEffects.NewFriend, EffectPrefab, 20);
         }
 
         protected override void LevelUpFunc()
         {
             BattleRange.Range.radius = Stats.Current.EffectRange;
+        }
+
+        public override void FixedUpdateFunc()
+        {
+           
+            if (transform.childCount <= MaxCount && TimerFinish)
+            {
+                SkillContext skillContext = new(PhysicsLayer, Stats);
+
+                SkillManagement.GetSkill((BuildSkillType)NowType)(skillContext);
+
+            }
+        }
+
+        public override void OnColliderEnterFunc(Collision2D collision)
+        {
+           
+        }
+
+        public override void OnColliderTriggerFunc(Collision2D collision)
+        {
+           
+        }
+
+        public override void OnEnableFunc()
+        {
+            Level = 1;
+            NowType = BuildSkillType.SignalTransmitterNormal;
+            ReplaceStats(Attribute[0], true);
+            UpdateRange();
+        }
+
+        public override void OnDisableFunc()
+        {
+          
         }
     }
 }

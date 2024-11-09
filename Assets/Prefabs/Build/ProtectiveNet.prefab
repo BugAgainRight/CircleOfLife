@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6262235668181531966}
   - component: {fileID: 6518615276611710752}
   - component: {fileID: 8103447030367126090}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ProtectiveNet
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258a53ec1007bdf4d9a5c3a8c6daa3cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyCost: 0
   Attribute:
   - Velocity: 0
     Hp: 200
@@ -136,7 +137,7 @@ MonoBehaviour:
   RangeObj: {fileID: 5670099025011479615}
   PhysicsLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   WhetherSelectDirection: 0
 --- !u!114 &1113124204260459560
 MonoBehaviour:
@@ -272,7 +273,7 @@ GameObject:
   - component: {fileID: 6821689984293727676}
   - component: {fileID: 6369554008266170842}
   - component: {fileID: 783879901519887731}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,7 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8819797203381526764}
   - component: {fileID: 981069683325022413}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}

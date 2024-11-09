@@ -1,6 +1,7 @@
 using CircleOfLife.Battle;
 using Milutools.AI;
 using Milutools.Recycle;
+using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace CircleOfLife
 
         public float FireDistance;
         
+        public SkeletonAnimation SkeletonAnimation;
 
         [HideInInspector]
         public Collider2D Enemy;
@@ -83,11 +85,6 @@ namespace CircleOfLife
             }
 
             if (Enemy != null) EnemyDistance = Vector2.Distance(transform.position, Enemy.transform.position);
-
-
-
-
-
 
         }
     }

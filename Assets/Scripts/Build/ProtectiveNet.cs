@@ -34,20 +34,35 @@ namespace CircleOfLife
             Level = 1;
             Stats = Attribute[0].Build(gameObject, HurtAction);
         }
-        private void OnEnable()
-        {
-            Level = 1;
-            ReplaceStats(Attribute[0], true);
-
-        }
-        private void FixedUpdate()
-        {
-            RecoveryHP();
-        }
 
         protected override void LevelUpFunc()
         {
             
+        }
+
+        public override void FixedUpdateFunc()
+        {
+            
+        }
+
+        public override void OnColliderEnterFunc(Collision2D collision)
+        {
+            
+        }
+
+        public override void OnColliderTriggerFunc(Collision2D collision)
+        {
+            
+        }
+
+        public override void OnEnableFunc()
+        {
+            Level = 1;
+            ReplaceStats(Attribute[0], true);
+        }
+
+        public override void OnDisableFunc()
+        {
         }
     }
 }

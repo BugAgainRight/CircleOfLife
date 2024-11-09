@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using CircleOfLife.ScriptObject;
 using UnityEngine;
 
 namespace CircleOfLife.Level
@@ -38,7 +39,7 @@ namespace CircleOfLife.Level
             }
         }
 
-        public static List<LevelWaveAppearPoint> AppearPointList
+        public static List<LevelWaveAppearPoint> LevelWaveAppearPointList
         {
             get
             {
@@ -49,6 +50,26 @@ namespace CircleOfLife.Level
                 return LevelWavelist[CurrentWave].AppearPoints;
             }
         }
+
+        private static List<EnemyAppearPoint> enemyAppearPointList;
+
+        public static List<EnemyAppearPoint> EnemyAppearPointList
+        {
+            get
+            {
+                if (enemyAppearPointList == null)
+                {
+                    Debug.LogWarning("你没有加载出生点数据,默认加载测试出生点");
+                    enemyAppearPointList = Resources.Load<EnemyAppearPointSO>("LevelSO/EnemyAppearPointSOTest").AppearPointsInEveryLevel[0].EnemyAppearPointList;
+                }
+                return enemyAppearPointList;
+            }
+            set
+            {
+                enemyAppearPointList = value;
+            }
+        }
+        public static EnemyPrefabSo EnemyPrefabSo;
         #endregion
         #region 静态数据
         /// <summary>
@@ -73,7 +94,7 @@ namespace CircleOfLife.Level
             get
             {
                 int count = 0;
-                foreach (LevelWaveAppearPoint point in AppearPointList)
+                foreach (LevelWaveAppearPoint point in LevelWaveAppearPointList)
                 {
                     foreach (LevelWaveUnits unit in point.UnitsList)
                     {
@@ -146,18 +167,22 @@ namespace CircleOfLife.Level
                 return LevelWavelist[CurrentWave].WaveCost;
             }
         }
+        //当前关卡的出生点列表
+        public static List<LevelAppearPoint> LevelAppearPointList;
+        public static List<LevelAppearPoint> UsedAppearPointList;
         #endregion
         #region 方法
         /// <summary>
         /// 初始化关卡
         /// </summary>
         /// <param name="level">关卡数据</param>
-        public static void SetCurrentLevel(Level level)
+        public static void SetCurrentLevel(Level level, AppearPointsInLevels appearPointsInLevels)
         {
             Level = level;
             CurrentWave = 0;
             CurrentEnemyCount = 0;
             Cost = level.LevelCost;
+            EnemyAppearPointList = appearPointsInLevels.EnemyAppearPointList;
         }
         /// <summary>
         /// 将关卡数据置空（似乎没用）
