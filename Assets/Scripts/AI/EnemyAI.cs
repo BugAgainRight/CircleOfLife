@@ -30,6 +30,10 @@ namespace CircleOfLife.AI
         
         private BehaviourState Cast(EnemyAIContext context)
         {
+            if (!context.TargetStats.Transform)
+            {
+                return BehaviourState.Succeed;
+            }
             context.ResetSkillTick();
             var skillContext = new SkillContext(context.LayerMask, context.Stats, context.TargetStats);
             SkillManagement.GetSkill(context.EnemyType)(skillContext);
@@ -53,12 +57,14 @@ namespace CircleOfLife.AI
         {
             if (context.IsSkillReady())
             {
+                //context.LockDirection = false;
                 return BehaviourState.Succeed;
             }
-            
+
+            /**context.LockDirection = true;
             context.Enemy.position =
-                MoveTowards(context.Enemy.position, context.Player.position, 
-                    context.Speed * -0.1f * Time.fixedDeltaTime);
+                MoveTowards(context.Enemy.position, context.Player.position,
+                    context.Speed * -0.1f * Time.fixedDeltaTime);**/
             return BehaviourState.Running;
         }
         

@@ -36,6 +36,8 @@ namespace CircleOfLife
 
         private float startHP, endHP, animatedTime = 0.5f;
 
+        private Vector3 direction;
+
         public void Initialize(BattleStats stats)
         {
             Stats = stats;
@@ -141,6 +143,14 @@ namespace CircleOfLife
             UpdatePosition();
             UpdateHP();
             UpdateLevel();
+
+            if (targetTrans.localScale != direction)
+            {
+                direction = targetTrans.localScale;
+                var scale = transform.localScale;
+                scale.x = Mathf.Abs(scale.x) * Mathf.Sign(direction.x);
+                transform.localScale = scale;
+            }
 
             if (animatedTime < 0.5f)
             {

@@ -26,7 +26,22 @@ namespace CircleOfLife
         
         public override void HurtAction(BattleContext context)
         {
-            
+            if (context.HitData.Current.Hp <= 0)
+            {
+                RecyclePool.ReturnToPool(gameObject);
+                for (var i = 0; ; i++)
+                {
+                    if (i >= transform.childCount)
+                    {
+                        break;
+                    }
+                    
+                    var child = transform.GetChild(i);
+                    if (!child.CompareTag("SignalFriend")) continue;
+                    RecyclePool.ReturnToPool(child.gameObject);
+                    i--;
+                }
+            }
         }
 
         private void Awake()

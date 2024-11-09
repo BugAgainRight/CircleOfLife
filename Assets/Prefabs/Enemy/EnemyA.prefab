@@ -123,7 +123,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: animation
+  _animationName: idel
   loop: 1
   timeScale: 1
 --- !u!50 &8502469101122970210
@@ -197,12 +197,14 @@ MonoBehaviour:
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
+  BehaviourTree: {fileID: 839780127661499639}
   Enemy: {fileID: 0}
   Player: {fileID: 0}
   Target: {fileID: 0}
   StopBattleDistance: 4
   DiscoverDistance: 4
   BattleDistance: 1.5
+  LockDirection: 0
 --- !u!114 &5752063878871917780
 MonoBehaviour:
   m_ObjectHideFlags: 0

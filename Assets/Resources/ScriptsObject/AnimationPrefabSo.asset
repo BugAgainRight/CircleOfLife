@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4535ecb9b8ff45f4e897ae8e51a39dcd, type: 3}
   m_Name: AnimationPrefabSo
   m_EditorClassIdentifier: 
-  AllBuildSettings: []
+  AllBuildSettings:
+  - value1: 0
+    value2: {fileID: 132352, guid: 71b02155078e4bf4e962f302d3675af2, type: 3}
+  - value1: 1
+    value2: {fileID: 115286, guid: ec1c5863f61e8ff4a84dbdb8a282a7ac, type: 3}

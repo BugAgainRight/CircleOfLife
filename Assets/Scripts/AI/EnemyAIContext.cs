@@ -32,6 +32,8 @@ namespace CircleOfLife.AI
         public bool FocusBuildingOnly = false;
 
         public BattleStats.Stats Stat;
+
+        public BehaviourTree<EnemyAIContext> BehaviourTree;
         
         [HideInInspector]
         public Transform Enemy, Player;
@@ -51,6 +53,9 @@ namespace CircleOfLife.AI
         private Vector3 lastPos;
         private bool lastRun = false;
         private bool lastFaceLeft;
+
+        [HideInInspector]
+        public bool LockDirection;
         
         private void Awake()
         {
@@ -63,6 +68,7 @@ namespace CircleOfLife.AI
                 }
                 if (Stats.Current.Hp <= 0f)
                 {
+                    BehaviourTree.Stop();
                     RecyclePool.ReturnToPool(gameObject);
                 }
             });
@@ -76,6 +82,7 @@ namespace CircleOfLife.AI
         private void OnEnable()
         {
             ((IVectorFieldMove)this).OnEnableNew(Speed);
+            BehaviourTree.Start();
         }
 
         public void ResetSkillTick()
@@ -145,10 +152,9 @@ namespace CircleOfLife.AI
             NeedVectorFieldMove = !Target;
 
             var running = lastPos != Transform.position;
-
             if (running)
             {
-                if (Mathf.Approximately(Transform.position.x, lastPos.x))
+                if (LockDirection)
                 {
                     return;
                 }
@@ -166,7 +172,7 @@ namespace CircleOfLife.AI
             if (lastRun != running)
             {
                 lastRun = running;
-                EnemyAnimator.state.SetAnimation(0, running ? "run" : "idel", true);
+                EnemyAnimator.state.SetAnimation(0, running ? (LockDirection ? "walk" : "run") : "idel", true);
             }
             
             ((IVectorFieldMove)this).FixedUpdateNew();

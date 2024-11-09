@@ -78,7 +78,11 @@ namespace CircleOfLife
         public static void NormalTrigger(BattleContext context)
         {
             DamageManagement.Damage(context);
-            
+            RecyclePool.Request(AnimatonPrefab.Single, (c) =>
+            {
+                c.Transform.position = context.HitData.Transform.position;
+                c.GameObject.SetActive(true);
+            });
         }
 
 
@@ -92,8 +96,12 @@ namespace CircleOfLife
             foreach (var idamage in idamages)
             {
                 BattleContext midContext = context;
-                midContext.HitData = idamage.GetComponent<IBattleEntity>().Stats;
-
+                midContext.HitData = idamage.GetBattleStats();
+                RecyclePool.Request(AnimatonPrefab.Group, (c) =>
+                {
+                    c.Transform.position = midContext.HitData.Transform.position;
+                    c.GameObject.SetActive(true);
+                });
                 DamageManagement.Damage(midContext);
             }
 

@@ -12,6 +12,7 @@ TagManager:
   - Mud
   - Building
   - Friend
+  - SignalFriend
   layers:
   - Default
   - TransparentFX
