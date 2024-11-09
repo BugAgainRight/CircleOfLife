@@ -45,3 +45,19 @@ MonoBehaviour:
       Cost: 30
       WhetherRotate: 1
       Name: "\u9632\u62A4\u7F51"
+  - value1: 4
+    value2:
+      Prefab: {fileID: 1852616872311496052, guid: 31e632285dc24074e841167655471e55, type: 3}
+      Icon: {fileID: 21300000, guid: 43a1c3436b09a9044bfbf9fd6232241f, type: 3}
+      BuildSize: {x: 1, y: 3}
+      Cost: 30
+      WhetherRotate: 1
+      Name: "\u7535\u7F51"
+  - value1: 5
+    value2:
+      Prefab: {fileID: 8627693267229348396, guid: e1fa425617c94534abc8af20ac366112, type: 3}
+      Icon: {fileID: 21300000, guid: 43a1c3436b09a9044bfbf9fd6232241f, type: 3}
+      BuildSize: {x: 1, y: 3}
+      Cost: 30
+      WhetherRotate: 1
+      Name: "\u5200\u7247\u7F51"
