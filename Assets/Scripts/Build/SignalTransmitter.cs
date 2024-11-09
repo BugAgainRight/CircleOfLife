@@ -31,6 +31,7 @@ namespace CircleOfLife
 
         private void Awake()
         {
+            Switch = true;
             Level = 1;
             NowType = BuildSkillType.SignalTransmitterNormal;
             Stats = Attribute[0].Build(gameObject, HurtAction);

@@ -36,12 +36,12 @@ namespace CircleOfLife
         private BehaviourState ReturnStandPos(BuildFriendContext context)
         {
             if (Vector2.Distance(context.StandPos, gameObject.transform.position) < 0.005f)
-                return BehaviourState.Succeed;
-            context.SkeletonAnimation.state.SetAnimation(0, "run", true);
+                return BehaviourState.Failed;
+            ChangeAnim(context.SkeletonAnimation, true);
             transform.position = Vector2.MoveTowards(
                 transform.position, context.StandPos,
                 context.BattleStat.Current.Velocity * Time.fixedDeltaTime);
-
+            transform.localScale = new Vector3(-Mathf.Sign(context.StandPos.x - transform.position.x) * 0.4f, 0.4f, 1);
             return BehaviourState.Running;
         }
 
@@ -50,10 +50,11 @@ namespace CircleOfLife
             if (!context.HasTarget) return BehaviourState.Succeed;
             if (Vector2.Distance(transform.position, context.Enemy.transform.position)
                 <= context.FireDistance - 0.005) return BehaviourState.Succeed;
-            context.SkeletonAnimation.state.SetAnimation(0, "run", true);
+            ChangeAnim(context.SkeletonAnimation, true);
             transform.position = Vector2.MoveTowards(
                 transform.position, context.Enemy.transform.position,
                 context.BattleStat.Current.Velocity * Time.fixedDeltaTime);
+            transform.localScale = new Vector3(-Mathf.Sign(context.Enemy.transform.position.x - transform.position.x) * 0.4f, 0.4f, 1);
             return BehaviourState.Running;
         }
 
@@ -62,28 +63,44 @@ namespace CircleOfLife
         {
             if (!context.HasTarget) return BehaviourState.Succeed;
             if (context.TimerFinish) return BehaviourState.Failed;
-            context.SkeletonAnimation.state.SetAnimation(0, "run", true);
+
+            ChangeAnim(context.SkeletonAnimation, true);
             Vector2 dir = (context.Enemy.transform.position - transform.position).normalized;
             Vector2 targetPos = (Vector2)context.Enemy.transform.position - dir * (context.FireDistance - 0.1f);
             transform.position = Vector2.MoveTowards(
               transform.position, targetPos, context.BattleStat.Current.Velocity * Time.fixedDeltaTime);
+            transform.localScale = new Vector3(-Mathf.Sign(targetPos.x - transform.position.x) * 0.4f, 0.4f, 1);
+
             return BehaviourState.Running;
         }
 
 
         private BehaviourState Idle(BuildFriendContext context)
         {
-            context.SkeletonAnimation.state.SetAnimation(0, "idel", true);
+            
+            ChangeAnim(context.SkeletonAnimation, false);
             return BehaviourState.Succeed;
         }
 
         private BehaviourState Fire(BuildFriendContext context)
         {
-            context.SkeletonAnimation.state.SetAnimation(0, "idel", true);
+            ChangeAnim(context.SkeletonAnimation, false);
             SkillContext skillContext = new(context.EnemyLayer, context.BattleStat, context.Enemy.GetBattleStats());
 
             SkillManagement.GetSkill(context.BuildSkill)(skillContext);
             return BehaviourState.Succeed;
         }
+
+
+        private bool isRun;
+        private void ChangeAnim(SkeletonAnimation skeletonAnimation, bool isRun)
+        {
+            if (isRun && this.isRun) ;
+            else if (isRun) skeletonAnimation.state.SetAnimation(0, "run", true);
+            else if (!this.isRun) ;
+            else skeletonAnimation.state.SetAnimation(0, "idel", true);
+            this.isRun = isRun;
+        }
+
     }
 }
