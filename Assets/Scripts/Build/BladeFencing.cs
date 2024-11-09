@@ -10,6 +10,7 @@ namespace CircleOfLife
 {
     public class BladeFencing : BuildBase
     {
+        public GameObject EffectPrefab;
         public override List<LevelUpDirection> LevelUpDirections => new()
         {
             
@@ -20,6 +21,7 @@ namespace CircleOfLife
             if (context.AttackerData != null)
             {
                 DamageManagement.BuffDamage(context.AttackerData, Stats.Current.Attack);
+                ShowEffectAnimation(context.AttackerData.Transform.position);
             }
             if (Stats.Current.Hp <= 0) RecyclePool.ReturnToPool(gameObject);
 
@@ -59,6 +61,15 @@ namespace CircleOfLife
             Skill(collision);
 
         }
+        
+        private void ShowEffectAnimation(Vector3 position)
+        {
+            RecyclePool.Request(BuildEffects.Blood, (c) =>
+            {
+                c.Transform.position = position;
+                c.GameObject.SetActive(true);
+            });
+        }
 
         private void Skill(Collision2D collision)
         {
@@ -68,7 +79,7 @@ namespace CircleOfLife
             {
                 DamageManagement.Damage(new BattleContext(PhysicsLayer, Stats, stats));
                 stats.BattleEntity.Stats.ApplyBuff(BuffUtils.ToBuff(UniversalBuff.Blood, 5f));
-
+                ShowEffectAnimation(stats.Transform.position);
             }
         }
     }

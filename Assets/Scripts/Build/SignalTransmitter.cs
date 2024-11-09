@@ -12,6 +12,7 @@ namespace CircleOfLife
     {
         public int MaxCount;
         public GameObject FriendPrefab;
+        public GameObject EffectPrefab;
         public override List<LevelUpDirection> LevelUpDirections => new()
         {
            
@@ -33,6 +34,7 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.SignalTransmitterNormal;
             Stats = Attribute[0].Build(gameObject, HurtAction);
+            RecyclePool.EnsurePrefabRegistered(BuildEffects.NewFriend, EffectPrefab, 20);
         }
         private void OnEnable()
         {

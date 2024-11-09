@@ -10,6 +10,7 @@ namespace CircleOfLife
 {
     public class ElectricFencing : BuildBase
     {
+        public GameObject EffectPrefab;
         public override List<LevelUpDirection> LevelUpDirections => new()
         {
             
@@ -20,6 +21,7 @@ namespace CircleOfLife
             if (context.AttackerData!=null)
             {
                 DamageManagement.BuffDamage(context.AttackerData, Stats.Current.Attack);
+                ShowEffectAnimation(context.AttackerData.Transform.position);
             }
             if (Stats.Current.Hp <= 0) RecyclePool.ReturnToPool(gameObject);
            
@@ -30,6 +32,7 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.ElectricFencing;
             Stats = Attribute[0].Build(gameObject, HurtAction);
+            RecyclePool.EnsurePrefabRegistered(BuildEffects.Thunder, EffectPrefab, 20);
         }
         private void OnEnable()
         {
@@ -63,6 +66,15 @@ namespace CircleOfLife
 
         }
 
+        private void ShowEffectAnimation(Vector3 position)
+        {
+            RecyclePool.Request(BuildEffects.Thunder, (c) =>
+            {
+                c.Transform.position = position;
+                c.GameObject.SetActive(true);
+            });
+        }
+
         private void Skill(Collision2D collision)
         {
             BattleStats stats = collision.collider.GetBattleStats();
@@ -71,7 +83,7 @@ namespace CircleOfLife
             {
                 DamageManagement.Damage(new BattleContext(PhysicsLayer,Stats,stats));
                 stats.BattleEntity.Stats.ApplyBuff(BuffUtils.ToBuff(UniversalBuff.SlowDown, 5f));
-
+                ShowEffectAnimation(stats.Transform.position);
             }
         }
     }

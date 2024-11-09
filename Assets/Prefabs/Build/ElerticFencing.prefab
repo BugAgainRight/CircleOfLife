@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f995678ad66ec2c45842924eba7d1c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyCost: 0
   Attribute:
   - Velocity: 0
     Hp: 200
@@ -248,6 +249,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   WhetherSelectDirection: 0
+  EffectPrefab: {fileID: 160900, guid: 1b1f4eecb848b384f93fd0216a95f56e, type: 3}
 --- !u!1 &2854367178583808953
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ namespace CircleOfLife
 {
     public class TreatmentStation : BuildBase
     {
+        public GameObject EffectPrefab;
         public override List<LevelUpDirection> LevelUpDirections => new()
         {
             new LevelUpDirection(){NeedLevel=2,Title="兽医站",Value=BuildSkillType.TreatmentStation1},
@@ -31,6 +32,7 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.TreatmentStationNormal;
             Stats = Attribute[0].Build(gameObject, HurtAction);
+            RecyclePool.EnsurePrefabRegistered(BuildEffects.Recovery, EffectPrefab, 20);
         }
         private void OnEnable()
         {

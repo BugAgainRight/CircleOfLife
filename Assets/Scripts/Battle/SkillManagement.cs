@@ -264,7 +264,14 @@ namespace CircleOfLife
             foreach (var coll in list)
             {
                 if (count >= context.EffectCount) break;
-                DamageManagement.BuffDamage(coll.GetBattleStats(), -context.SpecialValues[1]);
+                var stats = coll.GetBattleStats();
+                if (stats == context.AttackerData) continue; // 治疗站能治疗自己感觉有点超模
+                DamageManagement.BuffDamage(stats, -context.SpecialValues[1]);
+                RecyclePool.Request(BuildEffects.Recovery, (c) =>
+                {
+                    c.Transform.position = coll.transform.position;
+                    c.GameObject.SetActive(true);
+                });
                 count++;
             }
 
@@ -283,6 +290,11 @@ namespace CircleOfLife
                     {
                         DamageManagement.Damage(
                             new BattleContext(context.PhysicsLayer, context.AttackerData, battleEntity.Stats));
+                        RecyclePool.Request(BuildEffects.Recovery, (c) =>
+                        {
+                            c.Transform.position = item.transform.position;
+                            c.GameObject.SetActive(true);
+                        });
                     }
                 }
             }
@@ -310,6 +322,12 @@ namespace CircleOfLife
 
             buildContext.StandPos = context.TriggerPos + UnityEngine.Random.insideUnitCircle * range;
             collection.GameObject.transform.position = buildContext.StandPos;
+
+            RecyclePool.Request(BuildEffects.NewFriend, (c) =>
+            {
+                c.Transform.position = buildContext.StandPos;
+                c.GameObject.SetActive(true);
+            });
         }
         [Skill(BuildSkillType.SignalTransmitterNormal)]
         private static void BuildSkill_1(SkillContext context)

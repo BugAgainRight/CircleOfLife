@@ -11,6 +11,7 @@ namespace CircleOfLife
     
     public class LogisticsService : BuildBase
     {
+        public GameObject EffectPrefab;
         public enum LogisticsServiceBuffType
         {
             加速=1,
@@ -93,6 +94,7 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.LogisticsService;
             Stats = Attribute[0].Build(gameObject, HurtAction);
+            RecyclePool.EnsurePrefabRegistered(BuildEffects.Buff, EffectPrefab, 20);
         }
         private void OnEnable()
         {
@@ -130,22 +132,28 @@ namespace CircleOfLife
                 var list = BattleRange.GetAllFriendInRange(PhysicsLayer, FactionType.Friend);
                 foreach(var item in list)
                 {
-
+                    var stats = item.GetBattleStats();
+                    if (stats == null) continue;
+                    
                     if (allType.Contains(LogisticsServiceBuffType.加速))
                     {
-                        Stats.ApplyBuff(BuffUtils.ToBuff(SpeedUp, 5f));
+                        stats.ApplyBuff(BuffUtils.ToBuff(SpeedUp, 5f));
                     }
                     if (allType.Contains(LogisticsServiceBuffType.加护甲))
                     {
-                        Stats.ApplyBuff(BuffUtils.ToBuff(ArmorUp, 5f));
+                        stats.ApplyBuff(BuffUtils.ToBuff(ArmorUp, 5f));
 
                     }
                     if (allType.Contains(LogisticsServiceBuffType.加攻击力))
                     {
-                        Stats.ApplyBuff(BuffUtils.ToBuff(AttackUp, 5f));
+                        stats.ApplyBuff(BuffUtils.ToBuff(AttackUp, 5f));
                     }
 
-
+                    RecyclePool.Request(BuildEffects.Buff, (c) =>
+                    {
+                        c.Transform.position = stats.Transform.position;
+                        c.GameObject.SetActive(true);
+                    });
 
                 }
 
