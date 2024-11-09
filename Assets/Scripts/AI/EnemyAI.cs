@@ -64,7 +64,6 @@ namespace CircleOfLife.AI
         
         private BehaviourState Idle(EnemyAIContext context)
         {
-            ((IVectorFieldMove)context).FixedUpdateNew();
             return BehaviourState.Succeed;
         }
         
