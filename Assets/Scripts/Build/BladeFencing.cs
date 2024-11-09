@@ -31,6 +31,7 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.BladeFencing;
             Stats = Attribute[0].Build(gameObject, HurtAction);
+            RecyclePool.EnsurePrefabRegistered(BuildEffects.Blood, EffectPrefab, 20);
         }
 
         protected override void LevelUpFunc()

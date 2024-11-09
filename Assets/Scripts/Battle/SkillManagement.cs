@@ -395,7 +395,7 @@ namespace CircleOfLife
             var collection = RecyclePool.RequestWithCollection(SharedPrefab.Melee);
             collection.GameObject.SetActive(true);
             collection.GameObject.transform.position = context.TriggerPos;
-            collection.GameObject.transform.localEulerAngles = new Vector3(0, 0, angle);
+            collection.GameObject.transform.localEulerAngles = new Vector3(0, 0, angle * Mathf.Rad2Deg);
 
             var list = collection.GetMainComponent<BattleRange>().GetAllEnemyInRange(
                 context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);

@@ -14,14 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllBuildSettings:
   - value1: 0
-    value2: {fileID: 171468, guid: 9bb3c2595cddc25468a1fccc3b563ae4, type: 3}
+    value2: {fileID: 124808, guid: 2d051abfebeda054eac2b6a15edf6d4e, type: 3}
   - value1: 1
-    value2: {fileID: 1137603909547500, guid: 106c729e6a225324fbfcd3790a15051e, type: 3}
+    value2: {fileID: 171468, guid: 9bb3c2595cddc25468a1fccc3b563ae4, type: 3}
   - value1: 2
-    value2: {fileID: 7423378393176344028, guid: 5c9a822f756e0a94dafb0eb663718ec4, type: 3}
+    value2: {fileID: 1137603909547500, guid: 106c729e6a225324fbfcd3790a15051e, type: 3}
   - value1: 3
     value2: {fileID: 7423378393176344028, guid: 5c9a822f756e0a94dafb0eb663718ec4, type: 3}
   - value1: 4
     value2: {fileID: 7423378393176344028, guid: 5c9a822f756e0a94dafb0eb663718ec4, type: 3}
   - value1: 5
+    value2: {fileID: 7423378393176344028, guid: 5c9a822f756e0a94dafb0eb663718ec4, type: 3}
+  - value1: 6
+    value2: {fileID: 7423378393176344028, guid: 5c9a822f756e0a94dafb0eb663718ec4, type: 3}
+  - value1: 7
+    value2: {fileID: 7423378393176344028, guid: 5c9a822f756e0a94dafb0eb663718ec4, type: 3}
+  - value1: 8
     value2: {fileID: 7423378393176344028, guid: 5c9a822f756e0a94dafb0eb663718ec4, type: 3}

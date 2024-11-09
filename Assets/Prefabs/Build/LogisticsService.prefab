@@ -194,7 +194,7 @@ MonoBehaviour:
     Attack: 0
     Armor: 15
     EffectRange: 0
-    AttackInterval: 0
+    AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
     Attack: 0
     Armor: 20
     EffectRange: 0
-    AttackInterval: 0
+    AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
     Attack: 0
     Armor: 25
     EffectRange: 0
-    AttackInterval: 0
+    AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0

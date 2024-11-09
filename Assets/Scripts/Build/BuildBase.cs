@@ -172,10 +172,10 @@ namespace CircleOfLife
 
         protected void UpdateAstarAndFieldVector()
         {
+            var x = Mathf.RoundToInt(transform.position.x);
+            var y = Mathf.RoundToInt(transform.position.y);
             new Action(() =>
             {
-                int x = Mathf.RoundToInt(transform.position.x);
-                int y = Mathf.RoundToInt(transform.position.y);
                 VectorField.PartialUpdates(x - 4, x + 4, y - 4, y + 4);
                 Astar.CheckObstacles(new RuiRuiSTL.RangeBox2D(x - 4, x + 4, y - 4, y + 4));
             }).AsMileaseKeyEvent().Delayed(1f).Play();
