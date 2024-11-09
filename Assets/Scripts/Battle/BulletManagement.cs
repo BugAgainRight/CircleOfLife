@@ -87,7 +87,7 @@ namespace CircleOfLife
         public static void BoomTrigger(BattleContext context)
         {
             var colls = Physics2D.OverlapCircleAll(
-                context.AttackerData.Transform.position, context.BoomRadius, context.DamageableLayer);
+                context.BulletTransform.position, context.BoomRadius, context.DamageableLayer);
             var idamages = colls.ToList().Where(x => x.GetComponent<IBattleEntity>() != null);
             foreach (var idamage in idamages)
             {

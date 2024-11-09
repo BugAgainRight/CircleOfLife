@@ -24,6 +24,7 @@ namespace CircleOfLife
             DamageableLayer = damageableLayer;
             Prefab = null;
             SkillRate = 1;
+            BulletTransform = null;
         }
 
 
@@ -42,7 +43,9 @@ namespace CircleOfLife
         public LayerMask DamageableLayer;
 
         public GameObject Prefab;
-    
+
+        public Transform BulletTransform;
+
     }
 
 }

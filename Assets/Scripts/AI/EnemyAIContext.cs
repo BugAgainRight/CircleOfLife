@@ -47,6 +47,10 @@ namespace CircleOfLife.AI
         
         private float skillTick = 0f;
         private float findTargetTick = 0f;
+
+        private Vector3 lastPos;
+        private bool lastRun = false;
+        private bool lastFaceLeft;
         
         private void Awake()
         {
@@ -139,6 +143,32 @@ namespace CircleOfLife.AI
             UpdateTarget();
             Distance = !Target ? 0f : Vector2.Distance(Target.position, Enemy.position);
             NeedVectorFieldMove = !Target;
+
+            var running = lastPos != Transform.position;
+
+            if (running)
+            {
+                if (Mathf.Approximately(Transform.position.x, lastPos.x))
+                {
+                    return;
+                }
+                var faceLeft = Transform.position.x < lastPos.x;
+                if (lastFaceLeft != faceLeft)
+                {
+                    lastFaceLeft = faceLeft;
+                    var scale = Transform.localScale;
+                    scale.x = Mathf.Abs(scale.x) * (lastFaceLeft ? 1f : -1f);
+                    Transform.localScale = scale;
+                }
+            }
+            lastPos = Transform.position;
+            
+            if (lastRun != running)
+            {
+                lastRun = running;
+                EnemyAnimator.state.SetAnimation(0, running ? "run" : "idel", true);
+            }
+            
             ((IVectorFieldMove)this).FixedUpdateNew();
         }
     }

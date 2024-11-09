@@ -87,7 +87,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2674028249205067043
 MonoBehaviour:
@@ -200,7 +200,7 @@ MonoBehaviour:
   Enemy: {fileID: 0}
   Player: {fileID: 0}
   Target: {fileID: 0}
-  StopBattleDistance: 8
+  StopBattleDistance: 4
   DiscoverDistance: 4
   BattleDistance: 1.5
 --- !u!114 &5752063878871917780
@@ -253,7 +253,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.13236582, y: 1.1088288}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -264,5 +264,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2366877, y: 2.3736782}
+  m_Size: {x: 2.5, y: 2.5}
   m_EdgeRadius: 0

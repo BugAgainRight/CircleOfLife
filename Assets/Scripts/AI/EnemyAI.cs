@@ -64,7 +64,12 @@ namespace CircleOfLife.AI
         
         private BehaviourState Idle(EnemyAIContext context)
         {
-            return BehaviourState.Succeed;
+            if (context.Target)
+            {
+                return BehaviourState.Succeed;
+            }
+            //context.EnemyAnimator.state.SetAnimation(0, "idel", true);
+            return BehaviourState.Running;
         }
         
         private Vector3 MoveTowards(Vector3 pos, Vector3 target, float speed)
