@@ -41,30 +41,13 @@ namespace CircleOfLife
             ReplaceStats(Attribute[0], true);
 
         }
-        private void FixedUpdate()
-        {
-            RecoveryHP();
-
-
-
-        }
 
         protected override void LevelUpFunc()
         {
 
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            Skill(collision);
-        }
-
-        private void OnCollisionStay2D(Collision2D collision)
-        {
-            if (!TimerFinish) return;
-            Skill(collision);
-
-        }
+      
 
         private void ShowEffectAnimation(Vector3 position)
         {
@@ -85,6 +68,22 @@ namespace CircleOfLife
                 stats.BattleEntity.Stats.ApplyBuff(BuffUtils.ToBuff(UniversalBuff.SlowDown, 5f));
                 ShowEffectAnimation(stats.Transform.position);
             }
+        }
+
+        public override void FixedUpdateFunc()
+        {
+           
+        }
+
+        public override void OnColliderEnterFunc(Collision2D collision)
+        {
+            Skill(collision);
+        }
+
+        public override void OnColliderTriggerFunc(Collision2D collision)
+        {
+            if (!TimerFinish) return;
+            Skill(collision);
         }
     }
 }

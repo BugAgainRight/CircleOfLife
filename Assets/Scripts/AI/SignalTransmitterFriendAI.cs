@@ -76,7 +76,7 @@ namespace CircleOfLife
 
         private BehaviourState Fire(BuildFriendContext context)
         {
-            Debug.Log("2");
+
             SkillContext skillContext = new(context.EnemyLayer, context.BattleStat, context.Enemy.GetBattleStats());
 
             SkillManagement.GetSkill(context.BuildSkill)(skillContext);

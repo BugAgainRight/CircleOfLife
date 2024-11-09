@@ -10,6 +10,7 @@ namespace CircleOfLife
 {
     public abstract class BuildBase : MonoBehaviour, IBattleEntity, IDestoey
     {
+        public bool Switch { get; set; }
         public int DestroyCost;
         public List<BattleStats.Stats> Attribute;
         public BattleStats Stats { get; set; }
@@ -130,5 +131,27 @@ namespace CircleOfLife
         {
             return DestroyCost;
         }
+        public abstract void FixedUpdateFunc();
+        public abstract void OnColliderEnterFunc(Collision2D collision);
+        public abstract void OnColliderTriggerFunc(Collision2D collision);
+
+        private void FixedUpdate()
+        {
+            if (!Switch) return;
+            RecoveryHP();
+            FixedUpdateFunc();
+        }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (!Switch) return;
+            OnColliderEnterFunc(collision);
+        }
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            if (!Switch) return;
+            OnColliderTriggerFunc(collision);
+        }
+
+
     }
 }

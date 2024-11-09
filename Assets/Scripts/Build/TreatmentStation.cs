@@ -29,6 +29,7 @@ namespace CircleOfLife
 
         private void Awake()
         {
+            Switch = true;
             Level = 1;
             NowType = BuildSkillType.TreatmentStationNormal;
             Stats = Attribute[0].Build(gameObject, HurtAction);
@@ -39,26 +40,11 @@ namespace CircleOfLife
             Level = 1;
             NowType = BuildSkillType.TreatmentStationNormal;
             ReplaceStats(Attribute[0], true);
-            UpdateRange();
-            
+            LevelUpFunc();
+
+
         }
 
-
-        private void FixedUpdate()
-        {
-            RecoveryHP();
-            if (TimerFinish)
-            {
-                SkillContext skillContext = new(PhysicsLayer, Stats)
-                {
-                    EffectCount = effectCount,
-                    SpecialValues = new() { RecvoeryValueAll, RecvoeryValueEnemy }
-                };
-
-                SkillManagement.GetSkill(BuildSkillType.TreatmentStationNormal)(skillContext);
-
-            }
-        }
         private int effectCount = 1;
         private float RecvoeryValueAll;
         private float RecvoeryValueEnemy;
@@ -75,6 +61,32 @@ namespace CircleOfLife
             UpdateRange();
 
 
+        }
+
+        public override void FixedUpdateFunc()
+        {
+           
+            if (TimerFinish)
+            {
+                SkillContext skillContext = new(PhysicsLayer, Stats)
+                {
+                    EffectCount = effectCount,
+                    SpecialValues = new() { RecvoeryValueAll, RecvoeryValueEnemy }
+                };
+
+                SkillManagement.GetSkill(BuildSkillType.TreatmentStationNormal)(skillContext);
+
+            }
+        }
+
+        public override void OnColliderEnterFunc(Collision2D collision)
+        {
+            
+        }
+
+        public override void OnColliderTriggerFunc(Collision2D collision)
+        {
+           
         }
 
         [Serializable]

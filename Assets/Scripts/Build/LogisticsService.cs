@@ -122,15 +122,24 @@ namespace CircleOfLife
 
             stats.Current.Attack += AttackUpValue;
         }
-        private void FixedUpdate()
-        {
-            RecoveryHP();
 
+        public void OnRoundFinish()
+        {
+            Debug.Log($"获得资源:{Stats.Current.Attack}");
+        }
+
+        protected override void LevelUpFunc()
+        {
+           
+        }
+
+        public override void FixedUpdateFunc()
+        {
 
             if (TimerFinish)
             {
                 var list = BattleRange.GetAllFriendInRange(PhysicsLayer, FactionType.Friend);
-                foreach(var item in list)
+                foreach (var item in list)
                 {
                     var stats = item.GetBattleStats();
                     if (stats == null) continue;
@@ -161,14 +170,14 @@ namespace CircleOfLife
             }
         }
 
-        public void OnRoundFinish()
+        public override void OnColliderEnterFunc(Collision2D collision)
         {
-            Debug.Log($"获得资源:{Stats.Current.Attack}");
+            
         }
 
-        protected override void LevelUpFunc()
+        public override void OnColliderTriggerFunc(Collision2D collision)
         {
-           
+            
         }
     }
 }

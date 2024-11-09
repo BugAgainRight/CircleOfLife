@@ -40,12 +40,23 @@ namespace CircleOfLife
             ReplaceStats(Attribute[0], true);
 
         }
-        private void FixedUpdate()
-        {
-            RecoveryHP();
-        }
 
         protected override void LevelUpFunc()
+        {
+            
+        }
+
+        public override void FixedUpdateFunc()
+        {
+            
+        }
+
+        public override void OnColliderEnterFunc(Collision2D collision)
+        {
+            
+        }
+
+        public override void OnColliderTriggerFunc(Collision2D collision)
         {
             
         }

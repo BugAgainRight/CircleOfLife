@@ -45,21 +45,31 @@ namespace CircleOfLife
 
         }
 
-        private void FixedUpdate()
+        protected override void LevelUpFunc()
         {
-            RecoveryHP();
+            BattleRange.Range.radius = Stats.Current.EffectRange;
+        }
+
+        public override void FixedUpdateFunc()
+        {
+           
             if (transform.childCount <= MaxCount && TimerFinish)
             {
                 SkillContext skillContext = new(PhysicsLayer, Stats);
-              
+
                 SkillManagement.GetSkill((BuildSkillType)NowType)(skillContext);
 
             }
         }
 
-        protected override void LevelUpFunc()
+        public override void OnColliderEnterFunc(Collision2D collision)
         {
-            BattleRange.Range.radius = Stats.Current.EffectRange;
+           
+        }
+
+        public override void OnColliderTriggerFunc(Collision2D collision)
+        {
+           
         }
     }
 }
