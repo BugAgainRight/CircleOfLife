@@ -126,6 +126,9 @@ namespace CircleOfLife.Battle
             this.hurtAction = hurtAction;
             BattleEntity = go.GetComponent<IBattleEntity>();
             Transform = go.transform;
+            var pos = Transform.position;
+            pos.z = Mathf.Abs(Transform.GetHashCode() / 1000f);
+            Transform.position = pos;
             Colliders = go.GetComponentsInChildren<Collider2D>()
                                   .Concat(go.GetComponents<Collider2D>());
             foreach (var collider in Colliders)

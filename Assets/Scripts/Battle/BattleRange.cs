@@ -1,3 +1,4 @@
+using System;
 using CircleOfLife.Battle;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,10 @@ namespace CircleOfLife
     {
         public GizmosSetting Range;
 
+        private void Awake()
+        {
+            Range.point = transform;
+        }
 
         public List<Collider2D> GetAllEnemyInRange(LayerMask layer,FactionType attackerFaction)
         {

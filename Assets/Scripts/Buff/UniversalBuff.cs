@@ -22,13 +22,13 @@ namespace CircleOfLife.Buff
         /// </summary>
         public static void Blood(BattleStats stats, BuffContext buff)
         {
-            var position = stats.Transform.position;
+            /**var position = stats.Transform.position;
             if (buff.IsMeet<Vector3>("position", x => x.Equals(position)))
             {
                 return;
             }
 
-            buff.Set<Vector3>("position", _ => position);
+            buff.Set<Vector3>("position", _ => position);**/
 
             if (buff.TickedTime >= 1f)
             {
