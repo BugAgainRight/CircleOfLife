@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CircleOfLife.Build;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
@@ -141,6 +142,7 @@ namespace CircleOfLife.Level
         {
             LevelController.EnsureInitialized();
             LevelController.Instance.OnWaveStart();
+            BuildUtils.EnableAllBuilding();
         }
 
         ///<summary>
@@ -150,6 +152,7 @@ namespace CircleOfLife.Level
         {
             LevelController.EnsureInitialized();
             LevelController.Instance.OnWaveEnd();
+            BuildUtils.DisableAllBuilding();
         }
         /// <summary>
         /// 直接判定游戏失败

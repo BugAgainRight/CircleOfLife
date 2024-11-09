@@ -29,7 +29,6 @@ namespace CircleOfLife
 
         private void Awake()
         {
-            Switch = true;
             Level = 1;
             NowType = BuildSkillType.TreatmentStationNormal;
             Stats = Attribute[0].Build(gameObject, HurtAction);
