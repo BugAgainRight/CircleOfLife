@@ -281,7 +281,7 @@ MonoBehaviour:
     Attack: 0
     Armor: 15
     EffectRange: 4
-    AttackInterval: 0
+    AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
@@ -290,7 +290,7 @@ MonoBehaviour:
     Attack: 0
     Armor: 20
     EffectRange: 5
-    AttackInterval: 0
+    AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
@@ -299,7 +299,7 @@ MonoBehaviour:
     Attack: 0
     Armor: 25
     EffectRange: 6
-    AttackInterval: 0
+    AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
@@ -311,7 +311,7 @@ MonoBehaviour:
     m_Bits: 0
   WhetherSelectDirection: 0
   EffectPrefab: {fileID: 4569046032541823318, guid: 448ffbcf71db27749b98c4ed68e15143, type: 3}
-  HospitalEffectCount: 0
+  HospitalEffectCount: 2
   AllLevelValues:
   - EffectCount: 3
     RecvoeryValueAll: 5
