@@ -313,22 +313,34 @@ namespace CircleOfLife
 
         private static void SignalTransmitterFunc(BuildSkillType buildSkillType, SkillContext context)
         {
-            var collection = RecyclePool.RequestWithCollection(buildSkillType, context.AttackerData.Transform);
-            collection.GameObject.SetActive(true);
-            var passData = context.AttackerData.Max;
-            passData.AttackInterval = 1;
-
-            var buildContext = collection.GetMainComponent<BuildFriendContext>();
             float range = context.AttackerData.Current.EffectRange;
-
-            buildContext.StandPos = context.TriggerPos + UnityEngine.Random.insideUnitCircle * range;
-            collection.GameObject.transform.position = buildContext.StandPos;
-
-            RecyclePool.Request(BuildEffects.NewFriend, (c) =>
+            Vector2 instantiatePos;
+            for(int i=0;i<10 ;i++ )
             {
-                c.Transform.position = buildContext.StandPos;
-                c.GameObject.SetActive(true);
-            });
+                instantiatePos = UnityEngine.Random.insideUnitCircle * range;
+                if (Physics2D.Raycast(instantiatePos, Vector2.zero).collider == null)
+                {
+                    var collection = RecyclePool.RequestWithCollection(buildSkillType, context.AttackerData.Transform);
+                    collection.GameObject.SetActive(true);
+                    var passData = context.AttackerData.Max;
+                    passData.AttackInterval = 1;
+
+                    var buildContext = collection.GetMainComponent<BuildFriendContext>();
+
+
+                    buildContext.StandPos = context.TriggerPos + instantiatePos;
+                    collection.GameObject.transform.position = buildContext.StandPos;
+
+                    RecyclePool.Request(BuildEffects.NewFriend, (c) =>
+                    {
+                        c.Transform.position = buildContext.StandPos;
+                        c.GameObject.SetActive(true);
+                    });
+                    break;
+                }
+            }
+
+            
         }
         [Skill(BuildSkillType.SignalTransmitterNormal)]
         private static void BuildSkill_1(SkillContext context)

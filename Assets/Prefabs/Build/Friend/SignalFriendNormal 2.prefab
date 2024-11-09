@@ -60,6 +60,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   FireDistance: 3
+  SkeletonAnimation: {fileID: 1518388742224647251}
   Enemy: {fileID: 0}
   HasTarget: 0
   EnemyDistance: 0
