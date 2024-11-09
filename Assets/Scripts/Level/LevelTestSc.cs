@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CircleOfLife.ScriptObject;
 using UnityEngine;
 
 namespace CircleOfLife.Level
@@ -9,12 +10,8 @@ namespace CircleOfLife.Level
     {
         private bool isClickDown = false;
 
-        public string LevelID;
+        public LevelEnum LevelID;
 
-        private void Awake()
-        {
-
-        }
         void Start()
         {
             LevelManager.OnWaveStart((wave) =>

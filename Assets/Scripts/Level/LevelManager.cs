@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CircleOfLife.Build;
+using System.Data.Common;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,9 +11,10 @@ namespace CircleOfLife.Level
     public static class LevelManager
     {
         public static string LevelInfoPath = "LevelSO/LevelSOTest";
-        public static string CurrentLevelID;
+        public static string EnemyAppearPointPath = "LevelSO/EnemyAppearPointSOTest";
+        public static LevelEnum CurrentLevelID = LevelEnum.Level1;
         public static LevelSO LevelInfo;
-
+        public static EnemyAppearPointSO EnemyAppearPointInfo;
         #region AddUnityEvent
         /// <summary>
         /// 添加波次开始的监听器(永远调用，不删)
@@ -48,22 +50,22 @@ namespace CircleOfLife.Level
         /// 添加关卡胜利的监听器(永远调用，不删)
         /// </summary>
         /// <param name="action">参数为当前关卡ID的方法</param> 
-        public static void OnLevelWinAlways(UnityAction<string> action) => LevelController.OnLevelWinAlways.AddListener(action);
+        public static void OnLevelWinAlways(UnityAction<LevelEnum> action) => LevelController.OnLevelWinAlways.AddListener(action);
         /// <summary>
         /// 添加关卡胜利的监听器(关卡结束时会清理)
         /// </summary>
         /// <param name="action">参数为当前关卡ID的方法</param> 
-        public static void OnLevelWin(UnityAction<string> action) => LevelController.OnLevelWinOnce.AddListener(action);
+        public static void OnLevelWin(UnityAction<LevelEnum> action) => LevelController.OnLevelWinOnce.AddListener(action);
         /// <summary>
         /// 添加关卡失败的监听器(永远调用，不删)
         /// </summary>
         /// <param name="action">参数为当前关卡ID的方法</param> 
-        public static void OnLevelLoseAlways(UnityAction<string> action) => LevelController.OnLevelLoseAlways.AddListener(action);
+        public static void OnLevelLoseAlways(UnityAction<LevelEnum> action) => LevelController.OnLevelLoseAlways.AddListener(action);
         /// <summary>
         /// 添加关卡失败的监听器(关卡结束时会清理)
         /// </summary>
         /// <param name="action">参数为当前关卡ID的方法</param> 
-        public static void OnLevelLose(UnityAction<string> action) => LevelController.OnLevelLoseOnce.AddListener(action);
+        public static void OnLevelLose(UnityAction<LevelEnum> action) => LevelController.OnLevelLoseOnce.AddListener(action);
         /// <summary>
         /// 添加敌人生成时的监听器(关卡结束时会清理)
         /// </summary>
@@ -75,35 +77,37 @@ namespace CircleOfLife.Level
         /// 下载关卡,并且初始化关卡数据
         /// </summary>
         /// <param name="levelID">关卡编号</param>
-        public static void LoadLevel(string levelID)
+        public static void LoadLevel(LevelEnum levelID)
         {
-            LevelInfo = Resources.Load<LevelSO>(LevelInfoPath);
             if (LevelInfo == null)
             {
-                Debug.LogWarning("LevelInfo is null");
-                return;
+                LevelInfo = Resources.Load<LevelSO>(LevelInfoPath);
+            }
+            if (EnemyAppearPointInfo == null)
+            {
+                EnemyAppearPointInfo = Resources.Load<EnemyAppearPointSO>(EnemyAppearPointPath);
             }
             Level level = GetCurrentLevel(levelID);
-            CurrentLevelID = level.ID;
-            LevelContext.SetCurrentLevel(level);
+            AppearPointsInLevels appearPointsInLevels = GetCurrentLevelPoints(levelID);
+            CurrentLevelID = level.LevelEnum;
+            LevelContext.SetCurrentLevel(level, appearPointsInLevels);
             LevelController.EnsureInitialized();
             LevelController.Instance.Reset();
         }
         public static void LoadLevel()
         {
-            if (CurrentLevelID == null)
-            {
-                Debug.LogWarning("CurrentLevelID is null");
-                return;
-            }
-            LevelInfo = Resources.Load<LevelSO>(LevelInfoPath);
             if (LevelInfo == null)
             {
-                Debug.LogWarning("LevelInfo is null");
-                return;
+                LevelInfo = Resources.Load<LevelSO>(LevelInfoPath);
+            }
+            if (EnemyAppearPointInfo == null)
+            {
+                EnemyAppearPointInfo = Resources.Load<EnemyAppearPointSO>(EnemyAppearPointPath);
             }
             Level level = GetCurrentLevel(CurrentLevelID);
-            LevelContext.SetCurrentLevel(level);
+            AppearPointsInLevels appearPointsInLevels = GetCurrentLevelPoints(CurrentLevelID);
+            CurrentLevelID = level.LevelEnum;
+            LevelContext.SetCurrentLevel(level, appearPointsInLevels);
             LevelController.EnsureInitialized();
             LevelController.Instance.Reset();
         }
@@ -125,11 +129,21 @@ namespace CircleOfLife.Level
         }
 
         //找到指定的关卡数据
-        private static Level GetCurrentLevel(string LevelID)
+        private static Level GetCurrentLevel(LevelEnum LevelID)
         {
             foreach (Level l in LevelInfo.LevelList)
             {
-                if (l.ID == LevelID) return l;
+                if (l.LevelEnum == LevelID) return l;
+            }
+            Debug.LogWarning("Countn't find LevelID");
+            return null;
+        }
+
+        private static AppearPointsInLevels GetCurrentLevelPoints(LevelEnum LevelID)
+        {
+            foreach (AppearPointsInLevels l in EnemyAppearPointInfo.AppearPointsInEveryLevel)
+            {
+                if (l.LevelEnum == LevelID) return l;
             }
             Debug.LogWarning("Countn't find LevelID");
             return null;
