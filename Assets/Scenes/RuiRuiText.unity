@@ -267,7 +267,7 @@ MonoBehaviour:
     CriticalChance: 0.2
     CriticalStrikeDamage: 1
     EvasionRate: 0.2
-  Faction: 1
+  Faction: 0
 --- !u!50 &152304733
 Rigidbody2D:
   serializedVersion: 4
@@ -401,7 +401,7 @@ Transform:
   m_GameObject: {fileID: 152304731}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.44, y: 1.33, z: 0}
+  m_LocalPosition: {x: 1.77, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1118,7 +1118,7 @@ Transform:
   m_GameObject: {fileID: 1357897110}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.35, y: -0.25, z: 0}
+  m_LocalPosition: {x: 4.45, y: -1.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1218,7 +1218,7 @@ MonoBehaviour:
     CriticalChance: 0.2
     CriticalStrikeDamage: 1
     EvasionRate: 0.2
-  Faction: 1
+  Faction: 0
 --- !u!1 &1562283042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,7 +1235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1562283043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2586,6 +2586,14 @@ PrefabInstance:
     - target: {fileID: 4773211790961103041, guid: e248a2143ee5ff640b9b59f3f360d4c3, type: 3}
       propertyPath: m_Name
       value: TreatmentStation
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456343285042169651, guid: e248a2143ee5ff640b9b59f3f360d4c3, type: 3}
+      propertyPath: PhysicsLayer.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456343285042169651, guid: e248a2143ee5ff640b9b59f3f360d4c3, type: 3}
+      propertyPath: Attribute.Array.data[0].AttackInterval
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

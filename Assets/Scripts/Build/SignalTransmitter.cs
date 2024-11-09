@@ -36,14 +36,6 @@ namespace CircleOfLife
             Stats = Attribute[0].Build(gameObject, HurtAction);
             RecyclePool.EnsurePrefabRegistered(BuildEffects.NewFriend, EffectPrefab, 20);
         }
-        private void OnEnable()
-        {
-            Level = 1;
-            NowType = BuildSkillType.SignalTransmitterNormal;
-            ReplaceStats(Attribute[0], true);
-            UpdateRange();
-
-        }
 
         protected override void LevelUpFunc()
         {
@@ -70,6 +62,19 @@ namespace CircleOfLife
         public override void OnColliderTriggerFunc(Collision2D collision)
         {
            
+        }
+
+        public override void OnEnableFunc()
+        {
+            Level = 1;
+            NowType = BuildSkillType.SignalTransmitterNormal;
+            ReplaceStats(Attribute[0], true);
+            UpdateRange();
+        }
+
+        public override void OnDisableFunc()
+        {
+          
         }
     }
 }

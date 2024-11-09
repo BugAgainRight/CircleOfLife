@@ -34,13 +34,6 @@ namespace CircleOfLife
             Stats = Attribute[0].Build(gameObject, HurtAction);
             RecyclePool.EnsurePrefabRegistered(BuildEffects.Thunder, EffectPrefab, 20);
         }
-        private void OnEnable()
-        {
-            Level = 1;
-            NowType = BuildSkillType.ElectricFencing;
-            ReplaceStats(Attribute[0], true);
-
-        }
 
         protected override void LevelUpFunc()
         {
@@ -84,6 +77,18 @@ namespace CircleOfLife
         {
             if (!TimerFinish) return;
             Skill(collision);
+        }
+
+        public override void OnEnableFunc()
+        {
+            Level = 1;
+            NowType = BuildSkillType.ElectricFencing;
+            ReplaceStats(Attribute[0], true);
+        }
+
+        public override void OnDisableFunc()
+        {
+            
         }
     }
 }

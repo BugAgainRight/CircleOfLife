@@ -32,13 +32,6 @@ namespace CircleOfLife
             NowType = BuildSkillType.BladeFencing;
             Stats = Attribute[0].Build(gameObject, HurtAction);
         }
-        private void OnEnable()
-        {
-            Level = 1;
-            NowType = BuildSkillType.BladeFencing;
-            ReplaceStats(Attribute[0], true);
-
-        }
 
         protected override void LevelUpFunc()
         {
@@ -70,7 +63,7 @@ namespace CircleOfLife
 
         public override void FixedUpdateFunc()
         {
-            throw new NotImplementedException();
+           
         }
 
         public override void OnColliderEnterFunc(Collision2D collision)
@@ -82,6 +75,18 @@ namespace CircleOfLife
         {
             if (!TimerFinish) return;
             Skill(collision);
+        }
+
+        public override void OnEnableFunc()
+        {
+            Level = 1;
+            NowType = BuildSkillType.BladeFencing;
+            ReplaceStats(Attribute[0], true);
+        }
+
+        public override void OnDisableFunc()
+        {
+         
         }
     }
 }

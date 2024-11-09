@@ -96,14 +96,7 @@ namespace CircleOfLife
             Stats = Attribute[0].Build(gameObject, HurtAction);
             RecyclePool.EnsurePrefabRegistered(BuildEffects.Buff, EffectPrefab, 20);
         }
-        private void OnEnable()
-        {
-            Level = 1;
-            NowType = BuildSkillType.LogisticsService;
-            allType = new();
-            ReplaceStats(Attribute[0], true);
 
-        }
         public float SpeedUpValue, ArmorUpValue, AttackUpValue;
 
         private void SpeedUp(BattleStats stats, BuffContext buff)
@@ -178,6 +171,18 @@ namespace CircleOfLife
         public override void OnColliderTriggerFunc(Collision2D collision)
         {
             
+        }
+
+        public override void OnEnableFunc()
+        {
+            Level = 1;
+            NowType = BuildSkillType.LogisticsService;
+            allType = new();
+            ReplaceStats(Attribute[0], true);
+        }
+
+        public override void OnDisableFunc()
+        {
         }
     }
 }

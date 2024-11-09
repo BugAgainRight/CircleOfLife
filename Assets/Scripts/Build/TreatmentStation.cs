@@ -34,16 +34,6 @@ namespace CircleOfLife
             Stats = Attribute[0].Build(gameObject, HurtAction);
             RecyclePool.EnsurePrefabRegistered(BuildEffects.Recovery, EffectPrefab, 20);
         }
-        private void OnEnable()
-        {
-            Level = 1;
-            NowType = BuildSkillType.TreatmentStationNormal;
-            ReplaceStats(Attribute[0], true);
-            LevelUpFunc();
-
-
-        }
-
         private int effectCount = 1;
         private float RecvoeryValueAll;
         private float RecvoeryValueEnemy;
@@ -86,6 +76,18 @@ namespace CircleOfLife
         public override void OnColliderTriggerFunc(Collision2D collision)
         {
            
+        }
+
+        public override void OnEnableFunc()
+        {
+            Level = 1;
+            NowType = BuildSkillType.TreatmentStationNormal;
+            ReplaceStats(Attribute[0], true);
+            LevelUpFunc();
+        }
+
+        public override void OnDisableFunc()
+        {
         }
 
         [Serializable]
