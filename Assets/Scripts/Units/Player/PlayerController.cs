@@ -10,6 +10,8 @@ namespace CircleOfLife.Units
     [RequireComponent(typeof(CircleCollider2D))]
     public class PlayerController : MonoBehaviour, IBattleEntity
     {
+        public static PlayerController Instance;
+        
         //TODO 参考敌人的AI实现操作逻辑
         // Start is called before the first frame update
         private Vector2 direction;
@@ -24,7 +26,8 @@ namespace CircleOfLife.Units
         private PlayerAIContext playerAIContext;
         void Awake()
         {
-
+            Instance = this;
+            
             Stats = Stat.Build(gameObject, test =>
             {
                 if (test.HitData.Current.Hp <= 0f)

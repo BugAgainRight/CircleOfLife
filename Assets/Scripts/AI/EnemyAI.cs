@@ -1,9 +1,12 @@
-﻿using Milutools.AI;
+﻿using CircleOfLife.AI;
+using CircleOfLife.Battle;
+using Milutools.AI;
 using Milutools.AI.Nodes;
 using Milutools.Recycle;
+using RuiRuiVectorField;
 using UnityEngine;
 
-namespace Demos
+namespace CircleOfLife.AI
 {
     public class EnemyAI : BehaviourTree<EnemyAIContext>
     {
@@ -11,43 +14,38 @@ namespace Demos
         {
             return Selector(
                 Condition(
-                    c => c.PlayerDistance <= c.BattleDistance, 
+                    c => c.Target && c.Distance <= c.BattleDistance, 
                     Selector(
                             Condition(c => c.IsSkillReady(), Action(Cast)),
                             Condition(c => !c.IsSkillReady(), Action(Distancing))
                         )
                 ),
                 Condition(
-                    c => c.PlayerDistance <= c.DiscoverDistance, 
-                    Sequence(Action(Angry), Wait(context.WaitTime), Action(Chase))
+                    c => c.Target, 
+                    Sequence(Action(Chase))
                 ),
                 Action(Idle)
             );
         }
         
-        private BehaviourState Angry(EnemyAIContext context)
-        {
-            context.EnemyRender.color = Color.red;
-            return BehaviourState.Succeed;
-        }
-        
         private BehaviourState Cast(EnemyAIContext context)
         {
             context.ResetSkillTick();
-            context.EnemyRender.color = new Color(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f));
+            var skillContext = new SkillContext(context.LayerMask, context.Stats, context.TargetStats);
+            SkillManagement.GetSkill(context.EnemyType)(skillContext);
             return BehaviourState.Succeed;
         }
         
         private BehaviourState Chase(EnemyAIContext context)
         {
-            if (context.PlayerDistance <= context.BattleDistance)
+            if (context.Distance <= context.BattleDistance)
             {
                 return BehaviourState.Succeed;
             }
             
             context.Enemy.position =
-                MoveTowards(context.Enemy.position, context.Player.position, 
-                    context.MoveSpeed * Time.fixedDeltaTime);
+                MoveTowards(context.Enemy.position, context.Target.position, 
+                    context.Speed * Time.fixedDeltaTime);
             return BehaviourState.Running;
         }
         
@@ -60,13 +58,13 @@ namespace Demos
             
             context.Enemy.position =
                 MoveTowards(context.Enemy.position, context.Player.position, 
-                    context.MoveSpeed * -0.2f * Time.fixedDeltaTime);
+                    context.Speed * -0.1f * Time.fixedDeltaTime);
             return BehaviourState.Running;
         }
         
         private BehaviourState Idle(EnemyAIContext context)
         {
-            context.Enemy.localEulerAngles += new Vector3(0f, 0f, 360f * Time.fixedDeltaTime);
+            ((IVectorFieldMove)context).FixedUpdateNew();
             return BehaviourState.Succeed;
         }
         
