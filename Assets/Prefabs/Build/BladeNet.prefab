@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252049853723449269}
   - component: {fileID: 3501317167952710281}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 1951697095806415177}
   - component: {fileID: 9093894352081084419}
   - component: {fileID: 7280179530267289828}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BladeNet
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -331,6 +331,6 @@ MonoBehaviour:
   RangeObj: {fileID: 3191116805144566561}
   PhysicsLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   WhetherSelectDirection: 0
   EffectPrefab: {fileID: 193062, guid: 01949c12a89de284792dc4b7b7128404, type: 3}

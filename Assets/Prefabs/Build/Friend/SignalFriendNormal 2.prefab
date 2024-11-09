@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 7128713101101220985}
   - component: {fileID: 5980614330521657594}
   - component: {fileID: 1518388742224647251}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SignalFriendNormal 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

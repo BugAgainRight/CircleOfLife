@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1512640899581572258}
   - component: {fileID: 1395490785834955802}
   - component: {fileID: 8657031747186461484}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SignalTransmitter
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ MonoBehaviour:
   PhysicsLayer:
     serializedVersion: 2
     m_Bits: 0
-  WhetherSelectDirection: 0
+  WhetherSelectDirection: 1
   MaxCount: 5
   FriendPrefab: {fileID: 7423378393176344028, guid: 5c9a822f756e0a94dafb0eb663718ec4, type: 3}
   EffectPrefab: {fileID: 4106976724461375026, guid: 06abd9172e6f68442a224aa828d1d5c8, type: 3}
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 7506595125200897093}
   - component: {fileID: 2119362571724883927}
   - component: {fileID: 4290459487966582900}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2980597667637494912}
   - component: {fileID: 5726667110819524703}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}

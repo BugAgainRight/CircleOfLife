@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6439829791971323573}
   - component: {fileID: 5414415782184306278}
   - component: {fileID: 8390287716752290271}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RangedBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

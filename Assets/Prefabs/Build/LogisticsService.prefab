@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1752796666227455489}
   - component: {fileID: 2132665336890269502}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 2086391992090533727}
   - component: {fileID: 4869211778179976143}
   - component: {fileID: 8007338321400196153}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LogisticsService
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ MonoBehaviour:
   RangeObj: {fileID: 52925791337673292}
   PhysicsLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2560
   WhetherSelectDirection: 0
   EffectPrefab: {fileID: 145256, guid: 7b117ab47ae99e74fbb811d488c1eb17, type: 3}
   SpeedUpValue: 0.5
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 6267868079185041260}
   - component: {fileID: 2745170701502278340}
   - component: {fileID: 6318150436370646838}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

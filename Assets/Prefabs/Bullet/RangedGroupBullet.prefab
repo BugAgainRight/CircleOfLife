@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7677190042438804494}
   - component: {fileID: 7132551860483680961}
   - component: {fileID: 6248766096610806201}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RangedGroupBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

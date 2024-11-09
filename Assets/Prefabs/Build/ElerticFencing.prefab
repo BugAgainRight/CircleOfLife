@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3579715778663672742}
   - component: {fileID: 6470158769915927661}
   - component: {fileID: 3270316156478814182}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ElerticFencing
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ MonoBehaviour:
   RangeObj: {fileID: 2854367178583808953}
   PhysicsLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   WhetherSelectDirection: 0
   EffectPrefab: {fileID: 160900, guid: 1b1f4eecb848b384f93fd0216a95f56e, type: 3}
 --- !u!1 &2854367178583808953
@@ -260,7 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6062067240072219564}
   - component: {fileID: 2569798891184020966}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5454337598708166482}
   - component: {fileID: 3870678365768959779}
   - component: {fileID: 116104524376909613}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 9160503357477912268}
   - component: {fileID: 3768745209793196336}
   - component: {fileID: 3684356674953783726}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TreatmentStation
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ MonoBehaviour:
   RangeObj: {fileID: 6973660460236216561}
   PhysicsLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   WhetherSelectDirection: 0
   EffectPrefab: {fileID: 4569046032541823318, guid: 448ffbcf71db27749b98c4ed68e15143, type: 3}
   HospitalEffectCount: 2
@@ -457,7 +457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6165751147227855274}
   - component: {fileID: 7799147049298356493}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
