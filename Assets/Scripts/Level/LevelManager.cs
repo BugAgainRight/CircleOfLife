@@ -1,24 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CircleOfLife.Battle;
+using CircleOfLife.Buff;
 using CircleOfLife.Build;
 using CircleOfLife.Build.UI;
 using CircleOfLife.General;
 using CircleOfLife.ScriptObject;
 using CircleOfLife.Units;
+using Milease.Core.Animator;
 using Milease.Enums;
 using Milease.Utils;
 using Milutools.Recycle;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
 
 namespace CircleOfLife.Level
 {
     public class LevelManager : MonoBehaviour
     {
+        private enum UIEffect
+        {
+            AddMaterial
+        }
+        
         public static LevelManager Instance;
         public CanvasGroup MainCanvas;
         public Grid MapGrid;
+        public TMP_Text MaterialText;
+        public GameObject MaterialWordPrefab;
+        public Volume ServicePostProcess;
         
         public int Material;
 
@@ -39,8 +52,26 @@ namespace CircleOfLife.Level
         private void Awake()
         {
             Instance = this;
+            RecyclePool.EnsurePrefabRegistered(UIEffect.AddMaterial, MaterialWordPrefab, 20);
         }
 
+        public void SupplyMaterial(int count)
+        {
+            Material += count;
+            RecyclePool.Request(UIEffect.AddMaterial, (c) =>
+            {
+                var rect = c.GetMainComponent<RectTransform>();
+                rect.anchoredPosition = new Vector2(Random.Range(-1f, 1f) * 100f, Random.Range(-1f, 1f) * 60f);
+                c.GameObject.SetActive(true);
+                c.Transform.Milease(UMN.LScale, Vector3.one * 3f, Vector3.one * 1f, 0.5f, 0f, EaseFunction.Circ, EaseType.Out)
+                    .Then(
+                        c.Transform.Milease(UMN.LScale, Vector3.one * 1f, Vector3.one * 0.8f, 0.5f, 0f, EaseFunction.Circ, EaseType.Out),
+                        c.GameObject.GetComponent<TMP_Text>().Milease(UMN.Color, Color.white, Color.white.Clear(), 0.5f)
+                    )
+                    .PlayImmediately(() => c.RecyclingController.ReturnToPool());
+            }, MaterialText.transform);
+        }
+        
         public void NotifyEnemyDeath(GameObject go)
         {
             remaining.Remove(go);
@@ -115,9 +146,53 @@ namespace CircleOfLife.Level
         {
             MessageBox.Open(("游戏失败！", cause));
         }
+
+        private void PrepareNextRound()
+        {
+            PlayerController.Instance.enabled = false;
+            var animator =  
+                ServicePostProcess.MileaseTo(nameof(ServicePostProcess.weight), 1f, 0.5f, 
+                            0f, EaseFunction.Quad, EaseType.Out);
+            
+            foreach (var stat in BuffManager.GetAllStats())
+            {
+                if (stat.BattleEntity is LogisticsService service)
+                {
+                    animator.Then(new Action(() =>
+                    {
+                        CameraController.Instance.FollowTarget = service.gameObject;
+                    }).AsMileaseKeyEvent(1f));
+                    animator.Then(new Action(() =>
+                    {
+                        service.SupplyMaterial();
+                    }).AsMileaseKeyEvent(1f));
+                }
+            }
+
+            animator.Then(new Action(() =>
+                {
+                    CameraController.Instance.FollowTarget = PlayerController.Instance.gameObject;
+                }).AsMileaseKeyEvent(1f))
+                .Then(
+                    ServicePostProcess.MileaseTo(nameof(ServicePostProcess.weight), 0f, 0.5f, 
+                        0f, EaseFunction.Quad, EaseType.Out)
+                );
+            
+            animator.Then(new Action(() =>
+            {
+                MessageBox.Open(("休整时间", $"回合 {curRound}/{Level.Rounds.Count} 成功守护了小动物，接下来调整装置继续作战吧！"), (_) =>
+                {
+                    StartPlacing();
+                });
+            }).AsMileaseKeyEvent(1f));
+
+            animator.Play();
+        }
         
         private void Update()
         {
+            MaterialText.text = Material.ToString();
+            
             if (!battling || curRound >= Level.Rounds.Count)
             {
                 return;
@@ -140,10 +215,7 @@ namespace CircleOfLife.Level
                     }
                     else
                     {
-                        MessageBox.Open(("休整时间", $"回合 {curRound}/{Level.Rounds.Count} 成功守护了小动物，接下来调整装置继续作战吧！"), (_) =>
-                        {
-                            StartPlacing();
-                        });
+                        PrepareNextRound();
                     }
                 }
                 return;

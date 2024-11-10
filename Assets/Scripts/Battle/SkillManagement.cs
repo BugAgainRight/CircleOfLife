@@ -267,7 +267,7 @@ namespace CircleOfLife
                 var stats = coll.GetBattleStats();
                 if (stats == context.AttackerData) continue; // 治疗站能治疗自己感觉有点超模
                 DamageManagement.BuffDamage(stats, -context.SpecialValues[1]);
-                Debug.Log(-context.SpecialValues[1]);
+                //Debug.Log(-context.SpecialValues[1]);
                 RecyclePool.Request(BuildEffects.Recovery, (c) =>
                 {
                     c.Transform.position = coll.transform.position;

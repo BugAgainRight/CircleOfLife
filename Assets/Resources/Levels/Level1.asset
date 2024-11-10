@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578bbec400246cfb3e068a0e4339a17, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  InitialMaterial: 500
+  InitialMaterial: 200
   Rounds:
   - Waves:
     - Name: "0.00 \u79D2\u540E\uFF1A"

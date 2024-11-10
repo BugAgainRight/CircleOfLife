@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: RunningPostProcess Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 414632927611086566}
   - {fileID: 8150749831067975918}
---- !u!114 &414632927611086566
+  - {fileID: 11084233288498259}
+--- !u!114 &11084233288498259
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,4 +58,4 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   scale:
     m_OverrideState: 1
-    m_Value: 1.1
+    m_Value: 1.05

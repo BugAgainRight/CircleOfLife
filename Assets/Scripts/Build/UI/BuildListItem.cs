@@ -46,7 +46,6 @@ namespace CircleOfLife.Build.UI
             var tex = data.MetaData.Icon.texture;
             Title.text = data.MetaData.Name;
             Cost.text = data.MetaData.Cost.ToString();
-            Cost.color = BuildingPlaceUI.Instance.Material < data.MetaData.Cost ? Color.red : Color.black;
             Icon.sprite = data.MetaData.Icon;
             if (tex.height > tex.width)
             {
@@ -61,6 +60,16 @@ namespace CircleOfLife.Build.UI
         public override void AdjustAppearance(float pos)
         {
 
+        }
+
+        private void Update()
+        {
+            var data = (BuildingUIData)Binding;
+            if (data == null)
+            {
+                return;
+            }
+            Cost.color = BuildingPlaceUI.Instance.Material < data.MetaData.Cost ? Color.red : Color.white;
         }
     }
 }

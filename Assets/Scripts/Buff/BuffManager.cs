@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CircleOfLife.Battle;
 using UnityEngine;
 
@@ -29,7 +30,8 @@ namespace CircleOfLife.Buff
             Instance.stats.Add(stats);
         }
 
-        public static List<BattleStats> GetAllStats() => Instance.stats;
+        public static List<BattleStats> GetAllStats() 
+            => Instance.stats.Where(x => x.GameObject && x.GameObject.activeSelf).ToList();
 
 
         // 早于所有脚本执行

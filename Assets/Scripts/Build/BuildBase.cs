@@ -64,7 +64,10 @@ namespace CircleOfLife
         public void LevelUp(Enum direction = null)
         {
             Level++;
-            NowType = direction;
+            if (direction != null)
+            {
+                NowType = direction;
+            }
             if (direction != null&&!allType.Contains(direction)) allType.Add(direction);
             ReplaceStats(Attribute[Level - 1]);
             LevelUpFunc();

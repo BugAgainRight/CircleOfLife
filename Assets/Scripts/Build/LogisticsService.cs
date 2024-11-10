@@ -4,6 +4,7 @@ using CircleOfLife.Buff;
 using Milutools.Recycle;
 using System.Collections;
 using System.Collections.Generic;
+using CircleOfLife.Level;
 using UnityEngine;
 
 namespace CircleOfLife
@@ -12,6 +13,7 @@ namespace CircleOfLife
     public class LogisticsService : BuildBase
     {
         public GameObject EffectPrefab;
+        public int[] LevelSupply;
         public enum LogisticsServiceBuffType
         {
             加速=1,
@@ -116,9 +118,9 @@ namespace CircleOfLife
             stats.Current.Attack += AttackUpValue;
         }
 
-        public void OnRoundFinish()
+        public void SupplyMaterial()
         {
-            Debug.Log($"获得资源:{Stats.Current.Attack}");
+            LevelManager.Instance.SupplyMaterial(LevelSupply[Level - 1]);
         }
 
         protected override void LevelUpFunc()

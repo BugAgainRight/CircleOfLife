@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CircleOfLife.General;
+using CircleOfLife.Key;
 using CircleOfLife.ScriptObject;
 using Milease.Core.Animator;
 using Milease.Core.UI;
@@ -326,6 +327,7 @@ namespace CircleOfLife.Build.UI
             stateAnimator.Transition(UIState.Modify);
             editing?.CloseRange();
             editing = build.transform.GetComponent<BuildBase>();
+            CameraController.Instance.CameraMode = CameraMoveMode.Follow;
             CameraController.Instance.FollowTarget = build.transform.gameObject;
             var data = typeDict[editing.gameObject];
             EditingTitle.text = data.MetaData.Name;
@@ -337,6 +339,12 @@ namespace CircleOfLife.Build.UI
         private void Update()
         {
             MaterialText.text = Material.ToString();
+
+            if (KeyEnum.Left.IsPressing() || KeyEnum.Right.IsPressing() || KeyEnum.Up.IsPressing() ||
+                KeyEnum.Down.IsPressing())
+            {
+                CameraController.Instance.CameraMode = CameraMoveMode.Free;
+            }
             
             if (!PlacingMode)
             {

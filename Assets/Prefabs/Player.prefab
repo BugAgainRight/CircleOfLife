@@ -225,7 +225,7 @@ MonoBehaviour:
     materialsInsideMask: []
     materialsOutsideMask: []
   disableRenderingOnOverride: 1
-  _animationName: animation
+  _animationName: idel
   loop: 1
   timeScale: 1
 --- !u!50 &2801669524062205234
@@ -305,7 +305,7 @@ MonoBehaviour:
   SkeletonAnimation: {fileID: 8434397192462246383}
   Stat:
     Velocity: 1.5
-    Hp: 1000
+    Hp: 200
     Attack: 20
     Armor: 0
     EffectRange: 0
