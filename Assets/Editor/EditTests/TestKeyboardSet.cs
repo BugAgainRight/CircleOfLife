@@ -23,11 +23,13 @@ public class KeyboardSetTests
         // 测试更改键位
         KeyboardSet.ChangeKey(KeyEnum.Up, KeyCode.L);
         Assert.AreEqual(KeyCode.L, KeyboardSet.GetKeyCode(KeyEnum.Up));
+        KeyboardSet.ChangeKey(KeyEnum.Up, KeyCode.W);
+        Assert.AreEqual(KeyCode.W, KeyboardSet.GetKeyCode(KeyEnum.Up));
         yield return null;
         // 测试重复键位是否被阻止
         KeyboardSet.ChangeKey(KeyEnum.Up, KeyCode.D);
         Assert.AreNotEqual(KeyCode.D, KeyboardSet.GetKeyCode(KeyEnum.Up));
-
+        KeyboardSet.ChangeKey(KeyEnum.Up, KeyCode.W);
         yield return null;
     }
 
