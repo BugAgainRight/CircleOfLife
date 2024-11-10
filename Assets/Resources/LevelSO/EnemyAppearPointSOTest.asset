@@ -15,6 +15,14 @@ MonoBehaviour:
   AppearPointsInEveryLevel:
   - LevelEnum: 1
     EnemyAppearPointList:
+    - AppearPointEnum: 2
+      Postition: {x: 0, y: 0, z: 0}
+      AppearPointObj: {fileID: 2361448236035428420, guid: be0fa92890454634a96ff79e623b8e68, type: 3}
+    - AppearPointEnum: 2
+      Postition: {x: 1.64, y: 0, z: 0}
+      AppearPointObj: {fileID: 2361448236035428420, guid: be0fa92890454634a96ff79e623b8e68, type: 3}
+  - LevelEnum: 1
+    EnemyAppearPointList:
     - AppearPointEnum: 1
       Postition: {x: 0, y: 0, z: 0}
       AppearPointObj: {fileID: 2361448236035428420, guid: be0fa92890454634a96ff79e623b8e68, type: 3}

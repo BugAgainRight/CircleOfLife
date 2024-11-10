@@ -2,6 +2,7 @@ using System;
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using CircleOfLife.Key;
+using CircleOfLife.Level;
 using Milease.Enums;
 using Milease.Utils;
 using Spine.Unity;
@@ -46,6 +47,7 @@ namespace CircleOfLife.Units
                 {
                     gameObject.SetActive(false);
                     // 游戏失败
+                    LevelManager.Instance.Fail("玩家倒下了");
                 }
             });
             Stats.Max.Velocity = 10;

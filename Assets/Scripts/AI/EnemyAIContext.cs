@@ -1,6 +1,7 @@
 ﻿using System;
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
+using CircleOfLife.Level;
 using CircleOfLife.Units;
 using Milutools.AI;
 using Milutools.Recycle;
@@ -68,6 +69,10 @@ namespace CircleOfLife.AI
                 }
                 if (Stats.Current.Hp <= 0f)
                 {
+                    if (LevelManager.Instance)
+                    {
+                        LevelManager.Instance.NotifyEnemyDeath(gameObject);
+                    }
                     BehaviourTree.Stop();
                     RecyclePool.ReturnToPool(gameObject);
                 }

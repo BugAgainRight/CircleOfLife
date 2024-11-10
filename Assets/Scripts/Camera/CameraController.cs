@@ -79,7 +79,7 @@ namespace CircleOfLife
             {
                 return;
             }
-            if (Input.GetKeyDown(KeyboardSet.GetKeyCode(KeyEnum.CameraMoveUp)) ||
+            /**if (Input.GetKeyDown(KeyboardSet.GetKeyCode(KeyEnum.CameraMoveUp)) ||
                 Input.GetKeyDown(KeyboardSet.GetKeyCode(KeyEnum.CameraMoveDown)) ||
                 Input.GetKeyDown(KeyboardSet.GetKeyCode(KeyEnum.CameraMoveLeft)) ||
                 Input.GetKeyDown(KeyboardSet.GetKeyCode(KeyEnum.CameraMoveRight)) ||
@@ -94,7 +94,7 @@ namespace CircleOfLife
             if (Input.GetKeyDown(KeyboardSet.GetKeyCode(KeyEnum.CameraModeFreeze)))
             {
                 CameraMode = CameraMoveMode.Freeze;
-            }
+            }**/
 
         }
 
@@ -170,19 +170,19 @@ namespace CircleOfLife
 
         private void MoveByKeyBoardFunc()
         {
-            if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.CameraMoveUp)))
+            if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.Up)))
             {
                 transform.Translate(0.0f, FreeMoveByKeyBoardVelocity * Time.deltaTime, 0.0f, Space.Self);
             }
-            if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.CameraMoveDown)))
+            if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.Down)))
             {
                 transform.Translate(0.0f, -FreeMoveByKeyBoardVelocity * Time.deltaTime, 0.0f, Space.Self);
             }
-            if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.CameraMoveLeft)))
+            if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.Left)))
             {
                 transform.Translate(-FreeMoveByKeyBoardVelocity * Time.deltaTime, 0.0f, 0.0f, Space.Self);
             }
-            if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.CameraMoveRight)))
+            if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.Right)))
             {
                 transform.Translate(FreeMoveByKeyBoardVelocity * Time.deltaTime, 0.0f, 0.0f, Space.Self);
             }

@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4578bbec400246cfb3e068a0e4339a17, type: 3}
+  m_Name: Level1
+  m_EditorClassIdentifier: 
+  InitialMaterial: 500
+  Rounds:
+  - Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 1
+        AppearPoints: 
+    - Name: "5.00 \u79D2\u540E\uFF1A"
+      AfterTime: 5
+      Enemies:
+      - Enemy: 0
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 3
+        SummonCount: 1
+        AppearPoints: 
+    - Name: "15.00 \u79D2\u540E\uFF1A"
+      AfterTime: 10
+      Enemies:
+      - Enemy: 4
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 1
+        AppearPoints: 
+    - Name: "25.00 \u79D2\u540E\uFF1A"
+      AfterTime: 10
+      Enemies:
+      - Enemy: 2
+        SummonCount: 1
+        AppearPoints: 
+  - Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 4
+        AppearPoints: 
+    - Name: "8.00 \u79D2\u540E\uFF1A"
+      AfterTime: 8
+      Enemies:
+      - Enemy: 0
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 3
+        SummonCount: 1
+        AppearPoints: 
+      - Enemy: 4
+        SummonCount: 1
+        AppearPoints: 
+    - Name: "18.00 \u79D2\u540E\uFF1A"
+      AfterTime: 10
+      Enemies:
+      - Enemy: 1
+        SummonCount: 1
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "28.00 \u79D2\u540E\uFF1A"
+      AfterTime: 10
+      Enemies:
+      - Enemy: 3
+        SummonCount: 5
+        AppearPoints: 
+      - Enemy: 0
+        SummonCount: 3
+        AppearPoints: 
+  - Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 4
+        SummonCount: 6
+        AppearPoints: 
+    - Name: "8.00 \u79D2\u540E\uFF1A"
+      AfterTime: 8
+      Enemies:
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 4
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "18.00 \u79D2\u540E\uFF1A"
+      AfterTime: 10
+      Enemies:
+      - Enemy: 1
+        SummonCount: 3
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "38.00 \u79D2\u540E\uFF1A"
+      AfterTime: 20
+      Enemies:
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 0
+        SummonCount: 3
+        AppearPoints: 
+      - Enemy: 3
+        SummonCount: 3
+        AppearPoints: 
+      - Enemy: 4
+        SummonCount: 3
+        AppearPoints: 

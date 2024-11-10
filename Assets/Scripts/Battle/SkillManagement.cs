@@ -128,7 +128,7 @@ namespace CircleOfLife
             stats.Current.Armor += 2*BuffConsts.ARMOR_UNIT;
             if (buff.TickedTime >= 1f)
             {
-                stats.Damage(-BuffConsts.HEAL_UNIT, stats.WrapBuffBattleContext());
+                DamageManagement.BuffDamage(stats, -BuffConsts.HP_UNIT);
                 buff.ResetTickedTime();
             }
         }

@@ -108,7 +108,14 @@ namespace CircleOfLife.Build.UI
 
         public void StartBattle()
         {
-            Close(Material);
+            MessageBox.Open(("开始战斗", "确定要开始战斗吗？\n开始后将暂时不能调整装置布置。"), (o) =>
+            {
+                if (o == MessageBox.Operation.Deny)
+                {
+                    return;
+                }
+                Close(Material);
+            });
         }
 
         public void CloseDetailPanel()
@@ -220,7 +227,7 @@ namespace CircleOfLife.Build.UI
             PlacingIcon.transform.localScale = Vector3.one * 0.98f;
             PlacingIcon.transform.localEulerAngles = Vector3.zero;
             
-            PlaceTip.text = "按下 Enter 键 <color=green>确认</color> 放置装置，按下 Esc 键 <color=red>取消</color> 放置";
+            PlaceTip.text = "按下 空格 键 <color=green>确认</color> 放置装置，按下 Q 键 <color=red>取消</color> 放置";
             if (target.MetaData.WhetherRotate)
             {
                 PlaceTip.text += "，按下 R 键 <color=yellow>旋转</color> 装置";
@@ -255,7 +262,7 @@ namespace CircleOfLife.Build.UI
         
         private void UpdatePlacingMode()
         {
-            if (Input.GetKeyUp(KeyCode.Escape))
+            if (Input.GetKeyUp(KeyCode.Q))
             {
                 EndPlacing();
                 stateAnimator.Transition(UIState.FoldOut);
@@ -290,7 +297,7 @@ namespace CircleOfLife.Build.UI
             PlacingIcon.color = canPlace ? Color.white : Color.red;
             PlaceLight.color = PlacingIcon.color;
 
-            if (canPlace && Input.GetKeyUp(KeyCode.Return))
+            if (canPlace && Input.GetKeyUp(KeyCode.Space))
             {
                 Material -= PlacingBuilding.MetaData.Cost;
                 RecyclePool.Request(PlacingBuilding.Type, (c) =>
