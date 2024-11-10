@@ -1559,12 +1559,17 @@ namespace RuiRuiVectorField
         public Vector2 NowPos => Transform.position;
         public Transform Transform { get; }
         public int Speed { get; set; }
-
+        public Vector2Int PreDirOperatePos { get; set; }
         public bool Move()
         {
 
             float maxDistance = Speed * Time.fixedDeltaTime;
-            Vector2 moveDir = VectorField.GetMoveDirection(Transform.position.RoundToVector2Int());
+
+            if (Vector2.Distance(Transform.position, PreDirOperatePos) > 0.8)
+            {
+                PreDirOperatePos = Transform.position.RoundToVector2Int();
+            }
+            Vector2 moveDir = VectorField.GetMoveDirection(PreDirOperatePos);
             Transform.position = Vector2.MoveTowards(Transform.position, (Vector2)Transform.position + moveDir * Speed, maxDistance);
             if (moveDir.Equals(Vector2.zero))
             {
@@ -1579,7 +1584,7 @@ namespace RuiRuiVectorField
             IsArrival = false;
             NeedVectorFieldMove = true;
             Speed = speed;
-
+            PreDirOperatePos = Transform.position.RoundToVector2Int();
         }
 
         public void FixedUpdateNew()

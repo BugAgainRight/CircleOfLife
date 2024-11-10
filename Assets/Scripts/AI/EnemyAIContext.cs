@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using CircleOfLife.Level;
@@ -23,6 +23,7 @@ namespace CircleOfLife.AI
             get => Mathf.RoundToInt(Stats.Current.Velocity);
             set {}
         }
+        public Vector2Int PreDirOperatePos { get; set; }
 
         public BattleStats Stats { get; set; }
         public FactionType FactionType => FactionType.Enemy;

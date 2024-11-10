@@ -21,11 +21,13 @@ namespace CircleOfLife
             SpecialValues = new();
 
             PhysicsLayer = layer;
+            OffSet = Vector2.zero;
         }
 
         public Vector2 TriggerPos;
         public Vector2 TargetPos;
         public Vector2 Direction;
+        public Vector2 OffSet;
 
         public BattleStats AttackerData;
         public BattleStats HitData;
