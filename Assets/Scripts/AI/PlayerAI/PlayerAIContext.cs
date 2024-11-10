@@ -182,6 +182,10 @@ namespace CircleOfLife
 
         public void UseSkill(PlayerSkillType playerSkillType)
         {
+            if (!Enemy)
+            {
+                return;
+            }
             if (SkillDict[playerSkillType].IsReady)
             {
                 Debug.Log("Use " + playerSkillType.ToString());

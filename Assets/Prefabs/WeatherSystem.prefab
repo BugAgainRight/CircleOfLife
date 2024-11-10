@@ -300,6 +300,18 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 19901972, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 19943526, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 19962092, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 19962092, guid: b046278bb9b6e104790392b566667ba5, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1

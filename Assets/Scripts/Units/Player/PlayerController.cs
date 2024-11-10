@@ -1,7 +1,11 @@
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using CircleOfLife.Key;
+using Milease.Enums;
+using Milease.Utils;
+using Spine.Unity;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace CircleOfLife.Units
 {
@@ -11,19 +15,25 @@ namespace CircleOfLife.Units
     public class PlayerController : MonoBehaviour, IBattleEntity
     {
         public static PlayerController Instance;
+
+        public SkeletonAnimation SkeletonAnimation;
         
         //TODO 参考敌人的AI实现操作逻辑
         // Start is called before the first frame update
-        private Vector2 direction;
+        private Vector2 direction, lstDirection;
         private new Rigidbody2D rigidbody2D;
-        public float PlayerSpeed = 10;
-        private Vector2 Direction;
+        
         public BattleStats.Stats Stat;
-
+        public Volume RunningProcess;
+        
         public BattleStats Stats { get; set; }
 
         public FactionType FactionType { get; } = FactionType.Friend;
         private PlayerAIContext playerAIContext;
+
+        private bool running = false;
+        private bool lstRunning = false;
+        
         void Awake()
         {
             Instance = this;
@@ -43,7 +53,6 @@ namespace CircleOfLife.Units
         }
         void Start()
         {
-            PlayerSpeed = Stats.Current.Velocity;
             if (rigidbody2D.gravityScale != 0)
             {
                 rigidbody2D.gravityScale = 0;
@@ -62,7 +71,7 @@ namespace CircleOfLife.Units
 
         void FixedUpdate()
         {
-            transform.position = new Vector2(transform.position.x + direction.x * PlayerSpeed * Time.deltaTime, transform.position.y + direction.y * PlayerSpeed * Time.deltaTime);
+            transform.position += (Vector3)direction * (Stats.Current.Velocity * Time.fixedDeltaTime);
         }
 
         #region KeyBoardMonitor
@@ -73,7 +82,7 @@ namespace CircleOfLife.Units
             if (KeyEnum.Down.IsPressing()) { direction += Vector2.down; }
             if (KeyEnum.Left.IsPressing()) { direction += Vector2.left; }
             if (KeyEnum.Right.IsPressing()) { direction += Vector2.right; }
-            Direction = new Vector2(direction.x, direction.y);
+            direction *= (running ? 3f : 1f);
             if (direction.x < 0)
             {
                 this.transform.localScale = new Vector3(1, 1, 1) * 0.4f;
@@ -82,11 +91,26 @@ namespace CircleOfLife.Units
             {
                 this.transform.localScale = new Vector3(-1, 1, 1) * 0.4f;
             }
+
+            if (lstDirection != direction)
+            {
+                lstDirection = direction;
+                SkeletonAnimation.state.SetAnimation(0, 
+                    (direction.Equals(Vector2.zero)) ? "idel" : (running ? "run" : "walk"), true);
+            }
+
+            if (lstRunning != running)
+            {
+                lstRunning = running;
+                RunningProcess.MileaseTo(nameof(RunningProcess.weight), running ? 1f : 0f, 0.5f, 
+                    0f, EaseFunction.Circ, EaseType.Out).Play();
+            }
         }
 
         public void KeyBoardMonitor()
         {
             //if (KeyEnum.Interact.IsKeyDown()) OpenSomething();
+            running = KeyEnum.Running.IsPressing();
             if (KeyEnum.Attack.IsKeyDown()) Attack();
             if (KeyEnum.Fire.IsKeyDown()) Fire();
             if (KeyEnum.Skill1.IsKeyDown()) Skilll();

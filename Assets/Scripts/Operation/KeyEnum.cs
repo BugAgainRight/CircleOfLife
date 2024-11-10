@@ -36,6 +36,7 @@ namespace CircleOfLife.Key
         /// <summary>
         /// 挣扎
         /// </summary>
-        Struggle
+        Struggle,
+        Running
     }
 }
