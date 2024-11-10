@@ -210,14 +210,14 @@ namespace CircleOfLife
         //旋转镜头
         public void Rotate()
         {
-            if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.RotatetToRight)))
+            /**if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.RotatetToRight)))
             {
                 transform.Rotate(0.0f, 0.0f, RotateSpeed * Time.deltaTime, Space.Self);
             }
             if (Input.GetKey(KeyboardSet.GetKeyCode(KeyEnum.RotatetToLeft)))
             {
                 transform.Rotate(0.0f, 0.0f, -RotateSpeed * Time.deltaTime, Space.Self);
-            }
+            }**/
         }
 
         //相机边界

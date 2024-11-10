@@ -14,16 +14,18 @@ namespace CircleOfLife.Key
             { KeyEnum.Down, KeyCode.S },
             { KeyEnum.Left, KeyCode.A },
             { KeyEnum.Right, KeyCode.D },
-            { KeyEnum.Attack, KeyCode.J },
-            { KeyEnum.Fire, KeyCode.K },
+            
+            { KeyEnum.Attack, KeyCode.E },
+            { KeyEnum.Skill, KeyCode.Q },
+            
             { KeyEnum.Interact, KeyCode.F },
-            { KeyEnum.Skill1, KeyCode.Alpha3 },
+            /**{ KeyEnum.Skill1, KeyCode.Alpha3 },
             { KeyEnum.Skill2, KeyCode.Alpha4 },
             { KeyEnum.Skill3, KeyCode.Alpha5 },
             { KeyEnum.Skill4, KeyCode.Alpha6 },
             { KeyEnum.Skill5, KeyCode.Alpha7 },
             { KeyEnum.Skill6, KeyCode.Alpha8 },
-            { KeyEnum.Skill7, KeyCode.Alpha9 },
+            { KeyEnum.Skill7, KeyCode.Alpha9 },**/
 
             { KeyEnum.Running, KeyCode.P },
             { KeyEnum.Struggle, KeyCode.Space },
@@ -32,8 +34,8 @@ namespace CircleOfLife.Key
             { KeyEnum.Click2, KeyCode.Mouse1 },
             { KeyEnum.ZoomOut, KeyCode.KeypadMinus },
             { KeyEnum.ZoomIn, KeyCode.KeypadPlus },
-            { KeyEnum.RotatetToRight, KeyCode.Q },
-            { KeyEnum.RotatetToLeft, KeyCode.E },
+            /**{ KeyEnum.RotatetToRight, KeyCode.Q },
+            { KeyEnum.RotatetToLeft, KeyCode.E },**/
             { KeyEnum.CameraMoveUp, KeyCode.UpArrow },
             { KeyEnum.CameraMoveDown, KeyCode.DownArrow },
             { KeyEnum.CameraMoveLeft, KeyCode.LeftArrow },

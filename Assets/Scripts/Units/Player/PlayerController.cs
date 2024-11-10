@@ -1,3 +1,4 @@
+using System;
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using CircleOfLife.Key;
@@ -10,16 +11,13 @@ using UnityEngine.Rendering;
 namespace CircleOfLife.Units
 {
     [RequireComponent(typeof(Rigidbody2D))]
-
-    [RequireComponent(typeof(CircleCollider2D))]
+    [RequireComponent(typeof(Collider2D))]
     public class PlayerController : MonoBehaviour, IBattleEntity
     {
         public static PlayerController Instance;
 
         public SkeletonAnimation SkeletonAnimation;
         
-        //TODO 参考敌人的AI实现操作逻辑
-        // Start is called before the first frame update
         private Vector2 direction, lstDirection;
         private new Rigidbody2D rigidbody2D;
         
@@ -28,29 +26,35 @@ namespace CircleOfLife.Units
         
         public BattleStats Stats { get; set; }
 
-        public FactionType FactionType { get; } = FactionType.Friend;
-        private PlayerAIContext playerAIContext;
+        public FactionType FactionType => FactionType.Friend;
+        //private PlayerAIContext playerAIContext;
 
         private bool running = false;
         private bool lstRunning = false;
+
+        [HideInInspector]
+        public Action<BattleContext> HurtAction;
         
         void Awake()
         {
             Instance = this;
             
-            Stats = Stat.Build(gameObject, test =>
+            Stats = Stat.Build(gameObject, context =>
             {
-                if (test.HitData.Current.Hp <= 0f)
+                HurtAction?.Invoke(context);
+                if (context.HitData.Current.Hp <= 0f)
                 {
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);
+                    // 游戏失败
                 }
             });
             Stats.Max.Velocity = 10;
             Stats.Reset();
             rigidbody2D = GetComponent<Rigidbody2D>();
-            playerAIContext = GetComponent<PlayerAIContext>();
+            //playerAIContext = GetComponent<PlayerAIContext>();
 
         }
+        
         void Start()
         {
             if (rigidbody2D.gravityScale != 0)
@@ -58,15 +62,13 @@ namespace CircleOfLife.Units
                 rigidbody2D.gravityScale = 0;
                 rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
-
         }
-
-        // Update is called once per frame
+        
         void Update()
         {
             PlayerMove();
             KeyBoardMonitor();
-            playerAIContext.PlayerBattaleStats = Stats;
+            //playerAIContext.PlayerBattaleStats = Stats;
         }
 
         void FixedUpdate()
@@ -83,13 +85,10 @@ namespace CircleOfLife.Units
             if (KeyEnum.Left.IsPressing()) { direction += Vector2.left; }
             if (KeyEnum.Right.IsPressing()) { direction += Vector2.right; }
             direction *= (running ? 3f : 1f);
-            if (direction.x < 0)
+
+            if (!direction.Equals(Vector2.zero))
             {
-                this.transform.localScale = new Vector3(1, 1, 1) * 0.4f;
-            }
-            else if (direction.x > 0)
-            {
-                this.transform.localScale = new Vector3(-1, 1, 1) * 0.4f;
+                transform.localScale = new Vector3(direction.x < 0 ? 1 : -1, 1, 1) * 0.4f;
             }
 
             if (lstDirection != direction)
@@ -111,7 +110,7 @@ namespace CircleOfLife.Units
         {
             //if (KeyEnum.Interact.IsKeyDown()) OpenSomething();
             running = KeyEnum.Running.IsPressing();
-            if (KeyEnum.Attack.IsKeyDown()) Attack();
+            /**if (KeyEnum.Attack.IsKeyDown()) Attack();
             if (KeyEnum.Fire.IsKeyDown()) Fire();
             if (KeyEnum.Skill1.IsKeyDown()) Skilll();
             if (KeyEnum.Skill2.IsKeyDown()) Skill2();
@@ -119,7 +118,7 @@ namespace CircleOfLife.Units
             if (KeyEnum.Skill4.IsKeyDown()) Skill4();
             if (KeyEnum.Skill5.IsKeyDown()) Skill5();
             if (KeyEnum.Skill6.IsKeyDown()) Skill6();
-            if (KeyEnum.Skill7.IsKeyDown()) Skill7();
+            if (KeyEnum.Skill7.IsKeyDown()) Skill7();**/
         }
 
 
@@ -127,7 +126,7 @@ namespace CircleOfLife.Units
 
 
 
-        #region Attack
+        /**#region Attack
 
         public void Attack()
         {
@@ -168,6 +167,6 @@ namespace CircleOfLife.Units
         {
             playerAIContext.UseSkill(PlayerSkillType.Encouragement);
         }
-        #endregion
+        #endregion**/
     }
 }
