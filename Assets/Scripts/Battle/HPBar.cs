@@ -66,7 +66,7 @@ namespace CircleOfLife
             Container.SetActive(BindBuilding || isPlayer);
             Level.gameObject.SetActive(BindBuilding);
         }
-
+        
         private void UpdatePosition()
         {
             if (lastRotation == targetTrans.localEulerAngles.z)

@@ -8,6 +8,7 @@ using CircleOfLife.Build.UI;
 using CircleOfLife.General;
 using CircleOfLife.ScriptObject;
 using CircleOfLife.Units;
+using Milease.Core;
 using Milease.Core.Animator;
 using Milease.Enums;
 using Milease.Utils;
@@ -21,7 +22,7 @@ namespace CircleOfLife.Level
 {
     public class LevelManager : MonoBehaviour
     {
-        private enum UIEffect
+        public enum UIEffect
         {
             AddMaterial
         }
@@ -60,14 +61,17 @@ namespace CircleOfLife.Level
             Material += count;
             RecyclePool.Request(UIEffect.AddMaterial, (c) =>
             {
+                var text = c.GameObject.GetComponent<TMP_Text>();
+                text.text = "+" + count;
                 var rect = c.GetMainComponent<RectTransform>();
                 rect.anchoredPosition = new Vector2(Random.Range(-1f, 1f) * 100f, Random.Range(-1f, 1f) * 60f);
                 c.GameObject.SetActive(true);
                 c.Transform.Milease(UMN.LScale, Vector3.one * 3f, Vector3.one * 1f, 0.5f, 0f, EaseFunction.Circ, EaseType.Out)
                     .Then(
                         c.Transform.Milease(UMN.LScale, Vector3.one * 1f, Vector3.one * 0.8f, 0.5f, 0f, EaseFunction.Circ, EaseType.Out),
-                        c.GameObject.GetComponent<TMP_Text>().Milease(UMN.Color, Color.white, Color.white.Clear(), 0.5f)
+                        text.Milease(UMN.Color, Color.cyan, Color.cyan.Clear(), 0.5f)
                     )
+                    .UsingResetMode(RuntimeAnimationPart.AnimationResetMode.ResetToInitialState)
                     .PlayImmediately(() => c.RecyclingController.ReturnToPool());
             }, MaterialText.transform);
         }

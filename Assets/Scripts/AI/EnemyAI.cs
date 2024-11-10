@@ -30,7 +30,7 @@ namespace CircleOfLife.AI
         
         private BehaviourState Cast(EnemyAIContext context)
         {
-            if (!context.TargetStats.Transform)
+            if (context.TargetStats == null || !context.TargetStats.Transform)
             {
                 return BehaviourState.Succeed;
             }

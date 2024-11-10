@@ -308,7 +308,7 @@ MonoBehaviour:
   RangeObj: {fileID: 6973660460236216561}
   PhysicsLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 2560
   WhetherSelectDirection: 0
   EffectPrefab: {fileID: 4569046032541823318, guid: 448ffbcf71db27749b98c4ed68e15143, type: 3}
   HospitalEffectCount: 2

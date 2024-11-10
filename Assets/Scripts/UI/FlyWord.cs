@@ -3,6 +3,7 @@ using Milutools.Recycle;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Milease.Core;
 using TMPro;
 using UnityEngine;
 using Milease.Enums;
@@ -45,6 +46,7 @@ namespace CircleOfLife
                         transform.Milease(UMN.LScale, Vector3.one * 2f, Vector3.one * 1.5f, 1f, 0f, EaseFunction.Circ, EaseType.Out),
                         contentText.Milease(UMN.Color, style.FontColor, style.FontColor.Clear(), 0.5f, 0.5f)
                     )
+                    .UsingResetMode(RuntimeAnimationPart.AnimationResetMode.ResetToInitialState)
                     .PlayImmediately(() => RecyclePool.ReturnToPool(gameObject));
             }
             else
@@ -55,6 +57,7 @@ namespace CircleOfLife
                         transform.Milease(UMN.LScale, Vector3.one * 1.5f, Vector3.one * 1f, 0.5f, 0f, EaseFunction.Circ, EaseType.Out),
                         contentText.Milease(UMN.Color, style.FontColor, style.FontColor.Clear(), 0.5f)
                     )
+                    .UsingResetMode(RuntimeAnimationPart.AnimationResetMode.ResetToInitialState)
                     .PlayImmediately(() => RecyclePool.ReturnToPool(gameObject));
             }
 
