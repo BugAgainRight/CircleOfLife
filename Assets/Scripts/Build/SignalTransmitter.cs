@@ -91,5 +91,21 @@ namespace CircleOfLife
         {
           
         }
+
+        public void ReturnAllFriend()
+        {
+            int index = 0;
+            for(;index<transform.childCount ; )
+            {
+                if (!transform.GetChild(0).CompareTag("SignalFriend"))
+                {
+                    index++;
+                    continue;
+                }
+                RecyclePool.ReturnToPool(transform.GetChild(0).gameObject);
+
+            }
+            
+        }
     }
 }
