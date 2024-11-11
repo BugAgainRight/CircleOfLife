@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 3763424354124596621}
   - component: {fileID: 1733236486041130336}
   - component: {fileID: 4616965236570369545}
+  - component: {fileID: 2360513234465535632}
   m_Layer: 11
   m_Name: SignalFriendNormal
   m_TagString: SignalFriend
@@ -175,7 +176,7 @@ MonoBehaviour:
     Armor: 0
     EffectRange: 0
     AttackInterval: 0.33
-    CriticalChance: 0.5
+    CriticalChance: 0
     CriticalStrikeDamage: 0
     EvasionRate: 0
 --- !u!114 &-1664237598982100944
@@ -302,3 +303,15 @@ MonoBehaviour:
   _animationName: animation
   loop: 1
   timeScale: 1
+--- !u!114 &2360513234465535632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423378393176344028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249613bf5003bfe4da6ca33a1c5221fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

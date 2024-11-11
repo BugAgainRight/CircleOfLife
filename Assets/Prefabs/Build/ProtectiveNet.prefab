@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6262235668181531966}
   - component: {fileID: 6518615276611710752}
   - component: {fileID: 8103447030367126090}
+  - component: {fileID: 7188139617956586799}
   m_Layer: 11
   m_Name: ProtectiveNet
   m_TagString: Building
@@ -262,6 +263,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.98, y: 2.94}
   m_EdgeRadius: 0
+--- !u!114 &7188139617956586799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327885459133798752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249613bf5003bfe4da6ca33a1c5221fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3951595439840361195
 GameObject:
   m_ObjectHideFlags: 0

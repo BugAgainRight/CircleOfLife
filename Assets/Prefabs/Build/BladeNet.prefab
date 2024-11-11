@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 1951697095806415177}
   - component: {fileID: 9093894352081084419}
   - component: {fileID: 7280179530267289828}
+  - component: {fileID: -2141725707590274056}
   m_Layer: 11
   m_Name: BladeNet
   m_TagString: Building
@@ -334,3 +335,15 @@ MonoBehaviour:
     m_Bits: 1024
   WhetherSelectDirection: 0
   EffectPrefab: {fileID: 193062, guid: 01949c12a89de284792dc4b7b7128404, type: 3}
+--- !u!114 &-2141725707590274056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8627693267229348396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249613bf5003bfe4da6ca33a1c5221fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

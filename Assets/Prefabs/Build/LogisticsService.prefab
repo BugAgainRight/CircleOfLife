@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 2086391992090533727}
   - component: {fileID: 4869211778179976143}
   - component: {fileID: 8007338321400196153}
+  - component: {fileID: -6446352604216604892}
   m_Layer: 11
   m_Name: LogisticsService
   m_TagString: Building
@@ -351,6 +352,18 @@ MonoBehaviour:
     size: {x: 0, y: 0}
     offSet: {x: 0, y: 0}
     gizmosColor: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &-6446352604216604892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817232526561850143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249613bf5003bfe4da6ca33a1c5221fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6343613101483444920
 GameObject:
   m_ObjectHideFlags: 0

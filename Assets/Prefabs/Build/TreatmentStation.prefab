@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 9160503357477912268}
   - component: {fileID: 3768745209793196336}
   - component: {fileID: 3684356674953783726}
+  - component: {fileID: -927964532523690184}
   m_Layer: 11
   m_Name: TreatmentStation
   m_TagString: Building
@@ -447,6 +448,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-927964532523690184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4773211790961103041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249613bf5003bfe4da6ca33a1c5221fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6973660460236216561
 GameObject:
   m_ObjectHideFlags: 0

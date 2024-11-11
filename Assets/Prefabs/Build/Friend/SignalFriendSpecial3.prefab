@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 7549813279297012278}
   - component: {fileID: 1397997144204316550}
   - component: {fileID: 3695896984610162132}
+  - component: {fileID: 254005569375391003}
   m_Layer: 11
   m_Name: SignalFriendSpecial3
   m_TagString: SignalFriend
@@ -302,3 +303,15 @@ MonoBehaviour:
   _animationName: animation
   loop: 1
   timeScale: 1
+--- !u!114 &254005569375391003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423378393176344028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249613bf5003bfe4da6ca33a1c5221fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
