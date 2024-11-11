@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UIElements;
-
+//此代码需要在空场景中运行！！！
 namespace CircleOfLife.Tests
 {
     public class CameraControllerTests
@@ -48,6 +48,7 @@ namespace CircleOfLife.Tests
         [UnityTest]
         public IEnumerator CameraPositionWithinBounds()
         {
+            
             cameraController.CameraLimit = true;
             cameraObject.transform.position = new Vector3(-15, -15, 0);
             yield return new EnterPlayMode();
