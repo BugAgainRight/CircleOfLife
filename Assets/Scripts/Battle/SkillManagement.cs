@@ -287,7 +287,7 @@ namespace CircleOfLife
             var list = context.AttackerData.Transform.GetComponent<BuildBase>().BattleRange.GetAllFriendInRange(
                 context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
             int count = 0;
-            list.Sort((x, y) => (x.GetBattleStats().Max.Hp - x.GetBattleStats().Current.Hp).CompareTo(y.GetBattleStats().Max.Hp - y.GetBattleStats().Current.Hp));
+            list.Sort((y,x) => (x.GetBattleStats().Max.Hp - x.GetBattleStats().Current.Hp).CompareTo(y.GetBattleStats().Max.Hp - y.GetBattleStats().Current.Hp));
             foreach (var coll in list)
             {
                 if (count >= context.EffectCount) break;

@@ -112,6 +112,22 @@ namespace CircleOfLife
 
 
         #region Move
+
+        private static void BulletMoveTo(Transform bulletTran,Vector3 target,float speed)
+        {
+            Vector2 dir = ((Vector2)(target - bulletTran.position)).normalized;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            bulletTran.transform.localEulerAngles= new Vector3(0,0,angle);
+            bulletTran.position = Vector2.MoveTowards(bulletTran.position, target, speed * Time.fixedDeltaTime);
+        }
+        private static void BulletMoveToByDir(Transform bulletTran, Vector3 direction, float speed)
+        {
+            bulletTran.position += direction * Time.fixedDeltaTime*speed;
+            Vector2 dir = direction.normalized;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            bulletTran.localEulerAngles = new Vector3(0, 0, angle);
+        }
+
         [BulletMove(BulletMoveType.Straight)]
         public static void StraightMove(BulletMoveContext context)
         {
@@ -120,12 +136,12 @@ namespace CircleOfLife
                 RecyclePool.ReturnToPool(context.Transform.gameObject);
                 return;
             }
-
-            context.Transform.position = Vector2.MoveTowards(
-                context.Transform.position,
-                (Vector2)context.Transform.position + context.Direction * context.Speed,
-                context.Speed * Time.fixedDeltaTime
-                );
+            BulletMoveTo(context.Transform, (Vector2)context.Transform.position + context.Direction * context.Speed, context.Speed);
+            //context.Transform.position = Vector2.MoveTowards(
+            //    context.Transform.position,
+            //    (Vector2)context.Transform.position + context.Direction * context.Speed,
+            //    context.Speed * Time.fixedDeltaTime
+            //    );
         }
 
         [BulletMove(BulletMoveType.Curve)]
@@ -170,10 +186,14 @@ namespace CircleOfLife
             }
 
 
-            context.Transform.position += (Vector3)context.SpeedVector * Time.fixedDeltaTime;
+            //context.Transform.position += (Vector3)context.SpeedVector * Time.fixedDeltaTime;
+            //Vector2 dir = context.SpeedVector.normalized;
+            //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            //context.Transform.localEulerAngles = new Vector3(0, 0, angle);
+            BulletMoveToByDir(context.Transform, context.SpeedVector, context.Speed);
             ///更新速度
             context.SpeedVector += context.YDirection * -context.Gravity * Time.fixedDeltaTime;
-
+            
 
         }
 
@@ -186,8 +206,9 @@ namespace CircleOfLife
             {
                 direction = context.TargetTransform.position - context.Transform.position;
                 context.SpeedVector = direction.normalized;
-            }   
-            context.Transform.position += (Vector3)context.SpeedVector.normalized * context.Speed * Time.fixedDeltaTime;
+            }
+            //context.Transform.position += (Vector3)context.SpeedVector.normalized * context.Speed * Time.fixedDeltaTime;
+            BulletMoveToByDir(context.Transform, context.SpeedVector, context.Speed);
         }
 
 
