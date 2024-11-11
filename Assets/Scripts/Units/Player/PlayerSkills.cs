@@ -75,7 +75,7 @@ namespace CircleOfLife
             if (KeyEnum.Attack.IsKeyUp())
             {
                 hitTick = 0f;
-                Energy += RECOVER_ON_ATTACK;
+                //Energy += RECOVER_ON_ATTACK;
                 SkillManagement.GetSkill(NormalHitType)(new SkillContext(EnemyMask, Player.Stats));
             }
         }
