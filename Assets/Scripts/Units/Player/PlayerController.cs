@@ -73,6 +73,15 @@ namespace CircleOfLife.Units
             //playerAIContext.PlayerBattaleStats = Stats;
         }
 
+        public void ResetState()
+        {
+            running = false;
+            lstDirection = Vector2.zero;
+            RunningProcess.MileaseTo(nameof(RunningProcess.weight), 0f, 0.5f, 
+                0f, EaseFunction.Circ, EaseType.Out).Play();
+            SkeletonAnimation.state.SetAnimation(0, "idel", true);
+        }
+
         void FixedUpdate()
         {
             transform.position += (Vector3)direction * (Stats.Current.Velocity * Time.fixedDeltaTime);

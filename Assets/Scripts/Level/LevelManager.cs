@@ -153,7 +153,9 @@ namespace CircleOfLife.Level
 
         private void PrepareNextRound()
         {
+            PlayerController.Instance.ResetState();
             PlayerController.Instance.enabled = false;
+            BuildUtils.DisableAllBuilding();
             var animator =  
                 ServicePostProcess.MileaseTo(nameof(ServicePostProcess.weight), 1f, 0.5f, 
                             0f, EaseFunction.Quad, EaseType.Out);
