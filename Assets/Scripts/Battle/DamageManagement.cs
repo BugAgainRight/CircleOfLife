@@ -108,7 +108,7 @@ namespace CircleOfLife
                 float reboundDamage = damage * context.HitData.Current.ReduceDamageRate;
                 if (reboundDamage > 0) context.AttackerData.Damage(reboundDamage, context.AttackerData.WrapBuffBattleContext());
             }
-
+            
             context.HitData.Damage(damage, context);
             FlyWord(damage, context.HitData, isCrit);
         }

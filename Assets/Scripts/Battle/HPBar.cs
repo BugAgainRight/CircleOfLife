@@ -46,7 +46,7 @@ namespace CircleOfLife
                 BindBuilding = build;
             }
 
-            isPlayer = stats.GameObject.IsPlayer();
+            isPlayer = stats.GameObject.IsPlayer() || stats.GameObject.CompareTag("ProtectAnimal");
 
             Fill.sprite = FillSprite[(int)stats.BattleEntity.FactionType];
             LateFill.sprite = Fill.sprite;

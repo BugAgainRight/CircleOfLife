@@ -6468,7 +6468,7 @@ GameObject:
   - component: {fileID: 1265206542}
   m_Layer: 11
   m_Name: ProtectAnimal
-  m_TagString: Untagged
+  m_TagString: ProtectAnimal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8013,7 +8013,7 @@ Tilemap:
       - {fileID: 1378161875, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
       - {fileID: 1229054859, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
       - {fileID: 644248297, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -2, y: -2, z: 0}
@@ -8637,7 +8637,7 @@ Tilemap:
       - {fileID: 108286867, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
       - {fileID: 1127750321, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
       - {fileID: -2026784367, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 7, y: -1, z: 0}
