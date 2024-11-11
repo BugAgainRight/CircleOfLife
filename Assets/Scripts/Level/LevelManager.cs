@@ -30,11 +30,11 @@ namespace CircleOfLife.Level
         }
         
         public static LevelManager Instance;
-        public CanvasGroup MainCanvas, FailUI;
+        public CanvasGroup MainCanvas, FailUI, SuccessUI;
         public Grid MapGrid;
         public TMP_Text MaterialText, FailCause;
         public GameObject MaterialWordPrefab;
-        public Volume ServicePostProcess, FailPostProcess;
+        public Volume ServicePostProcess, FailPostProcess, SuccessPostProcess;
         
         public int Material;
 
@@ -284,7 +284,10 @@ namespace CircleOfLife.Level
                     
                     if (curRound >= Level.Rounds.Count)
                     {
-                        MessageBox.Open(("胜利！", $"成功守护了小动物并击退了所有的盗猎者！"));
+                        SuccessPostProcess.MileaseTo(nameof(ServicePostProcess.weight), 1f, 0.5f, 
+                                0f, EaseFunction.Quad, EaseType.Out)
+                            .Then(SuccessUI.MileaseTo("alpha", 1f, 0.5f))
+                            .Play();
                     }
                     else
                     {
