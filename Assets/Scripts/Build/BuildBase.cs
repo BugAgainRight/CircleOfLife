@@ -169,6 +169,10 @@ namespace CircleOfLife
         }
         private void OnEnable()
         {
+            Level = 1;
+            ReplaceStats(Attribute[0], true);
+            UpdateRange();
+            LevelUpFunc();
             OnEnableFunc();
             UpdateAstarAndFieldVector();
         }

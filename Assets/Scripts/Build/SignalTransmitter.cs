@@ -69,10 +69,10 @@ namespace CircleOfLife
 
         public override void OnEnableFunc()
         {
-            Level = 1;
+           
             NowType = BuildSkillType.SignalTransmitterNormal;
-            ReplaceStats(Attribute[0], true);
-            UpdateRange();
+           
+           
         }
 
         public override void OnDisableFunc()

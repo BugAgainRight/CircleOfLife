@@ -80,10 +80,10 @@ namespace CircleOfLife
 
         public override void OnEnableFunc()
         {
-            Level = 1;
+         
             NowType = BuildSkillType.TreatmentStationNormal;
-            ReplaceStats(Attribute[0], true);
-            LevelUpFunc();
+        
+           
         }
 
         public override void OnDisableFunc()

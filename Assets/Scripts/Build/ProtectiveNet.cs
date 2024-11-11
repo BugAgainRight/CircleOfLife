@@ -57,8 +57,7 @@ namespace CircleOfLife
 
         public override void OnEnableFunc()
         {
-            Level = 1;
-            ReplaceStats(Attribute[0], true);
+          
         }
 
         public override void OnDisableFunc()
