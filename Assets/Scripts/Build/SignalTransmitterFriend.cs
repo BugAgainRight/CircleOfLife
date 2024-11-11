@@ -1,3 +1,4 @@
+using System;
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using Milutools.Recycle;
@@ -27,5 +28,9 @@ namespace CircleOfLife
             return;
         }
 
+        private void OnEnable()
+        {
+            Stats.ReplaceBaseStat(Attribute);
+        }
     }
 }

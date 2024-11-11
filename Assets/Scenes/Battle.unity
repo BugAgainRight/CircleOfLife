@@ -6466,6 +6466,7 @@ GameObject:
   - component: {fileID: 1265206540}
   - component: {fileID: 1265206541}
   - component: {fileID: 1265206542}
+  - component: {fileID: 1265206543}
   m_Layer: 11
   m_Name: ProtectAnimal
   m_TagString: ProtectAnimal
@@ -6607,6 +6608,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.96, y: 0.96}
   m_EdgeRadius: 0
+--- !u!114 &1265206543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265206538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249613bf5003bfe4da6ca33a1c5221fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1332175112
 GameObject:
   m_ObjectHideFlags: 0
@@ -8565,7 +8578,7 @@ Tilemap:
       - {fileID: -1689908179, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
       - {fileID: 1164445362, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
       - {fileID: -1086440349, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 4, y: -1, z: 0}
