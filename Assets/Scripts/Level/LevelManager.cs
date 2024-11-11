@@ -198,6 +198,7 @@ namespace CircleOfLife.Level
 
             failed = true;
             FailCause.text = cause;
+            FailPostProcess.gameObject.SetActive(true);
             FailPostProcess.MileaseTo(nameof(ServicePostProcess.weight), 1f, 0.5f, 
                 0f, EaseFunction.Quad, EaseType.Out)
                 .Then(FailUI.MileaseTo("alpha", 1f, 0.5f))
@@ -284,6 +285,7 @@ namespace CircleOfLife.Level
                     
                     if (curRound >= Level.Rounds.Count)
                     {
+                        SuccessPostProcess.gameObject.SetActive(true);
                         SuccessPostProcess.MileaseTo(nameof(ServicePostProcess.weight), 1f, 0.5f, 
                                 0f, EaseFunction.Quad, EaseType.Out)
                             .Then(SuccessUI.MileaseTo("alpha", 1f, 0.5f))
