@@ -5,6 +5,7 @@ using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using CircleOfLife.Build;
 using CircleOfLife.Build.UI;
+using CircleOfLife.Configuration;
 using CircleOfLife.General;
 using CircleOfLife.ScriptObject;
 using CircleOfLife.Units;
@@ -13,6 +14,7 @@ using Milease.Core.Animator;
 using Milease.Enums;
 using Milease.Utils;
 using Milutools.Recycle;
+using Milutools.SceneRouter;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -28,11 +30,11 @@ namespace CircleOfLife.Level
         }
         
         public static LevelManager Instance;
-        public CanvasGroup MainCanvas;
+        public CanvasGroup MainCanvas, FailUI;
         public Grid MapGrid;
-        public TMP_Text MaterialText;
+        public TMP_Text MaterialText, FailCause;
         public GameObject MaterialWordPrefab;
-        public Volume ServicePostProcess;
+        public Volume ServicePostProcess, FailPostProcess;
         
         public int Material;
 
@@ -45,6 +47,8 @@ namespace CircleOfLife.Level
         private readonly List<GameObject> remaining = new();
         private readonly Dictionary<AppearPoint, Rect> registeredPoints = new();
 
+        private bool failed = false;
+        
         public void RegisterPoint(AppearPoint point, Rect rect)
         {
             registeredPoints.Add(point, rect);
@@ -91,6 +95,11 @@ namespace CircleOfLife.Level
             BuildUtils.DisableAllBuilding();
             PlayerController.Instance.enabled = false;
             LaunchNextRound();
+        }
+
+        public void Retry()
+        {
+            SceneRouter.GoTo(SceneIdentifier.Battle);
         }
 
         private void LaunchNextRound()
@@ -182,7 +191,17 @@ namespace CircleOfLife.Level
 
         public void Fail(string cause)
         {
-            MessageBox.Open(("游戏失败！", cause));
+            if (failed)
+            {
+                return;
+            }
+
+            failed = true;
+            FailCause.text = cause;
+            FailPostProcess.MileaseTo(nameof(ServicePostProcess.weight), 1f, 0.5f, 
+                0f, EaseFunction.Quad, EaseType.Out)
+                .Then(FailUI.MileaseTo("alpha", 1f, 0.5f))
+                .Play();
         }
 
         private void PrepareNextRound()
