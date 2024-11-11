@@ -190,8 +190,8 @@ MonoBehaviour:
   FocusBuildingOnly: 0
   Stat:
     Velocity: 1.5
-    Hp: 100
-    Attack: 20
+    Hp: 200
+    Attack: 10
     Armor: 0
     EffectRange: 0
     AttackInterval: 0.333

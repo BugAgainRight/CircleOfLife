@@ -270,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkeletonAnimation: {fileID: 8434397192462246383}
   Stat:
-    Velocity: 1.5
+    Velocity: 2
     Hp: 200
     Attack: 20
     Armor: 0
