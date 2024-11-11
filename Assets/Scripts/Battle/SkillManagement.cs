@@ -46,6 +46,32 @@ namespace CircleOfLife
 
 
         #region PlayerSkill
+        [Skill(PlayerSkillType.Melee)]
+        private static void PlayerSkill_Melee(SkillContext context)
+        {
+            float angle = Mathf.Atan2(context.Direction.y, context.Direction.x);
+            var collection = RecyclePool.RequestWithCollection(SharedPrefab.Melee);
+            collection.GameObject.SetActive(true);
+            collection.GameObject.transform.position = context.TriggerPos;
+            collection.GameObject.transform.localEulerAngles = new Vector3(0, 0, angle * Mathf.Rad2Deg);
+
+            var list = collection.GetMainComponent<BattleRange>().GetAllEnemyInRange(
+                context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
+            if (list.Count > 0)
+            {
+                //添加能量
+                context.AttackerData.Transform.GetComponentInChildren<PlayerSkills>().Energy += PlayerSkills.RECOVER_ON_ATTACK;
+            }
+            foreach (var item in list)
+            {
+                BattleStats mid = item.GetBattleStats();
+                BulletManagement.GetBulletTrigger(BulletTriggerType.Normal)(
+                    new BattleContext(context.PhysicsLayer, context.AttackerData, mid.BattleEntity.Stats));
+            }
+
+        }
+
+
         [Skill(PlayerSkillType.Whack)]
         private static void PlayerSkill_1(SkillContext context)
         {
@@ -385,7 +411,7 @@ namespace CircleOfLife
         /// <summary>
         /// 共用近战普攻
         /// </summary>
-        [Skill(PlayerSkillType.Melee)]
+       
         [Skill(EnemyStat.EnemyA)]
         [Skill(EnemyStat.EnemyC)]
         [Skill(EnemyStat.EnemyD)]
@@ -400,7 +426,7 @@ namespace CircleOfLife
 
             var list = collection.GetMainComponent<BattleRange>().GetAllEnemyInRange(
                 context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
-
+            
             foreach (var item in list)
             {
                 BattleStats mid = item.GetBattleStats();

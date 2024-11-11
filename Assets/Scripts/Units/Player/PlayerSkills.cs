@@ -13,14 +13,14 @@ namespace CircleOfLife
     {
         private const float ENERGY_MAX = 100f;
         private const float RECOVER_ON_HIT = 5f;
-        private const float RECOVER_ON_ATTACK = 5f;
+        public const float RECOVER_ON_ATTACK = 5f;
 
         private bool energyChanged = false;
         private float energy;
         
         private Vector3 direction;
 
-        private float Energy
+        public float Energy
         {
             get => energy;
             set
