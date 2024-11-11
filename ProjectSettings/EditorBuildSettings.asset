@@ -6,15 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Tests/BehaviourAITest.unity
-    guid: 4120bc2aadaa4e744b9666c748d170a7
-  - enabled: 1
-    path: Assets/Scenes/WeatherSystem.unity
-    guid: 078b02f325bea9a418998fde0d33cc16
-  - enabled: 1
-    path: Assets/Scenes/Sample/MilutoolsSample.unity
-    guid: cbb26fd4fcd1ff248ad90654722a0595
-  - enabled: 1
-    path: Assets/Scenes/Sample/SceneRouterSample.unity
-    guid: d7c910ea8adabb64bafebaf4fb3039a8
+    path: Assets/Scenes/Battle.unity
+    guid: 8ef5fa2021a32154b8892942f65f8740
   m_configObjects: {}
