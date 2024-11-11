@@ -15,7 +15,7 @@ namespace CircleOfLife.Key
             { KeyEnum.Left, KeyCode.A },
             { KeyEnum.Right, KeyCode.D },
             
-            { KeyEnum.Attack, KeyCode.E },
+            { KeyEnum.Attack, KeyCode.Mouse0 },
             { KeyEnum.Skill, KeyCode.Q },
             
             { KeyEnum.Interact, KeyCode.F },
@@ -27,7 +27,7 @@ namespace CircleOfLife.Key
             { KeyEnum.Skill6, KeyCode.Alpha8 },
             { KeyEnum.Skill7, KeyCode.Alpha9 },**/
 
-            { KeyEnum.Running, KeyCode.P },
+            { KeyEnum.Running, KeyCode.Mouse1 },
             { KeyEnum.Struggle, KeyCode.Space },
             // Camera
             { KeyEnum.Click1, KeyCode.Mouse0 },

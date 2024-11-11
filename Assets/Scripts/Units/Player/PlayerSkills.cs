@@ -61,6 +61,11 @@ namespace CircleOfLife
 
         private void UpdateAttacks()
         {
+            if (!Player.enabled)
+            {
+                return;
+            }
+            
             if (hitTick <= Player.Stats.Current.AttackInterval)
             {
                 hitTick += Time.deltaTime;
