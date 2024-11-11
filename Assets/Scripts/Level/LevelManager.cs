@@ -190,6 +190,7 @@ namespace CircleOfLife.Level
             PlayerController.Instance.ResetState();
             PlayerController.Instance.enabled = false;
             BuildUtils.DisableAllBuilding();
+            
             var animator =  
                 ServicePostProcess.MileaseTo(nameof(ServicePostProcess.weight), 1f, 0.5f, 
                             0f, EaseFunction.Quad, EaseType.Out);
@@ -206,6 +207,11 @@ namespace CircleOfLife.Level
                     {
                         service.SupplyMaterial();
                     }).AsMileaseKeyEvent(1f));
+                }
+
+                if (stat.BattleEntity is SignalTransmitter signal)
+                {
+                    signal.ReturnAllFriend();
                 }
             }
 
