@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitialMaterial: 200
   Rounds:
-  - BeforePlot: {fileID: 0}
+  - BeforePlot: {fileID: 4900000, guid: 4fc1cdf7cb2ebb340906aa8935b20245, type: 3}
     SkipBuildPlace: 0
     Waves:
     - Name: "0.00 \u79D2\u540E\uFF1A"

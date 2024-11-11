@@ -272,7 +272,7 @@ MonoBehaviour:
   Stat:
     Velocity: 2
     Hp: 200
-    Attack: 20
+    Attack: 15
     Armor: 0
     EffectRange: 0
     AttackInterval: 0.333
