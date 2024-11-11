@@ -21,7 +21,7 @@ namespace CircleOfLife
         /// <summary>
         /// 对话框中说话者的头像
         /// </summary>
-        public SpriteRenderer Image;
+        public Image Image;
 
         /// <summary>
         /// 继续按钮，点击显示下一句剧情文本
@@ -57,6 +57,8 @@ namespace CircleOfLife
         /// 剧情文本的所有行数组
         /// </summary>
         public string[] DialogRows;
+
+        public PlotBox BindUIController;
 
         /// <summary>
         /// 在这里把角色的名字和贴图对应起来
@@ -129,6 +131,7 @@ namespace CircleOfLife
                 else if (cells[0] == "END" && int.Parse(cells[1]) == DialogIndex)//结束
                 {
                     Debug.Log("剧情结束");
+                    BindUIController.Close();
                 }
             }
         }

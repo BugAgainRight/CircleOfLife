@@ -51,7 +51,8 @@ namespace CircleOfLife.Configuration
                 UI.FromResources(UIIdentifier.MessageBox, "UI/MessageBox"),
                 UI.FromResources(UIIdentifier.UISample, "UI/UISample"),
                 UI.FromResources(UIIdentifier.BuildingPlacing, "UI/BuildingPlacing"), 
-                UI.FromResources(UIIdentifier.LevelUpUI, "UI/LevelUpUI")
+                UI.FromResources(UIIdentifier.LevelUpUI, "UI/LevelUpUI"),
+                UI.FromResources(UIIdentifier.PlotBox, "UI/PlotBox")
             });
         }
     }

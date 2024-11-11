@@ -87,7 +87,47 @@ namespace CircleOfLife.Level
             curWave = curRound = 0;
             waveTick = 0f;
             Material = Level.InitialMaterial;
-            StartPlacing();
+            battling = false;
+            BuildUtils.DisableAllBuilding();
+            PlayerController.Instance.enabled = false;
+            LaunchNextRound();
+        }
+
+        private void LaunchNextRound()
+        {
+            var round = Level.Rounds[curRound];
+            if (round.BeforePlot)
+            {
+                PlotBox.Open(round.BeforePlot, () =>
+                {
+                    StartRound(round);
+                });
+                return;
+            }
+            StartRound(round);
+        }
+
+        private void StartRound(LevelRound round)
+        {
+            if (round.SkipBuildPlace)
+            {
+                StartBattle();
+            }
+            else
+            {
+                StartPlacing();
+            }
+        }
+
+        private void StartBattle()
+        {
+            battling = true;
+            PlayerController.Instance.enabled = true;
+            CameraController.Instance.FollowTarget = PlayerController.Instance.gameObject;
+            CameraController.Instance.CameraMode = CameraMoveMode.Follow;
+            BuildUtils.EnableAllBuilding();
+            MainCanvas.MileaseTo("alpha", 1f, 0.5f, 
+                0f, EaseFunction.Quad, EaseType.Out).Play();
         }
 
         private void StartPlacing()
@@ -111,14 +151,8 @@ namespace CircleOfLife.Level
                 AvaliableMaterial = Material
             }, (r) =>
             {
-                battling = true;
                 Material = r;
-                PlayerController.Instance.enabled = true;
-                CameraController.Instance.FollowTarget = PlayerController.Instance.gameObject;
-                CameraController.Instance.CameraMode = CameraMoveMode.Follow;
-                BuildUtils.EnableAllBuilding();
-                MainCanvas.MileaseTo("alpha", 1f, 0.5f, 
-                    0f, EaseFunction.Quad, EaseType.Out).Play();
+                StartBattle();
             });
         }
 
@@ -186,10 +220,18 @@ namespace CircleOfLife.Level
             
             animator.Then(new Action(() =>
             {
-                MessageBox.Open(("休整时间", $"回合 {curRound}/{Level.Rounds.Count} 成功守护了小动物，接下来调整装置继续作战吧！"), (_) =>
+                var round = Level.Rounds[curRound];
+                if (round.SkipBuildPlace)
                 {
-                    StartPlacing();
-                });
+                    LaunchNextRound();
+                }
+                else
+                {
+                    MessageBox.Open(("休整时间", $"回合 {curRound}/{Level.Rounds.Count} 成功守护了小动物，接下来调整装置继续作战吧！"), (_) =>
+                    {
+                        LaunchNextRound();
+                    });
+                }
             }).AsMileaseKeyEvent(1f));
 
             animator.Play();

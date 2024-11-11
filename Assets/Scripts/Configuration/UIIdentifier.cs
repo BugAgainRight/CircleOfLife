@@ -5,6 +5,7 @@
         MessageBox,
         UISample,
         BuildingPlacing,
-        LevelUpUI
+        LevelUpUI,
+        PlotBox
     }
 }

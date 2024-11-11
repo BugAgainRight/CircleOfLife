@@ -111,7 +111,12 @@ namespace CircleOfLife.Level
                     i--;
                     continue;
                 }
-
+                
+                var plotProp = roundProp.FindPropertyRelative("BeforePlot");
+                EditorGUILayout.PropertyField(plotProp);
+                var skipProp = roundProp.FindPropertyRelative("SkipBuildPlace");
+                EditorGUILayout.PropertyField(skipProp);
+                
                 // 获取 Waves 列表
                 SerializedProperty wavesProp = roundProp.FindPropertyRelative("Waves");
 

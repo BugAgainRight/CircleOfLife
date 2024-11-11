@@ -10,6 +10,8 @@ namespace CircleOfLife.Level
     [Serializable]
     public class LevelRound
     {
+        public TextAsset BeforePlot;
+        public bool SkipBuildPlace;
         public List<LevelWave> Waves;
     }
 
