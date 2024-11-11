@@ -3,6 +3,7 @@
     public enum SceneIdentifier
     {
         WeatherTest,
-        MilutoolsSample, SceneRouterSample
+        MilutoolsSample, SceneRouterSample,
+        Battle
     }
 }

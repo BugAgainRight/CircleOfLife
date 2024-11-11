@@ -177,10 +177,10 @@ namespace CircleOfLife
 
         public override void OnEnableFunc()
         {
-            Level = 1;
+           
             NowType = BuildSkillType.LogisticsService;
             allType = new();
-            ReplaceStats(Attribute[0], true);
+           
         }
 
         public override void OnDisableFunc()

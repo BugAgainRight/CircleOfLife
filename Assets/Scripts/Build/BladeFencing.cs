@@ -80,9 +80,9 @@ namespace CircleOfLife
 
         public override void OnEnableFunc()
         {
-            Level = 1;
+           
             NowType = BuildSkillType.BladeFencing;
-            ReplaceStats(Attribute[0], true);
+           
         }
 
         public override void OnDisableFunc()

@@ -28,7 +28,8 @@ namespace CircleOfLife.Configuration
                     // 场景节点：场景ID，自定义路径，场景名
                     SceneRouter.Root(SceneIdentifier.WeatherTest, "WeatherSystem"), // 设置根节点
                     SceneRouter.Node(SceneIdentifier.MilutoolsSample, "sample", "MilutoolsSample"),
-                    SceneRouter.Node(SceneIdentifier.SceneRouterSample, "sample/scene-router", "SceneRouterSample")
+                    SceneRouter.Node(SceneIdentifier.SceneRouterSample, "sample/scene-router", "SceneRouterSample"),
+                    SceneRouter.Node(SceneIdentifier.Battle, "battle", "Battle")
                 },
                 LoadingAnimators = new []
                 {
@@ -52,7 +53,8 @@ namespace CircleOfLife.Configuration
                 UI.FromResources(UIIdentifier.UISample, "UI/UISample"),
                 UI.FromResources(UIIdentifier.BuildingPlacing, "UI/BuildingPlacing"), 
                 UI.FromResources(UIIdentifier.LevelUpUI, "UI/LevelUpUI"),
-                UI.FromResources(UIIdentifier.PlotBox, "UI/PlotBox")
+                UI.FromResources(UIIdentifier.PlotBox, "UI/PlotBox"),
+                UI.FromResources(UIIdentifier.ChangeDirectionUI, "UI/ChangeDirectionUI")
             });
         }
     }

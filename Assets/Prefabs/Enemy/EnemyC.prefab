@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2622824499311115275, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
       propertyPath: Stat.Hp
-      value: 200
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 2622824499311115275, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
       propertyPath: EnemyType

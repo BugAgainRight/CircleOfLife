@@ -66,7 +66,13 @@ namespace CircleOfLife
             Container.SetActive(BindBuilding || isPlayer);
             Level.gameObject.SetActive(BindBuilding);
         }
-        
+
+        private void OnEnable()
+        {
+            lastHP = -1f;
+            Fill.size = new Vector2(5f, Fill.size.y);
+        }
+
         private void UpdatePosition()
         {
             if (lastRotation == targetTrans.localEulerAngles.z)

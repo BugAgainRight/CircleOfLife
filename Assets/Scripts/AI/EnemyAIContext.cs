@@ -87,6 +87,7 @@ namespace CircleOfLife.AI
 
         private void OnEnable()
         {
+            Stats.ReplaceBaseStat(Stat);
             ((IVectorFieldMove)this).OnEnableNew(Speed);
             BehaviourTree.Start();
         }

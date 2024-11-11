@@ -6,6 +6,7 @@
         UISample,
         BuildingPlacing,
         LevelUpUI,
-        PlotBox
+        PlotBox,
+        ChangeDirectionUI
     }
 }

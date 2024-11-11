@@ -18,37 +18,37 @@ MonoBehaviour:
       Prefab: {fileID: 4773211790961103041, guid: e248a2143ee5ff640b9b59f3f360d4c3, type: 3}
       Icon: {fileID: 1580880803, guid: 5d95b0f60f0ca6f48a73a930f75707b8, type: 3}
       BuildSize: {x: 1, y: 1}
-      Cost: 20
+      Cost: 75
       WhetherRotate: 0
       Name: "\u6CBB\u7597\u7AD9"
-      Description: 
+      Description: "\u6301\u7EED\u56DE\u590D\u4E00\u5B9A\u8303\u56F4\u5185\u53CB\u65B9\u7684\u5355\u4F4D\u7684\u8840\u91CF\u3002"
   - value1: 1
     value2:
       Prefab: {fileID: 1817232526561850143, guid: 684d4b0957b2b8948b3527308d882931, type: 3}
       Icon: {fileID: 21300000, guid: d54485708cbc02049b9baf513894f114, type: 3}
       BuildSize: {x: 3, y: 2}
-      Cost: 25
+      Cost: 75
       WhetherRotate: 0
       Name: "\u540E\u52E4\u5904"
-      Description: 
+      Description: "\u5728\u56DE\u5408\u7ED3\u675F\u540E\uFF0C\u6BCF\u4E2A\u672A\u88AB\u6467\u6BC1\u7684\u540E\u52E4\u5904\u4F1A\u4E3A\u73A9\u5BB6\u63D0\u4F9B\u4E00\u5B9A\u7684\u6750\u6599\u3002"
   - value1: 2
     value2:
       Prefab: {fileID: 251531891155618306, guid: 41b220717232415499cc3defb23c3d92, type: 3}
       Icon: {fileID: 21300000, guid: 80266415dc712ff4dae07f3feb5c04d8, type: 3}
       BuildSize: {x: 1, y: 2}
-      Cost: 30
+      Cost: 50
       WhetherRotate: 0
       Name: "\u4FE1\u53F7\u53D1\u5C04\u5668"
-      Description: 
+      Description: "\u53EC\u96C6\u4E00\u79CD\u53CB\u65B9\u5355\u4F4D\u3002"
   - value1: 3
     value2:
       Prefab: {fileID: 1327885459133798752, guid: 1a6f6408c4cd94d49a6f781cd991dbe1, type: 3}
       Icon: {fileID: 21300000, guid: 43a1c3436b09a9044bfbf9fd6232241f, type: 3}
       BuildSize: {x: 1, y: 3}
-      Cost: 30
+      Cost: 20
       WhetherRotate: 1
       Name: "\u9632\u62A4\u7F51"
-      Description: 
+      Description: "\u963B\u62E6\u654C\u4EBA\u7684\u524D\u8FDB\u3002"
   - value1: 4
     value2:
       Prefab: {fileID: 1852616872311496052, guid: 31e632285dc24074e841167655471e55, type: 3}
@@ -57,7 +57,7 @@ MonoBehaviour:
       Cost: 30
       WhetherRotate: 1
       Name: "\u7535\u7F51"
-      Description: 
+      Description: "\u963B\u62E6\u654C\u4EBA\u7684\u524D\u8FDB\uFF0C\u5E76\u6301\u7EED\u7535\u51FB\u9760\u8FD1\u6216\u653B\u51FB\u5176\u7684\u654C\u4EBA\uFF0C\u5E76\u7ED9\u654C\u4EBA\u4E00\u4E2A<b>\u7F13\u6162</b>\u6548\u679C\u3002"
   - value1: 5
     value2:
       Prefab: {fileID: 8627693267229348396, guid: e1fa425617c94534abc8af20ac366112, type: 3}
@@ -66,4 +66,4 @@ MonoBehaviour:
       Cost: 30
       WhetherRotate: 1
       Name: "\u5200\u7247\u7F51"
-      Description: 
+      Description: "\u5E76\u6301\u7EED\u4F24\u5BB3\u9760\u8FD1\u6216\u653B\u51FB\u5176\u7684\u654C\u4EBA\uFF0C\u5E76\u7ED9\u654C\u4EBA\u4E00\u4E2A<b>\u6D41\u8840</b>\u6548\u679C\u3002"

@@ -81,9 +81,9 @@ namespace CircleOfLife
 
         public override void OnEnableFunc()
         {
-            Level = 1;
+          
             NowType = BuildSkillType.ElectricFencing;
-            ReplaceStats(Attribute[0], true);
+       
         }
 
         public override void OnDisableFunc()

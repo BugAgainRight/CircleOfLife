@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2622824499311115275, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
+      propertyPath: Stat.Hp
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622824499311115275, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
       propertyPath: EnemyType
       value: 1
       objectReference: {fileID: 0}
@@ -18,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5680572108979959678, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
       propertyPath: m_Name
-      value: EnemyBSignal Variant
+      value: EnemyBSignal
       objectReference: {fileID: 0}
     - target: {fileID: 5953038703520366280, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
       propertyPath: m_LocalPosition.x

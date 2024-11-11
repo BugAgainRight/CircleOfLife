@@ -197,6 +197,28 @@ namespace CircleOfLife.Build.UI
                 });
             });
         }
+        
+        public void ChangeDirection()
+        {
+            ChangeDirectionUI.Open(new LevelUpUIData()
+            {
+                Target = editing,
+                Material = Material,
+                Need = 0
+            }, (resp) =>
+            {
+                if (!resp.Confirm)
+                {
+                    return;
+                }
+                editing.ChangeDirection(resp.Direction?.Value);
+                RecyclePool.Request(BuildEffects.NewFriend, (c) =>
+                {
+                    c.Transform.position = editing.transform.position;
+                    c.GameObject.SetActive(true);
+                });
+            });
+        }
 
         public void FoldOutUI()
         {
