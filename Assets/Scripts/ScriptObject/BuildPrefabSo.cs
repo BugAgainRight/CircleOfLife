@@ -37,7 +37,8 @@ namespace CircleOfLife.ScriptObject
         public int Cost;
         public bool WhetherRotate;
         public string Name;
-       
-       
+        [Multiline]
+        public string Description;
+
     }
 }

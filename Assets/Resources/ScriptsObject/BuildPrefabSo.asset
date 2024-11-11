@@ -21,6 +21,7 @@ MonoBehaviour:
       Cost: 20
       WhetherRotate: 0
       Name: "\u6CBB\u7597\u7AD9"
+      Description: 
   - value1: 1
     value2:
       Prefab: {fileID: 1817232526561850143, guid: 684d4b0957b2b8948b3527308d882931, type: 3}
@@ -29,6 +30,7 @@ MonoBehaviour:
       Cost: 25
       WhetherRotate: 0
       Name: "\u540E\u52E4\u5904"
+      Description: 
   - value1: 2
     value2:
       Prefab: {fileID: 251531891155618306, guid: 41b220717232415499cc3defb23c3d92, type: 3}
@@ -37,6 +39,7 @@ MonoBehaviour:
       Cost: 30
       WhetherRotate: 0
       Name: "\u4FE1\u53F7\u53D1\u5C04\u5668"
+      Description: 
   - value1: 3
     value2:
       Prefab: {fileID: 1327885459133798752, guid: 1a6f6408c4cd94d49a6f781cd991dbe1, type: 3}
@@ -45,6 +48,7 @@ MonoBehaviour:
       Cost: 30
       WhetherRotate: 1
       Name: "\u9632\u62A4\u7F51"
+      Description: 
   - value1: 4
     value2:
       Prefab: {fileID: 1852616872311496052, guid: 31e632285dc24074e841167655471e55, type: 3}
@@ -53,6 +57,7 @@ MonoBehaviour:
       Cost: 30
       WhetherRotate: 1
       Name: "\u7535\u7F51"
+      Description: 
   - value1: 5
     value2:
       Prefab: {fileID: 8627693267229348396, guid: e1fa425617c94534abc8af20ac366112, type: 3}
@@ -61,3 +66,4 @@ MonoBehaviour:
       Cost: 30
       WhetherRotate: 1
       Name: "\u5200\u7247\u7F51"
+      Description: 

@@ -1,3 +1,4 @@
+using System;
 using CircleOfLife;
 using CircleOfLife.ScriptObject;
 using Newtonsoft.Json;
@@ -10,6 +11,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 
 namespace RuiRuiTool
 {
@@ -690,12 +692,27 @@ namespace RuiRuiTool
             AddProperty("Cost", ref rect, property, Space_Height);
             AddProperty("WhetherRotate", ref rect, property, Space_Height);
             AddProperty("Name", ref rect, property, Space_Height);
+            AddMultilineProperty("Description", ref rect, property, Space_Height, 
+                EditorGUIUtility.singleLineHeight * 4f);
 
             propH = rect.y - position.y + EditorGUIUtility.singleLineHeight; //3行+3行space
 
         }
-
-
+        
+        private void AddMultilineProperty(string name,ref Rect rect,SerializedProperty property,float Space_Height, float contentHeight)
+        {
+            rect.y += EditorGUIUtility.singleLineHeight + Space_Height; //第3行
+            Rect label=rect, content=rect;
+            label.width = rect.width * 0.2f;
+            content.width = rect.width * 0.8f;
+            content.position += Vector2.right * label.width;
+            var sp_name = property.FindPropertyRelative(name);
+            content.height += contentHeight;
+            EditorGUI.LabelField(label, name);
+            EditorGUI.PropertyField(content, sp_name,GUIContent.none);
+            rect.y += contentHeight;
+        }
+        
         private void AddProperty(string name,ref Rect rect,SerializedProperty property,float Space_Height)
         {
             rect.y += EditorGUIUtility.singleLineHeight + Space_Height; //第3行

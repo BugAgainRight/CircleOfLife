@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CircleOfLife.General;
 using CircleOfLife.ScriptObject;
 using Milease.Core.Animator;
 using Milease.Core.UI;
@@ -13,6 +14,7 @@ namespace CircleOfLife.Build.UI
 {
     public class BuildListItem : MilListViewItem
     {
+        public GameObject Cover;
         public Image Icon;
         public TMP_Text Cost, Title;
         
@@ -24,7 +26,13 @@ namespace CircleOfLife.Build.UI
 
         public override void OnSelect(PointerEventData eventData)
         {
-            BuildingPlaceUI.Instance.StartPlacing((BuildingUIData)Binding);
+            var data = (BuildingUIData)Binding;
+            if (BuildingPlaceUI.Instance.Material < data.MetaData.Cost)
+            {
+                MessageBox.Open(("材料不足", "材料不足哦，无法布置这个装置。"));
+                return;
+            }
+            BuildingPlaceUI.Instance.StartPlacing(data);
         }
 
         protected override void OnInitialize()
@@ -57,6 +65,12 @@ namespace CircleOfLife.Build.UI
             }
         }
 
+        public void ShowDescription()
+        {
+            var data = (BuildingUIData)Binding;
+            MessageBox.Open((data.MetaData.Name + " - 说明", data.MetaData.Description));
+        }
+        
         public override void AdjustAppearance(float pos)
         {
 
@@ -70,6 +84,7 @@ namespace CircleOfLife.Build.UI
                 return;
             }
             Cost.color = BuildingPlaceUI.Instance.Material < data.MetaData.Cost ? Color.red : Color.white;
+            Cover.SetActive(BuildingPlaceUI.Instance.Material < data.MetaData.Cost);
         }
     }
 }

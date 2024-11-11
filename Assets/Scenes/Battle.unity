@@ -507,7 +507,7 @@ RectTransform:
   m_GameObject: {fileID: 212771284}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1027935770}
@@ -515,8 +515,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -199, y: -142}
-  m_SizeDelta: {x: 1024, y: 1024}
+  m_AnchoredPosition: {x: -199, y: -87}
+  m_SizeDelta: {x: 295, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &212771286
 MonoBehaviour:
@@ -538,7 +538,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a501000249db8ce45a514abba08e156f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5b40b0064c723354abf000a9ccdb9399, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6296,14 +6296,14 @@ RectTransform:
   m_GameObject: {fileID: 1027935769}
   m_LocalRotation: {x: -0, y: -0, z: 0.008726558, w: 0.999962}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 212771285}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -2.499939, y: 584.5}
+  m_AnchoredPosition: {x: 21, y: 48}
   m_SizeDelta: {x: 164.6715, y: 58.6787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1027935771
@@ -8013,7 +8013,7 @@ Tilemap:
       - {fileID: 1378161875, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
       - {fileID: 1229054859, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
       - {fileID: 644248297, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -2, y: -2, z: 0}
@@ -8349,7 +8349,7 @@ Tilemap:
       - {fileID: 1520564882, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
       - {fileID: -1163454640, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
       - {fileID: 2112508925, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 12, y: -2, z: 0}
