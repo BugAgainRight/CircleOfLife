@@ -15,11 +15,12 @@ namespace CircleOfLife.General
         {
             trans = transform;
             render = GetComponent<Renderer>();
+            order = render.sortingOrder;
         }
 
         private void Update()
         {
-            var o = Mathf.FloorToInt(trans.position.y / 0.33f) * -1;
+            var o = (int)(-trans.position.y * 10f);
             if (order != o)
             {
                 order = o;
