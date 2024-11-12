@@ -39,11 +39,11 @@ namespace CircleOfLife.ScriptObject
                 allSettings.Add(a.value1, a.value2);
                 if (a.value2 is GameObject gameObject)
                 {
-                    RecyclePool.EnsurePrefabRegistered(a.value1, gameObject, 20, PoolLifeCyclePolicy.Eternity);
+                    RecyclePool.EnsurePrefabRegistered(a.value1, gameObject, 20);
                 }
                 else if (a.value2 is BuildSoData buildSoData)
                 {
-                    RecyclePool.EnsurePrefabRegistered(a.value1, buildSoData.Prefab, 20, PoolLifeCyclePolicy.Eternity);
+                    RecyclePool.EnsurePrefabRegistered(a.value1, buildSoData.Prefab, 20);
                 }
             }
         }
