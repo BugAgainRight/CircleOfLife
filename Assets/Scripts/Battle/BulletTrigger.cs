@@ -11,6 +11,7 @@ namespace CircleOfLife
     public class BulletTrigger : MonoBehaviour
     {
         private BattleContext battleContext;
+        public GizmosSetting BoomRange;
         [SerializeField]
         private BulletTriggerType type;
 
@@ -41,6 +42,7 @@ namespace CircleOfLife
                 BattleContext battleContext = this.battleContext;
                 battleContext.BulletTransform = transform;
                 battleContext.HitData = damage.Stats;
+                battleContext.BoomRadius = BoomRange.radius;
                 triggerAction?.Invoke(battleContext);
 
                 RecyclePool.RequestWithCollection(SharedPrefab.RangedBoom).Transform.position=transform.position;

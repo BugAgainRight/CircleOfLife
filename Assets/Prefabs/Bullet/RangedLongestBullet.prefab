@@ -115,6 +115,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eca6de6c990e414dba9fd4781129f50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoomRange:
+    editorMode: 1
+    openGizmos: 1
+    GizmosType: 1
+    point: {fileID: 1740654230409452165}
+    radius: 2
+    size: {x: 0, y: 0}
+    offSet: {x: 0, y: 0}
+    gizmosColor: {r: 0, g: 1, b: 0, a: 1}
   type: 0
 --- !u!50 &2459428866084336757
 Rigidbody2D:

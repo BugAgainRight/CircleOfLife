@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 500
   m_Sprite: {fileID: 21300000, guid: 1579afa18abec8b4db4dfd869b389173, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -115,6 +115,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eca6de6c990e414dba9fd4781129f50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoomRange:
+    editorMode: 1
+    openGizmos: 1
+    GizmosType: 1
+    point: {fileID: 2351674936547405641}
+    radius: 2
+    size: {x: 0, y: 0}
+    offSet: {x: 0, y: 0}
+    gizmosColor: {r: 0, g: 1, b: 0, a: 1}
   type: 0
 --- !u!50 &5660067118137831641
 Rigidbody2D:

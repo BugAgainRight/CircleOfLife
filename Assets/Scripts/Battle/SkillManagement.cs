@@ -411,7 +411,6 @@ namespace CircleOfLife
         /// <summary>
         /// 共用近战普攻
         /// </summary>
-       
         [Skill(EnemyStat.EnemyA)]
         [Skill(EnemyStat.EnemyC)]
         [Skill(EnemyStat.EnemyD)]
