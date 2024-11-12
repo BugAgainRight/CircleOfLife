@@ -32,7 +32,7 @@ namespace CircleOfLife.ScriptObject
     public class BuildSoData
     {
         public GameObject Prefab;
-        public Sprite Icon;
+        public Sprite Icon, RotatedIcon;
         public Vector2 BuildSize;
         public int Cost;
         public bool WhetherRotate;

@@ -670,8 +670,7 @@ namespace RuiRuiTool
         
             AddProperty("Prefab", ref rect, property, Space_Height);
             AddProperty("Icon", ref rect, property, Space_Height);
-            
-
+            AddProperty("RotatedIcon", ref rect, property, Space_Height);
             
             var iconTexture = AssetPreview.GetAssetPreview(property.FindPropertyRelative("Icon").objectReferenceValue);
             if (iconTexture != null)

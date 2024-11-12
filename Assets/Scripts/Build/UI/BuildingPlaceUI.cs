@@ -294,7 +294,16 @@ namespace CircleOfLife.Build.UI
 
             if (Input.GetKeyUp(KeyCode.R) && PlacingBuilding.MetaData.WhetherRotate)
             {
-                PlacingIcon.transform.localEulerAngles += new Vector3(0f, 0f, 90f);
+                PlacingIcon.transform.localEulerAngles = 
+                    new Vector3(0f, 0f, 
+                        Mathf.Approximately(PlacingIcon.transform.localEulerAngles.z, 0f) ? 90f : 0f);
+                if (PlacingBuilding.MetaData.RotatedIcon)
+                {
+                    PlacingIcon.sprite =
+                        Mathf.RoundToInt(PlacingIcon.transform.localEulerAngles.z) % 180 == 0
+                            ? PlacingBuilding.MetaData.Icon
+                            : PlacingBuilding.MetaData.RotatedIcon;
+                }
             }
             
             var size = uiData.MapGrid.cellSize;
@@ -328,6 +337,13 @@ namespace CircleOfLife.Build.UI
                     c.Transform.position = pos;
                     c.Transform.localScale = size;
                     c.Transform.localEulerAngles = PlacingIcon.transform.localEulerAngles;
+                    if (PlacingBuilding.MetaData.RotatedIcon)
+                    {
+                        c.GameObject.GetComponent<SpriteRenderer>().sprite =
+                            Mathf.RoundToInt(c.Transform.localEulerAngles.z) % 180 == 0
+                                ? PlacingBuilding.MetaData.Icon
+                                : PlacingBuilding.MetaData.RotatedIcon;
+                    }
                     c.GameObject.SetActive(true);
                     revertable.Add(c.GameObject);
                     typeDict.TryAdd(c.GameObject, PlacingBuilding);

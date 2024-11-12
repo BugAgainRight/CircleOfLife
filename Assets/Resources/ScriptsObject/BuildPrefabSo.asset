@@ -16,7 +16,8 @@ MonoBehaviour:
   - value1: 0
     value2:
       Prefab: {fileID: 4773211790961103041, guid: e248a2143ee5ff640b9b59f3f360d4c3, type: 3}
-      Icon: {fileID: 1580880803, guid: 5d95b0f60f0ca6f48a73a930f75707b8, type: 3}
+      Icon: {fileID: 21300000, guid: e42fdf3395b15c949b46bd87fca298e4, type: 3}
+      RotatedIcon: {fileID: 0}
       BuildSize: {x: 1, y: 1}
       Cost: 75
       WhetherRotate: 0
@@ -25,7 +26,8 @@ MonoBehaviour:
   - value1: 1
     value2:
       Prefab: {fileID: 1817232526561850143, guid: 684d4b0957b2b8948b3527308d882931, type: 3}
-      Icon: {fileID: 21300000, guid: d54485708cbc02049b9baf513894f114, type: 3}
+      Icon: {fileID: 21300000, guid: ad2cd47c3c9413241aca0892713ce719, type: 3}
+      RotatedIcon: {fileID: 0}
       BuildSize: {x: 3, y: 2}
       Cost: 75
       WhetherRotate: 0
@@ -34,7 +36,8 @@ MonoBehaviour:
   - value1: 2
     value2:
       Prefab: {fileID: 251531891155618306, guid: 41b220717232415499cc3defb23c3d92, type: 3}
-      Icon: {fileID: 21300000, guid: 80266415dc712ff4dae07f3feb5c04d8, type: 3}
+      Icon: {fileID: 21300000, guid: d42f6ef485ebfa84a939d5af97d0d573, type: 3}
+      RotatedIcon: {fileID: 0}
       BuildSize: {x: 1, y: 2}
       Cost: 50
       WhetherRotate: 0
@@ -43,7 +46,8 @@ MonoBehaviour:
   - value1: 3
     value2:
       Prefab: {fileID: 1327885459133798752, guid: 1a6f6408c4cd94d49a6f781cd991dbe1, type: 3}
-      Icon: {fileID: 21300000, guid: 43a1c3436b09a9044bfbf9fd6232241f, type: 3}
+      Icon: {fileID: 21300000, guid: 5c158b1e26570204f8c97fe9122bd777, type: 3}
+      RotatedIcon: {fileID: 21300000, guid: 88903dc506afede4aaaea494d6371ad9, type: 3}
       BuildSize: {x: 1, y: 3}
       Cost: 20
       WhetherRotate: 1
@@ -52,7 +56,8 @@ MonoBehaviour:
   - value1: 4
     value2:
       Prefab: {fileID: 1852616872311496052, guid: 31e632285dc24074e841167655471e55, type: 3}
-      Icon: {fileID: 21300000, guid: 43a1c3436b09a9044bfbf9fd6232241f, type: 3}
+      Icon: {fileID: 21300000, guid: 5c158b1e26570204f8c97fe9122bd777, type: 3}
+      RotatedIcon: {fileID: 21300000, guid: 88903dc506afede4aaaea494d6371ad9, type: 3}
       BuildSize: {x: 1, y: 3}
       Cost: 30
       WhetherRotate: 1
@@ -61,7 +66,8 @@ MonoBehaviour:
   - value1: 5
     value2:
       Prefab: {fileID: 8627693267229348396, guid: e1fa425617c94534abc8af20ac366112, type: 3}
-      Icon: {fileID: 21300000, guid: 43a1c3436b09a9044bfbf9fd6232241f, type: 3}
+      Icon: {fileID: 21300000, guid: 5c158b1e26570204f8c97fe9122bd777, type: 3}
+      RotatedIcon: {fileID: 21300000, guid: 88903dc506afede4aaaea494d6371ad9, type: 3}
       BuildSize: {x: 1, y: 3}
       Cost: 30
       WhetherRotate: 1
