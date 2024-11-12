@@ -49,6 +49,8 @@ namespace CircleOfLife.AI
         public float DiscoverDistance = 4f;
         public float BattleDistance = 1f;
         public float Distance { get; private set; }
+
+        public Transform SkillOffset;
         
         private float skillTick = 0f;
         private float findTargetTick = 0f;

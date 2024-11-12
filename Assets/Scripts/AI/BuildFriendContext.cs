@@ -41,7 +41,7 @@ namespace CircleOfLife
         [HideInInspector]
         public float EnemyDistance;
 
-
+        public Transform SkillOffset;
 
 
 

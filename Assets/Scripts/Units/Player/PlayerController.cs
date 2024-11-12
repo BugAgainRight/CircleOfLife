@@ -24,6 +24,7 @@ namespace CircleOfLife.Units
         
         public BattleStats.Stats Stat;
         public Volume RunningProcess;
+        public Transform SkillOffset;
         
         public BattleStats Stats { get; set; }
 

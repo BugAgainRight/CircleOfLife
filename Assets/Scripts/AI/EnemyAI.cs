@@ -36,6 +36,7 @@ namespace CircleOfLife.AI
             }
             context.ResetSkillTick();
             var skillContext = new SkillContext(context.LayerMask, context.Stats, context.TargetStats);
+            skillContext.FireTransform = context.SkillOffset;
             SkillManagement.GetSkill(context.EnemyType)(skillContext);
             return BehaviourState.Succeed;
         }

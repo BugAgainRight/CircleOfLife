@@ -440,7 +440,13 @@ namespace CircleOfLife
         private static void RangedAttackTemplate(RecycleCollection collection, SkillContext context)
         {
             collection.GameObject.SetActive(true);
+            
             collection.GameObject.transform.position = context.TriggerPos;
+            
+            if (context.FireTransform)
+            {
+                collection.GameObject.transform.position += context.FireTransform.position - collection.GameObject.transform.position;
+            }
 
             collection.GetComponent<BulletMove>().SetTarget(context.HitData.Transform);
             collection.GetComponent<BulletTrigger>().PassData(new BattleContext(context.PhysicsLayer,context.AttackerData,null));

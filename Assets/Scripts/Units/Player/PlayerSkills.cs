@@ -76,16 +76,27 @@ namespace CircleOfLife
             {
                 hitTick = 0f;
                 //Energy += RECOVER_ON_ATTACK;
-                SkillManagement.GetSkill(NormalHitType)(new SkillContext(EnemyMask, Player.Stats));
+                SkillManagement.GetSkill(NormalHitType)(new SkillContext(EnemyMask, Player.Stats)
+                {
+                    FireTransform = Player.SkillOffset
+                });
             }
         }
 
         private void UpdateEnergy()
         {
+            if (!Player.enabled)
+            {
+                return;
+            }
+            
             if (Energy >= ENERGY_MAX && KeyEnum.Skill.IsKeyUp())
             {
                 Energy = 0f;
-                SkillManagement.GetSkill(SkillType)(new SkillContext(EnemyMask, Player.Stats));
+                SkillManagement.GetSkill(SkillType)(new SkillContext(EnemyMask, Player.Stats)
+                {
+                    FireTransform = Player.SkillOffset
+                });
             }
             
             if (Player.transform.localScale != direction)

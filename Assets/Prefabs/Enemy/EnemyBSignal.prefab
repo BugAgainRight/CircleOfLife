@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: skeletonDataAsset
       value: 
       objectReference: {fileID: 11400000, guid: 32cfb0ffee9d587409dc8f7188a8e47e, type: 2}
+    - target: {fileID: 3918469935689205782, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.75
+      objectReference: {fileID: 0}
     - target: {fileID: 5680572108979959678, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
       propertyPath: m_Name
       value: EnemyBSignal
@@ -31,7 +35,7 @@ PrefabInstance:
     - target: {fileID: 5686452394438900920, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 279faeea3903ed74698c0c8fe3c367f8, type: 2}
+      objectReference: {fileID: 2100000, guid: d8b04d42c558ee5489ac4c214fd36478, type: 2}
     - target: {fileID: 5953038703520366280, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

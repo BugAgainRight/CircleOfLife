@@ -55,6 +55,8 @@ namespace CircleOfLife.Build.UI
         private static readonly Dictionary<GameObject, BuildingUIData> typeDict = new();
 
         private BuildBase editing;
+
+        private bool finishPlacingKeyUp = false;
         
         protected override void Begin()
         {
@@ -268,6 +270,7 @@ namespace CircleOfLife.Build.UI
             {
                 return;
             }
+            finishPlacingKeyUp = false;
             Cursor.visible = false;
             PlacingBuilding = target;
             PlacingMode = true;
@@ -276,7 +279,7 @@ namespace CircleOfLife.Build.UI
             PlacingIcon.transform.localScale = Vector3.one * 0.98f;
             PlacingIcon.transform.localEulerAngles = Vector3.zero;
             
-            PlaceTip.text = "按下 空格 键 <color=green>确认</color> 放置装置，按下 Q 键 <color=red>取消</color> 放置";
+            PlaceTip.text = "按下 鼠标左键 键 <color=green>确认</color> 放置装置，按下 鼠标右键 键 <color=red>取消</color> 放置";
             if (target.MetaData.WhetherRotate)
             {
                 PlaceTip.text += "，按下 R 键 <color=yellow>旋转</color> 装置";
@@ -311,7 +314,7 @@ namespace CircleOfLife.Build.UI
         
         private void UpdatePlacingMode()
         {
-            if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.Mouse1))
             {
                 EndPlacing();
                 stateAnimator.Transition(UIState.FoldOut);
@@ -355,8 +358,9 @@ namespace CircleOfLife.Build.UI
             PlacingIcon.color = canPlace ? Color.white : Color.red;
             PlaceLight.color = PlacingIcon.color;
 
-            if (canPlace && Input.GetKeyUp(KeyCode.Space))
+            if (canPlace && finishPlacingKeyUp)
             {
+                finishPlacingKeyUp = false;
                 Material -= PlacingBuilding.MetaData.Cost;
                 RecyclePool.Request(PlacingBuilding.Type, (c) =>
                 {
@@ -378,7 +382,19 @@ namespace CircleOfLife.Build.UI
                 stateAnimator.Transition(UIState.FoldOut);
             }
         }
-
+        
+        public void OnClickFullScreen()
+        {
+            if (PlacingMode)
+            {
+                finishPlacingKeyUp = true;
+            }
+            else
+            {
+                FindSelection();
+            }
+        }
+        
         public void FindSelection()
         {
             var pos = (Vector2)Camera.main!.ScreenToWorldPoint(Input.mousePosition);

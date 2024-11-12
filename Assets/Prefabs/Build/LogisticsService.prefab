@@ -195,7 +195,7 @@ MonoBehaviour:
     Hp: 200
     Attack: 0
     Armor: 15
-    EffectRange: 0
+    EffectRange: 4
     AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
     Hp: 300
     Attack: 0
     Armor: 20
-    EffectRange: 0
+    EffectRange: 4
     AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
     Hp: 400
     Attack: 0
     Armor: 25
-    EffectRange: 0
+    EffectRange: 4
     AttackInterval: 1
     CriticalChance: 0
     CriticalStrikeDamage: 0

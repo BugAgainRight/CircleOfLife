@@ -18,7 +18,7 @@ namespace CircleOfLife
                     c => c.HasTarget,
                     Selector(
                         Condition(c => c.FireDistance <= c.EnemyDistance, Action(MoveToEnemy)),
-                        Condition(c => !context.TimerFinish, Action(MoveToFireEnemyPos)),
+                        //Condition(c => !context.TimerFinish, Action(MoveToFireEnemyPos)),
                         Condition(c => context.TimerFinish, Action(Fire))
                         )
                     ),
@@ -86,7 +86,7 @@ namespace CircleOfLife
         {
             ChangeAnim(context.SkeletonAnimation, false);
             SkillContext skillContext = new(context.EnemyLayer, context.BattleStat, context.Enemy.GetBattleStats());
-
+            skillContext.FireTransform = context.SkillOffset;
             SkillManagement.GetSkill(context.BuildSkill)(skillContext);
             return BehaviourState.Succeed;
         }

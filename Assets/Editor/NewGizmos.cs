@@ -178,7 +178,7 @@ public class NewGizmos : CustomEditorSelector
 
                     break;
             }
-
+            EditorUtility.SetDirty(target);
         }
         else
         {
@@ -246,11 +246,9 @@ public class NewGizmos : CustomEditorSelector
                     #endregion
 
             }
-
-
         }
 
-        EditorUtility.SetDirty(target);
+        
 
     }
 

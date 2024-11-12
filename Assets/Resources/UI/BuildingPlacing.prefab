@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6714461258593687603
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3021,7 +3021,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3731419785209257751}
         m_TargetAssemblyTypeName: CircleOfLife.Build.UI.BuildingPlaceUI, CircleOfLife
-        m_MethodName: FindSelection
+        m_MethodName: OnClickFullScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

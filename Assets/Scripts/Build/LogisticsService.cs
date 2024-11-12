@@ -138,21 +138,29 @@ namespace CircleOfLife
                 {
                     var stats = item.GetBattleStats();
                     if (stats == null) continue;
-                    
+
+                    var boost = false;
                     if (allType.Contains(LogisticsServiceBuffType.加速))
                     {
                         stats.ApplyBuff(BuffUtils.ToBuff(SpeedUp, 5f));
+                        boost = true;
                     }
                     if (allType.Contains(LogisticsServiceBuffType.加护甲))
                     {
                         stats.ApplyBuff(BuffUtils.ToBuff(ArmorUp, 5f));
-
+                        boost = true;
                     }
                     if (allType.Contains(LogisticsServiceBuffType.加攻击力))
                     {
                         stats.ApplyBuff(BuffUtils.ToBuff(AttackUp, 5f));
+                        boost = true;
                     }
 
+                    if (!boost)
+                    {
+                        continue;
+                    }
+                    
                     RecyclePool.Request(BuildEffects.Buff, (c) =>
                     {
                         c.Transform.position = stats.Transform.position;
