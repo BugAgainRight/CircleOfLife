@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CircleOfLife.Buff;
 using CircleOfLife.General;
 using CircleOfLife.Key;
 using CircleOfLife.ScriptObject;
@@ -109,6 +110,11 @@ namespace CircleOfLife.Build.UI
 
         public void StartBattle()
         {
+            PreStartBattle();
+        }
+
+        private void PostStartBattle()
+        {
             MessageBox.Open(("开始战斗", "确定要开始战斗吗？\n开始后将暂时不能调整装置布置。"), (o) =>
             {
                 if (o == MessageBox.Operation.Deny)
@@ -117,6 +123,26 @@ namespace CircleOfLife.Build.UI
                 }
                 Close(Material);
             });
+        }
+        
+        private void PreStartBattle()
+        {
+            if (!BuffManager.GetAllStats().Any(x => x.BattleEntity is LogisticsService))
+            {
+                MessageBox.Open(("警告", "您没有布置任何的【后勤处】，回合结束后，将不会获得任何材料补给，确定要继续吗？"), (o) =>
+                {
+                    if (o == MessageBox.Operation.Deny)
+                    {
+                        return;
+                    }
+
+                    PostStartBattle();
+                });
+            }
+            else
+            {
+                PostStartBattle();
+            }
         }
 
         public void CloseDetailPanel()
