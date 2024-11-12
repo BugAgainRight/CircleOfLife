@@ -1,6 +1,5 @@
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
-using log4net.Util;
 using Milutools.Milutools.General;
 using Milutools.Recycle;
 using System;
