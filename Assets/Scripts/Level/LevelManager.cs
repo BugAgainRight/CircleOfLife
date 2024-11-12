@@ -48,10 +48,39 @@ namespace CircleOfLife.Level
         private readonly Dictionary<AppearPoint, Rect> registeredPoints = new();
 
         private bool failed = false;
+
+        private bool infinityMode = false;
         
         public void RegisterPoint(AppearPoint point, Rect rect)
         {
             registeredPoints.Add(point, rect);
+        }
+
+        public void StartInfinityMode()
+        {
+            MessageBox.Open(("开启无尽模式", "该功能用于不断重复第二回合的敌人内容，方便体验全部的装置功能使用。\n" +
+                                       "开启后，游戏将永远不会触发“胜利”画面，回合将无限循环。"), (o) =>
+            {
+                if (o == MessageBox.Operation.Deny)
+                {
+                    return;
+                }
+
+                infinityMode = true;
+                
+                battling = false;
+                curRound--;
+                curWave = 0;
+                waveTick = 0f;
+                
+                SuccessPostProcess.MileaseTo(nameof(ServicePostProcess.weight), 0f, 0.5f, 
+                        0f, EaseFunction.Quad, EaseType.Out)
+                    .While(SuccessUI.MileaseTo("alpha", 0f, 0.5f))
+                    .Then(new Action(() => SuccessPostProcess.gameObject.SetActive(false)).AsMileaseKeyEvent())
+                    .Play();
+                
+                PrepareNextRound();
+            });
         }
         
         private void Awake()
@@ -105,7 +134,7 @@ namespace CircleOfLife.Level
         private void LaunchNextRound()
         {
             var round = Level.Rounds[curRound];
-            if (round.BeforePlot)
+            if (round.BeforePlot && !infinityMode)
             {
                 PlotBox.Open(round.BeforePlot, () =>
                 {
@@ -282,6 +311,11 @@ namespace CircleOfLife.Level
                     curRound++;
                     curWave = 0;
                     waveTick = 0f;
+
+                    if (infinityMode)
+                    {
+                        curRound--;
+                    }
                     
                     if (curRound >= Level.Rounds.Count)
                     {
