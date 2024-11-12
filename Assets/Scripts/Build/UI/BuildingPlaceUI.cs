@@ -132,18 +132,18 @@ namespace CircleOfLife.Build.UI
 
         private int GetRemoveCompensate(BuildBase build)
         {
-            if (revertable.Contains(build.gameObject))
-            {
-                return typeDict[build.gameObject].MetaData.Cost;
-            }
-
             int cost = 0;
             for (var i = 1; i < build.Level; i++)
             {
                 cost += GetLevelUpCost(i);
             }
 
-            return Mathf.RoundToInt(Mathf.Log(cost, build.Level));
+            if (revertable.Contains(build.gameObject))
+            {
+                return typeDict[build.gameObject].MetaData.Cost + cost;
+            }
+            
+            return Mathf.RoundToInt((typeDict[build.gameObject].MetaData.Cost + cost) * 0.7f);
         }
         
         public void RemoveBuilding()
