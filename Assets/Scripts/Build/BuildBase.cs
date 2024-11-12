@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CircleOfLife.Buff;
+using CircleOfLife.Build;
 using RuiRuiAstar;
 using RuiRuiVectorField;
 using Milease.Utils;
@@ -169,6 +170,7 @@ namespace CircleOfLife
         }
         private void OnEnable()
         {
+            Switch = BuildUtils.CurrentEnable;
             Level = 1;
             ReplaceStats(Attribute[0], true);
             UpdateRange();

@@ -544,7 +544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4947812922543880801}
   - component: {fileID: 5617735323104533866}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MapCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

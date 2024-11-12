@@ -3,6 +3,7 @@ using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using CircleOfLife.Level;
 using CircleOfLife.Units;
+using CircleOfLife.Utils;
 using Milutools.AI;
 using Milutools.Recycle;
 using RuiRuiSTL;
@@ -66,7 +67,10 @@ namespace CircleOfLife.AI
             {
                 if (context.AttackerData != null)
                 {
-                    Target = context.AttackerData.Transform;
+                    if (CanChaseTarget(context.AttackerData.Transform))
+                    {
+                        Target = context.AttackerData.Transform;
+                    }
                 }
                 if (Stats.Current.Hp <= 0f)
                 {
@@ -123,7 +127,8 @@ namespace CircleOfLife.AI
             
             findTargetTick -= FIND_TARGET_INTERVAL;
 
-            if (!FocusBuildingOnly && Vector2.Distance(Player.position, Enemy.position) <= DiscoverDistance)
+            if (!FocusBuildingOnly && Vector2.Distance(Player.position, Enemy.position) <= DiscoverDistance
+                && CanChaseTarget(Player))
             {
                 Target = Player;
                 TargetStats = PlayerController.Instance.Stats;
@@ -141,11 +146,43 @@ namespace CircleOfLife.AI
                     {
                         continue;
                     }
+
+                    if (!FocusBuildingOnly && !CanChaseTarget(col.transform))
+                    {
+                        continue;
+                    }
                     TargetStats = stat;
                     Target = stat.Transform;
                     break;
                 }
             }
+        }
+        
+        private bool CanChaseTarget(Transform target)
+        {
+            var discover = 
+                Physics2D.RaycastAll(
+                    Enemy.position, 
+                    (target.position - Enemy.position).normalized, 
+                    DiscoverDistance,
+                    LayerMask | (1 << 8));
+            
+            if (discover.Length == 0)
+            {
+                return false;
+            }
+
+            foreach (var col in discover)
+            {
+                if (col.transform.gameObject.layer == 8)
+                {
+                    return false;
+                }
+
+                return col.transform == target;
+            }
+            
+            return false;
         }
         
         public override void UpdateContext()

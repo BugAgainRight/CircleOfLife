@@ -6,8 +6,11 @@ namespace CircleOfLife.Build
 {
     public static class BuildUtils
     {
+        public static bool CurrentEnable = false;
+        
         public static void EnableAllBuilding()
         {
+            CurrentEnable = true;
             foreach (var stat in BuffManager.GetAllStats().Where(x => x.BattleEntity is BuildBase))
             {
                 ((BuildBase)stat.BattleEntity).Switch = true;
@@ -16,6 +19,7 @@ namespace CircleOfLife.Build
         
         public static void DisableAllBuilding()
         {
+            CurrentEnable = false;
             foreach (var stat in BuffManager.GetAllStats().Where(x => x.BattleEntity is BuildBase))
             {
                 ((BuildBase)stat.BattleEntity).Switch = false;
