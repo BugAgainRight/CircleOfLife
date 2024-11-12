@@ -381,6 +381,8 @@ namespace CircleOfLife.Build.UI
                 EndPlacing();
                 stateAnimator.Transition(UIState.FoldOut);
             }
+
+            finishPlacingKeyUp = false;
         }
         
         public void OnClickFullScreen()
