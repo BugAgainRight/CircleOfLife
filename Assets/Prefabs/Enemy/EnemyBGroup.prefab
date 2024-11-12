@@ -10,8 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3351999505790943991, guid: 7278cc6b627d7c34494d02156c303ea3, type: 3}
       propertyPath: m_Name
-      value: EnemyBGroup Variant
+      value: EnemyBGroup
       objectReference: {fileID: 0}
+    - target: {fileID: 3367449682761124145, guid: 7278cc6b627d7c34494d02156c303ea3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 279faeea3903ed74698c0c8fe3c367f8, type: 2}
     - target: {fileID: 3660497268130319169, guid: 7278cc6b627d7c34494d02156c303ea3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -60,6 +64,10 @@ PrefabInstance:
       propertyPath: Stat.AttackInterval
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4993873444496210090, guid: 7278cc6b627d7c34494d02156c303ea3, type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 32cfb0ffee9d587409dc8f7188a8e47e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2057681729187990402, guid: 6459b3de63950be4b8dd314c4bad214c, type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: bedd4d5633f98544797802abe3392f2f, type: 2}
     - target: {fileID: 2158474208484850346, guid: 6459b3de63950be4b8dd314c4bad214c, type: 3}
       propertyPath: Stat.Hp
       value: 80
@@ -84,6 +88,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyD
       objectReference: {fileID: 0}
+    - target: {fileID: 8608633385000548889, guid: 6459b3de63950be4b8dd314c4bad214c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: eae6b6037bddf9b46adc2dbaba64f60a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
