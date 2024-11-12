@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578bbec400246cfb3e068a0e4339a17, type: 3}
   m_Name: Level1
   m_EditorClassIdentifier: 
-  InitialMaterial: 200
+  InitialMaterial: 500
   Rounds:
   - BeforePlot: {fileID: 4900000, guid: 4fc1cdf7cb2ebb340906aa8935b20245, type: 3}
     SkipBuildPlace: 0
