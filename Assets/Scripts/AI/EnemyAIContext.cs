@@ -33,6 +33,7 @@ namespace CircleOfLife.AI
         public SkeletonAnimation EnemyAnimator;
         public EnemyStat EnemyType;
         public bool FocusBuildingOnly = false;
+        public bool AlwaysCast = false;
 
         public BattleStats.Stats Stat;
 
@@ -58,9 +59,6 @@ namespace CircleOfLife.AI
         private Vector3 lastPos;
         private bool lastRun = false;
         private bool lastFaceLeft;
-
-        [HideInInspector]
-        public bool LockDirection;
         
         private void Awake()
         {
@@ -200,10 +198,6 @@ namespace CircleOfLife.AI
             var running = lastPos != Transform.position;
             if (running)
             {
-                if (LockDirection)
-                {
-                    return;
-                }
                 var faceLeft = Transform.position.x < lastPos.x;
                 if (lastFaceLeft != faceLeft)
                 {
@@ -218,10 +212,15 @@ namespace CircleOfLife.AI
             if (lastRun != running)
             {
                 lastRun = running;
-                EnemyAnimator.state.SetAnimation(0, running ? (LockDirection ? "walk" : "run") : "idel", true);
+                EnemyAnimator.state.SetAnimation(0, running ? "run" : "idel", true);
             }
             
             ((IVectorFieldMove)this).FixedUpdateNew();
+
+            if (AlwaysCast && IsSkillReady())
+            {
+                ((EnemyAI)BehaviourTree).CastSkill(this, null);
+            }
         }
     }
 }

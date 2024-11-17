@@ -22,6 +22,7 @@ namespace CircleOfLife
         EnemyBGroup,
         EnemyC,
         EnemyD,
+        EnemyF
     }
 
     public enum BuildStat

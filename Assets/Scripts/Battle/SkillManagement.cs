@@ -268,6 +268,35 @@ namespace CircleOfLife
 
         #endregion
 
+        private static void EnemyFBuff(BattleStats stats, BuffContext buff)
+        {
+            stats.Current.Armor += BuffConsts.ARMOR_UNIT;
+            stats.Current.EvasionRate += BuffConsts.EVASION_UNIT;
+            
+            if (buff.TickedTime >= 1f)
+            {
+                buff.ResetTickedTime();
+                DamageManagement.BuffDamage(stats, -3);
+            }
+        }
+        
+        [Skill(EnemyStat.EnemyF)]
+        private static void EnemyFSkill(SkillContext context)
+        {
+            var list = Physics2D.OverlapCircleAll(context.AttackerData.Transform.position, 3f, context.PhysicsLayer);
+            foreach (var coll in list)
+            {
+                var stats = coll.GetBattleStats();
+                if (stats == context.AttackerData) continue;
+                stats.ApplyBuff(BuffUtils.ToBuff(EnemyFBuff, 1f));
+                // todo: 需要 refactor 一下 Recovery 的位置
+                RecyclePool.Request(BuildEffects.Recovery, (c) =>
+                {
+                    c.Transform.position = coll.transform.position;
+                    c.GameObject.SetActive(true);
+                });
+            }
+        }
 
 
 
@@ -283,7 +312,7 @@ namespace CircleOfLife
         [Skill(BuildSkillType.TreatmentStationNormal)]
         private static void BuildSkill_0(SkillContext context)
         {
-            var list = context.AttackerData.Transform.GetComponent<BuildBase>().BattleRange.GetAllFriendInRange(
+            var list = ((BuildBase)context.AttackerData.BattleEntity).BattleRange.GetAllFriendInRange(
                 context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
             int count = 0;
             list.Sort((y,x) => (x.GetBattleStats().Max.Hp - x.GetBattleStats().Current.Hp).CompareTo(y.GetBattleStats().Max.Hp - y.GetBattleStats().Current.Hp));
