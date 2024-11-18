@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CircleOfLife.Battle;
+using CircleOfLife.Buff;
 using CircleOfLife.Key;
 using CircleOfLife.Units;
+using Milease.Enums;
+using Milease.Utils;
 using Milutools.Recycle;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace CircleOfLife
 {
@@ -44,7 +48,8 @@ namespace CircleOfLife
         public PlayerController Player;
         public SpriteRenderer EnergyFill;
         public LayerMask EnemyMask;
-
+        public Volume SkillBurstVolume;
+        
         private float hitTick = 0f;
 
         private void Awake()
@@ -82,6 +87,13 @@ namespace CircleOfLife
                 });
             }
         }
+        
+        private static void Invincible(BattleStats stats, BuffContext buff)
+        {
+            stats.Current.Armor = int.MaxValue;
+            stats.Current.EvasionRate = 1f;
+            stats.Current.ReduceDamageRate = 1f;
+        }
 
         private void UpdateEnergy()
         {
@@ -92,11 +104,30 @@ namespace CircleOfLife
             
             if (Energy >= ENERGY_MAX && KeyEnum.Skill.IsKeyUp())
             {
-                Energy = 0f;
-                SkillManagement.GetSkill(SkillType)(new SkillContext(EnemyMask, Player.Stats)
-                {
-                    FireTransform = Player.SkillOffset
-                });
+                Player.enabled = false;
+                Player.Stats.ApplyBuff(BuffUtils.ToBuff(Invincible));
+                SkillBurstVolume.MileaseTo("weight", 1f, 0.5f, 0f, EaseFunction.Circ, EaseType.Out)
+                    .Then(
+                        new Action(() =>
+                        {
+                            RecyclePool.Request(AnimatonPrefab.SkillBurst, (c) =>
+                            {
+                                c.Transform.localPosition = Vector3.zero;
+                                c.Transform.localScale = Vector3.one * 6f;
+                                c.GameObject.SetActive(true);
+                            }, Player.transform);
+                        }).AsMileaseKeyEvent(),
+                        SkillBurstVolume.MileaseTo("weight", 0f, 0.5f, 2f)
+                    ).Play(() =>
+                    {
+                        Energy = 0f;
+                        Player.Stats.ReduceBuff(BuffUtils.ToBuff(Invincible));
+                        SkillManagement.GetSkill(SkillType)(new SkillContext(EnemyMask, Player.Stats)
+                        {
+                            FireTransform = Player.SkillOffset
+                        });
+                        Player.enabled = true;
+                    });
             }
             
             if (Player.transform.localScale != direction)
