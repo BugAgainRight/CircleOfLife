@@ -108,7 +108,8 @@ namespace CircleOfLife.AI
 
         private void UpdateTarget()
         {
-            if (!Target || !Target.gameObject.activeSelf || Distance > StopBattleDistance)
+            if (!Target || !Target.gameObject.activeSelf || Distance > StopBattleDistance 
+                || ((TargetStats?.Current.Hp ?? 0) <= 0))
             {
                 Distance = 0f;
                 Target = null;
