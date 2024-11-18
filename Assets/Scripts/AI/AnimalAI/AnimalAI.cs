@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using CircleOfLife.Battle;
 using Milutools.AI;
 using Milutools.AI.Nodes;
 using UnityEngine;
@@ -24,81 +23,82 @@ namespace CircleOfLife
                 Selector(
                     Condition(c => c.IsSkillReady, Action(UseSkill))
                     )),
-                Condition(c => c.IsPlayerOutOfDiscoverDistance && !c.IsEnemyInBattaleDistance, Action(RunToPlayer)),
+                Condition(c => c.IsPlayerOutOfDiscoverDistance && !c.IsFindEnemy, Action(RunToPlayer)),
                 Action(Idle));
         }
 
 
         private BehaviourState UseSkill(AnimalAIContext context)
         {
-            if (context.IsAnimalDead)
+            //Debug.Log("UseSkill");
+            if (context.Enemy == null || context.TargetStats == null || !context.TargetStats.Transform)
             {
-                Stop();
-            }
-            if (!context.IsUsingSkill && context.IsSkillReady)
-            {
-                context.UseSkill();
-            }
-            if (context.IsUsingSkill)
-            {
-                //Debug.Log("Skill has been used " + context.skillTimeTick + " s");
-                context.Animal.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0.5f, 1f), Random.Range(0.5f, 1f), Random.Range(0.5f, 1f));
-                return BehaviourState.Running;
-            }
-            else
-            {
-                context.Animal.GetComponent<SpriteRenderer>().color = Color.white;
                 return BehaviourState.Succeed;
             }
+            context.UseSkill();
+            var skillContext = new SkillContext(context.EnemyLayer, context.Stats, context.TargetStats);
+            skillContext.FireTransform = context.SkillOffset;
+            SkillManagement.GetSkill(context.AnimalSkillType)(skillContext);
+            return BehaviourState.Succeed;
         }
 
         private BehaviourState Idle(AnimalAIContext context)
         {
-            context.Animal.localEulerAngles += new Vector3(0f, 0f, 360f * Time.fixedDeltaTime);
+            //context.Animal.localEulerAngles += new Vector3(0f, 0f, 360f * Time.fixedDeltaTime);
             return BehaviourState.Succeed;
         }
 
         private BehaviourState Sleep(AnimalAIContext context)
         {
-            context.Animal.GetComponent<SpriteRenderer>().color = Color.black;
+            //Debug.Log("Sleep");
             if (context.IsAnimalDead)
             {
                 return BehaviourState.Running;
             }
-            context.Animal.GetComponent<SpriteRenderer>().color = Color.white;
             return BehaviourState.Succeed;
         }
 
         //行动:当玩家离自身过于远时,向玩家移动,在靠近玩家后取消
         private BehaviourState RunToPlayer(AnimalAIContext context)
         {
-            if (context.IsAnimalDead)
+            //启用寻路
+            if (!context.NeedAstarMove || context.IsArrival)
             {
-                Stop();
+                context.ChangeMoveTarget(context.Player);
+                context.ResumeAStarMove();
             }
+            //禁用寻路
             if (context.IsNearPlayer)
             {
+                context.IsArrival = true;
+                context.CloseAStarMove();
                 return BehaviourState.Succeed;
             }
-            context.Animal.position = MoveTowards(context.Animal.position, context.Player.position, context.RunSpeed);
+            //context.Animal.position = MoveTowards(context.Animal.position, context.Player.position, context.RunSpeed);
             return BehaviourState.Running;
         }
         //行动:当自身发现敌人后，追击敌人,敌人进入攻击范围或者离开视野范围后取消
         private BehaviourState MoveToEnemy(AnimalAIContext context)
         {
-            if (context.IsAnimalDead)
+            //启用寻路
+            if (!context.NeedAstarMove || context.IsArrival)
             {
-                Stop();
+                context.ChangeMoveTarget(context.Enemy);
+                context.ResumeAStarMove();
             }
+            //禁用寻路
             if (!context.IsFindEnemy
             || context.IsEnemyInBattaleDistance
             || context.IsVeryFarFromPlayer)
             {
+                context.IsArrival = true;
+                context.CloseAStarMove();
                 return BehaviourState.Succeed;
             }
-            context.Animal.position = MoveTowards(context.Animal.position, context.Enemy.position, context.MoveSpeed);
+            //context.Animal.position = MoveTowards(context.Animal.position, context.Enemy.position, context.Stats.Current.Velocity);
             return BehaviourState.Running;
         }
+
         private Vector3 MoveTowards(Vector3 pos, Vector3 target, float speed)
         {
             var arc = Mathf.Atan2(target.y - pos.y, target.x - pos.x);

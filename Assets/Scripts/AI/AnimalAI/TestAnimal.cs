@@ -17,10 +17,6 @@ namespace CircleOfLife
 
         private void Awake()
         {
-            Stats = Stat.Build(gameObject, (s) =>
-            {
-
-            });
             animalAIContext = GetComponent<AnimalAIContext>();
             animalAIContext.OnAnimalDead.AddListener(OnDead);
             animalAIContext.OnAnimalAwake.AddListener(OnAwake);
@@ -28,7 +24,7 @@ namespace CircleOfLife
 
         void Update()
         {
-            animalAIContext.AnimalBattaleStats = Stats;
+
         }
         public void OnDead()
         {
