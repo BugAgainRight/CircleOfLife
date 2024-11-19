@@ -31,7 +31,7 @@ namespace CircleOfLife.AI
         public void CastSkill(EnemyAIContext context, BattleStats hitData)
         {
             context.ResetSkillTick();
-            var skillContext = new SkillContext(context.LayerMask, context.Stats, hitData);
+            var skillContext = new SkillContext(context.SkillLayerMask, context.Stats, hitData);
             skillContext.FireTransform = context.SkillOffset;
             SkillManagement.GetSkill(context.EnemyType)(skillContext);
         }

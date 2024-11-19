@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: Stat.AttackInterval
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2622824499311115275, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
+      propertyPath: SkillLayerMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 2674028249205067043, guid: 4156cbe6b4b861c4d87de01475bd9d04, type: 3}
       propertyPath: skeletonDataAsset
       value: 

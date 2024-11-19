@@ -28,7 +28,7 @@ namespace CircleOfLife.AI
 
         public BattleStats Stats { get; set; }
         public FactionType FactionType => FactionType.Enemy;
-        public LayerMask LayerMask;
+        public LayerMask SkillLayerMask, FindTargetLayerMask;
 
         public SkeletonAnimation EnemyAnimator;
         public EnemyStat EnemyType;
@@ -137,7 +137,7 @@ namespace CircleOfLife.AI
             }
             
             var colliders =
-                Physics2D.OverlapCircleAll(Transform.position, BattleDistance, LayerMask);
+                Physics2D.OverlapCircleAll(Transform.position, BattleDistance, FindTargetLayerMask);
             foreach (var col in colliders)
             {
                 var stat = col.GetBattleStats();
@@ -166,7 +166,7 @@ namespace CircleOfLife.AI
                     Enemy.position, 
                     (target.position - Enemy.position).normalized, 
                     DiscoverDistance,
-                    LayerMask | (1 << 8));
+                    FindTargetLayerMask | (1 << 8));
             
             if (discover.Length == 0)
             {
@@ -178,6 +178,11 @@ namespace CircleOfLife.AI
                 if (col.transform.gameObject.layer == 8)
                 {
                     return false;
+                }
+
+                if (FocusBuildingOnly && (col.collider.GetBattleStats().BattleEntity is not BuildBase))
+                {
+                    continue;
                 }
 
                 return col.transform == target;
