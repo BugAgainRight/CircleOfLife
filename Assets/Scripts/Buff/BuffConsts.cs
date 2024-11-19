@@ -6,7 +6,7 @@ namespace CircleOfLife.Buff
         public const float ATTACK_INTERVAL_UNIT = 1f;
         public const float HP_UNIT = 20f;
         public const float HEAL_UNIT = 5f;
-        public const float SPEED_UNIT = 0.5f;
+        public const float SPEED_UNIT = 0.2f;
         public const float ARMOR_UNIT = 5f;
         public const float CRITICAL_UNIT = 0.05f;
         public const float EVASION_UNIT = 0.05f;

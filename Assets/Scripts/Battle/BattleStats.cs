@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CircleOfLife.Buff;
+using CircleOfLife.Weather;
 using Spine.Unity;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -105,6 +106,8 @@ namespace CircleOfLife.Battle
         {
             Max = initial;
             Current = lasting;
+            
+            WeatherSystem.WeatherBuff(this, null);
             foreach (var buff in buffContexts.Where(_ => true))
             {
                 buff.Tick();

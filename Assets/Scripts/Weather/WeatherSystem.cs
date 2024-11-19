@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CircleOfLife.Battle;
+using CircleOfLife.Buff;
 using DigitalRuby.RainMaker;
 using Milease.Configuration;
 using Milease.Core;
@@ -73,6 +75,28 @@ namespace CircleOfLife.Weather
             }).AsMileaseKeyEvent());
             
             return animator;
+        }
+        
+        public static void WeatherBuff(BattleStats stats, BuffContext buff)
+        {
+            switch (CurrentWeather)
+            {
+                case Weather.Day:
+                    break;
+                case Weather.Night:
+                    stats.Current.EvasionRate += BuffConsts.EVASION_UNIT;
+                    break;
+                case Weather.Rainy:
+                    stats.Current.EvasionRate += BuffConsts.EVASION_UNIT;
+                    stats.Current.Velocity -= BuffConsts.SPEED_UNIT;
+                    break;
+                case Weather.Snowy:
+                    stats.Current.EvasionRate += BuffConsts.EVASION_UNIT;
+                    stats.Current.Velocity -= BuffConsts.SPEED_UNIT;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
         
         private void Awake()
