@@ -140,6 +140,9 @@ namespace CircleOfLife.Level
 
         private void LaunchNextRound()
         {
+            MainCanvas.MileaseTo("alpha", 0f, 0.5f, 
+                0f, EaseFunction.Quad, EaseType.Out).Play();
+            
             var round = Level.Rounds[curRound];
             if (round.BeforePlot && !infinityMode)
             {
@@ -181,8 +184,7 @@ namespace CircleOfLife.Level
             BuildUtils.DisableAllBuilding();
             PlayerController.Instance.enabled = false;
             CameraController.Instance.CameraMode = CameraMoveMode.Free;
-            MainCanvas.MileaseTo("alpha", 0f, 0.5f, 
-                0f, EaseFunction.Quad, EaseType.Out).Play();
+
             BuildingPlaceUI.Open(new BuildingPlaceUIData()
             {
                 Buildings = 
