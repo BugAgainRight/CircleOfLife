@@ -12,7 +12,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "60c97e0a403fd7b3b09130001f5ed985b9dc9f7c"
+      "hash": "44566b02d6274af0f17a23e87d23b1ae9c55ddb4"
     },
     "com.morizero.milutools": {
       "version": "https://github.com/MorizeroDev/Milutools.git",

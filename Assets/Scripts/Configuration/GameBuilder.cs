@@ -37,12 +37,12 @@ namespace CircleOfLife.Configuration
                     SceneRouter.Node(SceneIdentifier.SceneRouterSample, "sample/scene-router", "SceneRouterSample"),
                     SceneRouter.Node(SceneIdentifier.Battle, "battle", "Battle")
                 },
-                LoadingAnimators = new []
+                /**LoadingAnimators = new []
                 {
                     // 设置可用的自定义加载动画
                     SceneRouter.LoadingAnimator(LoadingAnimatorIdentifier.GenshinLoading, 
                         Resources.Load<GameObject>("Loading/GenshinLoading"))
-                }
+                }**/
             });
             
             // 设置默认加载动画，不设置则是黑屏过渡
@@ -60,7 +60,8 @@ namespace CircleOfLife.Configuration
                 UI.FromResources(UIIdentifier.BuildingPlacing, "UI/BuildingPlacing"), 
                 UI.FromResources(UIIdentifier.LevelUpUI, "UI/LevelUpUI"),
                 UI.FromResources(UIIdentifier.PlotBox, "UI/PlotBox"),
-                UI.FromResources(UIIdentifier.ChangeDirectionUI, "UI/ChangeDirectionUI")
+                UI.FromResources(UIIdentifier.ChangeDirectionUI, "UI/ChangeDirectionUI"),
+                UI.FromResources(UIIdentifier.GameMenu, "UI/GameMenu")
             });
         }
     }

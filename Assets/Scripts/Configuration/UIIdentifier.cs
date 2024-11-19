@@ -7,6 +7,7 @@
         BuildingPlacing,
         LevelUpUI,
         PlotBox,
-        ChangeDirectionUI
+        ChangeDirectionUI,
+        GameMenu
     }
 }

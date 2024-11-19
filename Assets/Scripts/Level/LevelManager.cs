@@ -58,6 +58,11 @@ namespace CircleOfLife.Level
             registeredPoints.Add(point, rect);
         }
 
+        public void PopupGameMenu()
+        {
+            GameMenu.Open(null);
+        }
+        
         public void StartInfinityMode()
         {
             MessageBox.Open(("开启无尽模式", "该功能用于不断重复第二回合的敌人内容，方便体验全部的装置功能使用。\n" +
