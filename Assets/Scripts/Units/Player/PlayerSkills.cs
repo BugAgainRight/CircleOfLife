@@ -37,7 +37,7 @@ namespace CircleOfLife
                     RecyclePool.Request(AnimatonPrefab.EnergyFull, (c) =>
                     {
                         c.Transform.position = transform.position;
-                        c.Transform.localScale = Vector3.one * 3f; 
+                        c.Transform.localScale = Vector3.one * 8f; 
                         c.GameObject.SetActive(true);
                     }, Player.transform);
                 }

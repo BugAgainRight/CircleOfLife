@@ -46,7 +46,7 @@ namespace CircleOfLife.Configuration
             });
             
             // 设置默认加载动画，不设置则是黑屏过渡
-            SceneRouter.SetLoadingAnimator(LoadingAnimatorIdentifier.GenshinLoading);
+            //SceneRouter.SetLoadingAnimator(LoadingAnimatorIdentifier.GenshinLoading);
         }
 
         private static void SetupUIManager()

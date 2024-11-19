@@ -20,7 +20,7 @@ namespace CircleOfLife.Weather
         [Flags]
         public enum Weather
         {
-            Day = 1, Night = 2, Rainy = 4
+            Day = 1, Night = 2, Rainy = 4, Snowy = 8
         }
 
         public static WeatherSystem Instance;
@@ -37,12 +37,12 @@ namespace CircleOfLife.Weather
             }
         }
 
-        public GameObject VolumeContainer;
+        public GameObject VolumeContainer, Snow;
         public RainScript2D Rain;
         public Light2D[] CloudLights;
         public Light2D GlobalLight;
 
-        private Volume dayVolume, nightVolume, rainyVolume;
+        private Volume dayVolume, nightVolume, rainyVolume, snowyVolume;
         private Dictionary<Weather, MilInstantAnimator> weatherAnimators;
 
         private MilInstantAnimator WrapAnimator(Weather weatherType, Color globalLight, float globalIntensity)
@@ -56,6 +56,8 @@ namespace CircleOfLife.Weather
                             1f, 0f, EaseFunction.Quad, EaseType.Out),
                         rainyVolume.MileaseTo("weight", weatherType == Weather.Rainy ? 1f : 0f, 
                             1f, 0f, EaseFunction.Quad, EaseType.Out),
+                        snowyVolume.MileaseTo("weight", weatherType == Weather.Snowy ? 1f : 0f, 
+                            1f, 0f, EaseFunction.Quad, EaseType.Out),
                         GlobalLight.MileaseTo(UMN.Color, globalLight, 1f),
                         GlobalLight.MileaseTo("intensity", globalIntensity, 1f)
                     );
@@ -65,6 +67,11 @@ namespace CircleOfLife.Weather
                 animator.While(cloud.MileaseTo("intensity", weatherType == Weather.Day ? 1f : 0f, 0.5f));
             }
 
+            animator.While(new Action(() =>
+            {
+                Snow.SetActive(weatherType == Weather.Snowy);
+            }).AsMileaseKeyEvent());
+            
             return animator;
         }
         
@@ -76,18 +83,29 @@ namespace CircleOfLife.Weather
             dayVolume = volumes.First(x => Mathf.Approximately(x.priority, 0f));
             nightVolume = volumes.First(x => Mathf.Approximately(x.priority, 1f));
             rainyVolume = volumes.First(x => Mathf.Approximately(x.priority, 2f));
+            snowyVolume = volumes.First(x => Mathf.Approximately(x.priority, 3f));
             
             weatherAnimators = new Dictionary<Weather, MilInstantAnimator>
             {
                 [Weather.Day] = WrapAnimator(Weather.Day, Color.white, 0.4f),
                 [Weather.Night] = WrapAnimator(Weather.Night, ColorUtils.RGB(14, 8, 255), 0.3f),
-                [Weather.Rainy] = WrapAnimator(Weather.Rainy, Color.white, 0.4f)
+                [Weather.Rainy] = WrapAnimator(Weather.Rainy, Color.white, 0.4f),
+                [Weather.Snowy] = WrapAnimator(Weather.Snowy, Color.white, 1.2f),
             };
             weatherAnimators[Weather.Day].Play();
         }
 
         private void Update()
         {
+            if (Snow.activeSelf)
+            {
+                var cam = Camera.main;
+                if (cam)
+                {
+                    Snow.transform.position = cam.transform.position + new Vector3(0f, 5.7f, 0f);
+                }
+            }
+            
             foreach (var light in WeatherManagedLight.ManagedLights)
             {
                 var enable = light.IsMeetCondition();

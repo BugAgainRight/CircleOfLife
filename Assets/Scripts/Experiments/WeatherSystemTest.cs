@@ -10,5 +10,6 @@ namespace CircleOfLife
         public void DayTest() => WeatherSystem.CurrentWeather = WeatherSystem.Weather.Day;
         public void NightTest() => WeatherSystem.CurrentWeather = WeatherSystem.Weather.Night;
         public void RainyTest() => WeatherSystem.CurrentWeather = WeatherSystem.Weather.Rainy;
+        public void SnowyTest() => WeatherSystem.CurrentWeather = WeatherSystem.Weather.Snowy;
     }
 }
