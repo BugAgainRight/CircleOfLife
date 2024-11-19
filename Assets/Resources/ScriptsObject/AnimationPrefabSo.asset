@@ -21,3 +21,5 @@ MonoBehaviour:
     value2: {fileID: 141596, guid: 6b5cdea243db4bc4b9498aae2aa4c103, type: 3}
   - value1: 3
     value2: {fileID: 171722, guid: 8f3db2ef4b3fd674eafb97a117b99408, type: 3}
+  - value1: 4
+    value2: {fileID: 7159262003420027938, guid: 250bf6139e288d748b6541cf3652236c, type: 3}

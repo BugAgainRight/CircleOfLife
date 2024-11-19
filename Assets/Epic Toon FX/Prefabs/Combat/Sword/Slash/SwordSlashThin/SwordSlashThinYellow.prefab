@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 199792232827774132}
   - component: {fileID: 4325490020766617278}
   - component: {fileID: 4204089585740939002}
+  - component: {fileID: 6456915363451382553}
   m_Layer: 0
   m_Name: SwordSlashThinYellow
   m_TagString: Untagged
@@ -4871,6 +4872,19 @@ MonoBehaviour:
   OnReset:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6456915363451382553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137603909547500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9bc027fc3774d47a8fa61c250146982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Clips: 060000000700000008000000
 --- !u!1 &1693598969857432
 GameObject:
   m_ObjectHideFlags: 0

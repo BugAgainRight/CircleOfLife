@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def1a5a54ea64da58724751557676d56, type: 3}
+  m_Name: BGM
+  m_EditorClassIdentifier: 
+  Items:
+  - Name: Battle
+    Identifier: 0
+    Clip: {fileID: 8300000, guid: 99537fa4af2523f49bd5bce4e9a4e13e, type: 3}

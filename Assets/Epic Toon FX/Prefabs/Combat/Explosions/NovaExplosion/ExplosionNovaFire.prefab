@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 405762}
   - component: {fileID: 19827778}
   - component: {fileID: 19926776}
-  - component: {fileID: 8231608}
   - component: {fileID: 6020266992313505918}
+  - component: {fileID: 2068391002836274217}
+  - component: {fileID: 4481650164381617113}
+  - component: {fileID: 1288415950095148606}
   m_Layer: 0
   m_Name: ExplosionNovaFire
   m_TagString: Untagged
@@ -4835,7 +4837,38 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!82 &8231608
+--- !u!114 &6020266992313505918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e755b1aacd34443931dd77c1835d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutoRecycleTimeOut: 1
+  MainComponent: {fileID: 0}
+  Components: []
+  OnReset:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2068391002836274217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628ef9b0c7e4fd24db54868035e11237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomPercent: 10
+--- !u!82 &4481650164381617113
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4900,7 +4933,7 @@ AudioSource:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4915,7 +4948,7 @@ AudioSource:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4930,8 +4963,8 @@ AudioSource:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
---- !u!114 &6020266992313505918
+    m_RotationOrder: 4
+--- !u!114 &1288415950095148606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4940,15 +4973,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 115286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80e755b1aacd34443931dd77c1835d2f, type: 3}
+  m_Script: {fileID: 11500000, guid: f18a9fbc93454f53b3d0093c2c03c6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoRecycleTimeOut: 1
-  MainComponent: {fileID: 0}
-  Components: []
-  OnReset:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &138758
 GameObject:
   m_ObjectHideFlags: 0

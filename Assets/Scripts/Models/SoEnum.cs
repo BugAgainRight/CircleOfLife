@@ -47,7 +47,7 @@ namespace CircleOfLife
 
     public enum AnimatonPrefab
     {
-        Single, Group, EnergyFull, SkillBurst
+        Single, Group, EnergyFull, SkillBurst, EnemyRecovery
     }
 
     public enum EnemySkillType

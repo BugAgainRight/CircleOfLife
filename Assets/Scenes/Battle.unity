@@ -7110,69 +7110,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &945754648
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 945754650}
-  - component: {fileID: 945754649}
-  m_Layer: 0
-  m_Name: DamageManagement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &945754649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945754648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcc63a78259ae9e48a9bff119caebaa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FlyWordPrefab: {fileID: 1539319914497560681, guid: c6db52410d25434439a3806cd99ef3c0, type: 3}
-  FriendNormalStyle:
-    FontSize: 3
-    FontColor: {r: 1, g: 1, b: 1, a: 1}
-  FriendCritStyle:
-    FontSize: 4
-    FontColor: {r: 1, g: 1, b: 1, a: 1}
-  EnemyNormalStyle:
-    FontSize: 3
-    FontColor: {r: 1, g: 0, b: 0, a: 1}
-  EnemyCritStyle:
-    FontSize: 4
-    FontColor: {r: 1, g: 0, b: 0, a: 1}
-  FriendRecovery:
-    FontSize: 3
-    FontColor: {r: 0, g: 1, b: 0, a: 1}
-  EnemyRecovery:
-    FontSize: 3
-    FontColor: {r: 1, g: 0.7835317, b: 0, a: 1}
---- !u!4 &945754650
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945754648}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &958614483
 GameObject:
   m_ObjectHideFlags: 0
@@ -7915,6 +7852,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332175112}
   m_CullTransparentMesh: 1
+--- !u!1001 &1416951314
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 956855234299761877, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_Name
+      value: DamageManagement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811363958990198631, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811363958990198631, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811363958990198631, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811363958990198631, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811363958990198631, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811363958990198631, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811363958990198631, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811363958990198631, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811363958990198631, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811363958990198631, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a335f9eb16b8e3c4daa34e54d44011ff, type: 3}
 --- !u!1 &1447243864
 GameObject:
   m_ObjectHideFlags: 0
@@ -9621,7 +9615,7 @@ Tilemap:
       - {fileID: 1229054859, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
       - {fileID: 644248297, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
       - {fileID: 1114959025, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -1, y: -1, z: 0}
@@ -19834,7 +19828,6 @@ SceneRoots:
   - {fileID: 3128490108554944787}
   - {fileID: 542819524}
   - {fileID: 1629048762}
-  - {fileID: 945754650}
   - {fileID: 2074504472}
   - {fileID: 1860279792}
   - {fileID: 1265206539}
@@ -19846,3 +19839,4 @@ SceneRoots:
   - {fileID: 2099267471}
   - {fileID: 712787363}
   - {fileID: 1967276970}
+  - {fileID: 1416951314}

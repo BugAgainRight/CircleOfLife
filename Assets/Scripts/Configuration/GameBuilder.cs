@@ -16,6 +16,12 @@ namespace CircleOfLife.Configuration
             SetupSceneRouter();
             SetupUIManager();
             AudioManager.Setup("AudioResources");
+            if (!PlayerPrefs.HasKey("audio_volume_prepared"))
+            {
+                PlayerPrefs.SetInt("audio_volume_prepared", 1);
+                AudioManager.SetVolume(AudioPlayerType.SndPlayer, 0.5f);
+                AudioManager.SetVolume(AudioPlayerType.BGMPlayer, 1f);
+            }
         }
 
         private static void SetupSceneRouter()

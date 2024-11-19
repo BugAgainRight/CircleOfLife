@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d11092b6df17545b21906d469e57c7, type: 3}
+  m_Name: Snd
+  m_EditorClassIdentifier: 
+  Items:
+  - Name: Spawn
+    Identifier: 0
+    Clip: {fileID: 8300000, guid: 5052682f23f19384da5d743dc76ed64b, type: 3}
+  - Name: Shoot1
+    Identifier: 1
+    Clip: {fileID: 8300000, guid: 321feb9f51af885488e5ed433aecd467, type: 3}
+  - Name: Shoot2
+    Identifier: 2
+    Clip: {fileID: 8300000, guid: 321feb9f51af885488e5ed433aecd467, type: 3}
+  - Name: Shoot3
+    Identifier: 3
+    Clip: {fileID: 8300000, guid: 321feb9f51af885488e5ed433aecd467, type: 3}
+  - Name: Blood
+    Identifier: 4
+    Clip: {fileID: 8300000, guid: 49fd8f26329a7d447b6232131cfd5e71, type: 3}
+  - Name: Thunder
+    Identifier: 5
+    Clip: {fileID: 8300000, guid: 29f423c85407d6543886ba0431a4934d, type: 3}
+  - Name: Hit1
+    Identifier: 6
+    Clip: {fileID: 8300000, guid: 321feb9f51af885488e5ed433aecd467, type: 3}
+  - Name: Hit2
+    Identifier: 7
+    Clip: {fileID: 8300000, guid: 321feb9f51af885488e5ed433aecd467, type: 3}
+  - Name: Hit3
+    Identifier: 8
+    Clip: {fileID: 8300000, guid: 321feb9f51af885488e5ed433aecd467, type: 3}
+  - Name: SkillBurst
+    Identifier: 9
+    Clip: {fileID: 8300000, guid: 5abc9c5003c287447971aa211641da86, type: 3}
+  - Name: SkillReady
+    Identifier: 10
+    Clip: {fileID: 8300000, guid: e8f5426236f58bd46a4680822902d3bd, type: 3}
+  - Name: Coin
+    Identifier: 11
+    Clip: {fileID: 8300000, guid: b947456deb4444f448acbb55945bc097, type: 3}

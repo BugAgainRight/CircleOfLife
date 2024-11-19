@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 448740}
   - component: {fileID: 19802634}
   - component: {fileID: 19901482}
-  - component: {fileID: 8232980}
-  - component: {fileID: 11411546}
   - component: {fileID: 5961935274920431534}
+  - component: {fileID: 1974350860617473098}
+  - component: {fileID: 4402481603428911530}
+  - component: {fileID: 1387750916155862380}
   m_Layer: 0
   m_Name: BulletFatExplosionFire
   m_TagString: Untagged
@@ -4834,7 +4835,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!82 &8232980
+--- !u!114 &5961935274920431534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e755b1aacd34443931dd77c1835d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutoRecycleTimeOut: 1
+  MainComponent: {fileID: 0}
+  Components: []
+  OnReset:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1974350860617473098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18a9fbc93454f53b3d0093c2c03c6ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &4402481603428911530
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4844,10 +4875,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 321feb9f51af885488e5ed433aecd467, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4e9bff56ee93c6f42b214141e44e763d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
-  m_Pitch: 0.8
+  m_Volume: 1
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -4899,7 +4930,7 @@ AudioSource:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4914,7 +4945,7 @@ AudioSource:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4929,8 +4960,8 @@ AudioSource:
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 0
---- !u!114 &11411546
+    m_RotationOrder: 4
+--- !u!114 &1387750916155862380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4942,25 +4973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628ef9b0c7e4fd24db54868035e11237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomPercent: 15
---- !u!114 &5961935274920431534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 132352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80e755b1aacd34443931dd77c1835d2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AutoRecycleTimeOut: 1
-  MainComponent: {fileID: 0}
-  Components: []
-  OnReset:
-    m_PersistentCalls:
-      m_Calls: []
+  randomPercent: 10
 --- !u!1 &172666
 GameObject:
   m_ObjectHideFlags: 0

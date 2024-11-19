@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CircleOfLife.Audio;
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using CircleOfLife.Build;
@@ -13,6 +14,7 @@ using Milease.Core;
 using Milease.Core.Animator;
 using Milease.Enums;
 using Milease.Utils;
+using Milutools.Audio;
 using Milutools.Recycle;
 using Milutools.SceneRouter;
 using TMPro;
@@ -254,6 +256,7 @@ namespace CircleOfLife.Level
                     }).AsMileaseKeyEvent(1f));
                     animator.Then(new Action(() =>
                     {
+                        AudioManager.PlaySnd(SoundEffectsSO.Clips.Coin);
                         service.SupplyMaterial();
                     }).AsMileaseKeyEvent(1f));
                 }
