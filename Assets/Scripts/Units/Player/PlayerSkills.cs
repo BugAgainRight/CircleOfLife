@@ -113,7 +113,7 @@ namespace CircleOfLife
                             RecyclePool.Request(AnimatonPrefab.SkillBurst, (c) =>
                             {
                                 c.Transform.localPosition = Vector3.zero;
-                                c.Transform.localScale = Vector3.one * 6f;
+                                c.Transform.localScale = Vector3.one * 10f;
                                 c.GameObject.SetActive(true);
                             }, Player.transform);
                         }).AsMileaseKeyEvent(),
