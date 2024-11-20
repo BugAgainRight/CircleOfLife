@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CircleOfLife.NPCInteract;
 using UnityEngine;
 
 namespace CircleOfLife.Units
@@ -105,7 +106,7 @@ namespace CircleOfLife.Units
         protected void Start()
         {
             id = UnitIDManager.CreatID(this);
-            CreateCollider2DChecker();
+            //CreateCollider2DChecker();
         }
 
         void OnDestroy()
@@ -114,7 +115,7 @@ namespace CircleOfLife.Units
         }
 
         #region Interact
-        private void CreateCollider2DChecker()
+        /*private void CreateCollider2DChecker()
         {
             collider2DChecker = new GameObject("Collider2DChecker");
             collider2DChecker.transform.SetParent(this.transform);
@@ -126,9 +127,9 @@ namespace CircleOfLife.Units
             sonCapsuleCollider2D.size = new Vector2(5, 5);
             if (this.gameObject.tag.Equals("Player"))
             {
-                collider2DChecker.AddComponent<PlayerInteractorChecker>();
+                collider2DChecker.AddComponent<InteractorChecker>();
             }
-        }
+        }*/
         #endregion
     }
 }
