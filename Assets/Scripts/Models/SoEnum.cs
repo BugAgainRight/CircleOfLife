@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CircleOfLife
 {
-    
+
 
     /////////Stats
     public enum AnimalStat
@@ -32,7 +32,7 @@ namespace CircleOfLife
     }
 
     /////////GameObject
-    
+
     public enum SharedPrefab
     {
         Melee,
@@ -100,11 +100,11 @@ namespace CircleOfLife
         /// <summary>
         /// 治疗站
         /// </summary>
-        TreatmentStationNormal, 
+        TreatmentStationNormal,
         /// <summary>
         /// 兽医站
         /// </summary>
-        TreatmentStation1, 
+        TreatmentStation1,
         /// <summary>
         /// 战斗医院
         /// </summary>
@@ -112,11 +112,11 @@ namespace CircleOfLife
         /// <summary>
         /// 刀片网
         /// </summary>
-        BladeFencing, 
+        BladeFencing,
         /// <summary>
         /// 电网
         /// </summary>
-        ElectricFencing, 
+        ElectricFencing,
         /// <summary>
         /// 后勤处
         /// </summary>
@@ -167,6 +167,12 @@ namespace CircleOfLife
         /// 藏獒普攻
         /// </summary>
         TibetanMastiffMelee,
+        WolfMelee,
+        BearMelee,
+        WildYakMelee,
+        TibetanAntelopeMelee,
+        TibetanAntelopeSkill1,
+
     }
 
     public static class EnumExtendFuncs

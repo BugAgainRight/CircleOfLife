@@ -38,6 +38,8 @@ namespace CircleOfLife
             context.UseSkill();
             var skillContext = new SkillContext(context.EnemyLayer, context.Stats, context.TargetStats);
             skillContext.FireTransform = context.SkillOffset;
+            skillContext.SpecialValues.Add(context.SkillBuffProbability);
+            skillContext.SpecialValues.Add(context.SkillBuffDuration);
             SkillManagement.GetSkill(context.AnimalSkillType)(skillContext);
             return BehaviourState.Succeed;
         }

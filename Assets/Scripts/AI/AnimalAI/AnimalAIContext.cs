@@ -53,10 +53,12 @@ namespace CircleOfLife
         public BehaviourTree<AnimalAIContext> BehaviourTree;
         public FactionType FactionType => FactionType.Friend;
         public AnimalStat AnimalType;
-        public AnimalSkillType AnimalSkillType;
+
         public float PlayerDistance { get; private set; }
         public float EnemyDistance { get; private set; }
-        public Transform SkillOffset;
+        #region Chase
+        [Header("Chase")]
+
         ///<summary>
         ///过于远时跑回玩家身边
         /// </summary>
@@ -86,7 +88,8 @@ namespace CircleOfLife
                 return Stats.Current.Velocity * 2;
             }
         }
-        private float skillTick = 0f;
+        #endregion
+        [HideInInspector]
         public bool IsAnimalDead = false;
         public float SleepTime = 60f;
         private float SleepTick = 0f;
@@ -94,7 +97,19 @@ namespace CircleOfLife
         public UnityEvent OnAnimalDead = new UnityEvent();
         [HideInInspector]
         public UnityEvent OnAnimalAwake = new UnityEvent();
+        [HideInInspector]
         public Collider2D Collider2D;
+
+        #region Skill
+        [Header("Skill")]
+        public AnimalSkillType AnimalSkillType;
+        public Transform SkillOffset;
+        public UniversalBuff AttackBuff;
+        private float skillTick = 0f;
+        public float SkillBuffProbability;
+        public float SkillBuffDuration;
+        #endregion
+
         #region 判断条件
         [HideInInspector]
         public bool IsVeryFarFromPlayer
@@ -162,6 +177,7 @@ namespace CircleOfLife
         private void Awake()
         {
             Animal = transform;
+            Collider2D = GetComponent<Collider2D>();
             Stats = Stat.Build(this.gameObject, (context) =>
             {
                 if (Stats.Current.Hp <= 0f)

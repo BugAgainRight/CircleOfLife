@@ -158,7 +158,7 @@ MonoBehaviour:
     m_Bits: 1024
   FriendLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 2560
   Stat:
     Velocity: 4
     Hp: 900
@@ -171,8 +171,6 @@ MonoBehaviour:
     EvasionRate: 0
   BehaviourTree: {fileID: 3661484708059229031}
   AnimalType: 0
-  AnimalSkillType: 0
-  SkillOffset: {fileID: 3709501089370640028}
   FarFromPlayerDinstance: 10
   DiscoverPlayerDistance: 5
   MoveToPlayerDistance: 3
@@ -187,6 +185,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Collider2D: {fileID: 0}
+  AnimalSkillType: 2
+  SkillOffset: {fileID: 3709501089370640028}
+  SkillBuffProbability: 50
+  SkillBuffDuration: 3
 --- !u!50 &7394887093914897859
 Rigidbody2D:
   serializedVersion: 4
