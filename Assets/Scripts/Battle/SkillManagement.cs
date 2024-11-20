@@ -489,6 +489,7 @@ namespace CircleOfLife
         [Skill(EnemyStat.EnemyD)]
         [Skill(AnimalSkillType.TibetanAntelopeMelee)]
         [Skill(AnimalSkillType.FalcoCherrugMelee)]
+        [Skill(AnimalSkillType.WildYakMelee)]
         private static void SharedSkill_Melee(SkillContext context)
         {
             float angle = Mathf.Atan2(context.Direction.y, context.Direction.x);
