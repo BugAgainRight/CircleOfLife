@@ -14,4 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AllBuildSettings:
   - value1: 0
-    value2: {fileID: 7342358300458315531, guid: a2414783608d18240b9ef2a8d47bbce1, type: 3}
+    value2: {fileID: 5352039058172738364, guid: 5e043af567039cc4ab16ac5d4b865889, type: 3}
+  - value1: 1
+    value2: {fileID: 5352039058172738364, guid: 7738739919a0a344aa683cf2cdf09c2b, type: 3}
+  - value1: 3
+    value2: {fileID: 5352039058172738364, guid: bb1897fb981301141b93ff0027696a16, type: 3}
+  - value1: 2
+    value2: {fileID: 5352039058172738364, guid: bb1897fb981301141b93ff0027696a16, type: 3}

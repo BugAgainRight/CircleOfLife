@@ -12,6 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a487a3b7d813047be4a591def813b3, type: 3}
   m_Name: AnimalSkillPrefabSo
   m_EditorClassIdentifier: 
-  AllBuildSettings:
-  - value1: 0
-    value2: {fileID: 7423378393176344028, guid: 5c9a822f756e0a94dafb0eb663718ec4, type: 3}
+  AllBuildSettings: []

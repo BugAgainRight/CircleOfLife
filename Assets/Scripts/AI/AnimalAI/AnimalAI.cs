@@ -3,7 +3,7 @@ using Milutools.AI;
 using Milutools.AI.Nodes;
 using UnityEngine;
 
-namespace CircleOfLife
+namespace CircleOfLife.AI
 {
     public class AnimalAI : BehaviourTree<AnimalAIContext>
     {
@@ -28,7 +28,7 @@ namespace CircleOfLife
         }
 
 
-        private BehaviourState UseSkill(AnimalAIContext context)
+        protected BehaviourState UseSkill(AnimalAIContext context)
         {
             //Debug.Log("UseSkill");
             if (context.Enemy == null || context.TargetStats == null || !context.TargetStats.Transform)
@@ -44,13 +44,13 @@ namespace CircleOfLife
             return BehaviourState.Succeed;
         }
 
-        private BehaviourState Idle(AnimalAIContext context)
+        protected BehaviourState Idle(AnimalAIContext context)
         {
             //context.Animal.localEulerAngles += new Vector3(0f, 0f, 360f * Time.fixedDeltaTime);
             return BehaviourState.Succeed;
         }
 
-        private BehaviourState Sleep(AnimalAIContext context)
+        protected BehaviourState Sleep(AnimalAIContext context)
         {
             //Debug.Log("Sleep");
             if (context.IsAnimalDead)
@@ -61,7 +61,7 @@ namespace CircleOfLife
         }
 
         //行动:当玩家离自身过于远时,向玩家移动,在靠近玩家后取消
-        private BehaviourState RunToPlayer(AnimalAIContext context)
+        protected BehaviourState RunToPlayer(AnimalAIContext context)
         {
             //启用寻路
             if (!context.NeedAstarMove || context.IsArrival)
@@ -80,7 +80,7 @@ namespace CircleOfLife
             return BehaviourState.Running;
         }
         //行动:当自身发现敌人后，追击敌人,敌人进入攻击范围或者离开视野范围后取消
-        private BehaviourState MoveToEnemy(AnimalAIContext context)
+        protected BehaviourState MoveToEnemy(AnimalAIContext context)
         {
             //启用寻路
             if (!context.NeedAstarMove || context.IsArrival)
@@ -101,7 +101,7 @@ namespace CircleOfLife
             return BehaviourState.Running;
         }
 
-        private Vector3 MoveTowards(Vector3 pos, Vector3 target, float speed)
+        protected Vector3 MoveTowards(Vector3 pos, Vector3 target, float speed)
         {
             var arc = Mathf.Atan2(target.y - pos.y, target.x - pos.x);
             pos.x += speed * Mathf.Cos(arc) * Time.fixedDeltaTime;

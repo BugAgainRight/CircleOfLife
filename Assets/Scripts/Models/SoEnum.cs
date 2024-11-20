@@ -13,6 +13,26 @@ namespace CircleOfLife
         /// 藏獒
         /// </summary>
         TibetanMastiff,
+        /// <summary>
+        /// 藏羚羊
+        /// </summary>
+        TibetanAntelope,
+        /// <summary>
+        /// 狼
+        /// </summary>
+        Wolf,
+        ///<summary>
+        /// 猎隼
+        /// </summary>
+        FalcoCherrug,
+        /// <summary>
+        /// 藏棕熊
+        /// </summary>
+        Bear,
+        /// <summary>
+        /// 野牦牛
+        /// </summary>
+        WildYak
     }
 
     public enum EnemyStat
@@ -167,12 +187,26 @@ namespace CircleOfLife
         /// 藏獒普攻
         /// </summary>
         TibetanMastiffMelee,
-        WolfMelee,
-        BearMelee,
-        WildYakMelee,
+        /// <summary>
+        /// 藏羚羊普攻
+        /// </summary>
         TibetanAntelopeMelee,
-        TibetanAntelopeSkill1,
-
+        /// <summary>
+        /// 狼普攻
+        /// </summary>
+        WolfMelee,
+        /// <summary>
+        /// 猎隼普攻
+        /// </summary>
+        FalcoCherrugMelee,
+        /// <summary>
+        /// 熊普攻
+        /// </summary>
+        BearMelee,
+        /// <summary>
+        /// 野牦牛普攻
+        /// </summary>
+        WildYakMelee,
     }
 
     public static class EnumExtendFuncs

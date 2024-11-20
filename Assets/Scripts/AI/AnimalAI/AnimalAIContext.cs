@@ -104,8 +104,8 @@ namespace CircleOfLife
         [Header("Skill")]
         public AnimalSkillType AnimalSkillType;
         public Transform SkillOffset;
-        public UniversalBuff AttackBuff;
         private float skillTick = 0f;
+        [Header("普攻附带Buff的概率和持续时间,如果该动物不具备该能力则以下值无效")]
         public float SkillBuffProbability;
         public float SkillBuffDuration;
         #endregion

@@ -300,7 +300,11 @@ namespace CircleOfLife
 
 
         #region AnimalSkill
-        [Skill(AnimalSkillType.TibetanAntelopeMelee)]
+        /// <summary>
+        /// 动物特殊普攻(可能附带buff)
+        /// </summary>
+        /// <param name="context">context</param>
+        /// <param name="buffHandleFunction">普攻附带的Buff,概率:context.SpecialValues[0],持续时间:context.SpecialValues[1]</param>
         private static void Animal_Melee(SkillContext context, BuffHandleFunction buffHandleFunction = null)
         {
             float angle = Mathf.Atan2(context.Direction.y, context.Direction.x);
@@ -327,7 +331,6 @@ namespace CircleOfLife
                 BulletManagement.GetBulletTrigger(BulletTriggerType.Normal)(
                     new BattleContext(context.PhysicsLayer, context.AttackerData, stat.BattleEntity.Stats));
             }
-
         }
         [Skill(AnimalSkillType.TibetanMastiffMelee)]
         private static void TibetanMastiffSkill_Melee(SkillContext context)
@@ -484,6 +487,8 @@ namespace CircleOfLife
         [Skill(EnemyStat.EnemyA)]
         [Skill(EnemyStat.EnemyC)]
         [Skill(EnemyStat.EnemyD)]
+        [Skill(AnimalSkillType.TibetanAntelopeMelee)]
+        [Skill(AnimalSkillType.FalcoCherrugMelee)]
         private static void SharedSkill_Melee(SkillContext context)
         {
             float angle = Mathf.Atan2(context.Direction.y, context.Direction.x);
