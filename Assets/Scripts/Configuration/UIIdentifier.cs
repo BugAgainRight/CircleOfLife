@@ -8,6 +8,7 @@
         LevelUpUI,
         PlotBox,
         ChangeDirectionUI,
-        GameMenu
+        GameMenu,
+        AtlasUI
     }
 }

@@ -1,10 +1,13 @@
 ﻿using Milutools.Milutools.UI;
 using System;
+using System.Linq;
+using CircleOfLife.Atlas;
 using CircleOfLife.General;
 using Milease.Utils;
 using Milutools.Audio;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace CircleOfLife
 {
@@ -23,6 +26,11 @@ namespace CircleOfLife
             Close();
         }
 
+        public void ViewAtlas()
+        {
+            AtlasUI.Open();
+        }
+        
         public void ApplyBGMVolume()
         {
             AudioManager.SetVolume(AudioPlayerType.BGMPlayer, BGMVolume.value);
@@ -62,10 +70,7 @@ namespace CircleOfLife
 
         public override void AboutToOpen(object parameter)
         {
-            new Action(() =>
-            {
-                Time.timeScale = 0f;
-            }).AsMileaseKeyEvent(0.5f).Play();
+            Time.timeScale = 0f;
         }
     }
 }

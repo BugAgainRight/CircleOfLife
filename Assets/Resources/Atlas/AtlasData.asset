@@ -12,6 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b0356ad2b844944a4a2d284cae0bed, type: 3}
   m_Name: AtlasData
   m_EditorClassIdentifier: 
-  Title: 
-  Description: 
-  Icon: {fileID: 0}
+  Data:
+  - Title: "\u654C\u4EBAA"
+    Description: 
+    SkeletonData: {fileID: 11400000, guid: 4f74a8d5dcd19034590aa62831b4d283, type: 2}
+  - Title: "\u654C\u4EBAB"
+    Description: 
+    SkeletonData: {fileID: 11400000, guid: 32cfb0ffee9d587409dc8f7188a8e47e, type: 2}
+  - Title: "\u654C\u4EBAC"
+    Description: 
+    SkeletonData: {fileID: 11400000, guid: 8800c526fd5bc3f40ae703e89e23d1ef, type: 2}
+  - Title: "\u654C\u4EBAD"
+    Description: 
+    SkeletonData: {fileID: 11400000, guid: bedd4d5633f98544797802abe3392f2f, type: 2}
+  - Title: "\u654C\u4EBAF"
+    Description: 
+    SkeletonData: {fileID: 11400000, guid: aa3f35ec080f2d94badc7e6c7d4ddb5c, type: 2}

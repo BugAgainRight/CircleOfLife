@@ -18,7 +18,6 @@ namespace CircleOfLife.Atlas
         public string Title;
         [Multiline]
         public string Description;
-        public Sprite Icon;
         public SkeletonDataAsset SkeletonData;
     }
 }
