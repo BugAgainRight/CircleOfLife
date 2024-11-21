@@ -10,6 +10,7 @@ using CircleOfLife.Configuration;
 using CircleOfLife.General;
 using CircleOfLife.ScriptObject;
 using CircleOfLife.Units;
+using CircleOfLife.Weather;
 using Milease.Core;
 using Milease.Core.Animator;
 using Milease.Enums;
@@ -128,6 +129,7 @@ namespace CircleOfLife.Level
             waveTick = 0f;
             Material = Level.InitialMaterial;
             battling = false;
+            WeatherSystem.CurrentWeather = (WeatherSystem.Weather)Level.Weather;
             BuildUtils.DisableAllBuilding();
             PlayerController.Instance.enabled = false;
             LaunchNextRound();

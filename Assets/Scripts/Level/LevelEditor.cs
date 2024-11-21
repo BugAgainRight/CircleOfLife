@@ -91,6 +91,8 @@ namespace CircleOfLife.Level
 
             var materialProp = serializedObject.FindProperty("InitialMaterial");
             EditorGUILayout.PropertyField(materialProp);
+            var weatherProp = serializedObject.FindProperty("Weather");
+            EditorGUILayout.PropertyField(weatherProp);
             
             EditorGUILayout.LabelField("所有回合", EditorStyles.boldLabel);
 

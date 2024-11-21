@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   InitialMaterial: 500
+  Weather: 1
   Rounds:
   - BeforePlot: {fileID: 4900000, guid: 4fc1cdf7cb2ebb340906aa8935b20245, type: 3}
     SkipBuildPlace: 0
