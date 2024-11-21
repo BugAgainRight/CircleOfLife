@@ -56,12 +56,44 @@ namespace RuiRuiAstar
             Astar.start = start;
             Astar.target = target;
             List<Vector2Int> result = new List<Vector2Int>();
-
+#if UNITY_EDITOR
             if (!grids.ContainsPos(start.x, start.y) || !grids.ContainsPos(target.x, target.y))
             {
                 Debug.LogError($"OperationPath 传入参数越界");
-                return null;
+                return new();
             }
+            if (grids[target.x, target.y].isObstacle&& !grids[target.x, target.y].isDestructible)
+            {
+                Vector2Int centerPos =new Vector2Int(target.x, target.y);
+                Vector2Int midPos;
+                List<Vector2Int> noObsticalPos = new();
+                for(int i=-3;i<=3 ;i++ )
+                {
+                    for (int j = -3; j <= 3; j++)
+                    {
+                        midPos = centerPos + new Vector2Int(i, j);
+                        if (grids.ContainsPos(midPos.x, midPos.y) &&
+                            (!grids[midPos.x, midPos.y].isObstacle ||
+                            grids[midPos.x, midPos.y].isDestructible))
+                        {
+                            noObsticalPos.Add(midPos);
+                        }
+                    }
+                }
+
+                noObsticalPos.Sort((x, y) => Vector2.Distance(x, centerPos).
+                       CompareTo(Vector2.Distance(y, centerPos)));
+                if (noObsticalPos.Count == 0)
+                {
+#if UNITY_EDITOR
+                    Debug.LogError($"现在只能是目标点卡墙里了了！");
+#endif
+                    return new();
+                }
+                target = noObsticalPos[0];
+
+            }
+#endif
             AstarNode nowNode = grids[start.x, start.y];
             AddOtherPos(nowNode);
             nowNode.gCost = 0;
@@ -214,6 +246,15 @@ namespace RuiRuiAstar
                         item.isDestructible = true;
                         item.destroyCost = destoey.DestoryCost();
                     }
+                    else if(collider2D.transform.parent!=null)
+                    {
+                        var middd = collider2D.GetComponentInParent<IDestoey>();
+                        if (middd!=null)
+                        {
+                            item.isDestructible = true;
+                            item.destroyCost = middd.DestoryCost();
+                        }
+                    }
 
                 }
                 else
@@ -291,8 +332,13 @@ namespace RuiRuiAstar
 
         public bool Move()
         {
-
-
+#if UNITY_EDITOR
+            if (path.Count == 0)
+            {
+                Debug.LogError("路径数为零");
+                return false;
+            }
+#endif 
             Vector2Int midTarget = path[0];
             float maxDistance = Speed * Time.fixedDeltaTime;
             Transform.position = Vector2.MoveTowards(Transform.position, midTarget, maxDistance);
@@ -1502,6 +1548,16 @@ namespace RuiRuiVectorField
                     {
                         item.IsDestructible = true;
                         item.DestroyCost = destoey.DestoryCost();
+                        Debug.Log("sadfsf");
+                    }
+                    else if (collider2D.transform.parent != null)
+                    {
+                        var middd = collider2D.GetComponentInParent<IDestoey>();
+                        if (middd != null)
+                        {
+                            item.IsDestructible = true;
+                            item.DestroyCost = middd.DestoryCost();
+                        }
                     }
 
                 }

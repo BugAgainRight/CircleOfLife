@@ -225,6 +225,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &134519050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 134519052}
+  - component: {fileID: 134519051}
+  m_Layer: 0
+  m_Name: SaveManagement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &134519051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134519050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69986d980f7f7c8478f2d9fc48229881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &134519052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134519050}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &152304731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,16 +1298,20 @@ MonoBehaviour:
   aaas:
   - Prefab: {fileID: 0}
     Icon: {fileID: 21300000, guid: 52129f824fb6be54b8ede957a3d99f6b, type: 3}
+    RotatedIcon: {fileID: 0}
     BuildSize: {x: 0, y: 0}
     Cost: 0
     WhetherRotate: 0
     Name: 
+    Description: 
   - Prefab: {fileID: 0}
     Icon: {fileID: 0}
+    RotatedIcon: {fileID: 0}
     BuildSize: {x: 0, y: 0}
     Cost: 0
     WhetherRotate: 0
     Name: 
+    Description: 
   bbb:
   - value1: 0
     value2: 0
@@ -1274,33 +1322,41 @@ MonoBehaviour:
     value2:
       Prefab: {fileID: 0}
       Icon: {fileID: 0}
+      RotatedIcon: {fileID: 0}
       BuildSize: {x: 0, y: 0}
       Cost: 0
       WhetherRotate: 0
       Name: 
+      Description: 
   - value1: 0
     value2:
       Prefab: {fileID: 0}
       Icon: {fileID: 0}
+      RotatedIcon: {fileID: 0}
       BuildSize: {x: 0, y: 0}
       Cost: 0
       WhetherRotate: 0
       Name: 
+      Description: 
   - value1: 0
     value2:
       Prefab: {fileID: 0}
       Icon: {fileID: 0}
+      RotatedIcon: {fileID: 0}
       BuildSize: {x: 0, y: 0}
       Cost: 0
       WhetherRotate: 0
       Name: 
+      Description: 
   testData:
   - Prefab: {fileID: 0}
     Icon: {fileID: 0}
+    RotatedIcon: {fileID: 0}
     BuildSize: {x: 0, y: 0}
     Cost: 0
     WhetherRotate: 0
     Name: 
+    Description: 
   testBulletPrefab_Curve: {fileID: 3730872478568565947, guid: 6787989eb771c9248acf73aeb512e168, type: 3}
   testBulletPrefab_2: {fileID: 3730872478568565947, guid: 12bdd9ab30d3faf4da530650634292fc, type: 3}
   TestSo_Chen: {fileID: 11400000, guid: 386df96a693a1fb4abc50ab382683daf, type: 2}
@@ -2685,3 +2741,4 @@ SceneRoots:
   - {fileID: 5285484891202690976}
   - {fileID: 4383327734112042096}
   - {fileID: 3334260956003792446}
+  - {fileID: 134519052}
