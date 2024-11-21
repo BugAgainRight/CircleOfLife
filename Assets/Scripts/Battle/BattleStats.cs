@@ -30,6 +30,10 @@ namespace CircleOfLife.Battle
         {
             Current.Hp = Mathf.Min(Current.Hp - damage, Max.Hp);
             lasting.Hp = Current.Hp;
+            if (!GameObject)
+            {
+                return;
+            }
             hurtAction?.Invoke(context);
         }
 
