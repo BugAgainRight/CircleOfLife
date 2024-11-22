@@ -16,3 +16,9 @@ MonoBehaviour:
   - Name: Battle
     Identifier: 0
     Clip: {fileID: 8300000, guid: 99537fa4af2523f49bd5bce4e9a4e13e, type: 3}
+  - Name: TitleScreen
+    Identifier: 1
+    Clip: {fileID: 8300000, guid: a408f82788b5d5344acf4ceb62f0e746, type: 3}
+  - Name: Map
+    Identifier: 2
+    Clip: {fileID: 0}
