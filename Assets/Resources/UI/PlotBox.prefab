@@ -865,7 +865,13 @@ MonoBehaviour:
   Sprites:
   - {fileID: 21300000, guid: c65038aec989ad140b0eea5a8ee87816, type: 3}
   - {fileID: 21300000, guid: 1b02c050cb91c1745a2d2a5a7c2ef327, type: 3}
-  - {fileID: 21300000, guid: 56fd6d342ed87db4ca79ba9f2c6ff142, type: 3}
+  - {fileID: 21300000, guid: 3634d743863a41f4c91d886d6abd48cb, type: 3}
+  - {fileID: 21300000, guid: b67fe9c21d80ab44c8642f0abb2194bc, type: 3}
+  - {fileID: 21300000, guid: b650e29bdcc26274d8aa757e42bdcf5f, type: 3}
+  - {fileID: 21300000, guid: 1eed8c84eaec3914f81b7d0a59c83c6f, type: 3}
+  - {fileID: 21300000, guid: fce2e94b11510e546a5f72a868007438, type: 3}
+  - {fileID: 21300000, guid: aa17a95646232c247a5d298a5c0be615, type: 3}
+  - {fileID: 21300000, guid: 976ba03c810392246b2d69af5f0801cd, type: 3}
   DialogIndex: 0
   DialogRows: []
   BindUIController: {fileID: 2955987772322323480}

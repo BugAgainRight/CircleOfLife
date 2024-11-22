@@ -3,7 +3,6 @@ using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using CircleOfLife.Key;
 using CircleOfLife.Level;
-using CircleOfLife.NPCInteract;
 using Milease.Enums;
 using Milease.Utils;
 using Spine.Unity;
@@ -19,14 +18,14 @@ namespace CircleOfLife.Units
         public static PlayerController Instance;
 
         public SkeletonAnimation SkeletonAnimation;
-
+        
         private Vector2 direction, lstDirection;
         private new Rigidbody2D rigidbody2D;
-
+        
         public BattleStats.Stats Stat;
         public Volume RunningProcess;
         public Transform SkillOffset;
-
+        
         public BattleStats Stats { get; set; }
 
         public FactionType FactionType => FactionType.Friend;
@@ -37,11 +36,11 @@ namespace CircleOfLife.Units
 
         [HideInInspector]
         public Action<BattleContext> HurtAction;
-
+        
         void Awake()
         {
             Instance = this;
-
+            
             Stats = Stat.Build(gameObject, context =>
             {
                 HurtAction?.Invoke(context);
@@ -58,7 +57,7 @@ namespace CircleOfLife.Units
             //playerAIContext = GetComponent<PlayerAIContext>();
 
         }
-
+        
         void Start()
         {
             if (rigidbody2D.gravityScale != 0)
@@ -67,7 +66,7 @@ namespace CircleOfLife.Units
                 rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
         }
-
+        
         void Update()
         {
             PlayerMove();
@@ -79,7 +78,7 @@ namespace CircleOfLife.Units
         {
             running = false;
             lstDirection = Vector2.zero;
-            RunningProcess.MileaseTo(nameof(RunningProcess.weight), 0f, 0.5f,
+            RunningProcess.MileaseTo(nameof(RunningProcess.weight), 0f, 0.5f, 
                 0f, EaseFunction.Circ, EaseType.Out).Play();
             SkeletonAnimation.state.SetAnimation(0, "idel", true);
         }
@@ -107,14 +106,14 @@ namespace CircleOfLife.Units
             if (lstDirection != direction)
             {
                 lstDirection = direction;
-                SkeletonAnimation.state.SetAnimation(0,
+                SkeletonAnimation.state.SetAnimation(0, 
                     (direction.Equals(Vector2.zero)) ? "idel" : (running ? "run" : "walk"), true);
             }
 
             if (lstRunning != running)
             {
                 lstRunning = running;
-                RunningProcess.MileaseTo(nameof(RunningProcess.weight), running ? 1f : 0f, 0.5f,
+                RunningProcess.MileaseTo(nameof(RunningProcess.weight), running ? 1f : 0f, 0.5f, 
                     0f, EaseFunction.Circ, EaseType.Out).Play();
             }
         }
@@ -123,17 +122,6 @@ namespace CircleOfLife.Units
         {
             //if (KeyEnum.Interact.IsKeyDown()) OpenSomething();
             running = KeyEnum.Running.IsPressing();
-            if (KeyEnum.Interact.IsKeyDown())
-            {
-                if (InteractorManager.GetInteractableTarget())
-                {
-                    Debug.Log("Interact:" + InteractorManager.GetInteractableTarget().name);
-                }
-                else
-                {
-                    Debug.Log("No InteractableTarget");
-                }
-            }
             /**if (KeyEnum.Attack.IsKeyDown()) Attack();
             if (KeyEnum.Fire.IsKeyDown()) Fire();
             if (KeyEnum.Skill1.IsKeyDown()) Skilll();

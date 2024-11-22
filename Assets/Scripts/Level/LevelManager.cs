@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CircleOfLife.Audio;
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using CircleOfLife.Build;
@@ -16,7 +15,6 @@ using Milease.Core;
 using Milease.Core.Animator;
 using Milease.Enums;
 using Milease.Utils;
-using Milutools.Audio;
 using Milutools.Recycle;
 using Milutools.SceneRouter;
 using TMPro;
@@ -61,11 +59,6 @@ namespace CircleOfLife.Level
             registeredPoints.Add(point, rect);
         }
 
-        public void PopupGameMenu()
-        {
-            GameMenu.Open(null);
-        }
-        
         public void StartInfinityMode()
         {
             MessageBox.Open(("开启无尽模式", "该功能用于不断重复第二回合的敌人内容，方便体验全部的装置功能使用。\n" +
@@ -178,9 +171,6 @@ namespace CircleOfLife.Level
 
         private void LaunchNextRound()
         {
-            MainCanvas.MileaseTo("alpha", 0f, 0.5f, 
-                0f, EaseFunction.Quad, EaseType.Out).Play();
-            
             var round = Level.Rounds[curRound];
             if (round.BeforePlot && !infinityMode)
             {
@@ -222,7 +212,8 @@ namespace CircleOfLife.Level
             BuildUtils.DisableAllBuilding();
             PlayerController.Instance.enabled = false;
             CameraController.Instance.CameraMode = CameraMoveMode.Free;
-
+            MainCanvas.MileaseTo("alpha", 0f, 0.5f, 
+                0f, EaseFunction.Quad, EaseType.Out).Play();
             BuildingPlaceUI.Open(new BuildingPlaceUIData()
             {
                 Buildings = 
@@ -302,7 +293,6 @@ namespace CircleOfLife.Level
                     }).AsMileaseKeyEvent(1f));
                     animator.Then(new Action(() =>
                     {
-                        AudioManager.PlaySnd(SoundEffectsSO.Clips.Coin);
                         service.SupplyMaterial();
                     }).AsMileaseKeyEvent(1f));
                 }

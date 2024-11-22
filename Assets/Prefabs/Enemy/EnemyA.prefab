@@ -214,16 +214,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec4a16d33d94bd8a69f2c76301e3213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillLayerMask:
-    serializedVersion: 2
-    m_Bits: 2560
-  FindTargetLayerMask:
+  LayerMask:
     serializedVersion: 2
     m_Bits: 2560
   EnemyAnimator: {fileID: 2674028249205067043}
   EnemyType: 0
   FocusBuildingOnly: 0
-  AlwaysCast: 0
   Stat:
     Velocity: 1.5
     Hp: 200
@@ -242,6 +238,7 @@ MonoBehaviour:
   DiscoverDistance: 4
   BattleDistance: 1.5
   SkillOffset: {fileID: 3918469935689205782}
+  LockDirection: 0
 --- !u!114 &5752063878871917780
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -27,14 +27,6 @@ namespace CircleOfLife.AI
                 Action(Idle)
             );
         }
-
-        public void CastSkill(EnemyAIContext context, BattleStats hitData)
-        {
-            context.ResetSkillTick();
-            var skillContext = new SkillContext(context.SkillLayerMask, context.Stats, hitData);
-            skillContext.FireTransform = context.SkillOffset;
-            SkillManagement.GetSkill(context.EnemyType)(skillContext);
-        }
         
         private BehaviourState Cast(EnemyAIContext context)
         {
@@ -42,7 +34,10 @@ namespace CircleOfLife.AI
             {
                 return BehaviourState.Succeed;
             }
-            CastSkill(context, context.TargetStats);
+            context.ResetSkillTick();
+            var skillContext = new SkillContext(context.LayerMask, context.Stats, context.TargetStats);
+            skillContext.FireTransform = context.SkillOffset;
+            SkillManagement.GetSkill(context.EnemyType)(skillContext);
             return BehaviourState.Succeed;
         }
         

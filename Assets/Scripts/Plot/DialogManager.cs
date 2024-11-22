@@ -67,7 +67,13 @@ namespace CircleOfLife
         {
             ImageDictionary["辛拉面"] = Sprites[0];
             ImageDictionary["五月"] = Sprites[1];
-            ImageDictionary["xxx"]= Sprites[2];
+            ImageDictionary["我"]= Sprites[2];
+            ImageDictionary["卓玛"]=Sprites[3];
+            ImageDictionary["多吉"]=Sprites[4];
+            ImageDictionary["扎西"]=Sprites[5];
+            ImageDictionary["村长"]=Sprites[6];
+            ImageDictionary["盗猎者"]=Sprites[7];
+            ImageDictionary["？"] = Sprites[8];
         }
 
         void Start()

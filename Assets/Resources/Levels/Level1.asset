@@ -49,7 +49,7 @@ MonoBehaviour:
       - Enemy: 2
         SummonCount: 1
         AppearPoints: 
-  - BeforePlot: {fileID: 0}
+  - BeforePlot: {fileID: 4900000, guid: 99ac521de62b8ac42acffa0f4977a603, type: 3}
     SkipBuildPlace: 0
     Waves:
     - Name: "0.00 \u79D2\u540E\uFF1A"
