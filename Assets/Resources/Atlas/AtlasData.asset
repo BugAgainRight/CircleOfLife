@@ -27,7 +27,7 @@ MonoBehaviour:
       Key: 1
   - Title: "\u654C\u4EBAB\uFF08\u8303\u56F4\uFF09"
     Description: 
-    SkeletonData: {fileID: 11400000, guid: aa3f35ec080f2d94badc7e6c7d4ddb5c, type: 2}
+    SkeletonData: {fileID: 11400000, guid: 32cfb0ffee9d587409dc8f7188a8e47e, type: 2}
     Mapping:
       Type: 0
       Key: 2

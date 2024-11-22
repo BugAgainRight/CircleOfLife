@@ -12,11 +12,21 @@ namespace CircleOfLife.Level
         {
             Day = 1, Night = 2, Rainy = 4, Snowy = 8
         }
-        
+
+        [Header("地图预制体")]
+        public GameObject MapPrefab;
+        [Header("初始材料")]
         public int InitialMaterial;
+        [Header("关卡天气")]
         public WeatherType Weather = WeatherType.Day;
         public List<LevelRound> Rounds;
-
+        [Header("胜利后的剧情")]
+        public TextAsset WinPlot;
+        [Header("本关解锁的小动物")]
+        public AnimalStat UnlockAnimal;
+        [Header("本关解锁的玩家技能列表")]
+        public List<PlayerSkillType> UnlockSkills;
+        
         private void OnValidate()
         {
             foreach (var round in Rounds)

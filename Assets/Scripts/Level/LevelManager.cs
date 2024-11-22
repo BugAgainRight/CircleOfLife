@@ -21,6 +21,7 @@ using Milutools.SceneRouter;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace CircleOfLife.Level
@@ -34,7 +35,6 @@ namespace CircleOfLife.Level
         
         public static LevelManager Instance;
         public CanvasGroup MainCanvas, FailUI, SuccessUI;
-        public Grid MapGrid;
         public TMP_Text MaterialText, FailCause;
         public GameObject MaterialWordPrefab;
         public Volume ServicePostProcess, FailPostProcess, SuccessPostProcess;
@@ -43,6 +43,7 @@ namespace CircleOfLife.Level
 
         private LevelScriptableObject Level;
 
+        private Grid mapGrid;
         private int curWave, curRound;
         private float waveTick;
         private bool battling = false;
@@ -125,6 +126,11 @@ namespace CircleOfLife.Level
         public void LoadLevel(string level)
         {
             Level = Resources.Load<LevelScriptableObject>("Levels/" + level);
+            
+            var map = Instantiate(Level.MapPrefab);
+            map.SetActive(true);
+            mapGrid = map.GetComponentInChildren<Grid>();
+            
             curWave = curRound = 0;
             waveTick = 0f;
             Material = Level.InitialMaterial;
@@ -196,7 +202,7 @@ namespace CircleOfLife.Level
                             MetaData = x.value2,
                             Type = x.value1
                         }).ToList(),
-                MapGrid = MapGrid,
+                MapGrid = mapGrid,
                 AvaliableMaterial = Material
             }, (r) =>
             {
@@ -212,6 +218,7 @@ namespace CircleOfLife.Level
             {
                 for (var i = 0; i < enemy.SummonCount; i++)
                 {
+                    SaveManagement.UseSaveData.Unlock(enemy.Enemy);
                     var point = enemy.AppearPoints.Count switch
                     {
                         0 => points[Random.Range(0, points.Count)],
@@ -303,6 +310,41 @@ namespace CircleOfLife.Level
 
             animator.Play();
         }
+
+        private void OnWin()
+        {
+            MainCanvas.MileaseTo("alpha", 0f, 0.5f, 
+                0f, EaseFunction.Quad, EaseType.Out).Play();
+            PlayerController.Instance.ResetState();
+            PlayerController.Instance.enabled = false;
+            BuildUtils.DisableAllBuilding();
+
+            if (Level.WinPlot)
+            {
+                PlotBox.Open(Level.WinPlot, PostWin);
+                return;
+            }
+            
+            PostWin();
+        }
+
+        private void PostWin()
+        {
+            foreach (var skill in Level.UnlockSkills)
+            {
+                SaveManagement.UseSaveData.Unlock(skill);
+            }
+            SaveManagement.UseSaveData.Unlock(Level.UnlockAnimal);
+            
+            SuccessPostProcess.gameObject.SetActive(true);
+            SuccessPostProcess.MileaseTo(nameof(ServicePostProcess.weight), 1f, 0.5f, 
+                    0f, EaseFunction.Quad, EaseType.Out)
+                .Then(SuccessUI.MileaseTo("alpha", 1f, 0.5f))
+                .Play(() =>
+                {
+                    MessageBox.Open(("恭喜！", "你解锁了新的技能！同时，受你救助的小动物加入了你的守卫计划！"));
+                });
+        }
         
         private void Update()
         {
@@ -331,11 +373,7 @@ namespace CircleOfLife.Level
                     
                     if (curRound >= Level.Rounds.Count)
                     {
-                        SuccessPostProcess.gameObject.SetActive(true);
-                        SuccessPostProcess.MileaseTo(nameof(ServicePostProcess.weight), 1f, 0.5f, 
-                                0f, EaseFunction.Quad, EaseType.Out)
-                            .Then(SuccessUI.MileaseTo("alpha", 1f, 0.5f))
-                            .Play();
+                        OnWin();
                     }
                     else
                     {

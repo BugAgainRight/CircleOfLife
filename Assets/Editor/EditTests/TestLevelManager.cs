@@ -35,7 +35,7 @@ namespace CircleOfLife.Tests
             levelManagerObject = new GameObject();
             levelManager = levelManagerObject.AddComponent<LevelManager>();
             levelManager.MaterialText = new GameObject().AddComponent<TMP_Text>();
-            levelManager.MapGrid = new GameObject().AddComponent<Grid>();
+            //levelManager.mapGrid = new GameObject().AddComponent<Grid>();
             levelManager.ServicePostProcess = new GameObject().AddComponent<Volume>();
             levelManager.MainCanvas = new GameObject().AddComponent<CanvasGroup>();
         }

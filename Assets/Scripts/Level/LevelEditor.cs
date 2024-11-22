@@ -89,10 +89,9 @@ namespace CircleOfLife.Level
         {
             serializedObject.Update();
 
-            var materialProp = serializedObject.FindProperty("InitialMaterial");
-            EditorGUILayout.PropertyField(materialProp);
-            var weatherProp = serializedObject.FindProperty("Weather");
-            EditorGUILayout.PropertyField(weatherProp);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("MapPrefab"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("InitialMaterial"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("Weather"));
             
             EditorGUILayout.LabelField("所有回合", EditorStyles.boldLabel);
 
@@ -133,6 +132,10 @@ namespace CircleOfLife.Level
                 roundsProp.InsertArrayElementAtIndex(roundsProp.arraySize);
             }
 
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("WinPlot"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("UnlockAnimal"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("UnlockSkills"));
+            
             serializedObject.ApplyModifiedProperties();
         }
     }

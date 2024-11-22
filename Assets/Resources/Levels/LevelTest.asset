@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578bbec400246cfb3e068a0e4339a17, type: 3}
   m_Name: LevelTest
   m_EditorClassIdentifier: 
+  MapPrefab: {fileID: 949119636542407803, guid: c5ae8ec427c653741961fc648d12e470, type: 3}
   InitialMaterial: 500
   Weather: 1
   Rounds:
@@ -78,3 +79,6 @@ MonoBehaviour:
       - Enemy: 4
         SummonCount: 2
         AppearPoints: 
+  WinPlot: {fileID: 0}
+  UnlockAnimal: 0
+  UnlockSkills: 
