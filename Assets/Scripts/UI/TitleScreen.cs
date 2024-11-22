@@ -10,7 +10,18 @@ namespace CircleOfLife
     {
         public void NewGame()
         {
+            SaveManagement.SelectSaveData(-1);
             SceneRouter.GoTo(SceneIdentifier.Battle);
+        }
+
+        public void ContinueGame()
+        {
+            SaveUI.Open(false);
+        }
+
+        public void ExitGame()
+        {
+            Application.Quit();
         }
     }
 }

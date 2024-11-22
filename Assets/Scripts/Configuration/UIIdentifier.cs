@@ -9,6 +9,7 @@
         PlotBox,
         ChangeDirectionUI,
         GameMenu,
-        AtlasUI
+        AtlasUI,
+        SaveUI
     }
 }

@@ -35,10 +35,14 @@ namespace CircleOfLife
         /// </summary>
         public static void Save(int index)
         {
-            if (index < 4) saveData.AllSaveData[index] = UseSaveData;
+            UseSaveData.LastSaveDate = DateTime.Now;
+            if (index < 4)
+            {
+                saveData.AllSaveData[index] ??= new SaveCombine.SaveData();
+                saveData.AllSaveData[index].Copy(UseSaveData);
+            }
             File.WriteAllText(Path.Combine(Application.persistentDataPath, "SaveData.json"),
                 JsonConvert.SerializeObject(saveData));
-            UseSaveData = null;
         }
 
         /// <summary>
@@ -80,18 +84,22 @@ namespace CircleOfLife
 
     }
 
-    [SerializeField]
+    [Serializable]
     public class SaveCombine
     {
-        [SerializeField]
+        [Serializable]
         public class SaveData
         {
+            public string UserName;
+            public DateTime LastSaveDate;
+            public int CurrentDay;
+            
             [JsonProperty]
             private long timer;
             [JsonProperty]
             private float midTimer;
             [JsonIgnore]
-            public TimeSpan Timer=>TimeSpan.FromSeconds(timer);
+            public TimeSpan Timer => TimeSpan.FromSeconds(timer);
 
 
             ////////////其他存档数据
