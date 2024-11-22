@@ -42,7 +42,8 @@ namespace CircleOfLife
         EnemyBGroup,
         EnemyC,
         EnemyD,
-        EnemyF
+        EnemyF,
+        Boss
     }
 
     public enum BuildStat
@@ -72,7 +73,23 @@ namespace CircleOfLife
 
     public enum EnemySkillType
     {
-        test1
+        test1,
+        /// <summary>
+        /// boss防御技能
+        /// </summary>
+        BossSkill1,
+        /// <summary>
+        /// boss攻击技能
+        /// </summary>
+        BossSkill2,
+        /// <summary>
+        /// boss攻击技能
+        /// </summary>
+        BossSkill3,
+        /// <summary>
+        /// boss辅助技能
+        /// </summary>
+        BossSkill4
     }
 
     public enum PlayerSkillType

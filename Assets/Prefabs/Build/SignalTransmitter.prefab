@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aec8be61a4fc0a4888d6161aa0958f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestroyCost: 50
+  DestroyCost: 20
   Attribute:
   - Velocity: 0
     Hp: 200

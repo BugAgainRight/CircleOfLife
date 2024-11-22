@@ -48,9 +48,9 @@ namespace RuiRuiAstar
         static int obstacleLayer;
         public static List<Vector2Int> OperationPath(Vector2Int start, Vector2Int target)
         {
-
             open = new();
             close = new();
+           
             openBools = new SerializabledCenter2D<bool>(xRange, yRange);
             closeBools = new SerializabledCenter2D<bool>(xRange, yRange);
             Astar.start = start;
@@ -553,7 +553,7 @@ namespace RuiRuiSTL
 
         public Range2Int(Range2Int range2Int)
         {
-            if (range2Int.y_ <= 0 || range2Int.x_ > 0) Debug.LogError("Range2Int Init Value Error !");
+            if (range2Int.y_ <= 0 || range2Int.x_ > 0) Debug.LogError($"Range2Int Init Value Error !  {range2Int.y_}   {range2Int.x_}");
             x_ = range2Int.x_;
             y_ = range2Int.y_;
             X = -x_;
@@ -1548,7 +1548,6 @@ namespace RuiRuiVectorField
                     {
                         item.IsDestructible = true;
                         item.DestroyCost = destoey.DestoryCost();
-                        Debug.Log("sadfsf");
                     }
                     else if (collider2D.transform.parent != null)
                     {

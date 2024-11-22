@@ -266,6 +266,35 @@ namespace CircleOfLife
         }
 
 
+
+        [Skill(EnemySkillType.BossSkill1)]
+        private static void BossSkill_1(SkillContext context)
+        {
+            Debug.Log("Boss技能1");
+        }
+
+        [Skill(EnemySkillType.BossSkill2)]
+        private static void BossSkill_2(SkillContext context)
+        {
+            Debug.Log("Boss技能2");
+
+        }
+
+        [Skill(EnemySkillType.BossSkill3)]
+        private static void BossSkill_3(SkillContext context)
+        {
+            Debug.Log("Boss技能3");
+
+        }
+
+        [Skill(EnemySkillType.BossSkill4)]
+        private static void BossSkill_4(SkillContext context)
+        {
+            Debug.Log("Boss技能4");
+
+        }
+
+
         #endregion
 
         private static void EnemyFBuff(BattleStats stats, BuffContext buff)
@@ -547,6 +576,7 @@ namespace CircleOfLife
         /// 共用远程群体
         /// </summary>
         /// <param name="context"></param>
+        [Skill(EnemyStat.Boss)]
         [Skill(EnemyStat.EnemyBGroup)]
         [Skill(BuildSkillType.SignalTransmitter1Friend)]
         private static void SharedSkill_RangedGroup(SkillContext context)
