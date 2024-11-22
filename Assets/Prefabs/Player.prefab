@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a924608e6c1d740a2d2e67beb3c1cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillType: 5
+  SkillType: 0
   NormalHitType: 0
   Player: {fileID: 1558500674222880248}
   EnergyFill: {fileID: 5104634478616570926}

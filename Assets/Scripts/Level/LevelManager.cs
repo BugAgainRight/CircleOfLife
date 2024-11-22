@@ -10,6 +10,7 @@ using CircleOfLife.Configuration;
 using CircleOfLife.General;
 using CircleOfLife.ScriptObject;
 using CircleOfLife.Units;
+using CircleOfLife.Utils;
 using CircleOfLife.Weather;
 using Milease.Core;
 using Milease.Core.Animator;
@@ -122,9 +123,11 @@ namespace CircleOfLife.Level
         {
             remaining.Remove(go);
         }
-
+        
         public void LoadLevel(string level)
         {
+            SaveManagement.UseSaveData.Unlock(PlayerSkillType.Melee);
+            
             Level = Resources.Load<LevelScriptableObject>("Levels/" + level);
             
             var map = Instantiate(Level.MapPrefab);
@@ -138,7 +141,34 @@ namespace CircleOfLife.Level
             WeatherSystem.CurrentWeather = (WeatherSystem.Weather)Level.Weather;
             BuildUtils.DisableAllBuilding();
             PlayerController.Instance.enabled = false;
-            LaunchNextRound();
+
+            if (SaveManagement.UseSaveData.AtlasAnimalUnlocks.Any())
+            {
+                EnumPopupUI.Open(new EnumPopupUIData()
+                {
+                    Title = "选择出战的小动物",
+                    Description = "和小动物并肩作战吧！",
+                    List = SaveManagement.UseSaveData.AtlasAnimalUnlocks.Select(x => (object)x).ToList(),
+                    Describer = (x) => ((AnimalStat)x) switch
+                    {
+                        AnimalStat.TibetanMastiff => "藏獒",
+                        AnimalStat.TibetanAntelope => "藏羚羊",
+                        AnimalStat.Wolf => "狼",
+                        AnimalStat.FalcoCherrug => "猎隼",
+                        AnimalStat.Bear => "藏棕熊",
+                        AnimalStat.WildYak => "野牦牛",
+                        _ => throw new ArgumentOutOfRangeException(nameof(x), x, null)
+                    }
+                }, (o) =>
+                {
+                    var animal = (AnimalStat)o;
+                    // todo: 生成小动物
+                });
+            }
+            else
+            {
+                LaunchNextRound();
+            }
         }
 
         public void Retry()

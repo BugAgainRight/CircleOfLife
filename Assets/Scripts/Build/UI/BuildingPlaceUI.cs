@@ -5,6 +5,7 @@ using CircleOfLife.Buff;
 using CircleOfLife.General;
 using CircleOfLife.Key;
 using CircleOfLife.ScriptObject;
+using CircleOfLife.Utils;
 using Milease.Core.Animator;
 using Milease.Core.UI;
 using Milease.Enums;
@@ -115,6 +116,24 @@ namespace CircleOfLife.Build.UI
             PreStartBattle();
         }
 
+        public void ChangePlayerSkill()
+        {
+            EnumPopupUI.Open(new EnumPopupUIData()
+            {
+                Title = "选择玩家技能",
+                Description = "让战斗更加顺利！",
+                List = SaveManagement.UseSaveData.PlayerSkillUnlocks.Select(x => (object)x).ToList(),
+                Describer = (x) => ((PlayerSkillType)x).GetSkillName(),
+                DefaultSelection = 
+                    SaveManagement.UseSaveData.PlayerSkillUnlocks.FindIndex(
+                        x => x == PlayerSkills.Instance.SkillType
+                    )
+            }, (o) =>
+            {
+                PlayerSkills.Instance.SkillType = (PlayerSkillType)o;
+            });
+        }
+        
         private void PostStartBattle()
         {
             MessageBox.Open(("开始战斗", "确定要开始战斗吗？\n开始后将暂时不能调整装置布置。"), (o) =>

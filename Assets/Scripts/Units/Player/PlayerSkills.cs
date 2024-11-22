@@ -15,6 +15,8 @@ namespace CircleOfLife
 {
     public class PlayerSkills : MonoBehaviour
     {
+        public static PlayerSkills Instance;
+        
         private const float ENERGY_MAX = 100f;
         private const float RECOVER_ON_HIT = 5f;
         public const float RECOVER_ON_ATTACK = 5f;
@@ -54,6 +56,7 @@ namespace CircleOfLife
 
         private void Awake()
         {
+            Instance = this;
             Player.HurtAction = (context) =>
             {
                 if (context.AttackerData == null)

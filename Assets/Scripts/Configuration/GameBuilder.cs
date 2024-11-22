@@ -64,7 +64,8 @@ namespace CircleOfLife.Configuration
                 UI.FromResources(UIIdentifier.ChangeDirectionUI, "UI/ChangeDirectionUI"),
                 UI.FromResources(UIIdentifier.GameMenu, "UI/GameMenu"),
                 UI.FromResources(UIIdentifier.AtlasUI, "UI/AtlasUI"),
-                UI.FromResources(UIIdentifier.SaveUI, "UI/SaveUI")
+                UI.FromResources(UIIdentifier.SaveUI, "UI/SaveUI"),
+                UI.FromResources(UIIdentifier.EnumPopupUI, "UI/EnumPopupUI")
             });
         }
     }

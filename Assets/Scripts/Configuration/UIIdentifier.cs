@@ -10,6 +10,7 @@
         ChangeDirectionUI,
         GameMenu,
         AtlasUI,
-        SaveUI
+        SaveUI,
+        EnumPopupUI
     }
 }
