@@ -11,6 +11,18 @@ namespace CircleOfLife.Atlas
     {
         public List<AtlasData> Data = new();
     }
+
+    public enum AtlasType
+    {
+        Enemy, Animal
+    }
+
+    [Serializable]
+    public class AtlasMapping
+    {
+        public AtlasType Type;
+        public int Key;
+    }
     
     [Serializable]
     public class AtlasData
@@ -19,5 +31,6 @@ namespace CircleOfLife.Atlas
         [Multiline]
         public string Description;
         public SkeletonDataAsset SkeletonData;
+        public AtlasMapping Mapping;
     }
 }

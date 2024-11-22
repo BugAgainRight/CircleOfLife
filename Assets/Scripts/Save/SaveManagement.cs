@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using CircleOfLife.Battle;
 using UnityEngine;
 
 namespace CircleOfLife
@@ -93,6 +94,20 @@ namespace CircleOfLife
             public string UserName;
             public DateTime LastSaveDate;
             public int CurrentDay;
+
+            // 摆烂了就这样了
+            public List<EnemyStat> AtlasEnemyUnlocks = new();
+            public List<AnimalStat> AtlasAnimalUnlocks = new();
+            public List<PlayerSkillType> PlayerSkillUnlocks = new();
+
+            // 为了省代码构造的临时字典，摆烂了（挥手）
+            private Dictionary<Type, object> unlockTempDict =>
+                new()
+                {
+                    [typeof(EnemyStat)] = AtlasEnemyUnlocks,
+                    [typeof(AnimalStat)] = AtlasAnimalUnlocks,
+                    [typeof(PlayerSkillType)] = PlayerSkillUnlocks
+                };
             
             [JsonProperty]
             private long timer;
@@ -101,14 +116,17 @@ namespace CircleOfLife
             [JsonIgnore]
             public TimeSpan Timer => TimeSpan.FromSeconds(timer);
 
+            public void Unlock<T>(T content) where T : Enum
+            {
+                var list = (List<T>)unlockTempDict[typeof(T)];
+                if (!list.Contains(content))
+                {
+                    list.Add(content);
+                }
+            }
 
-            ////////////其他存档数据
-
-
-
-
-            ////////////
-            
+            public bool IsUnlocked<T>(T content) where T : Enum
+                => ((List<T>)unlockTempDict[typeof(T)]).Contains(content);
 
             public void AddTimer()
             {
@@ -119,6 +137,7 @@ namespace CircleOfLife
                     midTimer -= (int)midTimer;
                 }
             }
+            
             public void Copy(SaveData other)
             {
                 timer=other.timer;

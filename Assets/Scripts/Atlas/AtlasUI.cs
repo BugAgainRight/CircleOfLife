@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,12 @@ namespace CircleOfLife.Atlas
             Open(AtlasManager.Data.Select(x => new AtlasUIData()
             {
                 Atlas = x,
-                Unlocked = Random.Range(0, 100) < 50 // todo: 等待接入存档
+                Unlocked = x.Mapping.Type switch
+                {
+                    AtlasType.Enemy => SaveManagement.UseSaveData.IsUnlocked((EnemyStat)x.Mapping.Key),
+                    AtlasType.Animal => SaveManagement.UseSaveData.IsUnlocked((AnimalStat)x.Mapping.Key),
+                    _ => throw new ArgumentOutOfRangeException()
+                }
             }).ToList());
         }
         
