@@ -35,18 +35,19 @@ namespace CircleOfLife.Configuration
                     SceneRouter.Root(SceneIdentifier.TitleScreen, "TitleScreen"), // 设置根节点
                     SceneRouter.Node(SceneIdentifier.MilutoolsSample, "sample", "MilutoolsSample"),
                     SceneRouter.Node(SceneIdentifier.SceneRouterSample, "sample/scene-router", "SceneRouterSample"),
-                    SceneRouter.Node(SceneIdentifier.Battle, "battle", "Battle")
+                    SceneRouter.Node(SceneIdentifier.Battle, "battle", "Battle"),
+                    SceneRouter.Node(SceneIdentifier.Credits, "credits", "Credits"),
                 },
-                /**LoadingAnimators = new []
+                LoadingAnimators = new []
                 {
                     // 设置可用的自定义加载动画
                     SceneRouter.LoadingAnimator(LoadingAnimatorIdentifier.GenshinLoading, 
                         Resources.Load<GameObject>("Loading/GenshinLoading"))
-                }**/
+                }
             });
             
             // 设置默认加载动画，不设置则是黑屏过渡
-            //SceneRouter.SetLoadingAnimator(LoadingAnimatorIdentifier.GenshinLoading);
+            SceneRouter.SetLoadingAnimator(LoadingAnimatorIdentifier.GenshinLoading);
         }
 
         private static void SetupUIManager()
