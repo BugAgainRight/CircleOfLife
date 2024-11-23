@@ -48,7 +48,6 @@ namespace CircleOfLife
         
         public PlayerSkillType SkillType, NormalHitType;
         public PlayerController Player;
-        public SpriteRenderer EnergyFill;
         public LayerMask EnemyMask;
         public Volume SkillBurstVolume;
         
@@ -109,6 +108,7 @@ namespace CircleOfLife
             {
                 Player.enabled = false;
                 Player.Stats.ApplyBuff(BuffUtils.ToBuff(Invincible));
+                Time.timeScale = 0f;
                 SkillBurstVolume.MileaseTo("weight", 1f, 0.5f, 0f, EaseFunction.Circ, EaseType.Out)
                     .Then(
                         new Action(() =>
@@ -130,6 +130,7 @@ namespace CircleOfLife
                             FireTransform = Player.SkillOffset
                         });
                         Player.enabled = true;
+                        Time.timeScale = 1f;
                     });
             }
             
@@ -147,7 +148,7 @@ namespace CircleOfLife
             }
 
             energyChanged = false;
-            EnergyFill.size = new Vector2(5f * (energy / ENERGY_MAX), EnergyFill.size.y);
+            BattleUI.Instance.UpdateEnergyBar(energy / ENERGY_MAX);
         }
         
         private void Update()

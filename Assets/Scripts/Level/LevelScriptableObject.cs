@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using CircleOfLife.Weather;
+using Spine;
+using Spine.Unity;
 using UnityEngine;
 
 namespace CircleOfLife.Level
@@ -19,6 +21,8 @@ namespace CircleOfLife.Level
         public int InitialMaterial;
         [Header("关卡天气")]
         public WeatherType Weather = WeatherType.Day;
+        [Header("保护的小动物")]
+        public SkeletonDataAsset ProtectAnimal;
         public List<LevelRound> Rounds;
         [Header("胜利后的剧情")]
         public TextAsset WinPlot;

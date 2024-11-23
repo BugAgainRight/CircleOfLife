@@ -16,7 +16,8 @@ namespace CircleOfLife.Buff
             };
         }
 
-        public static BattleStats Build(this BattleStats.Stats stats, GameObject go, Action<BattleContext> hurtAction)
+        public static BattleStats Build(this BattleStats.Stats stats, GameObject go, Action<BattleContext> hurtAction,
+            bool hideHPBar = false)
         {
             if (!hpBarPrefab)
             {
@@ -25,9 +26,12 @@ namespace CircleOfLife.Buff
             var stat = new BattleStats(go, stats, hurtAction);
             BuffManager.RegisterBattleStat(stat);
 
-            var hpBar = GameObject.Instantiate(hpBarPrefab);
-            hpBar.GetComponent<HPBar>().Initialize(stat);
-            hpBar.SetActive(true);
+            if (!hideHPBar)
+            {
+                var hpBar = GameObject.Instantiate(hpBarPrefab);
+                hpBar.GetComponent<HPBar>().Initialize(stat);
+                hpBar.SetActive(true);
+            }
             
             return stat;
         }

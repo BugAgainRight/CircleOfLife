@@ -51,7 +51,7 @@ namespace CircleOfLife.Units
                     // 游戏失败
                     LevelManager.Instance.Fail("玩家倒下了");
                 }
-            });
+            }, true);
             Stats.Max.Velocity = 10;
             Stats.Reset();
             rigidbody2D = GetComponent<Rigidbody2D>();

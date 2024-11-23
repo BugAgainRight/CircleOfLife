@@ -15,6 +15,7 @@ MonoBehaviour:
   MapPrefab: {fileID: 949119636542407803, guid: c5ae8ec427c653741961fc648d12e470, type: 3}
   InitialMaterial: 500
   Weather: 1
+  ProtectAnimal: {fileID: 11400000, guid: f658d3451ac14e7468305a4a1a0dc0f0, type: 2}
   Rounds:
   - BeforePlot: {fileID: 4900000, guid: bf3db514de6ff7c42bd2a08b5b2de408, type: 3}
     SkipBuildPlace: 0

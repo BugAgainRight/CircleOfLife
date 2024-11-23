@@ -135,6 +135,11 @@ namespace CircleOfLife.Level
             mapGrid = map.GetComponentInChildren<Grid>();
             
             curWave = curRound = 0;
+
+            BattleUI.Instance.AnimalGraphic.skeletonDataAsset = Level.ProtectAnimal;
+            BattleUI.Instance.AnimalGraphic.Initialize(true);
+            BattleUI.Instance.UpdateRoundText(curRound, Level.Rounds.Count);
+            
             waveTick = 0f;
             Material = Level.InitialMaterial;
             battling = false;
@@ -180,6 +185,8 @@ namespace CircleOfLife.Level
         {
             MainCanvas.MileaseTo("alpha", 0f, 0.5f, 
                 0f, EaseFunction.Quad, EaseType.Out).Play();
+            
+            BattleUI.Instance.UpdateRoundText(curRound, Level.Rounds.Count);
             
             var round = Level.Rounds[curRound];
             if (round.BeforePlot && !infinityMode)

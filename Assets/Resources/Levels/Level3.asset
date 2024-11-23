@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578bbec400246cfb3e068a0e4339a17, type: 3}
   m_Name: Level3
   m_EditorClassIdentifier: 
+  MapPrefab: {fileID: 0}
   InitialMaterial: 0
+  Weather: 1
+  ProtectAnimal: {fileID: 11400000, guid: f658d3451ac14e7468305a4a1a0dc0f0, type: 2}
   Rounds: []
+  WinPlot: {fileID: 0}
+  UnlockAnimal: 0
+  UnlockSkills: 
