@@ -388,6 +388,11 @@ namespace CircleOfLife.Level
         private void Update()
         {
             MaterialText.text = Material.ToString();
+
+            if (Input.GetKeyUp(KeyCode.Escape) && PlayerController.Instance.enabled)
+            {
+                PopupGameMenu();
+            }
             
             if (!battling || curRound >= Level.Rounds.Count)
             {
