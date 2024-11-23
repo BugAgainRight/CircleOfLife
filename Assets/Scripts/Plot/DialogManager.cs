@@ -74,6 +74,7 @@ namespace CircleOfLife
             ImageDictionary["村长"]=Sprites[6];
             ImageDictionary["盗猎者"]=Sprites[7];
             ImageDictionary["？"] = Sprites[8];
+            ImageDictionary["汪汪"]=Sprites[9];
         }
 
         void Start()
@@ -187,5 +188,6 @@ namespace CircleOfLife
             }
         }
 
+    
     }
 }
