@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace CircleOfLife
 {
-    public static class SkillManagement 
+    public static class SkillManagement
     {
 
         private static Dictionary<EnumIdentifier, Action<SkillContext>> allSkills = new();
@@ -19,17 +19,17 @@ namespace CircleOfLife
         [RuntimeInitializeOnLoadMethod]
         public static void Initialize()
         {
-            
+
             ///注册所有技能方法
             foreach (var a in RuiRuiTool.AttributeMethodUtility.GetAllActionDatas<SkillAttribute>())
             {
                 SkillAttribute b = (SkillAttribute)a.attribute;
                 allSkills.Add(b.Key, (Action<SkillContext>)a.method.CreateDelegate(typeof(Action<SkillContext>)));
-            } 
-           
+            }
+
         }
 
-        public static Action<SkillContext> GetSkill<T>(T type)where T : Enum
+        public static Action<SkillContext> GetSkill<T>(T type) where T : Enum
         {
 
             if (allSkills.TryGetValue(EnumIdentifier.Wrap(type), out var action)) return action;
@@ -87,9 +87,9 @@ namespace CircleOfLife
             {
                 BattleStats mid = item.GetBattleStats();
                 BulletManagement.GetBulletTrigger(BulletTriggerType.Normal)(
-                    new BattleContext(context.PhysicsLayer, context.AttackerData, mid.BattleEntity.Stats) 
-                    { SkillRate=3});
-                
+                    new BattleContext(context.PhysicsLayer, context.AttackerData, mid.BattleEntity.Stats)
+                    { SkillRate = 3 });
+
                 mid.BattleEntity.Stats.ApplyBuff(BuffUtils.ToBuff(UniversalBuff.Dizzy, 3f));
                 mid.BattleEntity.Stats.ApplyBuff(BuffUtils.ToBuff(UniversalBuff.Blood, 3f));
 
@@ -115,7 +115,7 @@ namespace CircleOfLife
                     new BattleContext(context.PhysicsLayer, context.AttackerData, mid.BattleEntity.Stats));
 
                 mid.BattleEntity.Stats.ApplyBuff(BuffUtils.ToBuff(UniversalBuff.SlowDown, 3f));
-                
+
 
             }
         }
@@ -150,7 +150,7 @@ namespace CircleOfLife
 
         private static void PlayerSkill_4_Buff(BattleStats stats, BuffContext buff)
         {
-            stats.Current.Armor += 2*BuffConsts.ARMOR_UNIT;
+            stats.Current.Armor += 2 * BuffConsts.ARMOR_UNIT;
             if (buff.TickedTime >= 1f)
             {
                 DamageManagement.BuffDamage(stats, -BuffConsts.HP_UNIT);
@@ -202,7 +202,7 @@ namespace CircleOfLife
 
             foreach (var build in builds)
             {
-                DamageManagement.BuffDamage(build,-100);
+                DamageManagement.BuffDamage(build, -100);
             }
 
             foreach (var friend in friends)
@@ -241,7 +241,7 @@ namespace CircleOfLife
         private static void EnemySkill_1(SkillContext context)
         {
 
-      
+
             var collection = RecyclePool.RequestWithCollection(EnemySkillType.test1);
             collection.GameObject.SetActive(true);
             collection.GameObject.transform.position = context.TriggerPos;
@@ -297,11 +297,85 @@ namespace CircleOfLife
 
         #endregion
 
+        private static void EnemyFBuff(BattleStats stats, BuffContext buff)
+        {
+            stats.Current.Armor += BuffConsts.ARMOR_UNIT;
+            stats.Current.EvasionRate += BuffConsts.EVASION_UNIT;
+
+            if (buff.TickedTime >= 1f)
+            {
+                buff.ResetTickedTime();
+                DamageManagement.BuffDamage(stats, -3);
+            }
+        }
+
+        [Skill(EnemyStat.EnemyF)]
+        private static void EnemyFSkill(SkillContext context)
+        {
+            var list = Physics2D.OverlapCircleAll(context.AttackerData.Transform.position, 3f, context.PhysicsLayer);
+            foreach (var coll in list)
+            {
+                var stats = coll.GetBattleStats();
+                if (stats == context.AttackerData) continue;
+                stats.ApplyBuff(BuffUtils.ToBuff(EnemyFBuff, 1f));
+                RecyclePool.Request(AnimatonPrefab.EnemyRecovery, (c) =>
+                {
+                    c.Transform.position = coll.transform.position;
+                    c.GameObject.SetActive(true);
+                });
+            }
+        }
 
 
 
         #region AnimalSkill
+        /// <summary>
+        /// 动物特殊普攻(可能附带buff)
+        /// </summary>
+        /// <param name="context">context</param>
+        /// <param name="buffHandleFunction">普攻附带的Buff,概率:context.SpecialValues[0],持续时间:context.SpecialValues[1]</param>
+        private static void Animal_Melee(SkillContext context, BuffHandleFunction buffHandleFunction = null)
+        {
+            float angle = Mathf.Atan2(context.Direction.y, context.Direction.x);
+            var collection = RecyclePool.RequestWithCollection(SharedPrefab.Melee);
+            collection.GameObject.SetActive(true);
+            collection.GameObject.transform.position = context.TriggerPos;
+            collection.GameObject.transform.localEulerAngles = new Vector3(0, 0, angle * Mathf.Rad2Deg);
 
+            var list = collection.GetMainComponent<BattleRange>().GetAllEnemyInRange(
+                context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
+
+            foreach (var item in list)
+            {
+                BattleStats stat = item.GetBattleStats();
+                if (buffHandleFunction != null && context.SpecialValues.Count > 1)
+                {
+                    float point = UnityEngine.Random.Range(0, 99);
+                    if (point < context.SpecialValues[0])
+                    {
+                        //Debug.Log("ApplyBuff：" + buffHandleFunction.Method.Name);
+                        stat.ApplyBuff(BuffUtils.ToBuff(buffHandleFunction, context.SpecialValues[1]));
+                    }
+                }
+                BulletManagement.GetBulletTrigger(BulletTriggerType.Normal)(
+                    new BattleContext(context.PhysicsLayer, context.AttackerData, stat.BattleEntity.Stats));
+            }
+        }
+        [Skill(AnimalSkillType.TibetanMastiffMelee)]
+        private static void TibetanMastiffSkill_Melee(SkillContext context)
+        {
+            Animal_Melee(context, UniversalBuff.Blood);
+        }
+        [Skill(AnimalSkillType.WolfMelee)]
+        private static void WolfSkill_Melee(SkillContext context)
+        {
+            Animal_Melee(context, UniversalBuff.Panic);
+        }
+        [Skill(AnimalSkillType.BearMelee)]
+        private static void BearSkill_Melee(SkillContext context)
+        {
+            Animal_Melee(context, UniversalBuff.Dizzy);
+        }
 
         #endregion
 
@@ -312,10 +386,10 @@ namespace CircleOfLife
         [Skill(BuildSkillType.TreatmentStationNormal)]
         private static void BuildSkill_0(SkillContext context)
         {
-            var list = context.AttackerData.Transform.GetComponent<BuildBase>().BattleRange.GetAllFriendInRange(
+            var list = ((BuildBase)context.AttackerData.BattleEntity).BattleRange.GetAllFriendInRange(
                 context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
             int count = 0;
-            list.Sort((y,x) => (x.GetBattleStats().Max.Hp - x.GetBattleStats().Current.Hp).CompareTo(y.GetBattleStats().Max.Hp - y.GetBattleStats().Current.Hp));
+            list.Sort((y, x) => (x.GetBattleStats().Max.Hp - x.GetBattleStats().Current.Hp).CompareTo(y.GetBattleStats().Max.Hp - y.GetBattleStats().Current.Hp));
             foreach (var coll in list)
             {
                 if (count >= context.EffectCount) break;
@@ -364,13 +438,13 @@ namespace CircleOfLife
             BuildSkill_0(context);
         }
         #region 信号发射器
-       
+
 
         private static void SignalTransmitterFunc(BuildSkillType buildSkillType, SkillContext context)
         {
             float range = context.AttackerData.Current.EffectRange;
             Vector2 instantiatePos;
-            for(int i=0;i<10 ;i++ )
+            for (int i = 0; i < 10; i++)
             {
                 instantiatePos = UnityEngine.Random.insideUnitCircle * range;
                 if (Physics2D.Raycast(instantiatePos, Vector2.zero).collider == null)
@@ -395,7 +469,7 @@ namespace CircleOfLife
                 }
             }
 
-            
+
         }
         [Skill(BuildSkillType.SignalTransmitterNormal)]
         private static void BuildSkill_1(SkillContext context)
@@ -442,7 +516,9 @@ namespace CircleOfLife
         [Skill(EnemyStat.EnemyA)]
         [Skill(EnemyStat.EnemyC)]
         [Skill(EnemyStat.EnemyD)]
-        [Skill(AnimalSkillType.TibetanMastiffMelee)]
+        [Skill(AnimalSkillType.TibetanAntelopeMelee)]
+        [Skill(AnimalSkillType.FalcoCherrugMelee)]
+        [Skill(AnimalSkillType.WildYakMelee)]
         private static void SharedSkill_Melee(SkillContext context)
         {
             float angle = Mathf.Atan2(context.Direction.y, context.Direction.x);
@@ -453,7 +529,7 @@ namespace CircleOfLife
 
             var list = collection.GetMainComponent<BattleRange>().GetAllEnemyInRange(
                 context.PhysicsLayer, context.AttackerData.BattleEntity.FactionType);
-            
+
             foreach (var item in list)
             {
                 BattleStats mid = item.GetBattleStats();
@@ -469,16 +545,16 @@ namespace CircleOfLife
         private static void RangedAttackTemplate(RecycleCollection collection, SkillContext context)
         {
             collection.GameObject.SetActive(true);
-            
+
             collection.GameObject.transform.position = context.TriggerPos;
-            
+
             if (context.FireTransform)
             {
                 collection.GameObject.transform.position += context.FireTransform.position - collection.GameObject.transform.position;
             }
 
             collection.GetComponent<BulletMove>().SetTarget(context.HitData.Transform);
-            collection.GetComponent<BulletTrigger>().PassData(new BattleContext(context.PhysicsLayer,context.AttackerData,null));
+            collection.GetComponent<BulletTrigger>().PassData(new BattleContext(context.PhysicsLayer, context.AttackerData, null));
 
         }
 
@@ -493,7 +569,7 @@ namespace CircleOfLife
         {
             var collection = RecyclePool.RequestWithCollection(SharedPrefab.Ranged);
             RangedAttackTemplate(collection, context);
-           
+
 
         }
         /// <summary>
