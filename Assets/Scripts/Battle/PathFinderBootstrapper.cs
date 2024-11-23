@@ -12,7 +12,17 @@ namespace CircleOfLife.Battle
         public CameraController CameraController;
         public LayerMask ObstacleLayer;
         public Transform ProtectAnimal;
+        public bool SetupOnAwake = true;
+
         private void Awake()
+        {
+            if (!SetupOnAwake)
+                return;
+            
+            Setup();
+        }
+
+        public void Setup()
         {
             Astar.Initialize(
                 new Range2Int(Mathf.RoundToInt(CameraController.CameraMinX - 5f), Mathf.RoundToInt(CameraController.CameraMaxX + 5f)),

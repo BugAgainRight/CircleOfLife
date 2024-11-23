@@ -3567,6 +3567,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 257
   ProtectAnimal: {fileID: 1265206539}
+  SetupOnAwake: 0
 --- !u!4 &1629048762
 Transform:
   m_ObjectHideFlags: 0
@@ -4615,6 +4616,7 @@ MonoBehaviour:
   ServicePostProcess: {fileID: 1163718464}
   FailPostProcess: {fileID: 682239128}
   SuccessPostProcess: {fileID: 826541793}
+  PathFinderBootstrapper: {fileID: 1629048761}
   Material: 0
 --- !u!4 &1923623340
 Transform:

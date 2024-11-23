@@ -39,6 +39,7 @@ namespace CircleOfLife.Level
         public TMP_Text MaterialText, FailCause;
         public GameObject MaterialWordPrefab;
         public Volume ServicePostProcess, FailPostProcess, SuccessPostProcess;
+        public PathFinderBootstrapper PathFinderBootstrapper;
         
         public int Material;
 
@@ -133,6 +134,7 @@ namespace CircleOfLife.Level
             var map = Instantiate(Level.MapPrefab);
             map.SetActive(true);
             mapGrid = map.GetComponentInChildren<Grid>();
+            PathFinderBootstrapper.Setup();
             
             curWave = curRound = 0;
 
