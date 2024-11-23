@@ -75,6 +75,7 @@ namespace CircleOfLife
             ImageDictionary["盗猎者"]=Sprites[7];
             ImageDictionary["？"] = Sprites[8];
             ImageDictionary["汪汪"]=Sprites[9];
+            ImageDictionary["巡护队员"]=Sprites[10];
         }
 
         void Start()
