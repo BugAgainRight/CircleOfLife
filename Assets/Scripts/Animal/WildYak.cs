@@ -41,7 +41,7 @@ namespace CircleOfLife.AI
         private static void WildYakAttackBuff(BattleStats stats, BuffContext buff)
         {
             stats.Current.Attack *= 1 - stats.Current.Hp / stats.Max.Hp;
-            Debug.Log("WildYak Attack Up to:" + stats.Current.Attack);
+            //Debug.Log("WildYak Attack Up to:" + stats.Current.Attack);
         }
     }
 }

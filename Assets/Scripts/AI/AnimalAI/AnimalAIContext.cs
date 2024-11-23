@@ -7,6 +7,7 @@ using Milutools.AI;
 using RuiRuiAstar;
 using RuiRuiMathTool;
 using RuiRuiVectorField;
+using Spine.Unity;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -74,6 +75,10 @@ namespace CircleOfLife
 
         public float DiscoverEnemyDistance = 6f;
         public float BattleDistance = 1f;
+        public SkeletonAnimation AnimalAnimator;
+        private Vector3 lastPosition;
+        private bool lastFaceLeft = true;
+        private bool lastRun;
         public bool HasTarget
         {
             get
@@ -189,6 +194,7 @@ namespace CircleOfLife
                     Collider2D.enabled = false;
                 }
             });
+            lastPosition = Animal.position;
             FindPlayer();
         }
 
@@ -217,6 +223,25 @@ namespace CircleOfLife
             CheckSkill();
             AnimalDeadHander();
             ((IAstarMove)this).FixedUpdateNew();
+
+            bool running = lastPosition != Transform.position;
+            if (running)
+            {
+                bool faceLeft = Transform.position.x < lastPosition.x;
+                if (lastFaceLeft != faceLeft)
+                {
+                    lastFaceLeft = faceLeft;
+                    var scale = Transform.localScale;
+                    scale.x = Mathf.Abs(scale.x) * (lastFaceLeft ? 1f : -1f);
+                    Transform.localScale = scale;
+                }
+            }
+            if (lastRun != running)
+            {
+                lastRun = running;
+                AnimalAnimator.state.SetAnimation(0, running ? "run" : "idel", true);
+            }
+            lastPosition = Transform.position;
         }
         public void UseSkill()
         {
