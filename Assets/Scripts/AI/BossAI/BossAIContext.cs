@@ -6,12 +6,20 @@ using RuiRuiAstar;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CircleOfLife
 {
     public class BossAIContext : BehaviourContext, IBattleEntity, IAstarMove
     {
+
+        public Image Front, Back;
+        public TextMeshProUGUI NameShow;
+
+        [HideInInspector]
+        public bool IsDizzAttack;
         public SkeletonAnimation SkeletonAnimation;
         public Transform SkillOffset;
         public BattleRange ViewRadius;
@@ -75,11 +83,15 @@ namespace CircleOfLife
 
         private void OnEnable()
         {
+            IsDizzAttack = false;
             isSecondState = false;
             playerColl = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
             ThisAstarMove = this;
             Stats = FirstState.Build(gameObject,HurtAction);
             ThisAstarMove.OnEnableNew(1, Mathf.RoundToInt(FirstState.Velocity));
+            Front.fillAmount = 1;
+            Back.fillAmount = 1;
+            NameShow.text = "BOSS";
 
         }
 
@@ -92,24 +104,43 @@ namespace CircleOfLife
             {
                 isSecondState = true;
 
+                NameShow.text = "BOSS第二阶段";
+
                 Stats.ReplaceBaseStat(SecondState);
                 ThisAstarMove.OnEnableNew(1, Mathf.RoundToInt(SecondState.Velocity));
                 Debug.Log("进入第二阶段");
 
             }
         }
-
+        private float dizzTimer;
+        private float finishTime;
+        public void ChangeAttackToDizz(float continueTime)
+        {
+            IsDizzAttack = true;
+            finishTime = Time.time + continueTime;
+        }
         public override void UpdateContext()
         {
+            if (finishTime <= Time.time) IsDizzAttack = false;
+
+            Front.fillAmount = Stats.Current.Hp;
+            Back.fillAmount = Mathf.MoveTowards(Back.fillAmount, Stats.Current.Hp,
+                (1+ Mathf.Abs(Stats.Current.Hp- Back.fillAmount)/ Stats.Max.Hp) *0.2f);
+
+
+
+
             if (playerColl == null) return;
+
+            ThisAstarMove.UpdateSpeed(Mathf.RoundToInt(Stats.Current.Velocity));
 
             NearPlayer = Vector2.Distance(transform.position, playerColl.transform.position) < ViewRadius.Range.radius;
 
             if (!NearPlayer)
             {
-               
-               
-                if (Target == null ||Target==playerColl|| !Target.gameObject.activeInHierarchy)
+
+
+                if (Target == null || Target == playerColl || !Target.gameObject.activeInHierarchy)
                 {
                     List<Collider2D> mid = ViewRadius.GetAllEnemyInRange(FriendLayer, FactionType.Enemy);
                     if (mid.Count > 0)
@@ -159,7 +190,6 @@ namespace CircleOfLife
                             EnemySkillType.BossSkill3,
                             EnemySkillType.BossSkill4,
 
-
                         };
         public void AttackTarget()
         {
@@ -180,7 +210,7 @@ namespace CircleOfLife
                     else
                     {
                         
-                        int select = Random.Range(0, 3);
+                        int select = Random.Range(0, midSelect.Count);
                         SkillManagement.GetSkill(midSelect[select])(new SkillContext(FriendLayer, Stats)
                         {
                             FireTransform = SkillOffset
@@ -205,5 +235,7 @@ namespace CircleOfLife
         {
             stats.Current.Attack = 20 * (2 - stats.Current.Hp / stats.Max.Hp);
         }
+
+       
     }
 }

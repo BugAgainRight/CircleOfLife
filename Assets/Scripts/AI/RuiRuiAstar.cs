@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using Codice.CM.Common;
 
 
 namespace RuiRuiAstar
@@ -380,6 +381,11 @@ namespace RuiRuiAstar
             UpdateTime = updateTime;
             Speed = speed;
             UpdatePath();
+        }
+
+        public void UpdateSpeed(int speed)
+        {
+            Speed = speed;
         }
 
         public void FixedUpdateNew()

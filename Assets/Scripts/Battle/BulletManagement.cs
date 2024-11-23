@@ -1,4 +1,5 @@
 using CircleOfLife.Battle;
+using CircleOfLife.Buff;
 using Milutools.Recycle;
 using System;
 using System.Collections;
@@ -11,7 +12,7 @@ namespace CircleOfLife
 {
     public enum BulletTriggerType
     {
-        Normal, Boom
+        Normal, Boom,BoomAndDizz
     }
 
     public enum BulletMoveType
@@ -103,6 +104,28 @@ namespace CircleOfLife
                     c.GameObject.SetActive(true);
                 });
                 DamageManagement.Damage(midContext);
+            }
+
+        }
+
+
+        [BulletTrigger(BulletTriggerType.BoomAndDizz)]
+        public static void BoomAndDizzTrigger(BattleContext context)
+        {
+            var colls = Physics2D.OverlapCircleAll(
+                context.BulletTransform.position, context.BoomRadius, context.DamageableLayer);
+            var idamages = colls.ToList().Where(x => x.GetComponent<IBattleEntity>() != null);
+            foreach (var idamage in idamages)
+            {
+                BattleContext midContext = context;
+                midContext.HitData = idamage.GetBattleStats();
+                RecyclePool.Request(AnimatonPrefab.Group, (c) =>
+                {
+                    c.Transform.position = midContext.HitData.Transform.position;
+                    c.GameObject.SetActive(true);
+                });
+                DamageManagement.Damage(midContext);
+                midContext.HitData.ApplyBuff(BuffUtils.ToBuff(UniversalBuff.Dizzy,1));
             }
 
         }

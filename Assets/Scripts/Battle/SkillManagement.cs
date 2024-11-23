@@ -1,3 +1,4 @@
+using CircleOfLife.AI;
 using CircleOfLife.Battle;
 using CircleOfLife.Buff;
 using Milutools.Milutools.General;
@@ -265,37 +266,120 @@ namespace CircleOfLife
             });
         }
 
+        /// <summary>
+        /// boss攻击
+        /// </summary>
+        /// <param name="context"></param>
+        [Skill(EnemyStat.Boss)]
+        private static void BossAttack(SkillContext context)
+        {
+            RecycleCollection collection;
+            BossAIContext mid = context.AttackerData.Transform.GetComponent<BossAIContext>();
+            if (mid == null) return;
+            if (!mid.IsDizzAttack) collection = RecyclePool.RequestWithCollection(SharedPrefab.RangedGroup);
+            else collection = RecyclePool.RequestWithCollection(SharedPrefab.RangedGroupDizz);
+            RangedAttackTemplate(collection, context);
+            
 
+        }
 
         [Skill(EnemySkillType.BossSkill1)]
         private static void BossSkill_1(SkillContext context)
         {
             Debug.Log("Boss技能1");
+            context.AttackerData.ApplyBuff(BuffUtils.ToBuff(BossSkill_1_Buff, 10f));
+
         }
+        private static void BossSkill_1_Buff(BattleStats stats, BuffContext buff)
+        {
+            stats.Current.Armor += BuffConsts.ARMOR_UNIT*2;
+            stats.Current.EvasionRate += BuffConsts.EVASION_UNIT;
+
+            if (buff.TickedTime >= 1f)
+            {
+                buff.ResetTickedTime();
+                DamageManagement.BuffDamage(stats, -5);
+            }
+        }
+
+
 
         [Skill(EnemySkillType.BossSkill2)]
         private static void BossSkill_2(SkillContext context)
         {
             Debug.Log("Boss技能2");
-
+            context.AttackerData.ApplyBuff(BuffUtils.ToBuff(BossSkill_2_Buff, 10f));
         }
+
+        private static void BossSkill_2_Buff(BattleStats stats, BuffContext buff)
+        {
+            stats.Current.Velocity += BuffConsts.SPEED_UNIT;
+            stats.Current.Attack += BuffConsts.ATTACK_UNIT*2;
+            stats.Current.LifeStealRate += 0.05f;
+        }
+
 
         [Skill(EnemySkillType.BossSkill3)]
         private static void BossSkill_3(SkillContext context)
         {
             Debug.Log("Boss技能3");
+            context.AttackerData.ApplyBuff(BuffUtils.ToBuff(BossSkill_3_Buff, 10f));
+            BossAIContext mid = context.AttackerData.Transform.GetComponent<BossAIContext>();
+            if (mid == null) return;
+            mid.ChangeAttackToDizz(10);
+        }
+        private static void BossSkill_3_Buff(BattleStats stats, BuffContext buff)
+        {
+            stats.Current.Velocity += BuffConsts.SPEED_UNIT;
+            stats.Current.Attack += BuffConsts.ATTACK_UNIT;
+            stats.Current.AttackInterval += BuffConsts.ATTACK_INTERVAL_UNIT;
+            stats.Current.Armor -= BuffConsts.ARMOR_UNIT*2;
+          
 
         }
+
+        private static List<EnemyStat> allEnemyEnum_BossSkill4 = new List<EnemyStat>() {
+            EnemyStat. EnemyA,
+            EnemyStat. EnemyBSignal,
+            EnemyStat. EnemyBGroup,
+            EnemyStat. EnemyC,
+            EnemyStat. EnemyD,
+            EnemyStat. EnemyF,
+        };
 
         [Skill(EnemySkillType.BossSkill4)]
         private static void BossSkill_4(SkillContext context)
         {
             Debug.Log("Boss技能4");
 
+            float range = context.AttackerData.Current.EffectRange;
+            Vector2 instantiatePos;
+            int j = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                instantiatePos = UnityEngine.Random.insideUnitCircle * range;
+                if (Physics2D.Raycast(instantiatePos, Vector2.zero).collider == null)
+                {
+                    EnemyStat midType = allEnemyEnum_BossSkill4[UnityEngine.Random.Range(0, allEnemyEnum_BossSkill4.Count)];
+                    var collection = RecyclePool.RequestWithCollection(midType, context.AttackerData.Transform);
+                    collection.GameObject.SetActive(true);
+
+                    collection.GameObject.transform.position = instantiatePos;
+
+                    RecyclePool.Request(AnimatonPrefab.SummonEnemy, (c) =>
+                    {
+                        c.Transform.position = instantiatePos;
+                        c.GameObject.SetActive(true);
+                    });
+                    j++;
+                    if (j >= 3)
+                        break;
+                }
+            }
+
         }
 
 
-        #endregion
 
         private static void EnemyFBuff(BattleStats stats, BuffContext buff)
         {
@@ -325,6 +409,10 @@ namespace CircleOfLife
                 });
             }
         }
+
+        #endregion
+
+
 
 
 
@@ -576,7 +664,6 @@ namespace CircleOfLife
         /// 共用远程群体
         /// </summary>
         /// <param name="context"></param>
-        [Skill(EnemyStat.Boss)]
         [Skill(EnemyStat.EnemyBGroup)]
         [Skill(BuildSkillType.SignalTransmitter1Friend)]
         private static void SharedSkill_RangedGroup(SkillContext context)

@@ -62,13 +62,14 @@ namespace CircleOfLife
         RangedLongest,
         RangedFast,
         RangedBoom,
+        RangedGroupDizz
 
     }
 
 
     public enum AnimatonPrefab
     {
-        Single, Group, EnergyFull, SkillBurst, EnemyRecovery
+        Single, Group, EnergyFull, SkillBurst, EnemyRecovery,SummonEnemy
     }
 
     public enum EnemySkillType
