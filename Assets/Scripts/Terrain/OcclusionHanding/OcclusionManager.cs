@@ -7,7 +7,7 @@ namespace CircleOfLife
     //根据tag来判断是否需要纳入遮挡管理体系
     public enum OcclusionWhiteTable
     {
-        Player,
+        Player, Terrian
     }
 
     public class OcclusionManager : MonoBehaviour

@@ -121,7 +121,7 @@ namespace CircleOfLife
             {
                 return meshRenderer.sortingOrder;
             }
-            return 0;
+            return -1000;
         }
         //改变碰撞体的Alpha值
         private void ChangeAlpha(GameObject gameObject, float a)
