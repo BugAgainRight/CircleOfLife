@@ -7140,6 +7140,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2305
   ProtectAnimal: {fileID: 1438725548}
+  SetupOnAwake: 1
 --- !u!4 &1000666049
 Transform:
   m_ObjectHideFlags: 0
