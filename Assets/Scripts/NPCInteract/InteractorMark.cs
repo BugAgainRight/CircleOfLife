@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CircleOfLife.Key;
+using CircleOfLife.Units;
 using UnityEngine;
 
 namespace CircleOfLife.NPCInteract
@@ -11,6 +13,7 @@ namespace CircleOfLife.NPCInteract
     /// </summary>
     public class InteractorMark : MonoBehaviour
     {
+        [HideInInspector]
         public GameObject icon;
         /// <summary>
         /// 一般指玩家,找到相关Layer的物体则显示交互图标
@@ -25,6 +28,8 @@ namespace CircleOfLife.NPCInteract
         public string id;
         private float UpdateTime = 0.1f;
         private float currentTime;
+
+        public TextAsset Plot;
 
         void Awake()
         {
@@ -47,6 +52,15 @@ namespace CircleOfLife.NPCInteract
             {
                 currentTime = 0;
                 UpdateTarget();
+            }
+
+            if (KeyEnum.Interact.IsKeyUp() && InteractorManager.InteractableTarget == this)
+            {
+                PlayerController.Instance.enabled = false;
+                PlotBox.Open(Plot, () =>
+                {
+                    PlayerController.Instance.enabled = true;
+                });
             }
         }
 
