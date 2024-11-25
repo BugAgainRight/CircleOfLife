@@ -1026,7 +1026,7 @@ PrefabInstance:
     - target: {fileID: -243278896836921443, guid: bb1897fb981301141b93ff0027696a16, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 279faeea3903ed74698c0c8fe3c367f8, type: 2}
+      objectReference: {fileID: 2100000, guid: 00ddeb55e88c4ec49a927d7600337471, type: 2}
     - target: {fileID: 4929544905241997340, guid: bb1897fb981301141b93ff0027696a16, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.59
@@ -7372,6 +7372,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 257
   ProtectAnimal: {fileID: 1438725548}
+  SetupOnAwake: 1
 --- !u!4 &1000666049
 Transform:
   m_ObjectHideFlags: 0
@@ -7446,11 +7447,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 495404264539790203, guid: c2e1416e8487d1444a443d94828edda9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.49
+      value: 0.99
       objectReference: {fileID: 0}
     - target: {fileID: 495404264539790203, guid: c2e1416e8487d1444a443d94828edda9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.38
+      value: 4.28
       objectReference: {fileID: 0}
     - target: {fileID: 495404264539790203, guid: c2e1416e8487d1444a443d94828edda9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10150,7 +10151,7 @@ Tilemap:
       - {fileID: 1114959025, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
       - {fileID: -1972394604, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
       - {fileID: 821432489, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 1, y: -2, z: 0}
@@ -10582,7 +10583,7 @@ Tilemap:
       - {fileID: -1972394604, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
       - {fileID: 821432489, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
       - {fileID: -1689908179, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 2, y: -1, z: 0}
@@ -10726,7 +10727,7 @@ Tilemap:
       - {fileID: 1127750321, guid: 1dffe0551d8ac0b46af3332b522f6cab, type: 3}
       - {fileID: -2026784367, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
       - {fileID: 594422123, guid: df86728e5e5fbe64da4b2f28c662a30a, type: 3}
-      m_AnimationSpeed: 10
+      m_AnimationSpeed: 10.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 8, y: -1, z: 0}
@@ -20937,6 +20938,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreatmentStation (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 9160503357477912268, guid: e248a2143ee5ff640b9b59f3f360d4c3, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21488,6 +21493,7 @@ GameObject:
   - component: {fileID: 2102966531}
   - component: {fileID: 2102966530}
   - component: {fileID: 2102966529}
+  - component: {fileID: 2102966534}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -21645,6 +21651,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2102966534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102966528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52f7e1693ee41546ac35aef202fef7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerGo: {fileID: 0}
+  ShelterLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1001 &2105935093
 PrefabInstance:
   m_ObjectHideFlags: 0
