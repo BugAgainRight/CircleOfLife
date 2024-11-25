@@ -26,7 +26,7 @@ namespace CircleOfLife.Atlas
 
             AtlasUI.Instance.SkeletonGraphic.skeletonDataAsset = Data.Atlas.SkeletonData;
             AtlasUI.Instance.SkeletonGraphic.Initialize(true);
-            AtlasUI.Instance.SkeletonGraphic.AnimationState.SetAnimation(0, "walk", true);
+            AtlasUI.Instance.SkeletonGraphic.AnimationState.SetAnimation(0, "run", true);
             AtlasUI.Instance.SkeletonGraphic.color = Data.Unlocked ? Color.white : Color.black;
         }
     }

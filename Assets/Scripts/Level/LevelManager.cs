@@ -19,6 +19,7 @@ using Milease.Utils;
 using Milutools.Audio;
 using Milutools.Recycle;
 using Milutools.SceneRouter;
+using Spine.Unity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -40,6 +41,7 @@ namespace CircleOfLife.Level
         public GameObject MaterialWordPrefab;
         public Volume ServicePostProcess, FailPostProcess, SuccessPostProcess;
         public PathFinderBootstrapper PathFinderBootstrapper;
+        public SkeletonAnimation ProtectAnimalSkeleton;
         
         public int Material;
 
@@ -141,6 +143,10 @@ namespace CircleOfLife.Level
             BattleUI.Instance.AnimalGraphic.skeletonDataAsset = Level.ProtectAnimal;
             BattleUI.Instance.AnimalGraphic.Initialize(true);
             BattleUI.Instance.UpdateRoundText(curRound, Level.Rounds.Count);
+
+            ProtectAnimalSkeleton.skeletonDataAsset = Level.ProtectAnimal;
+            ProtectAnimalSkeleton.Initialize(true);
+            ProtectAnimalSkeleton.state.SetAnimation(0, "idel", true);
             
             waveTick = 0f;
             Material = Level.InitialMaterial;
