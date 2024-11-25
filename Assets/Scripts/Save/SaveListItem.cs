@@ -79,7 +79,7 @@ namespace CircleOfLife
                 return;
             }
             
-            Name.text = data.UserName;
+            Name.text = $"存档{Index}";
             PlayTime.text = "游玩时长  " + data.Timer.ToString("g");
             SaveTime.text = data.LastSaveDate.ToString();
             Day.text = $"第 {data.CurrentDay} 天";

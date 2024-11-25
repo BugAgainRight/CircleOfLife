@@ -169,7 +169,11 @@ namespace CircleOfLife.Level
                 }, (o) =>
                 {
                     var animal = (AnimalStat)o;
-                    // todo: 生成小动物
+                    RecyclePool.Request(animal, (c) =>
+                    {
+                        c.Transform.position = Vector3.zero;
+                        c.GameObject.SetActive(true);
+                    });
                 });
             }
             else
