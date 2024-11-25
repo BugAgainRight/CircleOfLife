@@ -1,5 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using CircleOfLife.Audio;
+using Milease.Core.Animator;
+using Milease.Enums;
+using Milease.Utils;
+using Milutools.Audio;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -8,6 +14,7 @@ namespace CircleOfLife
 {
     public class DialogManager : MonoBehaviour
     {
+        public Image BlackScreen, Illustration;
         /// <summary>
         /// 需要读取的剧情文本，格式为csv，编码方式为UFT-8
         /// </summary>
@@ -60,6 +67,8 @@ namespace CircleOfLife
 
         public PlotBox BindUIController;
 
+        private MilInstantAnimator illustrationInAni, illustrationOutAni;
+
         /// <summary>
         /// 在这里把角色的名字和贴图对应起来
         /// </summary>
@@ -76,6 +85,28 @@ namespace CircleOfLife
             ImageDictionary["？"] = Sprites[8];
             ImageDictionary["汪汪"]=Sprites[9];
             ImageDictionary["巡护队员"]=Sprites[10];
+
+            illustrationInAni = 
+                Illustration.MileaseTo(UMN.Color, Color.clear, 0.25f,
+                    0f, EaseFunction.Quad, EaseType.Out)
+                .Then(
+                    BlackScreen.MileaseTo(UMN.Color, Color.white.Clear(), 0.5f,
+                        0f, EaseFunction.Quad, EaseType.Out)
+                );
+
+            illustrationOutAni =
+                BlackScreen.MileaseTo(UMN.Color, Color.black, 0.25f,
+                        0f, EaseFunction.Quad, EaseType.Out)
+                .Then(
+                    Illustration.MileaseTo(UMN.Color, Color.white, 0.5f,
+                        0f, EaseFunction.Quad, EaseType.Out)
+                );
+        }
+
+        private void OnDestroy()
+        {
+            illustrationInAni.Stop();
+            illustrationOutAni.Stop();
         }
 
         void Start()
@@ -127,7 +158,15 @@ namespace CircleOfLife
                 {
                     UpdateText(cells[2],cells[3]);
                     UpdateImage(cells[2]);
-                    DialogIndex = int.Parse(cells[4]);
+                    if (string.IsNullOrEmpty(cells[4]))
+                    {
+                        // 如果没有填跳转序号则默认是下一行，可以少写一点内容
+                        DialogIndex++;
+                    }
+                    else
+                    {
+                        DialogIndex = int.Parse(cells[4]);
+                    }
                     NextButton.gameObject.SetActive(true);
                     break;
                 }
@@ -135,6 +174,49 @@ namespace CircleOfLife
                 {
                     NextButton.gameObject.SetActive(false);
                     GenerateOption(i);
+                }
+                else if(cells[0] == "!" && int.Parse(cells[1]) == DialogIndex )//背景替换
+                {
+                    DialogIndex++;
+                    if (string.IsNullOrEmpty(cells[2]))
+                    {
+                        // 如果“人物”列是空的，则表示淡出背景
+                        illustrationInAni.Play();
+                    }
+                    else
+                    {
+                        // 否则加载 Resources/Illustration/ 下“人物”列填写的图片文件名（不含后缀名）
+                        illustrationOutAni.Play();
+
+                        Illustration.sprite = Resources.Load<Sprite>("Illustration/" + cells[2].Trim());
+                        Illustration.SetNativeSize();
+
+                        var rect = Illustration.rectTransform;
+                        if (rect.sizeDelta.y > rect.sizeDelta.x)
+                        {
+                            // 如果比较高的话就让 左右产生黑边（优先适应高度）
+                            rect.sizeDelta = new Vector2(rect.sizeDelta.x / rect.sizeDelta.y * 1080f, 1080f);
+                        }
+                        else
+                        {
+                            // 如果比较宽的话就让 上下产生黑边（优先适应宽度）
+                            rect.sizeDelta = new Vector2( 1920f, 1920f * rect.sizeDelta.y / rect.sizeDelta.x);
+                        }
+                    }
+                }
+                else if(cells[0] == "*" && int.Parse(cells[1]) == DialogIndex )// BGM替换
+                {
+                    DialogIndex++;
+                    if (string.IsNullOrEmpty(cells[2]))
+                    {
+                        // 如果“人物”列是空的，则表示停止BGM的播放
+                        AudioManager.StopBGM();
+                    }
+                    else
+                    {
+                        // 否则根据枚举名选择 BGM 并切换
+                        AudioManager.SetBGM(Enum.Parse<BGMSO.Clips>(cells[2]));
+                    }
                 }
                 else if (cells[0] == "END" && int.Parse(cells[1]) == DialogIndex)//结束
                 {

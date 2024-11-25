@@ -10,6 +10,8 @@ namespace CircleOfLife.NPCInteract
     /// </summary>
     public static class InteractorManager
     {
+        public static bool Interacting = false;
+        
         public static InteractorMark InteractableTarget;
         public static string IconPrePath = "Prefabs/TestIcon";
         public static void UpdateInteractableTarget(InteractorMark interactorMark)

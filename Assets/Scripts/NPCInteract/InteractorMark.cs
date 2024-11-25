@@ -53,13 +53,18 @@ namespace CircleOfLife.NPCInteract
                 currentTime = 0;
                 UpdateTarget();
             }
+        }
 
-            if (KeyEnum.Interact.IsKeyUp() && InteractorManager.InteractableTarget == this)
+        private void Update()
+        {
+            if (KeyEnum.Interact.IsKeyUp() && InteractorManager.InteractableTarget == this && !InteractorManager.Interacting)
             {
+                InteractorManager.Interacting = true;
                 PlayerController.Instance.enabled = false;
                 PlotBox.Open(Plot, () =>
                 {
                     PlayerController.Instance.enabled = true;
+                    InteractorManager.Interacting = false;
                 });
             }
         }
