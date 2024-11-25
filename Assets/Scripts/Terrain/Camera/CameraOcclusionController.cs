@@ -12,7 +12,9 @@ namespace CircleOfLife
     }
     public class CameraOcclusionController : MonoBehaviour
     {
+        [HideInInspector]
         public GameObject playerGo;
+        public LayerMask ShelterLayer;
         public Transform playerTransform
         {
             get
@@ -59,8 +61,11 @@ namespace CircleOfLife
             RaycastHit2D[] hits = Physics2D.RaycastAll(cameraPos, -Vector2.zero);
             foreach (RaycastHit2D hit in hits)
             {
-                //Debug.Log(hit.collider.name);
-                lastOcclusions.Add(hit.collider.gameObject);
+                //Debug.Log(hit.collider.name + " " + (1 << hit.collider.gameObject.layer) + " " + ShelterLayer.value);
+                if (((1 << hit.collider.gameObject.layer) & ShelterLayer.value) != 0)
+                {
+                    lastOcclusions.Add(hit.collider.gameObject);
+                }
             }
         }
         //注册射线获取的除了玩家以外的所有碰撞体
