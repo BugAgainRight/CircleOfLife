@@ -36,6 +36,8 @@ namespace CircleOfLife.Level
         }
         
         public static LevelManager Instance;
+        public static LevelScriptableObject Level;
+        
         public CanvasGroup MainCanvas, FailUI, SuccessUI;
         public TMP_Text MaterialText, FailCause;
         public GameObject MaterialWordPrefab;
@@ -44,9 +46,7 @@ namespace CircleOfLife.Level
         public SkeletonAnimation ProtectAnimalSkeleton;
         
         public int Material;
-
-        private LevelScriptableObject Level;
-
+        
         private Grid mapGrid;
         private int curWave, curRound;
         private float waveTick;
@@ -102,6 +102,11 @@ namespace CircleOfLife.Level
             RecyclePool.EnsurePrefabRegistered(UIEffect.AddMaterial, MaterialWordPrefab, 20);
         }
 
+        private void Start()
+        {
+            LoadLevel();
+        }
+
         public void SupplyMaterial(int count)
         {
             Material += count;
@@ -127,11 +132,11 @@ namespace CircleOfLife.Level
             remaining.Remove(go);
         }
         
-        public void LoadLevel(string level)
+        public void LoadLevel()
         {
             SaveManagement.UseSaveData.Unlock(PlayerSkillType.Melee);
             
-            Level = Resources.Load<LevelScriptableObject>("Levels/" + level);
+            AudioManager.SetBGM(Level.BGM);
             
             var map = Instantiate(Level.MapPrefab);
             map.SetActive(true);
@@ -141,11 +146,11 @@ namespace CircleOfLife.Level
             curWave = curRound = 0;
 
             BattleUI.Instance.AnimalGraphic.skeletonDataAsset = Level.ProtectAnimal;
-            BattleUI.Instance.AnimalGraphic.Initialize(true);
+            //BattleUI.Instance.AnimalGraphic.Initialize(true);
             BattleUI.Instance.UpdateRoundText(curRound, Level.Rounds.Count);
 
             ProtectAnimalSkeleton.skeletonDataAsset = Level.ProtectAnimal;
-            ProtectAnimalSkeleton.Initialize(true);
+            //ProtectAnimalSkeleton.Initialize(true);
             ProtectAnimalSkeleton.state.SetAnimation(0, "idel", true);
             
             waveTick = 0f;
