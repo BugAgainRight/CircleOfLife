@@ -1,0 +1,34 @@
+
+猎隼.png
+size: 1250,258
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+图层 1
+  rotate: false
+  xy: 805, 2
+  size: 349, 254
+  orig: 349, 399
+  offset: 0, 0
+  index: -1
+图层 2
+  rotate: true
+  xy: 1156, 152
+  size: 104, 92
+  orig: 104, 92
+  offset: 0, 0
+  index: -1
+图层 3
+  rotate: true
+  xy: 446, 16
+  size: 240, 357
+  orig: 240, 357
+  offset: 0, 0
+  index: -1
+图层 4
+  rotate: false
+  xy: 2, 25
+  size: 442, 231
+  orig: 442, 231
+  offset: 0, 0
+  index: -1

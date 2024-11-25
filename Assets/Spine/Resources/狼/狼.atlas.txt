@@ -1,0 +1,55 @@
+
+狼.png
+size: 1281,241
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+图层 1
+  rotate: false
+  xy: 2, 2
+  size: 527, 237
+  orig: 527, 237
+  offset: 0, 0
+  index: -1
+图层 2
+  rotate: true
+  xy: 531, 36
+  size: 203, 172
+  orig: 203, 172
+  offset: 0, 0
+  index: -1
+图层 3
+  rotate: false
+  xy: 705, 30
+  size: 167, 209
+  orig: 167, 209
+  offset: 0, 0
+  index: -1
+图层 4
+  rotate: false
+  xy: 874, 20
+  size: 129, 219
+  orig: 129, 219
+  offset: 0, 0
+  index: -1
+图层 5
+  rotate: false
+  xy: 1005, 32
+  size: 115, 207
+  orig: 115, 207
+  offset: 0, 0
+  index: -1
+图层 6
+  rotate: false
+  xy: 1204, 41
+  size: 75, 198
+  orig: 75, 198
+  offset: 0, 0
+  index: -1
+图层 7
+  rotate: false
+  xy: 1122, 23
+  size: 80, 216
+  orig: 80, 216
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,48 @@
+
+耗牛.png
+size: 920,412
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+图层 1
+  rotate: false
+  xy: 846, 233
+  size: 72, 177
+  orig: 72, 177
+  offset: 0, 0
+  index: -1
+图层 2
+  rotate: false
+  xy: 2, 2
+  size: 567, 408
+  orig: 654, 539
+  offset: 87, 131
+  index: -1
+图层 3
+  rotate: true
+  xy: 571, 226
+  size: 184, 273
+  orig: 184, 273
+  offset: 0, 0
+  index: -1
+图层 4
+  rotate: true
+  xy: 691, 8
+  size: 116, 159
+  orig: 116, 159
+  offset: 0, 0
+  index: -1
+图层 5
+  rotate: true
+  xy: 691, 126
+  size: 98, 202
+  orig: 98, 202
+  offset: 0, 0
+  index: -1
+图层 6
+  rotate: false
+  xy: 571, 2
+  size: 118, 222
+  orig: 118, 222
+  offset: 0, 0
+  index: -1

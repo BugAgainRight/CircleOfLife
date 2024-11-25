@@ -1,0 +1,48 @@
+
+藏羚羊spine.png
+size: 247,1037
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+图层 1
+  rotate: true
+  xy: 2, 2
+  size: 444, 243
+  orig: 514, 510
+  offset: 0, 162
+  index: -1
+图层 2
+  rotate: false
+  xy: 2, 448
+  size: 243, 275
+  orig: 243, 275
+  offset: 0, 0
+  index: -1
+图层 3
+  rotate: true
+  xy: 2, 835
+  size: 86, 232
+  orig: 86, 232
+  offset: 0, 0
+  index: -1
+图层 4
+  rotate: true
+  xy: 2, 725
+  size: 108, 205
+  orig: 108, 205
+  offset: 0, 0
+  index: -1
+图层 5
+  rotate: true
+  xy: 2, 923
+  size: 60, 215
+  orig: 60, 215
+  offset: 0, 0
+  index: -1
+图层 6
+  rotate: true
+  xy: 2, 985
+  size: 50, 218
+  orig: 50, 218
+  offset: 0, 0
+  index: -1

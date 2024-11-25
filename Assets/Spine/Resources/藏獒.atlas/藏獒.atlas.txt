@@ -1,0 +1,48 @@
+
+藏獒.png
+size: 680,607
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+图层 1
+  rotate: true
+  xy: 2, 4
+  size: 601, 364
+  orig: 609, 524
+  offset: 0, 160
+  index: -1
+图层 2
+  rotate: false
+  xy: 368, 405
+  size: 297, 200
+  orig: 297, 200
+  offset: 0, 0
+  index: -1
+图层 3
+  rotate: true
+  xy: 368, 242
+  size: 161, 236
+  orig: 161, 236
+  offset: 0, 0
+  index: -1
+图层 4
+  rotate: true
+  xy: 478, 111
+  size: 129, 179
+  orig: 129, 179
+  offset: 0, 0
+  index: -1
+图层 5
+  rotate: false
+  xy: 368, 6
+  size: 108, 234
+  orig: 108, 234
+  offset: 0, 0
+  index: -1
+图层 6
+  rotate: true
+  xy: 478, 2
+  size: 107, 200
+  orig: 107, 200
+  offset: 0, 0
+  index: -1
