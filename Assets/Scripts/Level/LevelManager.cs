@@ -66,7 +66,7 @@ namespace CircleOfLife.Level
 
         public void PopupGameMenu()
         {
-            GameMenu.Open(null);
+            GameMenu.Open(false);
         }
         
         public void StartInfinityMode()
@@ -379,6 +379,7 @@ namespace CircleOfLife.Level
 
         private void PostWin()
         {
+            SaveManagement.UseSaveData.CurrentDay++;
             foreach (var skill in Level.UnlockSkills)
             {
                 SaveManagement.UseSaveData.Unlock(skill);
@@ -393,6 +394,18 @@ namespace CircleOfLife.Level
                 {
                     MessageBox.Open(("恭喜！", "你解锁了新的技能！同时，受你救助的小动物加入了你的守卫计划！"));
                 });
+        }
+
+        public void OnClickNextLevel()
+        {
+            if (Level.IsFinal)
+            {
+                SceneRouter.GoTo(SceneIdentifier.Credits);
+            }
+            else
+            {
+                SceneRouter.GoTo(SceneIdentifier.Village);
+            }
         }
         
         private void Update()

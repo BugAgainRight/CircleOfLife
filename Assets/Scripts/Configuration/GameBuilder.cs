@@ -37,6 +37,8 @@ namespace CircleOfLife.Configuration
                     SceneRouter.Node(SceneIdentifier.SceneRouterSample, "sample/scene-router", "SceneRouterSample"),
                     SceneRouter.Node(SceneIdentifier.Battle, "battle", "Battle"),
                     SceneRouter.Node(SceneIdentifier.Credits, "credits", "Credits"),
+                    SceneRouter.Node(SceneIdentifier.Village, "village", "Village"),
+                    SceneRouter.Node(SceneIdentifier.ImmersePlot, "immerse_plot", "ImmersePlot")
                 },
                 LoadingAnimators = new []
                 {

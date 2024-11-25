@@ -25,3 +25,6 @@ MonoBehaviour:
   - Name: Credits
     Identifier: 3
     Clip: {fileID: 8300000, guid: 01d26a9b6a997cc42a3a31349455f68b, type: 3}
+  - Name: Village
+    Identifier: 4
+    Clip: {fileID: 8300000, guid: 343be0694e9c00541889f462abfb0dd1, type: 3}

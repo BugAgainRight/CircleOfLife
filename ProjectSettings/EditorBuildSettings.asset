@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 1e6bd0808dc67824cbab44284e2ffcbb
+  - enabled: 1
+    path: Assets/Scenes/Village.unity
+    guid: 23c91d2a9a4beeb41809bf8fc3d967eb
+  - enabled: 1
+    path: Assets/Scenes/ImmersePlot.unity
+    guid: d2c66144e4f4d2e4c8704c1586a4637c
   m_configObjects: {}

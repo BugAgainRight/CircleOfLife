@@ -28,7 +28,10 @@ namespace CircleOfLife
             }
             saveData = JsonConvert.DeserializeObject<SaveCombine>(
                 File.ReadAllText(Path.Combine(Application.persistentDataPath, "SaveData.json")));
-          
+            var go = new GameObject("[SaveManagement]", typeof(SaveManagement));
+            go.SetActive(true);
+            DontDestroyOnLoad(go);
+            Instance = go.GetComponent<SaveManagement>();
         }
 
         /// <summary>
@@ -140,8 +143,10 @@ namespace CircleOfLife
             
             public void Copy(SaveData other)
             {
-                timer=other.timer;
+                timer = other.timer;
                 midTimer = other.midTimer;
+                LastSaveDate = other.LastSaveDate;
+                CurrentDay = other.CurrentDay;
             }
 
         }

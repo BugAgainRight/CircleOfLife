@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using CircleOfLife.Audio;
+using CircleOfLife.Configuration;
 using CircleOfLife.General;
 using Milease.Core.Animator;
 using Milease.Core.UI;
+using Milutools.Audio;
+using Milutools.SceneRouter;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,14 +40,20 @@ namespace CircleOfLife
                             return;
                         }
                         SaveManagement.Save(Index);
-                        MessageBox.Open(("保存存档", "存档已保存！"));
-                        SaveUI.Instance.Close();
+                        AudioManager.PlaySnd(SoundEffectsSO.Clips.SkillReady);
+                        MessageBox.Open(("保存存档", "存档已保存！"), (_) =>
+                        {
+                            SaveUI.Instance.Close();
+                        });
                     });
                     return;
                 }    
                 SaveManagement.Save(Index);
-                MessageBox.Open(("保存存档", "存档已保存！"));
-                SaveUI.Instance.Close();
+                AudioManager.PlaySnd(SoundEffectsSO.Clips.SkillReady);
+                MessageBox.Open(("保存存档", "存档已保存！"), (_) =>
+                {
+                    SaveUI.Instance.Close();
+                });
             }
             else
             {
@@ -53,6 +63,8 @@ namespace CircleOfLife
                     return;
                 }    
                 SaveManagement.SelectSaveData(Index);
+                AudioManager.PlaySnd(SoundEffectsSO.Clips.Load);
+                SceneRouter.GoTo(SceneIdentifier.Village);
             }
         }
         
@@ -79,10 +91,10 @@ namespace CircleOfLife
                 return;
             }
             
-            Name.text = $"存档{Index}";
+            Name.text = $"存档{Index + 1}";
             PlayTime.text = "游玩时长  " + data.Timer.ToString("g");
             SaveTime.text = data.LastSaveDate.ToString();
-            Day.text = $"第 {data.CurrentDay} 天";
+            Day.text = $"第 {data.CurrentDay + 1} 天";
         }
 
         public override void AdjustAppearance(float pos)

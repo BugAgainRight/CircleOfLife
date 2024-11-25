@@ -8,7 +8,7 @@ namespace CircleOfLife.Audio
     {
         public enum Clips
         {
-            Battle, TitleScreen, Map, Credits
+            Battle, TitleScreen, Map, Credits, Village
         }
     }
 }

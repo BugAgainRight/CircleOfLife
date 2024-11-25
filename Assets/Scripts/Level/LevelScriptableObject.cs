@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CircleOfLife.Audio;
 using CircleOfLife.Weather;
 using Spine;
 using Spine.Unity;
@@ -23,6 +24,10 @@ namespace CircleOfLife.Level
         public WeatherType Weather = WeatherType.Day;
         [Header("保护的小动物")]
         public SkeletonDataAsset ProtectAnimal;
+        [Header("是否是最后一关")]
+        public bool IsFinal;
+        [Header("背景音乐")]
+        public BGMSO.Clips BGM = BGMSO.Clips.Battle;
         public List<LevelRound> Rounds;
         [Header("胜利后的剧情")]
         public TextAsset WinPlot;

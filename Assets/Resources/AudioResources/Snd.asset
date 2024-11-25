@@ -49,3 +49,6 @@ MonoBehaviour:
   - Name: Coin
     Identifier: 11
     Clip: {fileID: 8300000, guid: b947456deb4444f448acbb55945bc097, type: 3}
+  - Name: Load
+    Identifier: 12
+    Clip: {fileID: 8300000, guid: 86d477d2f38261b44b25f00e0122bab7, type: 3}

@@ -10,7 +10,7 @@ namespace CircleOfLife.Audio
     {
         public enum Clips
         {
-            Spawn, Shoot1, Shoot2, Shoot3, Blood, Thunder, Hit1, Hit2, Hit3, SkillBurst, SkillReady, Coin
+            Spawn, Shoot1, Shoot2, Shoot3, Blood, Thunder, Hit1, Hit2, Hit3, SkillBurst, SkillReady, Coin, Load
         }
     }
 }

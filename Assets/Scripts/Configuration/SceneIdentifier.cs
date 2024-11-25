@@ -4,6 +4,6 @@
     {
         WeatherTest,
         MilutoolsSample, SceneRouterSample,
-        Battle, TitleScreen, Credits
+        Battle, TitleScreen, Credits, Village, ImmersePlot
     }
 }

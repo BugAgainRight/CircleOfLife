@@ -93,6 +93,8 @@ namespace CircleOfLife.Level
             EditorGUILayout.PropertyField(serializedObject.FindProperty("InitialMaterial"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("Weather"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("ProtectAnimal"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("BGM"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("IsFinal"));
             
             EditorGUILayout.LabelField("所有回合", EditorStyles.boldLabel);
 

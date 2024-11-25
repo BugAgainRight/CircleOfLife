@@ -2,18 +2,22 @@
 using System;
 using System.Linq;
 using CircleOfLife.Atlas;
+using CircleOfLife.Configuration;
 using CircleOfLife.General;
 using Milease.Utils;
 using Milutools.Audio;
+using Milutools.SceneRouter;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace CircleOfLife
 {
-    public class GameMenu : ManagedUI<GameMenu, object>
+    public class GameMenu : ManagedUI<GameMenu, bool>
     {
         public Slider BGMVolume, SndVolume;
+        public GameObject RetryBtn, TitleScreenBtn;
+        public bool VillageMode = false;
         
         protected override void Begin()
         {
@@ -49,6 +53,8 @@ namespace CircleOfLife
                 {
                     return;
                 }
+
+                SceneRouter.GoTo(SceneIdentifier.TitleScreen);
             });
         }
         
@@ -68,9 +74,12 @@ namespace CircleOfLife
             Time.timeScale = 1f;
         }
 
-        public override void AboutToOpen(object parameter)
+        public override void AboutToOpen(bool parameter)
         {
             Time.timeScale = 0f;
+            VillageMode = parameter;
+            RetryBtn.SetActive(!parameter);
+            TitleScreenBtn.SetActive(parameter);
         }
     }
 }
