@@ -15942,6 +15942,10 @@ PrefabInstance:
       value: NPC2
       objectReference: {fileID: 0}
     - target: {fileID: 4703495536364461169, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
+      propertyPath: Plot
+      value: 
+      objectReference: {fileID: 4900000, guid: 03161df47204d4f4fb91571a2ff7b3a1, type: 3}
+    - target: {fileID: 4703495536364461169, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
       propertyPath: IsFinalNPC
       value: 1
       objectReference: {fileID: 0}
