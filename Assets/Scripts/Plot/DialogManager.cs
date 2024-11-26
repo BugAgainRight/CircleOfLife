@@ -181,12 +181,12 @@ namespace CircleOfLife
                     if (string.IsNullOrEmpty(cells[2]))
                     {
                         // 如果“人物”列是空的，则表示淡出背景
-                        illustrationInAni.Play();
+                        illustrationInAni.Play(null, false);
                     }
                     else
                     {
                         // 否则加载 Resources/Illustration/ 下“人物”列填写的图片文件名（不含后缀名）
-                        illustrationOutAni.Play();
+                        illustrationOutAni.Play(null, false);
 
                         Illustration.sprite = Resources.Load<Sprite>("Illustration/" + cells[2].Trim());
                         Illustration.SetNativeSize();

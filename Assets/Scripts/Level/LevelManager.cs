@@ -136,6 +136,7 @@ namespace CircleOfLife.Level
         public void LoadLevel()
         {
             SaveManagement.UseSaveData.Unlock(PlayerSkillType.Melee);
+            SaveManagement.UseSaveData.Unlock(AnimalStat.TibetanMastiff);
             
             AudioManager.SetBGM(Level.BGM);
             
@@ -164,38 +165,7 @@ namespace CircleOfLife.Level
             BuildUtils.DisableAllBuilding();
             PlayerController.Instance.enabled = false;
 
-            if (SaveManagement.UseSaveData.AtlasAnimalUnlocks.Any())
-            {
-                EnumPopupUI.Open(new EnumPopupUIData()
-                {
-                    Title = "选择出战的小动物",
-                    Description = "和小动物并肩作战吧！",
-                    List = SaveManagement.UseSaveData.AtlasAnimalUnlocks.Select(x => (object)(AnimalStat)x).ToList(),
-                    Describer = (x) => ((AnimalStat)x) switch
-                    {
-                        AnimalStat.TibetanMastiff => "藏獒",
-                        AnimalStat.TibetanAntelope => "藏羚羊",
-                        AnimalStat.Wolf => "狼",
-                        AnimalStat.FalcoCherrug => "猎隼",
-                        AnimalStat.Bear => "藏棕熊",
-                        AnimalStat.WildYak => "野牦牛",
-                        _ => throw new ArgumentOutOfRangeException(nameof(x), x, null)
-                    }
-                }, (o) =>
-                {
-                    var animal = (AnimalStat)o;
-                    RecyclePool.Request(animal, (c) =>
-                    {
-                        c.Transform.position = Vector3.zero;
-                        c.GameObject.SetActive(true);
-                    });
-                    LaunchNextRound();
-                });
-            }
-            else
-            {
-                LaunchNextRound();
-            }
+            LaunchNextRound();
         }
 
         public void Retry()
@@ -222,7 +192,7 @@ namespace CircleOfLife.Level
             StartRound(round);
         }
 
-        private void StartRound(LevelRound round)
+        private void TrueStartRound(LevelRound round)
         {
             if (round.SkipBuildPlace)
             {
@@ -231,6 +201,42 @@ namespace CircleOfLife.Level
             else
             {
                 StartPlacing();
+            }
+        }
+        
+        private void StartRound(LevelRound round)
+        {
+            if (SaveManagement.UseSaveData.AtlasAnimalUnlocks.Any())
+            {
+                EnumPopupUI.Open(new EnumPopupUIData()
+                {
+                    Title = "选择出战的小动物",
+                    Description = "和小动物并肩作战吧！",
+                    List = SaveManagement.UseSaveData.AtlasAnimalUnlocks.Select(x => (object)(AnimalStat)x).ToList(),
+                    Describer = (x) => ((AnimalStat)x) switch
+                    {
+                        AnimalStat.TibetanMastiff => "藏獒",
+                        AnimalStat.TibetanAntelope => "藏羚羊",
+                        AnimalStat.Wolf => "狼",
+                        AnimalStat.FalcoCherrug => "猎隼",
+                        AnimalStat.Bear => "藏棕熊",
+                        AnimalStat.WildYak => "野牦牛",
+                        _ => throw new ArgumentOutOfRangeException(nameof(x), x, null)
+                    }
+                }, (o) =>
+                {
+                    var animal = (AnimalStat)o;
+                    RecyclePool.Request(animal, (c) =>
+                    {
+                        c.Transform.position = Vector3.zero;
+                        c.GameObject.SetActive(true);
+                    });
+                    TrueStartRound(round);
+                });
+            }
+            else
+            {
+                TrueStartRound(round);
             }
         }
 

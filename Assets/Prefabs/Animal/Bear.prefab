@@ -110,14 +110,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2560
   Stat:
-    Velocity: 4
-    Hp: 900
-    Attack: 1
-    Armor: 0
+    Velocity: 1.5
+    Hp: 200
+    Attack: 20
+    Armor: 10
     EffectRange: 0
-    AttackInterval: 0.3333
+    AttackInterval: 0.5
     CriticalChance: 0
-    CriticalStrikeDamage: 0
+    CriticalStrikeDamage: 1
     EvasionRate: 0
   BehaviourTree: {fileID: 3661484708059229031}
   AnimalType: 4

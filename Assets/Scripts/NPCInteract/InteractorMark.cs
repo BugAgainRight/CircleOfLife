@@ -41,6 +41,10 @@ namespace CircleOfLife.NPCInteract
             {
                 gameObject.SetActive(IsFinalNPC);
             }
+            else if (IsFinalNPC)
+            {
+                gameObject.SetActive(false);
+            }
         }
         // Start is called before the first frame update
         void Start()
