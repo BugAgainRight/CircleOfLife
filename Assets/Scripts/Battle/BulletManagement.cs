@@ -124,6 +124,11 @@ namespace CircleOfLife
                     c.Transform.position = midContext.HitData.Transform.position;
                     c.GameObject.SetActive(true);
                 });
+                RecyclePool.Request(AnimatonPrefab.Dizzy, (c) =>
+                {
+                    c.Transform.position = midContext.HitData.Transform.position;
+                    c.GameObject.SetActive(true);
+                });
                 DamageManagement.Damage(midContext);
                 midContext.HitData.ApplyBuff(BuffUtils.ToBuff(UniversalBuff.Dizzy,1));
             }

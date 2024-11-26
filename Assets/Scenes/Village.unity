@@ -14603,6 +14603,14 @@ PrefabInstance:
       propertyPath: FollowCamera
       value: 
       objectReference: {fileID: 425782484}
+    - target: {fileID: 2906348333651066122, guid: 2172db2f5137ccc4b90fdf212c07918e, type: 3}
+      propertyPath: RainHeightMultiplier
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2906348333659239612, guid: 2172db2f5137ccc4b90fdf212c07918e, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4292050837697194346, guid: 2172db2f5137ccc4b90fdf212c07918e, type: 3}
       propertyPath: m_Name
       value: WeatherSystem
