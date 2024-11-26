@@ -56,7 +56,7 @@ namespace CircleOfLife
         {
             UpdateHPBar(AnimalHPBar, ProtectAnimal.Instance.Stats, MaxAnimalHPWidth);
             UpdateHPBar(PlayerHPBar, PlayerController.Instance.Stats, MaxPlayerHPWidth);
-            PlayerHPText.text = $"{PlayerController.Instance.Stats.Current.Hp}/{PlayerController.Instance.Stats.Max.Hp}";
+            PlayerHPText.text = $"{Mathf.RoundToInt(PlayerController.Instance.Stats.Current.Hp)}/{PlayerController.Instance.Stats.Max.Hp}";
         }
     }
 }

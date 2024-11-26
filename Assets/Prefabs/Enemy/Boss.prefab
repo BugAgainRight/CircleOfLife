@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1323305976869934897}
   - component: {fileID: 672450529275381223}
   - component: {fileID: 8520868279206848299}
+  - component: {fileID: 3491069262948720796}
   m_Layer: 10
   m_Name: Boss
   m_TagString: Untagged
@@ -69,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 279faeea3903ed74698c0c8fe3c367f8, type: 2}
+  - {fileID: 2100000, guid: 6613768ec961190408b255888cdf0722, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -284,6 +285,18 @@ MonoBehaviour:
     size: {x: 0, y: 0}
     offSet: {x: 0, y: 0}
     gizmosColor: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &3491069262948720796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621748402105597611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249613bf5003bfe4da6ca33a1c5221fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2755318652053249985
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,7 +608,7 @@ Transform:
   m_GameObject: {fileID: 5891081682761003254}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.8, z: 0}
+  m_LocalPosition: {x: -3.21, y: 2.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

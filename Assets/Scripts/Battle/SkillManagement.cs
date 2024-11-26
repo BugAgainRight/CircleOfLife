@@ -357,11 +357,11 @@ namespace CircleOfLife
             int j = 0;
             for (int i = 0; i < 10; i++)
             {
-                instantiatePos = UnityEngine.Random.insideUnitCircle * range;
+                instantiatePos = UnityEngine.Random.insideUnitCircle * range + (Vector2)context.AttackerData.Transform.position;
                 if (Physics2D.Raycast(instantiatePos, Vector2.zero).collider == null)
                 {
                     EnemyStat midType = allEnemyEnum_BossSkill4[UnityEngine.Random.Range(0, allEnemyEnum_BossSkill4.Count)];
-                    var collection = RecyclePool.RequestWithCollection(midType, context.AttackerData.Transform);
+                    var collection = RecyclePool.RequestWithCollection(midType);
                     collection.GameObject.SetActive(true);
 
                     collection.GameObject.transform.position = instantiatePos;

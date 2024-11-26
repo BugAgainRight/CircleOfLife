@@ -87,7 +87,7 @@ namespace CircleOfLife
             isSecondState = false;
             playerColl = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
             ThisAstarMove = this;
-            Stats = FirstState.Build(gameObject,HurtAction);
+            Stats = FirstState.Build(gameObject,HurtAction, true);
             ThisAstarMove.OnEnableNew(1, Mathf.RoundToInt(FirstState.Velocity));
             Front.fillAmount = 1;
             Back.fillAmount = 1;
@@ -123,8 +123,8 @@ namespace CircleOfLife
         {
             if (finishTime <= Time.time) IsDizzAttack = false;
 
-            Front.fillAmount = Stats.Current.Hp;
-            Back.fillAmount = Mathf.MoveTowards(Back.fillAmount, Stats.Current.Hp,
+            Front.fillAmount = Stats.Current.Hp / Stats.Max.Hp;
+            Back.fillAmount = Mathf.MoveTowards(Back.fillAmount, Stats.Current.Hp / Stats.Max.Hp,
                 (1+ Mathf.Abs(Stats.Current.Hp- Back.fillAmount)/ Stats.Max.Hp) *0.2f);
 
 
