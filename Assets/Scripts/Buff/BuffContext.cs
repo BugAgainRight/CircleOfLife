@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CircleOfLife.Battle;
+using Milutools.Recycle;
 using UnityEngine;
 
 namespace CircleOfLife.Buff
@@ -44,8 +45,23 @@ namespace CircleOfLife.Buff
         /// </summary>
         public float TickedTime { get; private set;}
 
+        public bool HasAnimation { get; private set; }
+        
+        public AnimatonPrefab AnimationPrefab;
+
+        public GameObject GeneratedAnimation;
+
         private readonly Dictionary<string, object> dataDict = new();
 
+        public void CleanUpAnimation()
+        {
+            if (GeneratedAnimation)
+            {
+                RecyclePool.ReturnToPool(GeneratedAnimation);
+                GeneratedAnimation = null;
+            }
+        }
+        
         public void Set<T>(string key, Modifier<T> modifier, T defaultValue = default)
         {
             dataDict.TryAdd(key, defaultValue);
@@ -92,6 +108,13 @@ namespace CircleOfLife.Buff
         public BuffContext SetMaxLevel(int level)
         {
             MaxLevel = level;
+            return this;
+        }
+        
+        public BuffContext SetBuffAnimation(AnimatonPrefab animation)
+        {
+            HasAnimation = true;
+            AnimationPrefab = animation;
             return this;
         }
     }

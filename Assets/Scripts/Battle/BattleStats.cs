@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CircleOfLife.Buff;
 using CircleOfLife.Weather;
+using Milutools.Recycle;
 using Spine.Unity;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -55,12 +56,14 @@ namespace CircleOfLife.Battle
             {
                 if (completely)
                 {
+                    buff.CleanUpAnimation();
                     buffContexts.Remove(buff);
                     return;
                 }
                 buff.Level--;
                 if (buff.Level <= 0)
                 {
+                    buff.CleanUpAnimation();
                     buffContexts.Remove(buff);
                 }
             }
@@ -74,8 +77,22 @@ namespace CircleOfLife.Battle
         {
             if (buffContexts.All(x => x.BuffHandler != context.BuffHandler))
             {
-                buffContexts.Add(context);
+                ApplyBuffInner(context);
             }
+        }
+
+        private void ApplyBuffInner(BuffContext context)
+        {
+            if (context.HasAnimation)
+            {
+                RecyclePool.Request(context.AnimationPrefab, (c) =>
+                {
+                    context.GeneratedAnimation = c.GameObject;
+                    c.Transform.localPosition = Vector3.zero;
+                    c.GameObject.SetActive(true);
+                }, Transform);
+            }
+            buffContexts.Add(context);
         }
         
         /// <summary>
@@ -102,7 +119,7 @@ namespace CircleOfLife.Battle
             }
             else
             {
-                buffContexts.Add(context);
+                ApplyBuffInner(context);
             }
         }
         
@@ -119,6 +136,10 @@ namespace CircleOfLife.Battle
                 if (buff.Duration > 0f)
                 {
                     buff.Duration = Mathf.Max(0f, buff.Duration - Time.fixedDeltaTime);
+                    if (buff.Duration <= 0f)
+                    {
+                        buff.CleanUpAnimation();
+                    }
                 }
             }
 
