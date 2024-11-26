@@ -34,3 +34,6 @@ MonoBehaviour:
   - Name: SpecialVillage
     Identifier: 6
     Clip: {fileID: 8300000, guid: 213db9d2aa74b474b8c19de307f7f001, type: 3}
+  - Name: Happy
+    Identifier: 7
+    Clip: {fileID: 8300000, guid: 3298aae00f5c0da489a8fc5149174f1b, type: 3}

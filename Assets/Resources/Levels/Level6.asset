@@ -13,12 +13,51 @@ MonoBehaviour:
   m_Name: Level6
   m_EditorClassIdentifier: 
   MapPrefab: {fileID: 0}
-  InitialMaterial: 0
+  InitialMaterial: 300
   Weather: 1
   ProtectAnimal: {fileID: 11400000, guid: f658d3451ac14e7468305a4a1a0dc0f0, type: 2}
   IsFinal: 0
   BGM: 5
-  Rounds: []
-  WinPlot: {fileID: 0}
-  UnlockAnimal: 0
+  Rounds:
+  - BeforePlot: {fileID: 4900000, guid: 0a45a603e9946b6459e76de899609c4e, type: 3}
+    SkipBuildPlace: 0
+    Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 1
+        AppearPoints: 
+  - BeforePlot: {fileID: 4900000, guid: 3694456a1558a03428d29deeb5dc0a6c, type: 3}
+    SkipBuildPlace: 0
+    Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 1
+        AppearPoints: 
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 1
+        AppearPoints: 
+  - BeforePlot: {fileID: 4900000, guid: a035a7a3c92da5743a3fe2088208ce2f, type: 3}
+    SkipBuildPlace: 0
+    Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 1
+        AppearPoints: 
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 1
+        AppearPoints: 
+  WinPlot: {fileID: 4900000, guid: 2d484a5a40de13641be93eb9b7eb9737, type: 3}
+  UnlockAnimal: 5
   UnlockSkills: 

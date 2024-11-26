@@ -13,18 +13,27 @@ MonoBehaviour:
   m_Name: Level5
   m_EditorClassIdentifier: 
   MapPrefab: {fileID: 0}
-  InitialMaterial: 0
+  InitialMaterial: 300
   Weather: 1
-  ProtectAnimal: {fileID: 11400000, guid: f658d3451ac14e7468305a4a1a0dc0f0, type: 2}
+  ProtectAnimal: {fileID: 11400000, guid: 0a06d32fe92504a468c9d292633a08f3, type: 2}
   IsFinal: 0
   BGM: 0
   Rounds:
   - BeforePlot: {fileID: 0}
     SkipBuildPlace: 0
-    Waves: []
+    Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 1
+        AppearPoints: 
   - BeforePlot: {fileID: 4900000, guid: ede7a3ee012cf5946b87a4624789958c, type: 3}
     SkipBuildPlace: 0
-    Waves: []
+    Waves:
+    - Name: "1.00 \u79D2\u540E\uFF1A"
+      AfterTime: 1
+      Enemies: []
   WinPlot: {fileID: 4900000, guid: 08a7daeba31318f4894e68fc377b820a, type: 3}
-  UnlockAnimal: 0
-  UnlockSkills: 
+  UnlockAnimal: 5
+  UnlockSkills: 08000000

@@ -627,6 +627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC3 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4703495536364461169, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
+      propertyPath: Plot
+      value: 
+      objectReference: {fileID: 4900000, guid: 4df9f4349367bf04787d8d5fde2a858a, type: 3}
     - target: {fileID: 5094297219254257692, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.08
@@ -7007,6 +7011,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC4
       objectReference: {fileID: 0}
+    - target: {fileID: 4703495536364461169, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
+      propertyPath: Plot
+      value: 
+      objectReference: {fileID: 4900000, guid: d21818eef3332524393921cba9b5f615, type: 3}
     - target: {fileID: 5094297219254257692, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.57
@@ -15516,6 +15524,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC3
       objectReference: {fileID: 0}
+    - target: {fileID: 4703495536364461169, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
+      propertyPath: Plot
+      value: 
+      objectReference: {fileID: 4900000, guid: 4df9f4349367bf04787d8d5fde2a858a, type: 3}
     - target: {fileID: 5094297219254257692, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.78
@@ -15986,6 +15998,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4703495536364461169, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
+      propertyPath: Plot
+      value: 
+      objectReference: {fileID: 4900000, guid: bfe4c338429ea364bb071ad44b9ba77b, type: 3}
     - target: {fileID: 5094297219254257692, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.03
@@ -16435,6 +16451,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 4703495536364461169, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
+      propertyPath: Plot
+      value: 
+      objectReference: {fileID: 4900000, guid: bfe4c338429ea364bb071ad44b9ba77b, type: 3}
     - target: {fileID: 5094297219254257692, guid: 385b90ccc3cd21b48afe83cdde8ce92e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.21

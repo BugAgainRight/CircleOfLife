@@ -1,4 +1,4 @@
-﻿using Milutools.Audio;
+using Milutools.Audio;
 using UnityEngine;
 
 namespace CircleOfLife.Audio
@@ -9,7 +9,7 @@ namespace CircleOfLife.Audio
         public enum Clips
         {
             Battle, TitleScreen, Map, Credits, Village,
-            Boss, SpecialVillage
+            Boss, SpecialVillage, Happy
         }
     }
 }
