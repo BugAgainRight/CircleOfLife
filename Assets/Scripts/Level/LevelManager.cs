@@ -384,6 +384,9 @@ namespace CircleOfLife.Level
 
         private void PostWin()
         {
+            MainCanvas.MileaseTo("alpha", 1f, 0.5f, 
+                0f, EaseFunction.Quad, EaseType.Out).Play();
+            
             SaveManagement.UseSaveData.CurrentDay++;
             foreach (var skill in Level.UnlockSkills)
             {

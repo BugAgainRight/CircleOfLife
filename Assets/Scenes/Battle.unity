@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 99001582}
   - component: {fileID: 99001581}
   - component: {fileID: 99001580}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NextLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 273573418}
   - component: {fileID: 273573417}
   - component: {fileID: 273573416}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Retry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1213,7 +1213,7 @@ GameObject:
   - component: {fileID: 487711795}
   - component: {fileID: 487711797}
   - component: {fileID: 487711796}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1332,7 +1332,7 @@ GameObject:
   - component: {fileID: 559790560}
   - component: {fileID: 559790562}
   - component: {fileID: 559790561}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1569,7 +1569,7 @@ GameObject:
   - component: {fileID: 597603287}
   - component: {fileID: 597603286}
   - component: {fileID: 597603285}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Retry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2034,7 +2034,7 @@ GameObject:
   - component: {fileID: 695206869}
   - component: {fileID: 695206871}
   - component: {fileID: 695206870}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2187,7 +2187,7 @@ GameObject:
   - component: {fileID: 785824864}
   - component: {fileID: 785824866}
   - component: {fileID: 785824865}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2759,7 +2759,7 @@ GameObject:
   - component: {fileID: 994569886}
   - component: {fileID: 994569888}
   - component: {fileID: 994569887}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3732,7 +3732,7 @@ GameObject:
   - component: {fileID: 1664459574}
   - component: {fileID: 1664459576}
   - component: {fileID: 1664459575}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4146,7 +4146,7 @@ GameObject:
   - component: {fileID: 1729241541}
   - component: {fileID: 1729241543}
   - component: {fileID: 1729241542}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
