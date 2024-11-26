@@ -54,6 +54,7 @@ namespace CircleOfLife
                     return;
                 }
 
+                Time.timeScale = 1f;
                 SceneRouter.GoTo(SceneIdentifier.TitleScreen);
             });
         }
@@ -66,6 +67,9 @@ namespace CircleOfLife
                 {
                     return;
                 }
+
+                Time.timeScale = 1f;
+                SceneRouter.GoTo(SceneIdentifier.Battle);
             });
         }
 

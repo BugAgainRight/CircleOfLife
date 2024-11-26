@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CircleOfLife.Audio;
@@ -144,14 +145,17 @@ namespace CircleOfLife.Level
             PathFinderBootstrapper.Setup();
             
             curWave = curRound = 0;
+            
+            ProtectAnimalSkeleton.skeletonDataAsset = Level.ProtectAnimal;
+            ProtectAnimalSkeleton.ClearState();
+            ProtectAnimalSkeleton.Initialize(true);
+            ProtectAnimalSkeleton.state.SetAnimation(0, "idel", true);
 
             BattleUI.Instance.AnimalGraphic.skeletonDataAsset = Level.ProtectAnimal;
-            //BattleUI.Instance.AnimalGraphic.Initialize(true);
+            BattleUI.Instance.AnimalGraphic.Clear();
+            BattleUI.Instance.AnimalGraphic.Initialize(false);
+            BattleUI.Instance.AnimalGraphic.UpdateMesh();
             BattleUI.Instance.UpdateRoundText(curRound, Level.Rounds.Count);
-
-            ProtectAnimalSkeleton.skeletonDataAsset = Level.ProtectAnimal;
-            //ProtectAnimalSkeleton.Initialize(true);
-            ProtectAnimalSkeleton.state.SetAnimation(0, "idel", true);
             
             waveTick = 0f;
             Material = Level.InitialMaterial;

@@ -17,6 +17,10 @@ namespace CircleOfLife.General
             {
                 BanBattle = true;
             }
+            else
+            {
+                BanBattle = false;
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
