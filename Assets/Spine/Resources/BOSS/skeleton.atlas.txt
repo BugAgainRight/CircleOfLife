@@ -1,0 +1,167 @@
+
+skeleton.png
+size: 1406,546
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+BOSS/BOSS右大臂
+  rotate: true
+  xy: 674, 31
+  size: 57, 123
+  orig: 454, 567
+  offset: 194, 236
+  index: -1
+BOSS/BOSS右大臂描边
+  rotate: true
+  xy: 435, 18
+  size: 70, 136
+  orig: 454, 567
+  offset: 188, 229
+  index: -1
+BOSS/BOSS右小臂
+  rotate: true
+  xy: 230, 2
+  size: 86, 93
+  orig: 454, 567
+  offset: 173, 182
+  index: -1
+BOSS/BOSS右小臂描边
+  rotate: true
+  xy: 1006, 450
+  size: 94, 103
+  orig: 454, 567
+  offset: 167, 178
+  index: -1
+BOSS/BOSS右手
+  rotate: false
+  xy: 1337, 58
+  size: 51, 49
+  orig: 454, 567
+  offset: 147, 163
+  index: -1
+BOSS/BOSS右手描边
+  rotate: false
+  xy: 1337, 109
+  size: 61, 61
+  orig: 454, 567
+  offset: 141, 157
+  index: -1
+BOSS/BOSS右腿
+  rotate: true
+  xy: 2, 2
+  size: 86, 226
+  orig: 454, 567
+  offset: 200, 39
+  index: -1
+BOSS/BOSS右腿描边
+  rotate: true
+  xy: 1156, 447
+  size: 97, 235
+  orig: 454, 567
+  offset: 193, 35
+  index: -1
+BOSS/BOSS头
+  rotate: false
+  xy: 1156, 47
+  size: 179, 185
+  orig: 454, 567
+  offset: 175, 349
+  index: -1
+BOSS/BOSS头描边
+  rotate: false
+  xy: 962, 6
+  size: 192, 195
+  orig: 454, 567
+  offset: 167, 344
+  index: -1
+BOSS/BOSS左大臂
+  rotate: false
+  xy: 1298, 234
+  size: 100, 99
+  orig: 454, 567
+  offset: 291, 273
+  index: -1
+BOSS/BOSS左大臂描边
+  rotate: true
+  xy: 1298, 335
+  size: 110, 106
+  orig: 454, 567
+  offset: 284, 270
+  index: -1
+BOSS/BOSS左小臂
+  rotate: false
+  xy: 573, 22
+  size: 99, 66
+  orig: 454, 567
+  offset: 295, 245
+  index: -1
+BOSS/BOSS左小臂描边
+  rotate: false
+  xy: 325, 11
+  size: 108, 77
+  orig: 454, 567
+  offset: 289, 242
+  index: -1
+BOSS/BOSS左手
+  rotate: false
+  xy: 1337, 6
+  size: 49, 50
+  orig: 454, 567
+  offset: 269, 227
+  index: -1
+BOSS/BOSS左手描边
+  rotate: true
+  xy: 1337, 172
+  size: 60, 63
+  orig: 454, 567
+  offset: 262, 220
+  index: -1
+BOSS/BOSS左腿
+  rotate: true
+  xy: 571, 90
+  size: 100, 226
+  orig: 454, 567
+  offset: 268, 37
+  index: -1
+BOSS/BOSS左腿描边
+  rotate: false
+  xy: 1006, 212
+  size: 111, 233
+  orig: 454, 567
+  offset: 263, 35
+  index: -1
+BOSS/BOSS躯干
+  rotate: false
+  xy: 799, 2
+  size: 161, 199
+  orig: 454, 567
+  offset: 194, 188
+  index: -1
+BOSS/BOSS躯干描边
+  rotate: false
+  xy: 1119, 235
+  size: 177, 210
+  orig: 454, 567
+  offset: 186, 182
+  index: -1
+BOSS/枪
+  rotate: true
+  xy: 794, 203
+  size: 341, 210
+  orig: 454, 567
+  offset: 33, 135
+  index: -1
+BOSS/枪描边
+  rotate: true
+  xy: 571, 192
+  size: 352, 221
+  orig: 454, 567
+  offset: 27, 131
+  index: -1
+BOSS/阴影
+  rotate: true
+  xy: 2, 90
+  size: 454, 567
+  orig: 454, 567
+  offset: 0, 0
+  index: -1
