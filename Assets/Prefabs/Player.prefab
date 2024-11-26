@@ -353,7 +353,7 @@ MonoBehaviour:
   SkeletonAnimation: {fileID: 8434397192462246383}
   Stat:
     Velocity: 2
-    Hp: 200
+    Hp: 300
     Attack: 15
     Armor: 0
     EffectRange: 0

@@ -26,7 +26,16 @@ MonoBehaviour:
       AfterTime: 0
       Enemies:
       - Enemy: 0
-        SummonCount: 1
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "5.00 \u79D2\u540E\uFF1A"
+      AfterTime: 5
+      Enemies:
+      - Enemy: 0
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 2
         AppearPoints: 
   - BeforePlot: {fileID: 4900000, guid: edd5acbfa6da06345ae41daacdea89c5, type: 3}
     SkipBuildPlace: 0
@@ -37,6 +46,30 @@ MonoBehaviour:
       - Enemy: 0
         SummonCount: 4
         AppearPoints: 
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "5.00 \u79D2\u540E\uFF1A"
+      AfterTime: 5
+      Enemies:
+      - Enemy: 0
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "15.00 \u79D2\u540E\uFF1A"
+      AfterTime: 10
+      Enemies:
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 3
+        SummonCount: 2
+        AppearPoints: 
   WinPlot: {fileID: 4900000, guid: 6b63ced6fa945af49b4c6951d8a1e32d, type: 3}
   UnlockAnimal: 1
-  UnlockSkills: 0100000002000000
+  UnlockSkills: 02000000

@@ -226,7 +226,7 @@ MonoBehaviour:
     m_Bits: 2560
   WhetherSelectDirection: 0
   EffectPrefab: {fileID: 145256, guid: 7b117ab47ae99e74fbb811d488c1eb17, type: 3}
-  LevelSupply: c80000002c01000090010000
+  LevelSupply: fa0000005e010000f4010000
   SpeedUpValue: 0.5
   ArmorUpValue: 5
   AttackUpValue: 10

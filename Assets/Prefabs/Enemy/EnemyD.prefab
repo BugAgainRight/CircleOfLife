@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2158474208484850346, guid: 6459b3de63950be4b8dd314c4bad214c, type: 3}
       propertyPath: Stat.Attack
-      value: 25
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2158474208484850346, guid: 6459b3de63950be4b8dd314c4bad214c, type: 3}
       propertyPath: Stat.Velocity

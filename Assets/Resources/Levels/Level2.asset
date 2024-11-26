@@ -26,7 +26,100 @@ MonoBehaviour:
       AfterTime: 0
       Enemies:
       - Enemy: 0
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "5.00 \u79D2\u540E\uFF1A"
+      AfterTime: 5
+      Enemies:
+      - Enemy: 3
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+  - BeforePlot: {fileID: 0}
+    SkipBuildPlace: 0
+    Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "10.00 \u79D2\u540E\uFF1A"
+      AfterTime: 10
+      Enemies:
+      - Enemy: 3
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 1
         SummonCount: 1
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 1
+        AppearPoints: 
+    - Name: "30.00 \u79D2\u540E\uFF1A"
+      AfterTime: 20
+      Enemies:
+      - Enemy: 4
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 3
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+  - BeforePlot: {fileID: 0}
+    SkipBuildPlace: 0
+    Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "10.00 \u79D2\u540E\uFF1A"
+      AfterTime: 10
+      Enemies:
+      - Enemy: 4
+        SummonCount: 10
+        AppearPoints: 
+    - Name: "25.00 \u79D2\u540E\uFF1A"
+      AfterTime: 15
+      Enemies:
+      - Enemy: 0
+        SummonCount: 5
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "50.00 \u79D2\u540E\uFF1A"
+      AfterTime: 25
+      Enemies:
+      - Enemy: 4
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 3
+        SummonCount: 5
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 6
         AppearPoints: 
   WinPlot: {fileID: 0}
   UnlockAnimal: 2

@@ -85,6 +85,7 @@ namespace CircleOfLife
             ImageDictionary["？"] = Sprites[8];
             ImageDictionary["汪汪"]=Sprites[9];
             ImageDictionary["巡护队员"]=Sprites[10];
+            ImageDictionary["村民"]=Sprites[11];
 
             illustrationInAni = 
                 Illustration.MileaseTo(UMN.Color, Color.clear, 0.25f,

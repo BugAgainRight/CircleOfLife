@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578bbec400246cfb3e068a0e4339a17, type: 3}
   m_Name: Level4
   m_EditorClassIdentifier: 
-  MapPrefab: {fileID: 0}
+  MapPrefab: {fileID: 2623327360997754939, guid: fabcbdc56fa635e4b87faeef50ad5a06, type: 3}
   InitialMaterial: 300
   Weather: 8
   ProtectAnimal: {fileID: 11400000, guid: d7bac6102e3bcc0458de318ddf741eb1, type: 2}
@@ -26,7 +26,13 @@ MonoBehaviour:
       AfterTime: 0
       Enemies:
       - Enemy: 0
-        SummonCount: 1
+        SummonCount: 4
+        AppearPoints: 
+    - Name: "5.00 \u79D2\u540E\uFF1A"
+      AfterTime: 5
+      Enemies:
+      - Enemy: 4
+        SummonCount: 4
         AppearPoints: 
   - BeforePlot: {fileID: 4900000, guid: b36bec542ac30b244ac84a632200da8d, type: 3}
     SkipBuildPlace: 0
@@ -35,7 +41,106 @@ MonoBehaviour:
       AfterTime: 0
       Enemies:
       - Enemy: 0
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 4
+        AppearPoints: 
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 5
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 3
+        SummonCount: 4
+        AppearPoints: 
+  - BeforePlot: {fileID: 0}
+    SkipBuildPlace: 0
+    Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 4
+        SummonCount: 10
+        AppearPoints: 
+    - Name: "5.00 \u79D2\u540E\uFF1A"
+      AfterTime: 5
+      Enemies:
+      - Enemy: 3
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+    - Name: "15.00 \u79D2\u540E\uFF1A"
+      AfterTime: 10
+      Enemies:
+      - Enemy: 3
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 5
+        SummonCount: 4
+        AppearPoints: 
+    - Name: "35.00 \u79D2\u540E\uFF1A"
+      AfterTime: 20
+      Enemies:
+      - Enemy: 4
+        SummonCount: 10
+        AppearPoints: 
+      - Enemy: 5
+        SummonCount: 4
+        AppearPoints: 
+  - BeforePlot: {fileID: 0}
+    SkipBuildPlace: 0
+    Waves:
+    - Name: "5.00 \u79D2\u540E\uFF1A"
+      AfterTime: 5
+      Enemies:
+      - Enemy: 3
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 1
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 2
+        AppearPoints: 
+      - Enemy: 0
+        SummonCount: 4
+        AppearPoints: 
+    - Name: "10.00 \u79D2\u540E\uFF1A"
+      AfterTime: 5
+      Enemies:
+      - Enemy: 4
+        SummonCount: 4
+        AppearPoints: 
+      - Enemy: 1
         SummonCount: 1
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 1
+        AppearPoints: 
+      - Enemy: 5
+        SummonCount: 4
+        AppearPoints: 
+    - Name: "20.00 \u79D2\u540E\uFF1A"
+      AfterTime: 10
+      Enemies:
+      - Enemy: 3
+        SummonCount: 8
+        AppearPoints: 
+      - Enemy: 2
+        SummonCount: 8
         AppearPoints: 
   WinPlot: {fileID: 4900000, guid: 7ad27b550c004294482bd243d74a5e3b, type: 3}
   UnlockAnimal: 4
