@@ -41,7 +41,7 @@ namespace CircleOfLife
             transform.position = Vector2.MoveTowards(
                 transform.position, context.StandPos,
                 context.BattleStat.Current.Velocity * Time.fixedDeltaTime);
-            transform.localScale = new Vector3(-Mathf.Sign(context.StandPos.x - transform.position.x) * 0.4f, 0.4f, 1);
+            transform.localScale = new Vector3(Mathf.Sign(context.StandPos.x - transform.position.x) * 0.4f, 0.4f, 1);
             return BehaviourState.Running;
         }
 
@@ -54,7 +54,7 @@ namespace CircleOfLife
             transform.position = Vector2.MoveTowards(
                 transform.position, context.Enemy.transform.position,
                 context.BattleStat.Current.Velocity * Time.fixedDeltaTime);
-            transform.localScale = new Vector3(-Mathf.Sign(context.Enemy.transform.position.x - transform.position.x) * 0.4f, 0.4f, 1);
+            transform.localScale = new Vector3(Mathf.Sign(context.Enemy.transform.position.x - transform.position.x) * 0.4f, 0.4f, 1);
             return BehaviourState.Running;
         }
 
@@ -69,7 +69,7 @@ namespace CircleOfLife
             Vector2 targetPos = (Vector2)context.Enemy.transform.position - dir * (context.FireDistance - 0.1f);
             transform.position = Vector2.MoveTowards(
               transform.position, targetPos, context.BattleStat.Current.Velocity * Time.fixedDeltaTime);
-            transform.localScale = new Vector3(-Mathf.Sign(targetPos.x - transform.position.x) * 0.4f, 0.4f, 1);
+            transform.localScale = new Vector3(Mathf.Sign(targetPos.x - transform.position.x) * 0.4f, 0.4f, 1);
 
             return BehaviourState.Running;
         }
