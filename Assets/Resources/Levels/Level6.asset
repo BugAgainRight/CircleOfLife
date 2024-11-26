@@ -16,6 +16,8 @@ MonoBehaviour:
   InitialMaterial: 0
   Weather: 1
   ProtectAnimal: {fileID: 11400000, guid: f658d3451ac14e7468305a4a1a0dc0f0, type: 2}
+  IsFinal: 0
+  BGM: 5
   Rounds: []
   WinPlot: {fileID: 0}
   UnlockAnimal: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CircleOfLife.General;
 using CircleOfLife.Key;
 using CircleOfLife.Units;
 using UnityEngine;
@@ -23,6 +24,8 @@ namespace CircleOfLife.NPCInteract
         [HideInInspector]
         public bool IsFindTarget = false;
 
+        public bool IsFinalNPC = false;
+        
         public bool ShowInteractableRange = false;
         [HideInInspector]
         public string id;
@@ -34,6 +37,10 @@ namespace CircleOfLife.NPCInteract
         void Awake()
         {
             id = Guid.NewGuid().ToString();
+            if (SaveManagement.UseSaveData.CurrentDay == 5)
+            {
+                gameObject.SetActive(IsFinalNPC);
+            }
         }
         // Start is called before the first frame update
         void Start()
@@ -65,6 +72,10 @@ namespace CircleOfLife.NPCInteract
                 {
                     PlayerController.Instance.enabled = true;
                     InteractorManager.Interacting = false;
+                    if (IsFinalNPC)
+                    {
+                        StartBattleTrigger.BanBattle = false;
+                    }
                 });
             }
         }
