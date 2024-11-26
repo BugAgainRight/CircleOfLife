@@ -19,7 +19,7 @@ MonoBehaviour:
   IsFinal: 0
   BGM: 0
   Rounds:
-  - BeforePlot: {fileID: 4900000, guid: 4fc1cdf7cb2ebb340906aa8935b20245, type: 3}
+  - BeforePlot: {fileID: 4900000, guid: 6513f78485225fc41b281c950ea64eef, type: 3}
     SkipBuildPlace: 0
     Waves:
     - Name: "0.00 \u79D2\u540E\uFF1A"
@@ -52,7 +52,7 @@ MonoBehaviour:
       - Enemy: 2
         SummonCount: 1
         AppearPoints: 
-  - BeforePlot: {fileID: 4900000, guid: 99ac521de62b8ac42acffa0f4977a603, type: 3}
+  - BeforePlot: {fileID: 4900000, guid: edd5acbfa6da06345ae41daacdea89c5, type: 3}
     SkipBuildPlace: 0
     Waves:
     - Name: "0.00 \u79D2\u540E\uFF1A"
@@ -139,6 +139,6 @@ MonoBehaviour:
       - Enemy: 4
         SummonCount: 3
         AppearPoints: 
-  WinPlot: {fileID: 0}
+  WinPlot: {fileID: 4900000, guid: 6b63ced6fa945af49b4c6951d8a1e32d, type: 3}
   UnlockAnimal: 0
-  UnlockSkills: 
+  UnlockSkills: 00000000

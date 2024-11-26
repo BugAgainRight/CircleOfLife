@@ -16,7 +16,15 @@ MonoBehaviour:
   InitialMaterial: 0
   Weather: 1
   ProtectAnimal: {fileID: 11400000, guid: f658d3451ac14e7468305a4a1a0dc0f0, type: 2}
-  Rounds: []
-  WinPlot: {fileID: 0}
+  IsFinal: 0
+  BGM: 0
+  Rounds:
+  - BeforePlot: {fileID: 0}
+    SkipBuildPlace: 0
+    Waves: []
+  - BeforePlot: {fileID: 4900000, guid: ede7a3ee012cf5946b87a4624789958c, type: 3}
+    SkipBuildPlace: 0
+    Waves: []
+  WinPlot: {fileID: 4900000, guid: 08a7daeba31318f4894e68fc377b820a, type: 3}
   UnlockAnimal: 0
   UnlockSkills: 
