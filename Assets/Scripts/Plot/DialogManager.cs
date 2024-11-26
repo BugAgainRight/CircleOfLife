@@ -216,7 +216,10 @@ namespace CircleOfLife
                     else
                     {
                         // 否则根据枚举名选择 BGM 并切换
-                        AudioManager.SetBGM(Enum.Parse<BGMSO.Clips>(cells[2]));
+                        if (Enum.TryParse<BGMSO.Clips>(cells[2], out var clip))
+                        {
+                            AudioManager.SetBGM(clip);
+                        }
                     }
                 }
                 else if (cells[0] == "END" && int.Parse(cells[1]) == DialogIndex)//结束

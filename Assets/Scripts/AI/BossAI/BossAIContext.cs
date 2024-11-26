@@ -6,6 +6,7 @@ using RuiRuiAstar;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
+using CircleOfLife.Level;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -99,6 +100,10 @@ namespace CircleOfLife
         {
             if (Stats.Current.Hp <= 0)
             {
+                if (LevelManager.Instance)
+                {
+                    LevelManager.Instance.NotifyEnemyDeath(gameObject);
+                }
                 RecyclePool.ReturnToPool(gameObject);
             }else if (!isSecondState && Stats.Current.Hp<=SecondState.Hp)
             {

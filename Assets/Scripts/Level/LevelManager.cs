@@ -59,6 +59,7 @@ namespace CircleOfLife.Level
         private bool failed = false;
 
         private bool infinityMode = false;
+        private bool firstRound = true;
         
         public void RegisterPoint(AppearPoint point, Rect rect)
         {
@@ -206,8 +207,9 @@ namespace CircleOfLife.Level
         
         private void StartRound(LevelRound round)
         {
-            if (SaveManagement.UseSaveData.AtlasAnimalUnlocks.Any())
+            if (SaveManagement.UseSaveData.AtlasAnimalUnlocks.Any() && firstRound)
             {
+                firstRound = false;
                 EnumPopupUI.Open(new EnumPopupUIData()
                 {
                     Title = "选择出战的小动物",
@@ -411,7 +413,10 @@ namespace CircleOfLife.Level
                 .Then(SuccessUI.MileaseTo("alpha", 1f, 0.5f))
                 .Play(() =>
                 {
-                    MessageBox.Open(("恭喜！", "你解锁了新的技能！同时，受你救助的小动物加入了你的守卫计划！"));
+                    if (!Level.IsFinal)
+                    {
+                        MessageBox.Open(("恭喜！", "你解锁了新的技能！同时，受你救助的小动物加入了你的守卫计划！"));
+                    }
                 });
         }
 

@@ -2948,7 +2948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultTransition: 0.25
-  SelectTransition: 0.5
+  SelectTransition: 0.25
   OnSelectEvent:
     m_PersistentCalls:
       m_Calls: []

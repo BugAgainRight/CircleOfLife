@@ -16,7 +16,7 @@ MonoBehaviour:
   InitialMaterial: 300
   Weather: 1
   ProtectAnimal: {fileID: 11400000, guid: f658d3451ac14e7468305a4a1a0dc0f0, type: 2}
-  IsFinal: 0
+  IsFinal: 1
   BGM: 5
   Rounds:
   - BeforePlot: {fileID: 4900000, guid: 0a45a603e9946b6459e76de899609c4e, type: 3}
