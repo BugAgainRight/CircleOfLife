@@ -12,11 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4578bbec400246cfb3e068a0e4339a17, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
-  MapPrefab: {fileID: 0}
-  InitialMaterial: 0
+  MapPrefab: {fileID: 7352807021785012862, guid: 33087d65ca4184a48931505ebd6f6507, type: 3}
+  InitialMaterial: 500
   Weather: 1
   ProtectAnimal: {fileID: 11400000, guid: f658d3451ac14e7468305a4a1a0dc0f0, type: 2}
-  Rounds: []
+  IsFinal: 0
+  BGM: 0
+  Rounds:
+  - BeforePlot: {fileID: 0}
+    SkipBuildPlace: 0
+    Waves:
+    - Name: "0.00 \u79D2\u540E\uFF1A"
+      AfterTime: 0
+      Enemies:
+      - Enemy: 0
+        SummonCount: 1
+        AppearPoints: 
   WinPlot: {fileID: 0}
   UnlockAnimal: 0
   UnlockSkills: 

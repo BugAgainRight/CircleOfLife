@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using CircleOfLife.Battle;
+using Newtonsoft.Json.Converters;
 using UnityEngine;
 
 namespace CircleOfLife
@@ -99,12 +101,12 @@ namespace CircleOfLife
             public int CurrentDay;
 
             // 摆烂了就这样了
-            public List<EnemyStat> AtlasEnemyUnlocks = new();
-            public List<AnimalStat> AtlasAnimalUnlocks = new();
-            public List<PlayerSkillType> PlayerSkillUnlocks = new();
+            public List<int> AtlasEnemyUnlocks = new();
+            public List<int> AtlasAnimalUnlocks = new();
+            public List<int> PlayerSkillUnlocks = new();
 
             // 为了省代码构造的临时字典，摆烂了（挥手）
-            private Dictionary<Type, object> unlockTempDict =>
+            private Dictionary<Type, List<int>> unlockTempDict =>
                 new()
                 {
                     [typeof(EnemyStat)] = AtlasEnemyUnlocks,
@@ -121,15 +123,15 @@ namespace CircleOfLife
 
             public void Unlock<T>(T content) where T : Enum
             {
-                var list = (List<T>)unlockTempDict[typeof(T)];
-                if (!list.Contains(content))
+                var list = unlockTempDict[typeof(T)];
+                if (!list.Contains((int)(object)content))
                 {
-                    list.Add(content);
+                    list.Add((int)(object)content);
                 }
             }
 
             public bool IsUnlocked<T>(T content) where T : Enum
-                => ((List<T>)unlockTempDict[typeof(T)]).Contains(content);
+                => unlockTempDict[typeof(T)].Contains((int)(object)content);
 
             public void AddTimer()
             {
@@ -147,6 +149,9 @@ namespace CircleOfLife
                 midTimer = other.midTimer;
                 LastSaveDate = other.LastSaveDate;
                 CurrentDay = other.CurrentDay;
+                AtlasEnemyUnlocks = other.AtlasEnemyUnlocks.Where(_ => true).ToList();
+                AtlasAnimalUnlocks = other.AtlasAnimalUnlocks.Where(_ => true).ToList();
+                PlayerSkillUnlocks = other.PlayerSkillUnlocks.Where(_ => true).ToList();
             }
 
         }

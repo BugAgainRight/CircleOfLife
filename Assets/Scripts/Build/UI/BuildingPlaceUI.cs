@@ -122,11 +122,11 @@ namespace CircleOfLife.Build.UI
             {
                 Title = "选择玩家技能",
                 Description = "让战斗更加顺利！",
-                List = SaveManagement.UseSaveData.PlayerSkillUnlocks.Select(x => (object)x).ToList(),
+                List = SaveManagement.UseSaveData.PlayerSkillUnlocks.Select(x => (object)(PlayerSkillType)x).ToList(),
                 Describer = (x) => ((PlayerSkillType)x).GetSkillName(),
                 DefaultSelection = 
                     SaveManagement.UseSaveData.PlayerSkillUnlocks.FindIndex(
-                        x => x == PlayerSkills.Instance.SkillType
+                        x => x == (int)PlayerSkills.Instance.SkillType
                     )
             }, (o) =>
             {
@@ -195,6 +195,11 @@ namespace CircleOfLife.Build.UI
         
         public void RemoveBuilding()
         {
+            if (stateAnimator.CurrentState != (int)UIState.Modify)
+            {
+                return;
+            }
+            
             var compensate = GetRemoveCompensate(editing);
             MessageBox.Open(("拆除装置", $"你确定要拆除当前装置吗？\n将返还材料：{compensate}"), (o) =>
             {
@@ -217,6 +222,11 @@ namespace CircleOfLife.Build.UI
 
         public void LevelUpBuilding()
         {
+            if (stateAnimator.CurrentState != (int)UIState.Modify)
+            {
+                return;
+            }
+            
             if (editing.Level >= 3)
             {
                 MessageBox.Open(("已满级", "该装置已经满级，无需升级。"));
@@ -247,6 +257,10 @@ namespace CircleOfLife.Build.UI
         
         public void ChangeDirection()
         {
+            if (stateAnimator.CurrentState != (int)UIState.Modify)
+            {
+                return;
+            }
             ChangeDirectionUI.Open(new LevelUpUIData()
             {
                 Target = editing,

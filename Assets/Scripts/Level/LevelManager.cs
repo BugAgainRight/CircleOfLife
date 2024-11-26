@@ -170,7 +170,7 @@ namespace CircleOfLife.Level
                 {
                     Title = "选择出战的小动物",
                     Description = "和小动物并肩作战吧！",
-                    List = SaveManagement.UseSaveData.AtlasAnimalUnlocks.Select(x => (object)x).ToList(),
+                    List = SaveManagement.UseSaveData.AtlasAnimalUnlocks.Select(x => (object)(AnimalStat)x).ToList(),
                     Describer = (x) => ((AnimalStat)x) switch
                     {
                         AnimalStat.TibetanMastiff => "藏獒",
@@ -189,6 +189,7 @@ namespace CircleOfLife.Level
                         c.Transform.position = Vector3.zero;
                         c.GameObject.SetActive(true);
                     });
+                    LaunchNextRound();
                 });
             }
             else
