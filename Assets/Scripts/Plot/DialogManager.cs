@@ -157,7 +157,7 @@ namespace CircleOfLife
                 if (cells[0] == "#" && int.Parse(cells[1]) == DialogIndex )//普通剧情文本
                 {
                     UpdateText(cells[2],cells[3]);
-                    UpdateImage(cells[2]);
+                    //UpdateImage(cells[2]);
                     if (string.IsNullOrEmpty(cells[4]))
                     {
                         // 如果没有填跳转序号则默认是下一行，可以少写一点内容
